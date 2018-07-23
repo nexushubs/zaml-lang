@@ -82,17 +82,35 @@ Inline:
 
 `BLOCK` section is used for defining a block of EAML source, which could be inserted into other part of doc by reference.
 
+Syntax:
+
+`{BLOCK` `<attribute-list>` `}` `<content>` `{/BLOCK}`
+
 | Attribute | Description |
 | ---- | ----------- |
 | `name` | A name that could be referenced |
-| `hide` | A identifier of the document in database or other storage |
-| `type` | Document type, could be `DOC`, `IMAGE`, `TEXT`, `PRESENTATION`, `SPREADSHEET`, etc. |
-| `version` | Document version in string or number |
+| `show` | Whether the block itself is showed |
 
 Examples:
 
 ```
-{BLOCK name=}
+{BLOCK name=block1}
+Jack says he would come here tomorrow
+{/BLOCK}
+```
+
+#### {INSERT} Insert Block
+
+Insert the content of block by its name
+
+Syntax:
+
+`{INSERT` `<attribute-list>` `}`
+
+Examples:
+
+```
+{INSERT block=block1}
 ```
 
 ### Reference
