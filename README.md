@@ -42,21 +42,25 @@ Sections, Marker types are capital letters, attributes using lower cased letters
 
 Basic data types are used in attributes of sections and markers.
 
-| Type | Sample | Description |
-| ---- | ------ | ----------- |
-| `string` | `"example\n string"`, `Hello` | Quotes could be omitted if the string does not need to be escaped |
-| `number` | `128`, `1e10`, `-6` | Expressed in literal form |
-| `boolean` | `1`, `0`, `True`, `On`, `False`, `Off` | Expressed in literal form, if used in attribute value, could be omitted if the value is `True` |
+| Type           | Sample                                 | Description                                                                                    |
+| -------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `string`       | `"example\n string"`, `Hello`          | Quotes could be omitted if the string does not need to be escaped                              |
+| `number`       | `128`, `1e10`, `-6`                    | Expressed in literal form                                                                      |
+| `int`          | `128`, `-6`                            | Integer number type                                                                            |
+| `float`        | `1e10`, `3.1415926`                    | Float number type                                                                              |
+| `boolean`      | `1`, `0`, `True`, `On`, `False`, `Off` | Expressed in literal form, if used in attribute value, could be omitted if the value is `True` |
+| `date`, `time` | `2018-07-04`, `2018-07-04T10:01:24Z`   | Date time expressed in JSON date format                                                        |
+| `enum`         | `enum<number>`                         | Enumeration of listed values                                                                   |
 
 ### 3.2 Common Expression
 
 Expression is a syntax used to demonstrate EAML language format
 
-| Expression | Define | Description |
-| ---------- | ------ | ----------- |
-| `<space>` |  | A single white space |
-| `<attribute>` | `<key>` `=` `<value>` | `value` should be encoded in URI component format |
-| `<attribute-list>` | ( `<attribute>` ){n} | The comma after the last attribute could be omitted |
+| Expression         | Define                         | Description                                         |
+| ------------------ | ------------------------------ | --------------------------------------------------- |
+| `<space>`          |                                | A single white space                                |
+| `<attribute>`      | `<key>` `=` `<value>`          | `value` should be encoded in URI component format   |
+| `<attribute-list>` | ( `<attribute>` `<space>` ){n} | The comma after the last attribute could be omitted |
 
 ### 3.3 Front Matter
 
@@ -95,26 +99,45 @@ Syntax:
 
 `{BLOCK` `<attribute-list>` `}` `<content>` `{/BLOCK}`
 
-| Attribute | Value | Description |
-| --------- | ------- | ----------- |
-| `name` |  | A name that could be referenced |
-| `show` | Default `true` | Whether the block itself is showed |
-| `intention` | `statement`, `request`, `response` | A name that could be referenced |
+| Attribute   | Type           | Value                                                                  | Description                        |
+| ----------- | -------------- | ---------------------------------------------------------------------- | ---------------------------------- |
+| `name`      | `string`       |                                                                        | A name that could be referenced    |
+| `label`     | `string[]`     | list of label `string`(s) separate by `<space>`, Could be none or many | Label of the text                  |
+| `show`      | `boolean`      | default `true`                                                         | Whether the block itself is showed |
+| `intention` | `enum<string>` | `"statement"`, `"request"`, `"response"`                               | A name that could be referenced    |
 
 Examples:
 
 ```
 {BLOCK intention=statement}
-  Jack says he would come here tomorrow
+  Jack says he would come here tomorrow:
   {QUOTE from=@jack}
     I'll be here tomorrow!
   {/QUOTE}
 {/BLOCK}
+```
 
-// here doc format
-<<< intention=statement
+Simple format:
+
+```
+{intention=statement
+  Jack says he would come here tomorrow:
+  {QUOTE
+    I'll be here tomorrow!
+  }
+}
 >>>
 ```
+
+Custom block start and block end signature can be passed to language parser or renderer
+
+Recommended signatures:
+
+| Style  | Start                                        | End               | Description   |
+| ------ | -------------------------------------------- | ----------------- | ------------- |
+| Smarty | `{ <block-name> <space> <attribute-list> }`  | `{/<block-name>}` | Default style |
+| AIML   | `{ <block-name> <space> <attribute-list>`    | `}`               | Simple format |
+| Texy!  | `/--- <block-name> <space> <attribute-list>` | `\---`            |               |
 
 #### 3.4.2 {QUOTE} Quotation Text
 
@@ -126,10 +149,10 @@ A special kind of block used for presenting quoted words from another people
 {/QUOTE}
 ```
 
-| Attribute | Value | Description |
-| --------- | ------- | ----------- |
-| `from` |  | Original user who wrote or spoke the word, could be a marker |
-| `ref` |  | The URI or database id stores the original word |
+| Attribute | Value | Description                                                  |
+| --------- | ----- | ------------------------------------------------------------ |
+| `from`    |       | Original user who wrote or spoke the word, could be a marker |
+| `ref`     |       | The URI or database id stores the original word              |
 
 #### 3.4.3 {INSERT} Insert Block
 
@@ -159,16 +182,16 @@ A word marked by marker must be inline.
 
 #### 3.6.1 Naming Entities
 
-Pattern: `[` `<name>` `]` ( `{` `@ <type>` ? (`<space>` `<attribute-list>`) ? `}` ) ?
+Pattern: `[` `<text>` `]` ( `{` `@<type>` ? (`<space>` `<attribute-list>`) ? `}` ) ?
 
-Naming entities could be simple `(Some name)` or prefixed by naming type:
+Naming entities could be simple `(Some name)` or followed by naming type definition:
 
-| Type | Description |
-| ---- | ----------- |
-| `PER` | A natural person |
-| `USR` | A user in the system |
+| Type  | Description                   |
+| ----- | ----------------------------- |
+| `PER` | A natural person              |
+| `USR` | A user in the system          |
 | `ORG` | Company or other organization |
-| `LOC` | Location, district, area |
+| `LOC` | Location, district, area      |
 
 Examples:
 
@@ -199,36 +222,36 @@ Named reference:
 
 #### 3.6.2 Common Knowledge Base Citation
 
-Pattern: `#` `<type>` ? `{` `<name>` ( `|` `<attribute-list>` ) ? `}`
+Pattern: `[` `<text>` `]` `{#<type>` ( `<attribute-list>` ) ? `}`
 
-| Type | Description |
-| ---- | ----------- |
-| `LAW` | A currently used law name  |
-| `ART`, `LAW.ART` | A article (named part) of a law, law name could be included |
-| `CASE`, `LAW.CASE` | A public case |
+| Type               | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `LAW`              | A currently used law name                                   |
+| `ART`, `LAW.ART`   | A article (named part) of a law, law name could be included |
+| `CASE`, `LAW.CASE` | A public case                                               |
 
 Examples:
 
 ```
 [刑法]{#LAW}
 [《民事诉讼法》第一百二十八条]{#LAW.ART}
-[劳动法第27条]{#LAW.ART law=中华人民共和劳动法 artno=27}  // parsed result
+[劳动法第27条]{#LAW.ART law=中华人民共和劳动法 artno=27 artname=第二十七条}  // parsed result
 [刑法]{&LAW}中[第三条]{#LAW.ART}，[第五条]{#LAW.ART}  // Law articles should inherit most recent law name
 [上海徐汇区新起点进修学校诉杨江名誉权纠纷案]{#CASE}
 ```
 
 #### 3.6.3 User Document Attachment Reference
 
-Pattern: `[` `<name>` `]` `{DOC` ( `<attribute-list>` ) ? `}`
+Pattern: `[` `<text>` `]` `{DOC` ( `<attribute-list>` ) ? `}`
 
 > `$` is used as prefix because it is visually like paper clip 📎.
 
-| Attribute | Description |
-| ---- | ----------- |
-| `type` | Document type, could be `DOC`, `IMAGE`, `TEXT`, `PRESENTATION`, `SPREADSHEET`, etc. |
-| `url` | Relative path or absolute url of the document |
-| `id` | A identifier of the document in database or other storage |
-| `version` | Document version in string or number |
+| Attribute | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
+| `type`    | Document type, could be `DOC`, `IMAGE`, `TEXT`, `PRESENTATION`, `SPREADSHEET`, etc. |
+| `url`     | Relative path or absolute url of the document                                       |
+| `id`      | A identifier of the document in database or other storage                           |
+| `version` | Document version in string or number                                                |
 
 A custom schema could be used in the `url` attribute.
 
@@ -238,3 +261,22 @@ Examples:
 $[The first Contract]{DOC type=image url="my-schema://BEHlIwbhJf"}
 $[合同文档.docx]{DOC url="doc-schema://BEHlIwbhJf" version=2.0}
 ```
+
+#### 3.6.4 Common Tag
+
+Common tag are numbers or string fit some pattern which refers to some common item, like phone number, bank card number.
+
+`[` `<text>` `]` `{` `<tag-name>` `<attribute-list>`? `}`
+
+List of Common Tags:
+
+| Tag          | Format                                                                               | Description                                                    |
+| ------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| `DATE`       | `{DATE value:date relative:boolean}`                                                 | The text is a time                                             |
+| `PHONE`      | `{PHONE value:string type:enum<string>}`                                             | Phone number, type could be `mobile`, `home`, `work` or `none` |
+| `ADDRESS`    | `{ADDRESS url:string}`                                                               | Url                                                            |
+| `EANCODE`    | `{EANCODE value:string isbntype:string value:string groupname:string valid:boolean}` | EAN13, ISBN 10, ISBN 13                                        |
+| `IDCARD.CN`  | `{IDCARD.CN value:string district:string birthdate:date valid:boolean}`              | Chinese ID card number                                         |
+| `PLATE.CN`   | `{PLATE.CN value:string type:enum<string> district:string valid:boolean}`            | Chinese vehicle registration plate                             |
+| `CFDANO.CN`  | `{CFDANO.CN value:string}`                                                           | CFDA licensed number                                           |
+| `VERDICT.CN` | `{LAW.JUDGE.CN value:string title:string}`                                           | Chinese court judgement verdict                                |
