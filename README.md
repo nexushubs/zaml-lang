@@ -272,6 +272,7 @@ List of Common Tags:
 
 | Tag          | Format                                                                               | Description                                                    |
 | ------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| `LINK`       | `{LINK url:string}`                                                                  | The text is a time                                             |
 | `DATE`       | `{DATE value:date relative:boolean}`                                                 | The text is a time                                             |
 | `PHONE`      | `{PHONE value:string type:enum<string>}`                                             | Phone number, type could be `mobile`, `home`, `work` or `none` |
 | `ADDRESS`    | `{ADDRESS url:string}`                                                               | Url                                                            |
@@ -280,3 +281,138 @@ List of Common Tags:
 | `PLATE.CN`   | `{PLATE.CN value:string type:enum<string> district:string valid:boolean}`            | Chinese vehicle registration plate                             |
 | `CFDANO.CN`  | `{CFDANO.CN value:string}`                                                           | CFDA licensed number                                           |
 | `VERDICT.CN` | `{LAW.JUDGE.CN value:string title:string}`                                           | Chinese court judgement verdict                                |
+
+## 4. Parsing and Constructing
+
+### 4.1 Parsing Example
+
+#### 4.1.1 EAML Source
+
+```
+There is something I should tell you.
+{BLOCK intention=statement}
+  Jack says he would come here tomorrow:
+  {QUOTE from={@PER name=Jack}}
+    “[I]{@PER name=Jack}'ll be [here](@LOC) [tomorrow]{DATE value=2018-07-25}.”
+  {/QUOTE}
+{/BLOCK}
+So we can meet together, here is the link [http://example.com/meeting/Qb238aSm]{LINK url=http://example.com/meeting/Qb238aSm}
+```
+
+#### 4.1.2 Plain Text
+
+```
+There is something I should tell you.
+Jack says he would come here tomorrow:
+“I'll be here tomorrow.”
+So we can meet together, here is the link http://example.com/meeting/Qb238aSm
+```
+
+#### 4.1.3 Parsed AST
+
+```json
+{
+  "type": "eaml",
+  "start": 0,
+  "end": 365,
+  "body": [
+    {
+      "type": "text/paragraph",
+      "start": 0,
+      "end": 38,
+      "text": "There is something I should tell you."
+    },
+    {
+      "type": "block",
+      "start": 39,
+      "end": 208,
+      "intention": "statement",
+      "body": [
+        {
+          "type": "text/paragraph",
+          "start": 69,
+          "end": 107,
+          "text": "Jack says he would come here tomorrow:"
+        },
+        {
+          "type": "block/quote",
+          "start": 110,
+          "end": 230,
+          "body": [
+            {
+              "type": "block/paragraph",
+              "start": 144,
+              "end": 219,
+              "body": [
+                {
+                  "type": "text/inline",
+                  "start": 144,
+                  "end": 145,
+                  "text": "“"
+                },
+                {
+                  "type": "marker/@PER",
+                  "start": 145,
+                  "end": 164,
+                  "name": "Jack",
+                  "text": "I"
+                },
+                {
+                  "type": "text/inline",
+                  "start": 164,
+                  "end": 171,
+                  "text": "'ll be "
+                },
+                {
+                  "type": "marker/@LOC",
+                  "start": 164,
+                  "end": 183,
+                  "text": "here"
+                },
+                {
+                  "type": "text/inline",
+                  "start": 183,
+                  "end": 184,
+                  "text": " "
+                },
+                {
+                  "type": "marker/@inline",
+                  "start": 184,
+                  "end": 217,
+                  "text": "tomorrow"
+                },
+                {
+                  "type": "text/inline",
+                  "start": 217,
+                  "end": 219,
+                  "text": ".”"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "block/paragraph",
+      "start": 240,
+      "end": 365,
+      "body": [
+        {
+          "type": "text/inline",
+          "start": 240,
+          "end": 282,
+          "text": "So we can meet together, here is the link "
+        },
+        {
+          "type": "marker/LINK",
+          "start": 282,
+          "end": 365,
+          "url": "http://example.com/meeting/Qb238aSm",
+          "text": "http://example.com/meeting/Qb238aSm"
+        }
+      ]
+    }
+  ]
+}
+```
