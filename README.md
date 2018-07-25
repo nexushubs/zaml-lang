@@ -182,38 +182,47 @@ A word marked by marker must be inline.
 
 #### 3.6.1 Naming Entities
 
-Pattern: `[` `<text>` `]` ( `{` `@<type>` ? (`<space>` `<attribute-list>`) ? `}` ) ?
+Pattern: `[` `<text>` `]` ( `{` `<type>` ? (`<space>` `<attribute-list>`) ? `}` ) ?
 
 Naming entities could be simple `(Some name)` or followed by naming type definition:
 
-| Type  | Description                   |
-| ----- | ----------------------------- |
-| `PER` | A natural person              |
-| `USR` | A user in the system          |
-| `ORG` | Company or other organization |
-| `LOC` | Location, district, area      |
+| Type         | Format                                                                                | Description                                                    |
+| ------------ | ------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `PER`, `P`   | `{PER name:string lastName:string firstName:string}`                                  | A natural person                                               |
+| `USR`, `U`   | `{USR id:string}`                                                                     | A user in the system                                           |
+| `ORG`, `O`   | `{ORG fullName:string}`                                                               | Company or other organization                                  |
+| `LOC`, `L`   | `{LOC name:string longitude:float latitude:float}`                                    | Location, district, area                                       |
+| `LINK`       | `{LINK url:string}`                                                                   | The text is a time                                             |
+| `DATE`       | `{DATE value:date relative:boolean}`                                                  | The text is a time                                             |
+| `PHONE`      | `{PHONE value:string type:enum<string>}`                                              | Phone number, type could be `mobile`, `home`, `work` or `none` |
+| `ADDRESS`    | `{ADDRESS url:string}`                                                                | Url                                                            |
+| `EAN_CODE`   | `{EAN_CODE value:string isbnType:string value:string groupName:string valid:boolean}` | EAN13, ISBN 10, ISBN 13                                        |
+| `ID_CARD.CN` | `{ID_CARD.CN value:string district:string birthDate:date valid:boolean}`              | Chinese ID card number                                         |
+| `PLATE.CN`   | `{PLATE.CN value:string type:enum<string> district:string valid:boolean}`             | Chinese vehicle registration plate                             |
+| `FDA_NO.CN`  | `{FDA_NO.CN value:string}`                                                            | CFDA licensed number                                           |
+| `VERDICT.CN` | `{LAW.JUDGE.CN value:string title:string}`                                            | Chinese court judgement verdict                                |
 
 Examples:
 
 ```
 [王律师]
-[石小猛]{@} // default for PER
-[Micheal Jackson]{@PER}
-[王律师]{@USR}
-[万科]{@ORG}
-[小米]{@ORG fullname=小米科技} // Attribute
-[北京]{@LOC}
-[北京市东城区]{@LOC}
-[香坊万达电影院]{@LOC}         // Exact position
-[华山南路144号]{@LOC}         // Exact position
-[31.008001N,103.607728E]{@POS} // Geo position of coordinates
+[石小猛]{P} // default for PER
+[Micheal Jackson]{PER}
+[王律师]{USR}
+[万科]{ORG}
+[小米]{ORG fullName=小米科技}  // Attribute
+[北京]{LOC}
+[北京市东城区]{LOC}
+[香坊万达电影院]{LOC}           // Exact position
+[华山南路144号]{LOC}           // Exact position
+[31.008001N,103.607728E]{LOC} // Geo position of coordinates
 ```
 
 Named reference:
 
 ```
 ---
-甲方: [武汉人工不智能技有限公司]{@ORG}
+甲方: [武汉人工不智能技有限公司]{ORG}
 ---
 
 [甲方]   # None typed entity should be passed as named reference whenever possible
@@ -224,25 +233,25 @@ Named reference:
 
 Pattern: `[` `<text>` `]` `{#<type>` ( `<attribute-list>` ) ? `}`
 
-| Type               | Description                                                 |
-| ------------------ | ----------------------------------------------------------- |
-| `LAW`              | A currently used law name                                   |
-| `ART`, `LAW.ART`   | A article (named part) of a law, law name could be included |
-| `CASE`, `LAW.CASE` | A public case                                               |
+| Type               | Format                                    | Description                                                 |
+| ------------------ | ----------------------------------------- | ----------------------------------------------------------- |
+| `LAW`              | `{#LAW fullName:string}`                  | A currently used law name                                   |
+| `ART`, `LAW.ART`   | `{#ART law:string name:string artNo:int}` | A article (named part) of a law, law name could be included |
+| `CASE`, `LAW.CASE` | `{#CASE title:string}`                    | A public case                                               |
 
 Examples:
 
 ```
 [刑法]{#LAW}
 [《民事诉讼法》第一百二十八条]{#LAW.ART}
-[劳动法第27条]{#LAW.ART law=中华人民共和劳动法 artno=27 artname=第二十七条}  // parsed result
-[刑法]{&LAW}中[第三条]{#LAW.ART}，[第五条]{#LAW.ART}  // Law articles should inherit most recent law name
+[劳动法第27条]{#LAW.ART law=中华人民共和劳动法 artNo=27 name=第二十七条}  // parsed result
+[刑法]{&LAW}中[第三条]{#ART}，[第五条]{#ART}  // Law articles should inherit most recent law name
 [上海徐汇区新起点进修学校诉杨江名誉权纠纷案]{#CASE}
 ```
 
 #### 3.6.3 User Document Attachment Reference
 
-Pattern: `[` `<text>` `]` `{DOC` ( `<attribute-list>` ) ? `}`
+Pattern: `$[` `<text>` `]` `{DOC` ( `<attribute-list>` ) ? `}`
 
 > `$` is used as prefix because it is visually like paper clip 📎.
 
@@ -261,26 +270,6 @@ Examples:
 $[The first Contract]{DOC type=image url="my-schema://BEHlIwbhJf"}
 $[合同文档.docx]{DOC url="doc-schema://BEHlIwbhJf" version=2.0}
 ```
-
-#### 3.6.4 Common Tag
-
-Common tag are numbers or string fit some pattern which refers to some common item, like phone number, bank card number.
-
-`[` `<text>` `]` `{` `<tag-name>` `<attribute-list>`? `}`
-
-List of Common Tags:
-
-| Tag          | Format                                                                               | Description                                                    |
-| ------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
-| `LINK`       | `{LINK url:string}`                                                                  | The text is a time                                             |
-| `DATE`       | `{DATE value:date relative:boolean}`                                                 | The text is a time                                             |
-| `PHONE`      | `{PHONE value:string type:enum<string>}`                                             | Phone number, type could be `mobile`, `home`, `work` or `none` |
-| `ADDRESS`    | `{ADDRESS url:string}`                                                               | Url                                                            |
-| `EANCODE`    | `{EANCODE value:string isbntype:string value:string groupname:string valid:boolean}` | EAN13, ISBN 10, ISBN 13                                        |
-| `IDCARD.CN`  | `{IDCARD.CN value:string district:string birthdate:date valid:boolean}`              | Chinese ID card number                                         |
-| `PLATE.CN`   | `{PLATE.CN value:string type:enum<string> district:string valid:boolean}`            | Chinese vehicle registration plate                             |
-| `CFDANO.CN`  | `{CFDANO.CN value:string}`                                                           | CFDA licensed number                                           |
-| `VERDICT.CN` | `{LAW.JUDGE.CN value:string title:string}`                                           | Chinese court judgement verdict                                |
 
 ## 4. Parsing and Constructing
 
