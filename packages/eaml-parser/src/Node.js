@@ -108,18 +108,18 @@ export default class Node {
   }
 
   toJSON() {
-    return {
+    return _.omitBy({
       type: this.type,
       name: this.name,
       content: this.content,
       attributes: this.attributes,
-      source: this.type !== NODE_TYPES.TEXT ? this.source : undefined,
+      // source: this.type !== NODE_TYPES.TEXT ? this.source : undefined,
       position: {
         start: this.start,
         end: this.end,
       },
-      children: this.children,
-    }
+      children: this.children && this.children.map(child => child.toJSON()),
+    }, _.isUndefined);
   }
 
 }

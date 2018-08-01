@@ -1,0 +1,191 @@
+{
+  "type": "root",
+  "name": null,
+  "attributes": {},
+  "position": {
+    "start": 39,
+    "end": 351
+  },
+  "children": [
+    {
+      "type": "text",
+      "content": "There is something I should tell you.\n",
+      "position": {
+        "start": 0,
+        "end": 38
+      }
+    },
+    {
+      "type": "tag",
+      "name": "BLOCK",
+      "attributes": {
+        "intention": "statement"
+      },
+      "position": {
+        "start": 38,
+        "end": 224
+      },
+      "children": [
+        {
+          "type": "text",
+          "content": "\n  Jack says he would come here tomorrow:\n  ",
+          "position": {
+            "start": 65,
+            "end": 109
+          }
+        },
+        {
+          "type": "tag",
+          "name": "QUOTE",
+          "attributes": {
+            "from": "Jack"
+          },
+          "position": {
+            "start": 109,
+            "end": 215
+          },
+          "children": [
+            {
+              "type": "text",
+              "content": "\n    “",
+              "position": {
+                "start": 126,
+                "end": 132
+              }
+            },
+            {
+              "type": "entity",
+              "name": "PER",
+              "attributes": {
+                "name": "Jack"
+              },
+              "position": {
+                "start": 132,
+                "end": 150
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "content": "I",
+                  "position": {
+                    "start": 133,
+                    "end": 134
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": "'ll be ",
+              "position": {
+                "start": 150,
+                "end": 157
+              }
+            },
+            {
+              "type": "entity",
+              "name": "LOC",
+              "attributes": {},
+              "position": {
+                "start": 157,
+                "end": 168
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "content": "here",
+                  "position": {
+                    "start": 158,
+                    "end": 162
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": " ",
+              "position": {
+                "start": 168,
+                "end": 169
+              }
+            },
+            {
+              "type": "entity",
+              "name": "DATE",
+              "attributes": {
+                "value": "2018-07-25T00:00:00.000Z"
+              },
+              "position": {
+                "start": 169,
+                "end": 202
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "content": "tomorrow",
+                  "position": {
+                    "start": 170,
+                    "end": 178
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": ".”\n  ",
+              "position": {
+                "start": 202,
+                "end": 207
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "content": "\n",
+          "position": {
+            "start": 215,
+            "end": 216
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "\nSo we can meet together, here is the link ",
+      "position": {
+        "start": 224,
+        "end": 267
+      }
+    },
+    {
+      "type": "entity",
+      "name": "LINK",
+      "attributes": {
+        "url": "http://example.com/meeting/Qb238aSm"
+      },
+      "position": {
+        "start": 267,
+        "end": 350
+      },
+      "children": [
+        {
+          "type": "text",
+          "content": "http://example.com/meeting/Qb238aSm",
+          "position": {
+            "start": 268,
+            "end": 303
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "content": "\n",
+      "position": {
+        "start": 350,
+        "end": 351
+      }
+    }
+  ]
+}

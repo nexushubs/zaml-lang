@@ -8,6 +8,7 @@ const { Tokenizer } = EAML;
 describe('class Tokenizer', () => {
 
   const source = fs.readFileSync(`${__dirname}/fixtures/sample.eaml`, { encoding: 'utf8' });
+  const parsed = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/parsed-ast.json`, { encoding: 'utf8' }));
   let tokenizer;
 
   beforeEach(() => {
@@ -19,8 +20,9 @@ describe('class Tokenizer', () => {
   });
 
   it('process()', () => {
-    tokenizer.process();
+    const ast = tokenizer.process();
     expect(tokenizer.parsed).to.be.true;
+    expect(JSON.parse(JSON.stringify(ast))).to.deep.equal(parsed);
   });
 
 });
