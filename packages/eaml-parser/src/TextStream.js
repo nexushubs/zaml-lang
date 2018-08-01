@@ -163,6 +163,7 @@ export default class TextStream {
       ok = ch && (pattern.test ? pattern.test(ch) : pattern(ch))
     }
     if (ok) {
+      this.lastMatch = ch;
       ++this.pos;
       return ch;
     }
@@ -285,12 +286,14 @@ export default class TextStream {
   readTo(pattern, options = {}) {
     const { index, length } = this.search(pattern);
     const start = this.pos;
+    let match;
     if (index === NOT_FOUND) {
       if (options.toEOF) {
         this.pos = this.text.length;
-        return this.text.substr(start);
+        match = this.text.substr(start);
+      } else {
+        match = '';
       }
-      return '';
     } else {
       this.pos = index;
       let end = index;
@@ -300,8 +303,10 @@ export default class TextStream {
           end += length;
         }
       }
-      return this.text.substring(start, end);
+      match = this.text.substring(start, end);
     }
+    this.lastMatch = match || null;
+    return match;
   }
 
   /**

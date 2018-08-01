@@ -234,7 +234,7 @@ export default class Tokenizer {
           if (ch === T_STRING_START) {
             value = stream.match(P_STRING_LITERAL_QUOTED);
           } else if (stream.match(P_DATE_LITERAL, { consume: false })) {
-            value = stream.match(P_DATE_LITERAL);
+            value = stream.lastMatch;
             value = new Date(value);
           } else if (P_NUMBER_START.test(ch)) {
             value = stream.match(P_NUMBER_LITERAL);
