@@ -30,7 +30,6 @@ export class TextLine {
     this.text = text;
     this.ln = ln;
     this.offset = offset;
-    this.length = length;
   }
 
   /**
@@ -47,6 +46,30 @@ export class TextLine {
    */
   next() {
     return this.lines[this.ln];
+  }
+
+  /**
+   * Get text length of the line
+   * @returns {number}
+   */
+  get length() {
+    return this.text.length;
+  }
+
+  /**
+   * Start position of the line, alias of `offset`
+   * @returns {number}
+   */
+  get start() {
+    return this.offset;
+  }
+
+  /**
+   * End position of the line
+   * @returns {number}
+   */
+  get end() {
+    return this.offset + this.length;
   }
 
   valueOf() {
@@ -68,6 +91,7 @@ export default class TextStream {
     this.lineOracle = lineOracle;
     this.lines = [];
     this.markers = [];
+    this.cursorStack = [];
     this.init();
   }
 
@@ -85,14 +109,14 @@ export default class TextStream {
       if (matched) {
         const length = matched.index - offset;
         const text = this.text.substr(offset, length);
-        lines.push(new TextLine(lines, text, ln, offset, length));
+        lines.push(new TextLine(lines, text, ln, offset));
         offset += length + matched[0].length;
       } else {
         const length = this.text.length - offset;
         // process last line without line break symbol
         if (length > 0) {
           const text = this.text.substr(offset);
-          lines.push(new TextLine(lines, text, ln, offset, length));
+          lines.push(new TextLine(lines, text, ln, offset));
         }
       }
       ln++;
@@ -124,28 +148,36 @@ export default class TextStream {
 
   /**
    * Check if cursor is at the start of a line
-   * @param {number} [pos] 
+   * @param {boolean} [trimSpaces] Trim starting spaces
    * @returns {boolean}
    */
-  sol(pos) {
-    if (_.isUndefined(pos)) {
-      pos = this.pos;
+  sol(trimSpaces = false) {
+    const { col, line } = this.getPosition();
+    if (col - 1 === 0) {
+      return true;
     }
-    const position = this.getPosition(pos);
-    return position.col - 1 === 0;
+    if (!trimSpaces) {
+      return false;
+    }
+    const { length } = _.trimStart(line.text);
+    return col - 1 <= line.length - length;
   }
 
   /**
    * Check if cursor is at the end of a line
-   * @param {number} [pos] 
+   * @param {boolean} [trimSpaces] Trim ending spaces
    * @returns {boolean}
    */
-  eol(pos) {
-    if (_.isUndefined(pos)) {
-      pos = this.pos;
+  eol(trimSpaces = false) {
+    const { col, line } = this.getPosition();
+    if (col - 1 === line.length) {
+      return true;
     }
-    const position = this.getPosition(pos);
-    return position.col - 1 === position.line.length;
+    if (!trimSpaces) {
+      return false;
+    }
+    const { length } = _.trimEnd(line.text);
+    return col - 1 >= length;
   }
 
   /**
@@ -259,27 +291,21 @@ export default class TextStream {
       } else {
         index = this.text.indexOf(pattern, this.pos);
         if (index !== NOT_FOUND) {
-          ({ length } = pattern);
-          matched = this.text.substr(index, length);
+          matched = pattern;
         }
       }
     }
     if (pattern instanceof RegExp) {
-      pattern.flags
       pattern.lastIndex = this.pos;
       const result = pattern.exec(this.text);
       if (result) {
         index = result.index;
-        length = result[0].length;
         matched = result[0];
       } else {
         index = NOT_FOUND;
-        length = 0;
       }
     }
-    if (index === NOT_FOUND) {
-      length = 0;
-    }
+    ({ length } = matched);
     return {
       index,
       length,
@@ -509,6 +535,29 @@ export default class TextStream {
         ..._data,
       },
     };
+  }
+
+  /**
+   * Push current cursor to cursor stack
+   * @param {number} [pos] 
+   */
+  pushCursor(pos) {
+    if (_.isUndefined(pos)) {
+      pos = this.pos;
+    }
+    this.cursorStack.push(this.pos);
+    this.pos = pos;
+  }
+
+  /**
+   * Push current cursor to cursor stack
+   */
+  popCursor() {
+    this.pos = this.cursorStack.pop();
+    if (_.isUndefined(this.pos)) {
+      throw new Error('out of cursor stack!');
+    }
+    return this.pos;
   }
 
   debugLine(line, numWidth, isCurrent) {

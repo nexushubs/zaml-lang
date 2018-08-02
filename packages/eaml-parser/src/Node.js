@@ -1,21 +1,45 @@
 import _ from 'lodash';
 
+/**
+ * @typedef {string} NodeType
+ */
+
+/**
+ * Node types
+ * @readonly
+ * @enum {NodeType}
+ */
 export const NODE_TYPES = {
   ROOT: 'root',
+  PARAGRAPH: 'paragraph',
   TAG: 'tag',
   ENTITY: 'entity',
   TEXT: 'text',
 }
 
+const BLOCK_NODE_TYPES = [
+  NODE_TYPES.ROOT,
+  NODE_TYPES.PARAGRAPH,
+];
+
 const BLOCK_TAGS = [
   'BLOCK',
-  'PARAGRAPH',
   'QUOTE',
 ];
 
 export default class Node {
 
-  constructor(type, name = '', options = {}) {
+  static create(...params) {
+    return new Node(...params);
+  }
+
+  /**
+   * @constructor
+   * @param {NodeType} type 
+   * @param {string} [name]
+   * @param {object} [options]
+   */
+  constructor(type, name = null, options = {}) {
     this.type = type;
     let {
       source = '',
@@ -28,7 +52,7 @@ export default class Node {
     if (type === NODE_TYPES.ROOT && (!_.isString(source) || source === '')) {
       throw new Error('source string must be passed to ROOT node');
     }
-    if (type === NODE_TYPES.ROOT || type === NODE_TYPES.TAG || type === NODE_TYPES.ENTITY) {
+    if (BLOCK_NODE_TYPES.includes(type) || type === NODE_TYPES.TAG || type === NODE_TYPES.ENTITY) {
       this.name = name;
       this.children = [];
       this.attributes = attributes;
@@ -43,7 +67,7 @@ export default class Node {
 
   get isBlock() {
     const { type, name } = this;
-    return [NODE_TYPES.ROOT, NODE_TYPES.ENTITY].includes(type)
+    return BLOCK_NODE_TYPES.includes(name)
       || (type === NODE_TYPES.TAG && BLOCK_TAGS.includes(name));
   }
   
@@ -67,6 +91,22 @@ export default class Node {
       throw new Error('ROOT node not found');
     }
     return rootNode.source.substring(this.start, this.end);
+  }
+
+  get isFirstChild() {
+    const { parent } = this;
+    if (!parent) {
+      return false;
+    }
+    return _.first(parent.children) === this;
+  }
+
+  get isLastChild() {
+    const { parent } = this;
+    if (!parent) {
+      return false;
+    }
+    return _.last(parent.children) === this;
   }
 
   createChild(...params) {

@@ -25,7 +25,18 @@ describe('class TextStream', () => {
     expect(stream.sol()).to.be.false;
     stream.pos = 7;
     expect(stream.sol()).to.be.true;
-    expect(stream.sol(15)).to.be.true;
+  });
+
+  it('sol() start of line with spaces', () => {
+    stream = new TextStream('    line    \n');
+    expect(stream.sol(true)).to.be.true;
+    stream.pos = 1;
+    expect(stream.sol()).to.be.false;
+    expect(stream.sol(true)).to.be.true;
+    stream.pos = 4;
+    expect(stream.sol(true)).to.be.true;
+    stream.pos = 5;
+    expect(stream.sol(true)).to.be.false;
   });
 
   it('eol() end of line', () => {
@@ -33,14 +44,25 @@ describe('class TextStream', () => {
     expect(stream.eol()).to.be.false;
     stream.pos = 6;
     expect(stream.eol()).to.be.true;
-    expect(stream.eol(13)).to.be.true;
+  });
+
+  it('eol() end of line with spaces', () => {
+    stream = new TextStream('    line    \n');
+    stream.pos = 7;
+    expect(stream.eol(true)).to.be.false;
+    stream.pos = 8;
+    expect(stream.eol()).to.be.false;
+    expect(stream.eol(true)).to.be.true;
+    stream.pos = 9;
+    expect(stream.eol(true)).to.be.true;
+    stream.pos = 12;
+    expect(stream.eol(true)).to.be.true;
   });
 
   it('eof() end of file', () => {
     stream = new TextStream(multiLineSample);
     stream.pos = multiLineSample.length;
     expect(stream.eol()).to.be.true;
-    expect(stream.eol(multiLineSample.length)).to.be.true;
   });
 
   it('peek() next char, cursor stays', () => {
