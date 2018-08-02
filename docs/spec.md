@@ -126,7 +126,6 @@ Simple format:
     I'll be here tomorrow!
   }
 }
->>>
 ```
 
 Custom block start and block end signature can be passed to language parser or renderer
@@ -301,4 +300,4 @@ So we can meet together, here is the link http://example.com/meeting/Qb238aSm
 
 Checkout:
 
-[parsed-ast.json](./packages/eaml-parser/test/fixtures/parsed-ast.json)
+[parsed-ast.json](../packages/eaml-parser/test/fixtures/parsed-ast.json)
