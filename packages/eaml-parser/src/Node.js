@@ -47,10 +47,17 @@ export default class Node {
       end = -1,
       attributes = {},
       parent = null,
-      root = null,
     } = options;
-    if (type === NODE_TYPES.ROOT && (!_.isString(source) || source === '')) {
-      throw new Error('source string must be passed to ROOT node');
+    this.start = start;
+    this.end = end;
+    this.parent = parent;
+    if (type === NODE_TYPES.ROOT) {
+      if (!_.isString(source) || source === '') {
+        throw new Error('source string must be passed to ROOT node');
+      }
+      this.start = 0;
+      this.end = source.length;
+      this._source = source;
     }
     if (BLOCK_NODE_TYPES.includes(type) || type === NODE_TYPES.TAG || type === NODE_TYPES.ENTITY) {
       this.name = name;
@@ -59,10 +66,6 @@ export default class Node {
     } else if (type === NODE_TYPES.TEXT) {
       this.content = name || '';
     }
-    this._source = source;
-    this.start = start;
-    this.end = end;
-    this.parent = parent;
   }
 
   get isBlock() {

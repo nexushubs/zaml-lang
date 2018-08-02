@@ -147,7 +147,7 @@ export default class Tokenizer {
             const child = node.createChild(NODE_TYPES.PARAGRAPH, null, { start })
             pushNode(child);
           }
-          let text = stream.readTo(P_MARKER);
+          let text = stream.readTo(P_MARKER, { toEOF: true });
           if (text) {
             if (node.children.length === 0) {
               text = _.trimStart(text);
@@ -375,7 +375,7 @@ export default class Tokenizer {
     
     this.parsed = true;
     this.debug(JSON.stringify(root, null, 2));
-    return node;
+    return root;
   }
 
 }

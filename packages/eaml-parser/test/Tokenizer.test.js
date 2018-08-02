@@ -19,7 +19,7 @@ describe('class Tokenizer', () => {
     expect(tokenizer).to.be.instanceOf(Tokenizer);
   });
 
-  it.only('process()', () => {
+  it('process()', () => {
     const ast = tokenizer.process();
     expect(tokenizer.parsed).to.be.true;
     expect(JSON.parse(JSON.stringify(ast))).to.deep.equal(parsed);
