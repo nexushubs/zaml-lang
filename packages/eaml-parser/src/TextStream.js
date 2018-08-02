@@ -10,13 +10,43 @@ const LINE_BREAKS = /\r?\n/g;
 
 /**
  * Class holding text line data
+ * @prop {TextLine[]} lines
+ * @prop {string} text
+ * @prop {number} ln
+ * @prop {number} offset
+ * @prop {number} length
  */
 export class TextLine {
-  constructor(text, ln, offset, length) {
+  /**
+   * @constructor
+   * @param {TextLine[]} lines
+   * @param {string} text
+   * @param {number} ln
+   * @param {number} offset
+   * @param {number} length
+   */
+  constructor(lines, text, ln, offset, length) {
+    this.lines = lines;
     this.text = text;
     this.ln = ln;
     this.offset = offset;
     this.length = length;
+  }
+
+  /**
+   * Get the previous line
+   * @returns {TextLine}
+   */
+  prev() {
+    return this.lines[this.ln - 2];
+  }
+
+  /**
+   * Get the next line
+   * @returns {TextLine}
+   */
+  next() {
+    return this.lines[this.ln];
   }
 
   valueOf() {
@@ -55,14 +85,14 @@ export default class TextStream {
       if (matched) {
         const length = matched.index - offset;
         const text = this.text.substr(offset, length);
-        lines.push(new TextLine(text, ln, offset, length));
+        lines.push(new TextLine(lines, text, ln, offset, length));
         offset += length + matched[0].length;
       } else {
         const length = this.text.length - offset;
         // process last line without line break symbol
         if (length > 0) {
           const text = this.text.substr(offset);
-          lines.push(new TextLine(text, ln, offset, length));
+          lines.push(new TextLine(lines, text, ln, offset, length));
         }
       }
       ln++;
@@ -74,7 +104,7 @@ export default class TextStream {
   /**
    * Get line and column position of the cursor
    * @param {number} pos Cursor position of the text
-   * @returns {{ln:number,col:number,index:number}}
+   * @returns {{ln:number,col:number,pos:number,line:TextLine}}
    */
   getPosition(pos) {
     if (_.isUndefined(pos)) {
@@ -274,38 +304,54 @@ export default class TextStream {
   }
 
   /**
-   * Read to pattern
+   * Read to text or pattern
    * @param {TextPattern} pattern 
    * @param {object} [options]
-   * @param {boolean} [options.toEOF] If no matched text is found, read to the end
-   * @param {boolean} [options.consume] Read to end of matched text
-   * @param {boolean} [options.skipMatched] Read to previous char before matched text, move cursor
-   * to the end
+   * @param {boolean} [options.toEOL=false] If no matched text is found, read to the end
+   * @param {boolean} [options.toEOF=false] If read to matched text or to the end of line
+   * @param {boolean} [options.consume=false] Read to end of the matched text
+   * @param {boolean} [options.skipMatched=false] Read to the matched text, move cursor to the end
    * @returns {string} Sub-text after current cursor and before (or contains) matched text
    */
   readTo(pattern, options = {}) {
-    const { index, length } = this.search(pattern);
+    const {
+      toEOL = false,
+      toEOF = false,
+      consume = false,
+      skipMatched = false,
+    } = options;
     const start = this.pos;
-    let match;
-    if (index === NOT_FOUND) {
-      if (options.toEOF) {
-        this.pos = this.text.length;
-        match = this.text.substr(start);
-      } else {
-        match = '';
-      }
-    } else {
-      this.pos = index;
-      let end = index;
-      if (options.consume || options.skipMatched) {
-        this.pos += length;
-        if (!options.skipMatched) {
-          end += length;
+    let { index, length } = this.search(pattern);
+    let match = null;
+    let end = null;
+    if (toEOL) {
+      const { line } = this.getPosition();
+      end = line.offset + line.length;
+    } else if (toEOF) {
+      end = this.text.length;
+    }
+    if (index !== NOT_FOUND) {
+      if (toEOL || toEOF) {
+        if (index < end) {
+          end = index;
+        } else {
+          length = 0;
         }
+      } else {
+        end = index;
+      }
+    }
+    if (end !== null) {
+      this.pos = end;
+      if (consume) {
+        end += length;
+        this.pos = end;
+      } else if (skipMatched) {
+        this.pos += length;
       }
       match = this.text.substring(start, end);
     }
-    this.lastMatch = match || null;
+    this.lastMatch = match;
     return match;
   }
 
@@ -321,11 +367,21 @@ export default class TextStream {
 
   /**
    * Read one line
-   * @param {TextPattern} [lineBreak=LINE_BREAKS] Line break separator
    * @returns {string} Text containing one line (not including line break)
    */
-  readLine(lineBreak = LINE_BREAKS) {
-    return this.readTo(lineBreak, { toEOF: true, skipMatched: true });
+  readLine() {
+    const { line } = this.getPosition();
+    const nextLine = line.next();
+    if (this.eof()) {
+      return null;
+    }
+    if (nextLine) {
+      this.pos = nextLine.offset;
+      return line.text;
+    } else {
+      const length = line.offset + line.length - this.pos;
+      return this.read(length);
+    }
   }
 
   /**

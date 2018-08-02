@@ -147,11 +147,28 @@ describe('class TextStream', () => {
   });
 
   it('readTo() read to none-exists char', () => {
-    expect(stream.readTo('?')).to.equal('');
+    expect(stream.readTo('?')).to.equal(null);
     expect(stream.pos).to.equal(0);
   });
 
-  it('readTo() read to none-exists char, to EOF', () => {
+  it('readTo() single line, read to char, EOL', () => {
+    expect(stream.readTo('?', { toEOL: true })).to.equal(sample);
+    expect(stream.pos).to.equal(sample.length);
+  });
+
+  it('readTo() multi line, read to char, EOL', () => {
+    stream = new TextStream(multiLineSample);
+    expect(stream.readTo('1', { toEOL: true })).to.equal('Line ');
+    expect(stream.pos).to.equal(5);
+  });
+
+  it('readTo() read to none-exists char, EOL', () => {
+    stream = new TextStream(multiLineSample);
+    expect(stream.readTo('2', { toEOL: true })).to.equal('Line 1');
+    expect(stream.pos).to.equal(6);
+  });
+
+  it('readTo() read to none-exists char, EOF', () => {
     expect(stream.readTo('?', { toEOF: true })).to.equal(sample);
     expect(stream.pos).to.equal(sample.length);
   });
@@ -171,11 +188,17 @@ describe('class TextStream', () => {
     expect(stream.pos).to.equal(6);
   });
 
+  it('readLine() single line', () => {
+    expect(stream.readLine()).to.equal(sample);
+    expect(stream.pos).to.equal(sample.length);
+  })
+
   it('readLine() read lines', () => {
     stream = new TextStream(multiLineSample);
     expect(stream.readLine()).to.equal('Line 1');
     expect(stream.readLine()).to.equal('Line 2');
     expect(stream.readLine()).to.equal('Line 3');
+    expect(stream.readLine()).to.be.null;
   })
 
   it('skipTo() skip to pattern', () => {

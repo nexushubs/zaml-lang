@@ -9,6 +9,7 @@ export const NODE_TYPES = {
 
 const BLOCK_TAGS = [
   'BLOCK',
+  'PARAGRAPH',
   'QUOTE',
 ];
 
