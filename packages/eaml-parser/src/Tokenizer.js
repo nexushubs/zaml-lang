@@ -3,29 +3,41 @@ import TextStream from './TextStream';
 import ParseError from './ParseError';
 import Node, { NODE_TYPES } from './Node';
 
+const combinePatterns = (list) => {
+  return list.map(p => _.isRegExp(p) ? p.source : _.escapeRegExp(p)).join('|');
+};
+
+const createPattern = (source, flags = 'g') => new RegExp(source, flags);
+
+const T_SPACE = ' ';
+const T_TAB = '\t';
+const T_FRONT_MATTER = `---`;
+const T_ENTITY_START = '[';
+const T_ENTITY_END = ']';
 const T_TAG_START = '{';
 const T_TAG_CLOSING = '/';
-const P_TAG_NAME = /[A-Z]+(?:\.[A-Z]+)*(?=[\s}])/g;
-const P_TAG_ATTRIBUTE_NAME = /[a-z][a-zA-Z0-9]*(?=[=}])/g;
+const T_TAG_END = '}';
+const T_ASSIGN_XML = '=';
+const T_ASSIGN_YAML = ':';
+const P_LINE_BREAK = /\r?\n/g;
+const P_PARAGRAPH_BREAK = createPattern(_.repeat(P_LINE_BREAK.source, 2));
+const P_WHITE_SPACE = /\s/g;
+const P_WHITE_SPACES_EXT = /[\s\r\n]/;
+const P_TAG_ATTRIBUTE_ASSIGN = createPattern(`[${[T_ASSIGN_XML, T_ASSIGN_YAML].join('')}]`, '');
+const P_TAG_NAME = createPattern(`[A-Z]+(?:\.[A-Z]+)*(?=${combinePatterns([P_WHITE_SPACES_EXT, P_TAG_ATTRIBUTE_ASSIGN, T_TAG_END])})`);
+const P_TAG_ATTRIBUTE_NAME = createPattern(`[a-z][a-zA-Z0-9]*(?=${combinePatterns([P_WHITE_SPACE, P_TAG_ATTRIBUTE_ASSIGN])})`);
 const T_STRING_START = '"';
-const P_DATE_LITERAL = /\d{4}-[01]\d-[0-3]\d(?:T[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))?/;
+const P_DATE_LITERAL = /\d{4}-[01]\d-[0-3]\d(?:T[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))?/g;
 const P_NUMBER_START = /[\d\.]/;
 const P_NUMBER_LITERAL = /(\d+|\d*\.\d+|\d+\.\d*)(e\d+)?/g;
 const P_STRING_LITERAL_QUOTED = /"([^"\\]|\\.)*"/g;
 const P_STRING_LITERAL_UNQUOTED = /[^\s}]*/g;
 const P_BOOLEAN_TRUE= /(TRUE|True|true)/g;
 const P_BOOLEAN_FALSE= /(FALSE|False|false)/g;
-const T_TAG_ATTRIBUTE_ASSIGN = '=';
-const T_TAG_END = '}';
-const T_ENTITY_START = '[';
-const T_ENTITY_END = ']';
-const P_LINE_BREAK = /\r?\n/g;
-const P_PARAGRAPH_BREAK = new RegExp(_.repeat(P_LINE_BREAK.source, 2), 'g');
-const T_SPACE = ' ';
 
 const START_MARKERS = [T_TAG_START, T_ENTITY_START];
 const END_MARKERS = [T_TAG_END, T_ENTITY_END];
-const P_MARKER = new RegExp(`(${[...START_MARKERS.map(_.escapeRegExp), P_PARAGRAPH_BREAK].join('|')})`, 'g');
+const P_MARKER = createPattern(`(${combinePatterns([...START_MARKERS, P_PARAGRAPH_BREAK])})`);
 
 const PROCESSING_TIMEOUT = 1000;
 
@@ -39,6 +51,7 @@ let stateValue = 0;
  * @enum {TokenizingState}
  */
 const STATE = {
+  FRONT_MATTER: stateValue++,
   NORMAL: stateValue++,
   START: stateValue++,
   TAG_START: stateValue++,
@@ -96,9 +109,12 @@ export default class Tokenizer {
   process() {
     const { text, stream } = this;
     const timeStart = Date.now();
-    let state = STATE.NORMAL;
+    let state = STATE.FRONT_MATTER;
     let start = 0;
-    let isClosing = false;
+    const states = {
+      isClosing: false,
+      isFrontMatter: false,
+    };
     const root = Node.create(NODE_TYPES.ROOT, null, { source: text });
     const nodeStack = [];
     let node = root;
@@ -124,6 +140,7 @@ export default class Tokenizer {
     };
 
     const createError = message => {
+      this.debug(JSON.stringify(root, null, 2));
       return new ParseError(message, text, stream.pos);
     };
     
@@ -137,6 +154,16 @@ export default class Tokenizer {
         stream.debugState();
       }
       switch (state) {
+
+        case STATE.FRONT_MATTER: {
+          if (stream.match(T_FRONT_MATTER)) {
+            states.isFrontMatter = true;
+            state = STATE.TAG_ATTRIBUTE_LIST;
+          } else {
+            state = STATE.NORMAL;
+          }
+          break;
+        }
 
         case STATE.NORMAL: {
           if (stream.sol()) {
@@ -177,9 +204,9 @@ export default class Tokenizer {
         
         case STATE.TAG_START: {
           const chr = stream.eat(T_TAG_CLOSING);
-          isClosing = false;
+          states.isClosing = false;
           if (chr) {
-            isClosing = true;
+            states.isClosing = true;
           } else {
             const child = node.createChild(NODE_TYPES.TAG, '', { start });
             pushNode(child);
@@ -193,14 +220,13 @@ export default class Tokenizer {
           if (!name) {
             throw createError('expected tag name');
           }
-          if (isClosing) {
+          if (states.isClosing) {
             if (node.type === NODE_TYPES.PARAGRAPH) {
               stream.pushCursor(start);
               popNode();
               stream.popCursor();
             }
             if (name !== node.name) {
-              console.log(node.toJSON());
               throw createError('unexpected closing tag');
             }
             const ch = stream.eat(T_TAG_END);
@@ -237,14 +263,19 @@ export default class Tokenizer {
         }
         
         case STATE.TAG_ATTRIBUTE_LIST: {
-          const ch = stream.read();
-          if (ch === T_TAG_END) {
+          const hasSpaces = stream.eatWhile(P_WHITE_SPACES_EXT);
+          if (states.isFrontMatter && stream.match(T_FRONT_MATTER)) {
+            if (!stream.match(P_LINE_BREAK)) {
+              throw createError('expected new line after front matter closed');
+            }
+            state = STATE.NORMAL;
+          } else if (stream.eat(T_TAG_END)) {
             state = STATE.TAG_END;
-          } else if (ch === T_SPACE) {
-            stream.eatWhile(T_SPACE);
-            state = STATE.TAG_ATTRIBUTE_NAME;
           } else {
-            throw createError('expecting tag end "}" or attribute list')
+            if (!hasSpaces) {
+              throw createError('expecting end of tag "}" or attribute list')
+            }
+            state = STATE.TAG_ATTRIBUTE_NAME;
           }
           break;
         }
@@ -256,12 +287,16 @@ export default class Tokenizer {
             throw createError('expecting attribute name');
           }
           stream.setMarkerData({ key });
-          const ch = stream.peek();
+          let ch = stream.peek();
           if (ch === T_TAG_END) {
             state = STATE.TAG_ATTRIBUTE_FINISH;
           } else {
-            if (!stream.eat(T_TAG_ATTRIBUTE_ASSIGN)) {
-              throw createError('expecting assignment "="');
+            ch = stream.eat(P_TAG_ATTRIBUTE_ASSIGN);
+            if (!ch) {
+              throw createError('expecting assignment "=" or ":"');
+            }
+            if (ch = T_ASSIGN_YAML) {
+              stream.eatSpace();
             }
             state = STATE.TAG_ATTRIBUTE_VALUE;
           }
@@ -311,7 +346,7 @@ export default class Tokenizer {
         }
 
         case STATE.TAG_END: {
-          if (!node.isBlock || isClosing) {
+          if (!node.isBlock || states.isClosing) {
             const tagNode = node;
             popNode();
             if (node.type === NODE_TYPES.ENTITY) {
@@ -323,7 +358,7 @@ export default class Tokenizer {
               popNode();
             }
           }
-          if (isClosing) {
+          if (states.isClosing) {
             stream.skipOver(P_LINE_BREAK);
           }
           state = STATE.NORMAL;

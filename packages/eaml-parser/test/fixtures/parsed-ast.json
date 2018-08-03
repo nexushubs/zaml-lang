@@ -1,10 +1,13 @@
 {
   "type": "root",
   "name": null,
-  "attributes": {},
+  "attributes": {
+    "dateCreated": "2018-07-24T00:00:00.000Z",
+    "author": "Peter"
+  },
   "position": {
     "start": 0,
-    "end": 351
+    "end": 397
   },
   "children": [
     {
@@ -12,16 +15,16 @@
       "name": null,
       "attributes": {},
       "position": {
-        "start": 0,
-        "end": 44
+        "start": 46,
+        "end": 90
       },
       "children": [
         {
           "type": "text",
           "content": "There is something I should tell you.\n",
           "position": {
-            "start": 0,
-            "end": 38
+            "start": 46,
+            "end": 84
           }
         }
       ]
@@ -33,8 +36,8 @@
         "intention": "statement"
       },
       "position": {
-        "start": 38,
-        "end": 44
+        "start": 84,
+        "end": 90
       },
       "children": [
         {
@@ -42,16 +45,16 @@
           "name": null,
           "attributes": {},
           "position": {
-            "start": 65,
-            "end": 115
+            "start": 111,
+            "end": 161
           },
           "children": [
             {
               "type": "text",
               "content": "Jack says he would come here tomorrow:\n  ",
               "position": {
-                "start": 65,
-                "end": 109
+                "start": 111,
+                "end": 155
               }
             }
           ]
@@ -63,8 +66,8 @@
             "from": "Jack"
           },
           "position": {
-            "start": 109,
-            "end": 216
+            "start": 155,
+            "end": 262
           },
           "children": [
             {
@@ -72,16 +75,16 @@
               "name": null,
               "attributes": {},
               "position": {
-                "start": 126,
-                "end": 207
+                "start": 172,
+                "end": 253
               },
               "children": [
                 {
                   "type": "text",
                   "content": "“",
                   "position": {
-                    "start": 126,
-                    "end": 132
+                    "start": 172,
+                    "end": 178
                   }
                 },
                 {
@@ -91,16 +94,16 @@
                     "name": "Jack"
                   },
                   "position": {
-                    "start": 132,
-                    "end": 150
+                    "start": 178,
+                    "end": 196
                   },
                   "children": [
                     {
                       "type": "text",
                       "content": "I",
                       "position": {
-                        "start": 133,
-                        "end": 134
+                        "start": 179,
+                        "end": 180
                       }
                     }
                   ]
@@ -109,8 +112,8 @@
                   "type": "text",
                   "content": "'ll be ",
                   "position": {
-                    "start": 150,
-                    "end": 157
+                    "start": 196,
+                    "end": 203
                   }
                 },
                 {
@@ -118,16 +121,16 @@
                   "name": "LOC",
                   "attributes": {},
                   "position": {
-                    "start": 157,
-                    "end": 168
+                    "start": 203,
+                    "end": 214
                   },
                   "children": [
                     {
                       "type": "text",
                       "content": "here",
                       "position": {
-                        "start": 158,
-                        "end": 162
+                        "start": 204,
+                        "end": 208
                       }
                     }
                   ]
@@ -136,8 +139,8 @@
                   "type": "text",
                   "content": " ",
                   "position": {
-                    "start": 168,
-                    "end": 169
+                    "start": 214,
+                    "end": 215
                   }
                 },
                 {
@@ -147,16 +150,16 @@
                     "value": "2018-07-25T00:00:00.000Z"
                   },
                   "position": {
-                    "start": 169,
-                    "end": 202
+                    "start": 215,
+                    "end": 248
                   },
                   "children": [
                     {
                       "type": "text",
                       "content": "tomorrow",
                       "position": {
-                        "start": 170,
-                        "end": 178
+                        "start": 216,
+                        "end": 224
                       }
                     }
                   ]
@@ -165,8 +168,8 @@
                   "type": "text",
                   "content": ".”\n  ",
                   "position": {
-                    "start": 202,
-                    "end": 207
+                    "start": 248,
+                    "end": 253
                   }
                 }
               ]
@@ -178,16 +181,16 @@
           "name": null,
           "attributes": {},
           "position": {
-            "start": 225,
-            "end": 351
+            "start": 271,
+            "end": 397
           },
           "children": [
             {
               "type": "text",
               "content": "So we can meet together, here is the link ",
               "position": {
-                "start": 225,
-                "end": 267
+                "start": 271,
+                "end": 313
               }
             },
             {
@@ -197,16 +200,16 @@
                 "url": "http://example.com/meeting/Qb238aSm"
               },
               "position": {
-                "start": 267,
-                "end": 350
+                "start": 313,
+                "end": 396
               },
               "children": [
                 {
                   "type": "text",
                   "content": "http://example.com/meeting/Qb238aSm",
                   "position": {
-                    "start": 268,
-                    "end": 303
+                    "start": 314,
+                    "end": 349
                   }
                 }
               ]
@@ -215,8 +218,8 @@
               "type": "text",
               "content": "\n",
               "position": {
-                "start": 350,
-                "end": 351
+                "start": 396,
+                "end": 397
               }
             }
           ]

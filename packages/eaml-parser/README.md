@@ -10,6 +10,47 @@ npm install eaml-parser
 
 ## Build-in Classes
 
+### `class TextStream`
+
+A stream like text reader
+
+```js
+class TextStream
+  constructor(text:string, tabSize?:number) {}
+  init() {}
+  getPosition(pos?:number) {}
+  sol(trimSpaces?:boolean) {}
+  eol(trimSpaces?:boolean) {}
+  eof(pos:number) {}
+  peek() {}
+  next() {}
+  eat(pattern:(string|RegExp)) {}
+  eatWhile(pattern:(string|RegExp)) {}
+  eatUntil(pattern:(string|RegExp)) {}
+  eatSpace() {}
+  search(pattern:(string|RegExp), options:object) {}
+  read(n?:number) {}
+  readTo(pattern:(string|RegExp), options:object) {}
+  readOver(pattern:(string|RegExp), options:object) {}
+  readLine() {}
+  skipToEnd() {}
+  skipTo(pattern:(string|RegExp), options) {}
+  skipOver(pattern:(string|RegExp), options:object) {}
+  backUp(n) {}
+  match(pattern:(string|RegExp), options:object) {}
+  resetMarker() {}
+  pushMarker(data, start) {}
+  setMarkerData(data) {}
+  getMarkerData() {}
+  popMarker(_data:object, end?:number) {}
+  pushCursor(pos) {}
+  popCursor() {}
+  debugLine(line:number, numWidth:number, isCurrent:boolean) {}
+  debugCursor(col:number, numWidth:number) {}
+  debugState(range?:number) {}
+}
+```
+
 ### `class Node`
 
 AST node data structure.
@@ -44,6 +85,14 @@ Text tokenizer.
 ### `tokenize(text:string):Node`
 
 Parse a EAML source code, and returns the root node of AST
+
+### Example
+
+```js
+import { tokenize } from 'eaml-parser';
+const node = tokenize('Hello World!');
+console.log(node);
+```
 
 ## Test
 

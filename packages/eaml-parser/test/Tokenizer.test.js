@@ -25,4 +25,5 @@ describe('class Tokenizer', () => {
     expect(JSON.parse(JSON.stringify(ast))).to.deep.equal(parsed);
   });
 
+  console.log(tokenizer)
 });

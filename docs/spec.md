@@ -64,22 +64,18 @@ Expression is a syntax used to demonstrate EAML language format
 
 ### 3.3 Front Matter
 
-Front matter is used for defining markers which could be used lately used by reference, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
+Front matter is used for defining variables for the whole YAML source, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
 
 Examples:
 
 ```
 ---
-原告: [中天信和商贸有限公司]{@ORG}
-被告: [XXX银行]{@ORG}
+dateCreated: 2018-07-24
+author: Peter
 ---
 ```
 
-Inline:
-
-```
-{原告: [中天信和商贸有限公司]{@ORG}}
-```
+Front mater is parsed into attributes of root AST node.
 
 ### 3.4 Sections
 
