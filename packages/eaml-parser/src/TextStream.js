@@ -72,8 +72,13 @@ export class TextLine {
     return this.offset + this.length;
   }
 
-  valueOf() {
-    return this.text;
+  toJSON() {
+    return {
+      ln: this.ln,
+      start: this.start,
+      end: this.end,
+      text: this.text,
+    };
   }
 }
 
@@ -134,8 +139,11 @@ export default class TextStream {
     if (_.isUndefined(pos)) {
       pos = this.pos;
     }
-    const lineIndex = _.findLastIndex(this.lineOffsetIndexes, offset => pos >= offset);
+    const lineIndex = _.sortedLastIndex(this.lineOffsetIndexes, pos) - 1;
     const line = this.lines[lineIndex];
+    if (!line) {
+      throw new Error('cursor position is invalid');
+    }
     const { ln, offset } = line;
     const col = pos - offset + 1;
     return {

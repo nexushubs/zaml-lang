@@ -21,6 +21,7 @@ describe('class TextStream', () => {
 
   it('sol() start of line', () => {
     stream = new TextStream(multiLineSample);
+    expect(stream.sol()).to.be.true;
     stream.pos = 1;
     expect(stream.sol()).to.be.false;
     stream.pos = 7;
