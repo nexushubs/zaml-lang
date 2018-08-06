@@ -1,9 +1,15 @@
 import Parser from './Parser';
 import Tokenizer from './Tokenizer';
-import TextStream from './TextStream';
+import TextStream, { TextLine } from './TextStream';
 import Node from './Node';
 
-export { Parser, Tokenizer, TextStream, Node };
+export {
+  Parser,
+  Tokenizer,
+  TextStream,
+  TextLine,
+  Node,
+};
 
 /**
  * Parse a plain text or EAML source string, and extract common entities

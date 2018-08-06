@@ -2,44 +2,39 @@ import _ from 'lodash';
 import TextStream from './TextStream';
 import ParseError from './ParseError';
 import Node, { NODE_TYPES } from './Node';
-
-const combinePatterns = (list) => {
-  return list.map(p => _.isRegExp(p) ? p.source : _.escapeRegExp(p)).join('|');
-};
-
-const createPattern = (source, flags = 'g') => new RegExp(source, flags);
-
-const T_SPACE = ' ';
-const T_TAB = '\t';
-const T_FRONT_MATTER = `---`;
-const T_ENTITY_START = '[';
-const T_ENTITY_END = ']';
-const T_TAG_START = '{';
-const T_TAG_CLOSING = '/';
-const T_TAG_END = '}';
-const T_ASSIGN_XML = '=';
-const T_ASSIGN_YAML = ':';
-const P_LINE_BREAK = /\r?\n/g;
-const P_PARAGRAPH_BREAK = createPattern(_.repeat(P_LINE_BREAK.source, 2));
-const P_WHITE_SPACE = /\s/g;
-const P_WHITE_SPACES_EXT = /[\s\r\n]/;
-const P_TAG_ATTRIBUTE_ASSIGN = createPattern(`[${[T_ASSIGN_XML, T_ASSIGN_YAML].join('')}]`, '');
-const P_TAG_NAME = createPattern(`[A-Z]+(?:\.[A-Z]+)*(?=${combinePatterns([P_WHITE_SPACES_EXT, P_TAG_ATTRIBUTE_ASSIGN, T_TAG_END])})`);
-const P_TAG_ATTRIBUTE_NAME = createPattern(`[a-z][a-zA-Z0-9]*(?=${combinePatterns([P_WHITE_SPACE, P_TAG_ATTRIBUTE_ASSIGN])})`);
-const T_STRING_START = '"';
-const P_DATE_LITERAL = /\d{4}-[01]\d-[0-3]\d(?:T[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))?/g;
-const P_NUMBER_START = /[\d\.]/;
-const P_NUMBER_LITERAL = /(\d+|\d*\.\d+|\d+\.\d*)(e\d+)?/g;
-const P_STRING_LITERAL_QUOTED = /"([^"\\]|\\.)*"/g;
-const P_STRING_LITERAL_UNQUOTED = /[^\s}]*/g;
-const P_BOOLEAN_TRUE= /(TRUE|True|true)/g;
-const P_BOOLEAN_FALSE= /(FALSE|False|false)/g;
-
-const START_MARKERS = [T_TAG_START, T_ENTITY_START];
-const END_MARKERS = [T_TAG_END, T_ENTITY_END];
-const P_MARKER = createPattern(`(${combinePatterns([...START_MARKERS, P_PARAGRAPH_BREAK])})`);
-
-const PROCESSING_TIMEOUT = 1000;
+import {
+  T_SPACE,
+  T_TAB,
+  T_FRONT_MATTER,
+  T_ENTITY_START,
+  T_ENTITY_END,
+  T_TAG_START,
+  T_TAG_CLOSING,
+  T_TAG_END,
+  T_ASSIGN_XML,
+  T_ASSIGN_YAML,
+  T_FRONT_MATTER_FAVORED_ASSIGN,
+  T_TAG_ATTRIBUTE_FAVORED_ASSIGN,
+  P_LINE_BREAK,
+  P_PARAGRAPH_BREAK,
+  P_WHITE_SPACE,
+  P_WHITE_SPACES_EXT,
+  P_TAG_ATTRIBUTE_ASSIGN,
+  P_TAG_NAME,
+  P_TAG_ATTRIBUTE_NAME,
+  T_STRING_START,
+  P_DATE_LITERAL,
+  P_NUMBER_START,
+  P_NUMBER_LITERAL,
+  P_STRING_LITERAL_QUOTED,
+  P_STRING_LITERAL_UNQUOTED,
+  P_BOOLEAN_TRUE,
+  P_BOOLEAN_FALSE,
+  START_MARKERS,
+  END_MARKERS,
+  P_MARKER,
+  PROCESSING_TIMEOUT,
+} from './constants';
 
 let stateValue = 0;
 

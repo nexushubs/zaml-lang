@@ -1,0 +1,12 @@
+---
+dateCreated: 2018-07-24T00:00:00.000Z
+author: Peter
+---
+There is something I should tell you.
+{BLOCK intention=statement}
+  Jack says he would come here tomorrow:
+  {QUOTE from=Jack}
+    “[I]{PER name=Jack}'ll be [here]{LOC} [tomorrow]{DATE value=2018-07-25T00:00:00.000Z}.”
+  {/QUOTE}
+  So we can meet together, here is the link [http://example.com/meeting/Qb238aSm]{LINK url=http://example.com/meeting/Qb238aSm}
+{/BLOCK}

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { stringify } from './util';
 
 /**
  * @typedef {string} NodeType
@@ -27,10 +28,50 @@ const BLOCK_TAGS = [
   'QUOTE',
 ];
 
+/**
+ * Recursive node finder
+ * @param {Node} node 
+ * @param {function(Node):boolean} tester 
+ * @param {Node[]} [result=[]] Node list
+ * @returns {Node[]}
+ */
+function recursiveFinder(node, tester, result = []) {
+  if (tester(node)) {
+    result.push();
+  }
+  if (!_.isEmpty(node.children)) {
+    node.children.forEach(childNode => {
+      recursiveFinder(childNode, tester, result);
+    });
+  }
+  return result;
+}
+
+/**
+ * AST node class
+ * @prop {NodeType} type
+ * @prop {string} name
+ * @prop {string} source
+ * @prop {number} start
+ * @prop {number} end
+ * @prop {Object.<string,any>} attributes
+ * @prop {Node[]} children
+ * @prop {Node} parent
+ * @prop {Node} root
+ * @prop {boolean} isBlock
+ * @prop {boolean} isRoot
+ * @prop {boolean} isFirstChild
+ * @prop {boolean} isLastChild
+ */
 export default class Node {
 
-  static create(...params) {
-    return new Node(...params);
+  /**
+   * @param {NodeType} type 
+   * @param {string} [name]
+   * @param {object} [options]
+   */
+  static create(type, name, options) {
+    return new Node(type, name, options);
   }
 
   /**
@@ -38,6 +79,11 @@ export default class Node {
    * @param {NodeType} type 
    * @param {string} [name]
    * @param {object} [options]
+   * @param {string} [options.source]
+   * @param {number} [options.start]
+   * @param {number} [options.end]
+   * @param {Object.<string,any>} [options.attributes]
+   * @param {Node} [options.parent]
    */
   constructor(type, name = null, options = {}) {
     this.type = type;
@@ -68,12 +114,28 @@ export default class Node {
     }
   }
 
+  /**
+   * Property indicates if the node is a block (wrapping other nodes)
+   * @returns {boolean}
+   */
   get isBlock() {
     const { type, name } = this;
-    return BLOCK_NODE_TYPES.includes(name)
+    return BLOCK_NODE_TYPES.includes(type)
       || (type === NODE_TYPES.TAG && BLOCK_TAGS.includes(name));
   }
   
+  /**
+   * If the node is root
+   * @returns {boolean}
+   */
+  get isRoot() {
+    return this.type === NODE_TYPES.ROOT;
+  }
+
+  /**
+   * Property indicates if the root is root (which has no children)
+   * @returns {boolean}
+   */
   get root() {
     let node = this;
     while (node.parent) {
@@ -85,6 +147,10 @@ export default class Node {
     return node;
   }
 
+  /**
+   * Get source code of the node
+   * @returns {string}
+   */
   get source() {
     if (this.type === NODE_TYPES.ROOT) {
       return this._source;
@@ -96,6 +162,10 @@ export default class Node {
     return rootNode.source.substring(this.start, this.end);
   }
 
+  /**
+   * Check if the node is the first child of its parent
+   * @returns {boolean}
+   */
   get isFirstChild() {
     const { parent } = this;
     if (!parent) {
@@ -104,6 +174,10 @@ export default class Node {
     return _.first(parent.children) === this;
   }
 
+  /**
+   * Check if the node is the last child of its parent
+   * @returns {boolean}
+   */
   get isLastChild() {
     const { parent } = this;
     if (!parent) {
@@ -112,21 +186,80 @@ export default class Node {
     return _.last(parent.children) === this;
   }
 
-  createChild(...params) {
-    const node = new Node(...params);
+  /**
+   * Siblings from same parent
+   * @returns {Node[]}
+   */
+  get siblings() {
+    const { parent } = this;
+    if (!parent || !parent.isBlock) {
+      return [];
+    }
+    return parent.children;
+  }
+
+  /**
+   * Get index of parent children
+   * @returns {number}
+   */
+  get childIndex() {
+    const { siblings } = this;
+    return siblings.indexOf(this);
+  }
+
+  /**
+   * Next sibling node
+   * @returns {Node}
+   */
+  get nextSibling() {
+    if (!this.parent) return null;
+    const { childIndex, siblings } = this;
+    return siblings[childIndex + 1] || null;
+  }
+
+  /**
+   * Previous sibling node
+   * @returns {Node}
+   */
+  get nextSibling() {
+    if (!this.parent) return null;
+    const { childIndex, siblings } = this;
+    return siblings[childIndex - 1] || null;
+  }
+
+  /**
+   * @param {NodeType} type 
+   * @param {string} [name]
+   * @param {object} [options]
+   */
+  createChild(type, name, options) {
+    const node = new Node(type, name, options);
     this.appendChild(node);
     return node;
   }
 
+  /**
+   * Append a node to children list
+   * @param {Node} node 
+   */
   appendChild(node) {
     node.parent = this;
     this.children.push(node);
   }
 
+  /**
+   * 
+   * @param {string} text 
+   * @param {} options 
+   */
   appendText(text, options) {
     this.createChild(NODE_TYPES.TEXT, text, options);
   }
 
+  /**
+   * Remove 1 or more children
+   * @param {Node[]} nodes 
+   */
   removeChild(...nodes) {
     this.children = _.without(this.children, ...nodes);
     _.each(nodes, node => {
@@ -134,6 +267,11 @@ export default class Node {
     });
   }
 
+  /**
+   * Set attribute
+   * @param {string} key Attribute key
+   * @param {any} value Attribute value
+   */
   setAttribute(key, value) {
     if (!this.attributes) {
       this.attributes = {};
@@ -141,14 +279,57 @@ export default class Node {
     this.attributes[key] = value;
   }
 
+  /**
+   * Set multiple attributes
+   * @param {Object.<string,any>} data Key - value pair
+   */
   setAttributes(data) {
-    this.attributes = _.extend({}, this.attributes, data);
+    /**
+     * @type {Object.<string,any>}
+     */
+    this.attributes = {...this.attributes, ...data};
   }
 
-  updatePosition(data = {}) {
-    const { start, end } = data;
-    this.start = start;
-    this.end = end;
+  /**
+   * Find matched children recursively
+   * @param {object} selector 
+   * @param {NodeType} [selector.type] Node type
+   * @param {string} [selector.name] Node name
+   * @param {RegExp|string} [selector.text] Including text or pattern
+   * @param {RegExp|string} [selector.source] Pattern to match source
+   */
+  find(selector = {}) {
+    const { type, name, text, source } = selector;
+    return recursiveFinder(this, node => {
+      let match = true;
+      if (type) {
+        match = match && type === node.type;
+      }
+      if (name) {
+        match = match && name === node.name;
+      }
+      if (text) {
+        match = match && (_.isRegExp(text) ? text.match(node.text) : node.text.includes(text));
+      }
+      if (source) {
+        match = match && (_.isRegExp(source) ? source.match(node.source) : node.source.includes(source));
+      }
+    });;
+  }
+
+  /**
+   * Find matched children recursively by callback
+   * @param {NodeTester} callback
+   */
+  findBy(callback) {
+    return recursiveFinder(this, callback);
+  }
+
+  /**
+   * Build source code of the node
+   */
+  toString() {
+    return stringify(this);
   }
 
   toJSON() {
