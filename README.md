@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This repo contains the language [language specification](./docs/spec.md) and a couple of [npm packages](#packages) of parser, renderer and editor.
+This repo contains the [Language Specification](./docs/spec.md) and a couple of [npm packages](#packages) of parser, renderer and editor.
 
 > Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), ZAML is a human readable marked up language which could be easily transformed into computer data structure.
 

@@ -1,6 +1,6 @@
-# ZAML Specification
+# ZAML Language Specification
 
-ZAML: Enhanced AI Markup Language
+ZAML - Zebra (Hybrid) AI Markup Language
 
 Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), ZAML is a human readable marked up language which could be easily transformed into computer data structure.
 
