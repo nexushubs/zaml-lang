@@ -7,7 +7,8 @@
     "test": "node_modules/.bin/mocha",
     "coverage": "node_modules/.bin/nyc node_modules/.bin/mocha",
     "build": "node_modules/.bin/babel src --out-dir lib",
-    "watch": "node_modules/.bin/babel src --out-dir lib --watch"
+    "watch": "node_modules/.bin/babel src --out-dir lib --watch",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
