@@ -1,13 +1,13 @@
 const chai = require('chai');
 const fs = require('fs');
-const EAML = require('../lib');
+const ZAML = require('../lib');
 
 const { expect } = chai;
-const { Tokenizer } = EAML;
+const { Tokenizer } = ZAML;
 
 describe('class Tokenizer', () => {
 
-  const source = fs.readFileSync(`${__dirname}/fixtures/sample.eaml`, { encoding: 'utf8' });
+  const source = fs.readFileSync(`${__dirname}/fixtures/sample.zaml`, { encoding: 'utf8' });
   const parsed = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/parsed-ast.json`, { encoding: 'utf8' }));
   const stringified = fs.readFileSync(`${__dirname}/fixtures/stringified.txt`, { encoding: 'utf8' });
   let tokenizer;

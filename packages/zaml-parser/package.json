@@ -1,5 +1,5 @@
 {
-  "name": "eaml-parser",
+  "name": "@lvfang/zaml-parser",
   "version": "0.1.0",
   "description": "Enhanced AI Markup Language javascript parser & processor",
   "main": "lib/index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nexushubs/eaml-lang/blob/master/eaml-lang-js"
+    "url": "https://github.com/nexushubs/zaml-lang/blob/master/zaml-lang-js"
   },
   "author": "alphakevin <get.so.smart@gmail.com>",
   "license": "MIT",

@@ -1,9 +1,9 @@
 const chai = require('chai');
 const fs = require('fs');
-const EAML = require('../lib');
+const ZAML = require('../lib');
 
 const { expect } = chai;
-const { TextStream } = EAML;
+const { TextStream } = ZAML;
 
 describe('class TextStream', () => {
 

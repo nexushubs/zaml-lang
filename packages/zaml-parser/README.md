@@ -1,11 +1,11 @@
-# eaml-parser
+# zaml-parser
 
-Javascript EAML tokenizer & parser.
+Javascript ZAML tokenizer & parser.
 
 ## Install
 
 ```shell
-npm install eaml-parser
+npm install zaml-parser
 ```
 
 ## Build-in Classes
@@ -84,12 +84,12 @@ Text tokenizer.
 
 ### `tokenize(text:string):Node`
 
-Parse a EAML source code, and returns the root node of AST
+Parse a ZAML source code, and returns the root node of AST
 
 ### Example
 
 ```js
-import { tokenize } from 'eaml-parser';
+import { tokenize } from 'zaml-parser';
 const node = tokenize('Hello World!');
 console.log(node);
 ```

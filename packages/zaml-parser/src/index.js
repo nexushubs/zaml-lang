@@ -12,7 +12,7 @@ export {
 };
 
 /**
- * Parse a plain text or EAML source string, and extract common entities
+ * Parse a plain text or ZAML source string, and extract common entities
  * @param {string} text Source string
  * @returns {Node}
  */
@@ -22,7 +22,7 @@ export function parse(text) {
 }
 
 /**
- * Tokenize a EAML source string
+ * Tokenize a ZAML source string
  * @param {string} text Source string
  * @returns {Node}
  */

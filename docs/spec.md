@@ -1,12 +1,12 @@
-# EAML Specification
+# ZAML Specification
 
-EAML: Enhanced AI Markup Language
+ZAML: Enhanced AI Markup Language
 
-Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), EAML is a human readable marked up language which could be easily transformed into computer data structure.
+Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), ZAML is a human readable marked up language which could be easily transformed into computer data structure.
 
 ## 1. Application Scenario
 
-EAML could be used in:
+ZAML could be used in:
 
 * AI training sample
   * [Named-entity recognition (NER)](https://en.wikipedia.org/wiki/Named-entity_recognition).
@@ -18,20 +18,20 @@ EAML could be used in:
 
 ## 2. Design Principle
 
-* EAML should directly based on plain text of natural language, that is to say, a plain text without any additional marker or sign is valid EAML.
-* EAML could contains some of Markdown markers for formatting, as long as there are no conflicts with EAML.
-* EAML could contains one or more section for defining structured data, e.g. key => value pair, enumeration, reference map, attachment list.
-* EAML should be human readable, additional markers should not deeply affect reading.
-* EAML contains text markers, a marker is consists of it's text, and additional properties. A marker could be:
+* ZAML should directly based on plain text of natural language, that is to say, a plain text without any additional marker or sign is valid ZAML.
+* ZAML could contains some of Markdown markers for formatting, as long as there are no conflicts with ZAML.
+* ZAML could contains one or more section for defining structured data, e.g. key => value pair, enumeration, reference map, attachment list.
+* ZAML should be human readable, additional markers should not deeply affect reading.
+* ZAML contains text markers, a marker is consists of it's text, and additional properties. A marker could be:
   * Article, section scope properties.
   * Naming entities.
   * Article citation from knowledge database with original reference.
   * User uploaded document attachment as reference.
-* EAML should be easily converted to:
+* ZAML should be easily converted to:
   * Plain text of natural language.
   * JSON serializable data structure, used for later processing by computer program.
-* EAML should be extensible for holding more type of information in the future.
-* EAML syntax should be as simple, as short, as clear as it could be.
+* ZAML should be extensible for holding more type of information in the future.
+* ZAML syntax should be as simple, as short, as clear as it could be.
 * If characters used by markers appears in natural language, it should be escaped.
 
 ## 3. Language
@@ -54,7 +54,7 @@ Basic data types are used in attributes of sections and markers.
 
 ### 3.2 Common Expression
 
-Expression is a syntax used to demonstrate EAML language format
+Expression is a syntax used to demonstrate ZAML language format
 
 | Expression         | Define                         | Description                                         |
 | ------------------ | ------------------------------ | --------------------------------------------------- |
@@ -87,9 +87,9 @@ Section name is case-insensitive, so `{block}...{/block}` is valid
 
 #### 3.4.1 {BLOCK} Section
 
-`BLOCK` section is used for defining a block of EAML source, which could be inserted into other part of doc by reference.
+`BLOCK` section is used for defining a block of ZAML source, which could be inserted into other part of doc by reference.
 
-Block could be nested, the wrapped content of a block is also valid EAML.
+Block could be nested, the wrapped content of a block is also valid ZAML.
 
 Syntax:
 
@@ -270,7 +270,7 @@ $[合同文档.docx]{DOC url="doc-schema://BEHlIwbhJf" version=2.0}
 
 ### 4.1 Parsing Example
 
-#### 4.1.1 EAML Source
+#### 4.1.1 ZAML Source
 
 ```
 There is something I should tell you.
@@ -296,4 +296,4 @@ So we can meet together, here is the link http://example.com/meeting/Qb238aSm
 
 Checkout:
 
-[parsed-ast.json](../packages/eaml-parser/test/fixtures/parsed-ast.json)
+[parsed-ast.json](../packages/zaml-parser/test/fixtures/parsed-ast.json)

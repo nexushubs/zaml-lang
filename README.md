@@ -1,24 +1,24 @@
-# EAML
+# ZAML - Zebra (Hybrid) AI Markup Language
 
-EAML: Enhanced AI Markup Language
+![ZAML Logo](./docs/logo.png)
 
 ## Introduction
 
 This repo contains the language [language specification](./docs/spec.md) and a couple of [npm packages](#packages) of parser, renderer and editor.
 
-> Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), EAML is a human readable marked up language which could be easily transformed into computer data structure.
+> Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), ZAML is a human readable marked up language which could be easily transformed into computer data structure.
 
 ## Packages
 
 | Package | Version | Description |
 | -- | -- | -- |
-| [eaml-parser](./packages/eaml-parser) | `0.1.0` | EAML javascript parser & tokenizer |
+| [zaml-parser](./packages/zaml-parser) | `0.1.0` | ZAML javascript parser & tokenizer |
 
 ## FAQ
 
-### What is the purpose of EAML?
+### What is the purpose of ZAML?
 
-EAML is designed for text samples of machine learning, checkout [application scenario](./docs/spec.md#1-application-scenario)
+ZAML is designed for text samples of machine learning, checkout [application scenario](./docs/spec.md#1-application-scenario)
 
 ### How is the repo structured?
 
