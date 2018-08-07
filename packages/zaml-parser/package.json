@@ -30,5 +30,6 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.54",
     "lodash": "^4.17.10"
-  }
+  },
+  "gitHead": "dd28810a79c08d1d2cb8745c5792d33bac2b236a"
 }
