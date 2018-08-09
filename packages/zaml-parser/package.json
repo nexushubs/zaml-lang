@@ -8,8 +8,8 @@
     "coverage": "node_modules/.bin/nyc node_modules/.bin/mocha",
     "build": "node_modules/.bin/babel src --out-dir lib",
     "watch": "node_modules/.bin/babel src --out-dir lib --watch",
-    "docs": "node_modules/.bin/jsdoc2md src/*.js > docs/API.md",
-    "prepublishOnly": "npm run build"
+    "docs": "node_modules/.bin/jsdoc2md --param-list-format list src/*.js > docs/API.md",
+    "prepublishOnly": "npm run build && npm run docs"
   },
   "repository": {
     "type": "git",

@@ -64,10 +64,9 @@
 Parse a plain text or ZAML source string, and extract common entities
 
 **Kind**: static method of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| text | <code>string</code> | Source string |
+- text <code>string</code> - Source string
 
 <a name="module_zaml-parser.tokenize"></a>
 
@@ -75,10 +74,9 @@ Parse a plain text or ZAML source string, and extract common entities
 Tokenize a ZAML source string
 
 **Kind**: static method of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| text | <code>string</code> | Source string |
+- text <code>string</code> - Source string
 
 <a name="Node"></a>
 
@@ -126,17 +124,16 @@ AST node class
 <a name="new_Node_new"></a>
 
 ### new Node(type, [name], [options])
+**Params**
 
-| Param | Type | Default |
-| --- | --- | --- |
-| type | [<code>NodeType</code>](#NodeType) |  | 
-| [name] | <code>string</code> | <code>null</code> | 
-| [options] | <code>object</code> |  | 
-| [options.source] | <code>string</code> |  | 
-| [options.start] | <code>number</code> |  | 
-| [options.end] | <code>number</code> |  | 
-| [options.attributes] | <code>Object.&lt;string, any&gt;</code> |  | 
-| [options.parent] | [<code>Node</code>](#Node) |  | 
+- type [<code>NodeType</code>](#NodeType)
+- [name] <code>string</code> <code> = null</code>
+- [options] <code>object</code>
+    - [.source] <code>string</code>
+    - [.start] <code>number</code>
+    - [.end] <code>number</code>
+    - [.attributes] <code>Object.&lt;string, any&gt;</code>
+    - [.parent] [<code>Node</code>](#Node)
 
 <a name="Node+type"></a>
 
@@ -266,12 +263,11 @@ Previous sibling node
 
 ### node.createChild(type, [name], [options])
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| type | [<code>NodeType</code>](#NodeType) | 
-| [name] | <code>string</code> | 
-| [options] | <code>object</code> | 
+- type [<code>NodeType</code>](#NodeType)
+- [name] <code>string</code>
+- [options] <code>object</code>
 
 <a name="Node+appendChild"></a>
 
@@ -279,20 +275,18 @@ Previous sibling node
 Append a node to children list
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| node | [<code>Node</code>](#Node) | 
+- node [<code>Node</code>](#Node)
 
 <a name="Node+appendText"></a>
 
 ### node.appendText(text, options)
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| text | <code>string</code> | 
-| options |  | 
+- text <code>string</code>
+- options
 
 <a name="Node+removeChild"></a>
 
@@ -300,10 +294,9 @@ Append a node to children list
 Remove 1 or more children
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| ...nodes | [<code>Array.&lt;Node&gt;</code>](#Node) | 
+- ...nodes [<code>Array.&lt;Node&gt;</code>](#Node)
 
 <a name="Node+setAttribute"></a>
 
@@ -311,11 +304,10 @@ Remove 1 or more children
 Set attribute
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| key | <code>string</code> | Attribute key |
-| value | <code>any</code> | Attribute value |
+- key <code>string</code> - Attribute key
+- value <code>any</code> - Attribute value
 
 <a name="Node+setAttributes"></a>
 
@@ -323,10 +315,9 @@ Set attribute
 Set multiple attributes
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object.&lt;string, any&gt;</code> | Key - value pair |
+- data <code>Object.&lt;string, any&gt;</code> - Key - value pair
 
 <a name="Node+find"></a>
 
@@ -334,14 +325,13 @@ Set multiple attributes
 Find matched children recursively
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| selector | <code>object</code> |  |
-| [selector.type] | [<code>NodeType</code>](#NodeType) | Node type |
-| [selector.name] | <code>string</code> | Node name |
-| [selector.text] | <code>RegExp</code> \| <code>string</code> | Including text or pattern |
-| [selector.source] | <code>RegExp</code> \| <code>string</code> | Pattern to match source |
+- selector <code>object</code>
+    - [.type] [<code>NodeType</code>](#NodeType) - Node type
+    - [.name] <code>string</code> - Node name
+    - [.text] <code>RegExp</code> | <code>string</code> - Including text or pattern
+    - [.source] <code>RegExp</code> | <code>string</code> - Pattern to match source
 
 <a name="Node+findBy"></a>
 
@@ -349,10 +339,9 @@ Find matched children recursively
 Find matched children recursively by callback
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| callback | <code>NodeTester</code> | 
+- callback <code>NodeTester</code>
 
 <a name="Node+toString"></a>
 
@@ -364,12 +353,11 @@ Build source code of the node
 
 ### Node.create(type, [name], [options])
 **Kind**: static method of [<code>Node</code>](#Node)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| type | [<code>NodeType</code>](#NodeType) | 
-| [name] | <code>string</code> | 
-| [options] | <code>object</code> | 
+- type [<code>NodeType</code>](#NodeType)
+- [name] <code>string</code>
+- [options] <code>object</code>
 
 <a name="TextLine"></a>
 
@@ -393,14 +381,13 @@ Class holding text line data
 <a name="new_TextLine_new"></a>
 
 ### new TextLine(lines, text, ln, offset, length)
+**Params**
 
-| Param | Type |
-| --- | --- |
-| lines | [<code>Array.&lt;TextLine&gt;</code>](#TextLine) | 
-| text | <code>string</code> | 
-| ln | <code>number</code> | 
-| offset | <code>number</code> | 
-| length | <code>number</code> | 
+- lines [<code>Array.&lt;TextLine&gt;</code>](#TextLine)
+- text <code>string</code>
+- ln <code>number</code>
+- offset <code>number</code>
+- length <code>number</code>
 
 <a name="TextLine+lines"></a>
 
@@ -528,10 +515,9 @@ Prepare line indexes
 Get line and column position of the cursor
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| pos | <code>number</code> | Cursor position of the text |
+- pos <code>number</code> - Cursor position of the text
 
 <a name="TextStream+sol"></a>
 
@@ -539,10 +525,9 @@ Get line and column position of the cursor
 Check if cursor is at the start of a line
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [trimSpaces] | <code>boolean</code> | <code>false</code> | Trim starting spaces |
+- [trimSpaces] <code>boolean</code> <code> = false</code> - Trim starting spaces
 
 <a name="TextStream+eol"></a>
 
@@ -550,10 +535,9 @@ Check if cursor is at the start of a line
 Check if cursor is at the end of a line
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [trimSpaces] | <code>boolean</code> | <code>false</code> | Trim ending spaces |
+- [trimSpaces] <code>boolean</code> <code> = false</code> - Trim ending spaces
 
 <a name="TextStream+eof"></a>
 
@@ -561,10 +545,9 @@ Check if cursor is at the end of a line
 Check if cursor is at the end of whole text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| [pos] | <code>number</code> | 
+- [pos] <code>number</code>
 
 <a name="TextStream+peek"></a>
 
@@ -587,10 +570,9 @@ Consumes one char if the next char fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>string</code> - The char been eaten  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) | 
+- pattern [<code>TextPattern</code>](#TextPattern)
 
 <a name="TextStream+eatWhile"></a>
 
@@ -599,10 +581,9 @@ Consumes chars while fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>boolean</code> - If any chars been consumed  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| match | [<code>TextPattern</code>](#TextPattern) | 
+- match [<code>TextPattern</code>](#TextPattern)
 
 <a name="TextStream+eatUntil"></a>
 
@@ -611,10 +592,9 @@ Consumes chars until the first char not fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>boolean</code> - If any chars been consumed  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) | char or pattern |
+- pattern [<code>TextPattern</code>](#TextPattern) - char or pattern
 
 <a name="TextStream+eatSpace"></a>
 
@@ -629,12 +609,11 @@ Consumes spaces
 Find position of matched text to the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) |  |  |
-| [options] | <code>object</code> |  |  |
-| [options.caseInsensitive] | <code>boolean</code> | <code>false</code> | Case insensitive for string pattern |
+- pattern [<code>TextPattern</code>](#TextPattern)
+- [options] <code>object</code>
+    - [.caseInsensitive] <code>boolean</code> <code> = false</code> - Case insensitive for string pattern
 
 <a name="TextStream+read"></a>
 
@@ -642,10 +621,9 @@ Find position of matched text to the pattern
 Read n chars after current cursor
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [n] | <code>number</code> | <code>1</code> | Number of chars to read |
+- [n] <code>number</code> <code> = 1</code> - Number of chars to read
 
 <a name="TextStream+readTo"></a>
 
@@ -654,15 +632,14 @@ Read to text or pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>string</code> - Sub-text after current cursor and before (or contains) matched text  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) |  |  |
-| [options] | <code>object</code> |  |  |
-| [options.toEOL] | <code>boolean</code> | <code>false</code> | If no matched text is found, read to the end |
-| [options.toEOF] | <code>boolean</code> | <code>false</code> | If read to matched text or to the end of line |
-| [options.consume] | <code>boolean</code> | <code>false</code> | Read to end of the matched text |
-| [options.skipMatched] | <code>boolean</code> | <code>false</code> | Read to the matched text, move cursor to the end |
+- pattern [<code>TextPattern</code>](#TextPattern)
+- [options] <code>object</code>
+    - [.toEOL] <code>boolean</code> <code> = false</code> - If no matched text is found, read to the end
+    - [.toEOF] <code>boolean</code> <code> = false</code> - If read to matched text or to the end of line
+    - [.consume] <code>boolean</code> <code> = false</code> - Read to end of the matched text
+    - [.skipMatched] <code>boolean</code> <code> = false</code> - Read to the matched text, move cursor to the end
 
 <a name="TextStream+readOver"></a>
 
@@ -671,11 +648,10 @@ Read to pattern (contains the matched text)
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>string</code> - Sub-text after current cursor and until the end of matched text  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) | Text to find or pattern |
-| options | <code>object</code> | Match options |
+- pattern [<code>TextPattern</code>](#TextPattern) - Text to find or pattern
+- options <code>object</code> - Match options
 
 <a name="TextStream+readLine"></a>
 
@@ -696,11 +672,10 @@ Move cursor to end of text
 Skip to the beginning of matched text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) | 
-| options | <code>object</code> | 
+- pattern [<code>TextPattern</code>](#TextPattern)
+- options <code>object</code>
 
 <a name="TextStream+skipOver"></a>
 
@@ -708,10 +683,9 @@ Skip to the beginning of matched text
 Skip to the end of matched text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) | 
+- pattern [<code>TextPattern</code>](#TextPattern)
 
 <a name="TextStream+backUp"></a>
 
@@ -719,10 +693,9 @@ Skip to the end of matched text
 Move cursor back
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| n | <code>number</code> | Steps |
+- n <code>number</code> - Steps
 
 <a name="TextStream+match"></a>
 
@@ -730,13 +703,12 @@ Move cursor back
 Check if rest text begins with pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Default |
-| --- | --- | --- |
-| pattern | [<code>TextPattern</code>](#TextPattern) |  | 
-| [options] | <code>object</code> |  | 
-| [options.consume] | <code>boolean</code> | <code>false</code> | 
-| [options.caseInsensitive] | <code>boolean</code> | <code>false</code> | 
+- pattern [<code>TextPattern</code>](#TextPattern)
+- [options] <code>object</code>
+    - [.consume] <code>boolean</code> <code> = false</code>
+    - [.caseInsensitive] <code>boolean</code> <code> = false</code>
 
 <a name="TextStream+resetMarker"></a>
 
@@ -750,11 +722,10 @@ Reset the marker stack
 Add a marker to stack
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| data | <code>any</code> | 
-| [pos] | <code>number</code> | 
+- data <code>any</code>
+- [pos] <code>number</code>
 
 <a name="TextStream+setMarkerData"></a>
 
@@ -775,11 +746,10 @@ Return a combined structure of text and it's position according to the previousl
 marker
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| [data] | <code>object</code> | Additional data |
-| [end] | <code>number</code> | End marker, if not set, previous set value will be used |
+- [data] <code>object</code> - Additional data
+- [end] <code>number</code> - End marker, if not set, previous set value will be used
 
 <a name="TextStream+pushCursor"></a>
 
@@ -787,10 +757,9 @@ marker
 Push current cursor to cursor stack
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| [pos] | <code>number</code> | 
+- [pos] <code>number</code>
 
 <a name="TextStream+popCursor"></a>
 
@@ -812,12 +781,11 @@ Tokenizer class
 <a name="new_Tokenizer_new"></a>
 
 ### new Tokenizer(stream, [options])
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| stream | [<code>TextStream</code>](#TextStream) |  |  |
-| [options] | <code>object</code> |  | Constructor options |
-| [options.verbose] | <code>boolean</code> | <code>false</code> | Debug verbose process of tokenizing |
+- stream [<code>TextStream</code>](#TextStream)
+- [options] <code>object</code> - Constructor options
+    - [.verbose] <code>boolean</code> <code> = false</code> - Debug verbose process of tokenizing
 
 <a name="Tokenizer+process"></a>
 
@@ -869,12 +837,11 @@ Process a text and parse to AST
 Recursive node finder
 
 **Kind**: global function  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| node | [<code>Node</code>](#Node) |  |  |
-| tester | <code>function</code> |  |  |
-| [result] | [<code>Array.&lt;Node&gt;</code>](#Node) | <code>[]</code> | Node list |
+- node [<code>Node</code>](#Node)
+- tester <code>function</code>
+- [result] [<code>Array.&lt;Node&gt;</code>](#Node) <code> = []</code> - Node list
 
 <a name="formatValue"></a>
 
@@ -882,10 +849,9 @@ Recursive node finder
 Stringify node attribute value
 
 **Kind**: global function  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| value | <code>any</code> | 
+- value <code>any</code>
 
 <a name="spacer"></a>
 
@@ -893,11 +859,10 @@ Stringify node attribute value
 Generate indent spaces
 
 **Kind**: global function  
+**Params**
 
-| Param | Type |
-| --- | --- |
-| space | <code>number</code> | 
-| indent | <code>number</code> | 
+- space <code>number</code>
+- indent <code>number</code>
 
 <a name="stringify"></a>
 
@@ -905,12 +870,11 @@ Generate indent spaces
 Stringify node
 
 **Kind**: global function  
+**Params**
 
-| Param | Type | Default |
-| --- | --- | --- |
-| node | [<code>Node</code>](#Node) |  | 
-| [space] | <code>number</code> | <code>2</code> | 
-| [indent] | <code>number</code> | <code>0</code> | 
+- node [<code>Node</code>](#Node)
+- [space] <code>number</code> <code> = 2</code>
+- [indent] <code>number</code> <code> = 0</code>
 
 <a name="NodeType"></a>
 
