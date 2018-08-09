@@ -377,6 +377,7 @@ Class holding text line data
     * [.end](#TextLine+end) ⇒ <code>number</code>
     * [.prev()](#TextLine+prev) ⇒ [<code>TextLine</code>](#TextLine)
     * [.next()](#TextLine+next) ⇒ [<code>TextLine</code>](#TextLine)
+    * [.toJSON()](#TextLine+toJSON) ⇒ <code>Object</code>
 
 <a name="new_TextLine_new"></a>
 
@@ -435,6 +436,12 @@ Get the previous line
 Get the next line
 
 **Kind**: instance method of [<code>TextLine</code>](#TextLine)  
+<a name="TextLine+toJSON"></a>
+
+### line.toJSON() ⇒ <code>Object</code>
+Convert to JSON serializable object
+
+**Kind**: instance method of [<code>TextLine</code>](#TextLine)  
 <a name="TextStream"></a>
 
 ## TextStream
@@ -472,46 +479,58 @@ Stream like text string
     * [.match(pattern, [options])](#TextStream+match)
     * [.resetMarker()](#TextStream+resetMarker)
     * [.pushMarker(data, [pos])](#TextStream+pushMarker)
-    * [.setMarkerData()](#TextStream+setMarkerData)
-    * [.getMarkerData()](#TextStream+getMarkerData)
+    * [.setMarkerData(data)](#TextStream+setMarkerData)
+    * [.getMarkerData()](#TextStream+getMarkerData) ⇒ <code>any</code>
     * [.popMarker([data], [end])](#TextStream+popMarker) ⇒ <code>Object</code>
     * [.pushCursor([pos])](#TextStream+pushCursor)
     * [.popCursor()](#TextStream+popCursor)
 
 <a name="TextStream+pos"></a>
 
-### textStream.pos : <code>number</code>
+### stream.pos : <code>number</code>
+Current cursor position
+
 **Kind**: instance property of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+text"></a>
 
-### textStream.text : <code>string</code>
+### stream.text : <code>string</code>
+Original text
+
 **Kind**: instance property of [<code>TextStream</code>](#TextStream)  
 **Read only**: true  
 <a name="TextStream+tabSize"></a>
 
-### textStream.tabSize : <code>number</code>
+### stream.tabSize : <code>number</code>
+Tab size
+
 **Kind**: instance property of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+lines"></a>
 
-### textStream.lines : [<code>Array.&lt;TextLine&gt;</code>](#TextLine)
+### stream.lines : [<code>Array.&lt;TextLine&gt;</code>](#TextLine)
+Lines, separated by line breaks
+
 **Kind**: instance property of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+markers"></a>
 
-### textStream.markers : <code>Object</code>
+### stream.markers : <code>Object</code>
+Stream markers, used by `pushMarker()`, `popMarker()`, `setMarkerData()`
+
 **Kind**: instance property of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+cursorStack"></a>
 
-### textStream.cursorStack : <code>Array.&lt;number&gt;</code>
+### stream.cursorStack : <code>Array.&lt;number&gt;</code>
+Cursor stack, used by `pushCursor()` and `popCursor`
+
 **Kind**: instance property of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+init"></a>
 
-### textStream.init()
+### stream.init()
 Prepare line indexes
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+getPosition"></a>
 
-### textStream.getPosition(pos) ⇒ <code>Object</code>
+### stream.getPosition(pos) ⇒ <code>Object</code>
 Get line and column position of the cursor
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -521,7 +540,7 @@ Get line and column position of the cursor
 
 <a name="TextStream+sol"></a>
 
-### textStream.sol([trimSpaces]) ⇒ <code>boolean</code>
+### stream.sol([trimSpaces]) ⇒ <code>boolean</code>
 Check if cursor is at the start of a line
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -531,7 +550,7 @@ Check if cursor is at the start of a line
 
 <a name="TextStream+eol"></a>
 
-### textStream.eol([trimSpaces]) ⇒ <code>boolean</code>
+### stream.eol([trimSpaces]) ⇒ <code>boolean</code>
 Check if cursor is at the end of a line
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -541,7 +560,7 @@ Check if cursor is at the end of a line
 
 <a name="TextStream+eof"></a>
 
-### textStream.eof([pos]) ⇒ <code>boolean</code>
+### stream.eof([pos]) ⇒ <code>boolean</code>
 Check if cursor is at the end of whole text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -551,21 +570,21 @@ Check if cursor is at the end of whole text
 
 <a name="TextStream+peek"></a>
 
-### textStream.peek() ⇒ <code>string</code>
+### stream.peek() ⇒ <code>string</code>
 Get one next char, but keep the cursor position (if available)
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>string</code> - The next char  
 <a name="TextStream+next"></a>
 
-### textStream.next() ⇒ <code>string</code>
+### stream.next() ⇒ <code>string</code>
 Get one next char, and move cursor forward (if available)
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>string</code> - The next char  
 <a name="TextStream+eat"></a>
 
-### textStream.eat(pattern) ⇒ <code>string</code>
+### stream.eat(pattern) ⇒ <code>string</code>
 Consumes one char if the next char fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -576,7 +595,7 @@ Consumes one char if the next char fitting the pattern
 
 <a name="TextStream+eatWhile"></a>
 
-### textStream.eatWhile(match) ⇒ <code>boolean</code>
+### stream.eatWhile(match) ⇒ <code>boolean</code>
 Consumes chars while fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -587,7 +606,7 @@ Consumes chars while fitting the pattern
 
 <a name="TextStream+eatUntil"></a>
 
-### textStream.eatUntil(pattern) ⇒ <code>boolean</code>
+### stream.eatUntil(pattern) ⇒ <code>boolean</code>
 Consumes chars until the first char not fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -598,14 +617,14 @@ Consumes chars until the first char not fitting the pattern
 
 <a name="TextStream+eatSpace"></a>
 
-### textStream.eatSpace() ⇒ <code>boolean</code>
+### stream.eatSpace() ⇒ <code>boolean</code>
 Consumes spaces
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>boolean</code> - If any space has been consumed  
 <a name="TextStream+search"></a>
 
-### textStream.search(pattern, [options])
+### stream.search(pattern, [options])
 Find position of matched text to the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -617,7 +636,7 @@ Find position of matched text to the pattern
 
 <a name="TextStream+read"></a>
 
-### textStream.read([n])
+### stream.read([n])
 Read n chars after current cursor
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -627,7 +646,7 @@ Read n chars after current cursor
 
 <a name="TextStream+readTo"></a>
 
-### textStream.readTo(pattern, [options]) ⇒ <code>string</code>
+### stream.readTo(pattern, [options]) ⇒ <code>string</code>
 Read to text or pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -643,7 +662,7 @@ Read to text or pattern
 
 <a name="TextStream+readOver"></a>
 
-### textStream.readOver(pattern, options) ⇒ <code>string</code>
+### stream.readOver(pattern, options) ⇒ <code>string</code>
 Read to pattern (contains the matched text)
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -655,20 +674,20 @@ Read to pattern (contains the matched text)
 
 <a name="TextStream+readLine"></a>
 
-### textStream.readLine() ⇒ <code>string</code>
+### stream.readLine() ⇒ <code>string</code>
 Read one line
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Returns**: <code>string</code> - Text containing one line (not including line break)  
 <a name="TextStream+skipToEnd"></a>
 
-### textStream.skipToEnd()
+### stream.skipToEnd()
 Move cursor to end of text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+skipTo"></a>
 
-### textStream.skipTo(pattern, options) ⇒ <code>boolean</code>
+### stream.skipTo(pattern, options) ⇒ <code>boolean</code>
 Skip to the beginning of matched text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -679,7 +698,7 @@ Skip to the beginning of matched text
 
 <a name="TextStream+skipOver"></a>
 
-### textStream.skipOver(pattern) ⇒ <code>boolean</code>
+### stream.skipOver(pattern) ⇒ <code>boolean</code>
 Skip to the end of matched text
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -689,7 +708,7 @@ Skip to the end of matched text
 
 <a name="TextStream+backUp"></a>
 
-### textStream.backUp(n)
+### stream.backUp(n)
 Move cursor back
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -699,7 +718,7 @@ Move cursor back
 
 <a name="TextStream+match"></a>
 
-### textStream.match(pattern, [options])
+### stream.match(pattern, [options])
 Check if rest text begins with pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -712,13 +731,13 @@ Check if rest text begins with pattern
 
 <a name="TextStream+resetMarker"></a>
 
-### textStream.resetMarker()
+### stream.resetMarker()
 Reset the marker stack
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+pushMarker"></a>
 
-### textStream.pushMarker(data, [pos])
+### stream.pushMarker(data, [pos])
 Add a marker to stack
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
@@ -729,19 +748,23 @@ Add a marker to stack
 
 <a name="TextStream+setMarkerData"></a>
 
-### textStream.setMarkerData()
+### stream.setMarkerData(data)
 Set data for current marker
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
+**Params**
+
+- data <code>Object.&lt;string, any&gt;</code>
+
 <a name="TextStream+getMarkerData"></a>
 
-### textStream.getMarkerData()
+### stream.getMarkerData() ⇒ <code>any</code>
 Get data of current markder
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 <a name="TextStream+popMarker"></a>
 
-### textStream.popMarker([data], [end]) ⇒ <code>Object</code>
+### stream.popMarker([data], [end]) ⇒ <code>Object</code>
 Return a combined structure of text and it's position according to the previously set start
 marker
 
@@ -753,8 +776,8 @@ marker
 
 <a name="TextStream+pushCursor"></a>
 
-### textStream.pushCursor([pos])
-Push current cursor to cursor stack
+### stream.pushCursor([pos])
+Push current cursor to cursor stack, if new position provided, set current cursor to it
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 **Params**
@@ -763,8 +786,8 @@ Push current cursor to cursor stack
 
 <a name="TextStream+popCursor"></a>
 
-### textStream.popCursor()
-Push current cursor to cursor stack
+### stream.popCursor()
+Pop last from cursor stack and set it to current cursor
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
 <a name="Tokenizer"></a>

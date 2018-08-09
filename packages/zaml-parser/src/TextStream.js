@@ -83,6 +83,10 @@ class TextLine {
     return this.offset + this.length;
   }
 
+  /**
+   * Convert to JSON serializable object
+   * @returns {{ln:number,start:number,end:number,text:number}}
+   */
   toJSON() {
     return {
       ln: this.ln,
@@ -95,7 +99,7 @@ class TextLine {
 
 /**
  * Stream like text string
- * @class
+ * @typicalname stream
  */
 class TextStream {
 
@@ -103,32 +107,40 @@ class TextStream {
 
     /**
      * @type {number}
+     * @description Current cursor position
      */
     this.pos = this.start = 0;
 
     /**
      * @readonly
      * @type {string}
+     * @description Original text
      */
     this.text = text;
 
     /**
      * @type {number}
+     * @description Tab size
      */
     this.tabSize = tabSize || 8;
 
     /**
      * @type {TextLine[]}
+     * @description Lines, separated by line breaks
      */
     this.lines = [];
 
     /**
+     * @inner
      * @type {{start:number,data:any}}
+     * @description Stream markers, used by `pushMarker()`, `popMarker()`, `setMarkerData()`
      */
     this.markers = [];
 
     /**
+     * @inner
      * @type {number[]}
+     * @description Cursor stack, used by `pushCursor()` and `popCursor`
      */
     this.cursorStack = [];
 
@@ -532,6 +544,7 @@ class TextStream {
 
   /**
    * Set data for current marker
+   * @param {Object.<string,any>} data
    */
   setMarkerData(data) {
     const marker = _.last(this.markers);
@@ -541,6 +554,7 @@ class TextStream {
 
   /**
    * Get data of current markder
+   * @returns {any}
    */
   getMarkerData() {
     const marker = _.last(this.markers);
@@ -581,7 +595,7 @@ class TextStream {
   }
 
   /**
-   * Push current cursor to cursor stack
+   * Push current cursor to cursor stack, if new position provided, set current cursor to it
    * @param {number} [pos] 
    */
   pushCursor(pos) {
@@ -593,7 +607,7 @@ class TextStream {
   }
 
   /**
-   * Push current cursor to cursor stack
+   * Pop last from cursor stack and set it to current cursor
    */
   popCursor() {
     this.pos = this.cursorStack.pop();
