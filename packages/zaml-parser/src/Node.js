@@ -6,11 +6,9 @@ import { stringify } from './util';
  */
 
 /**
- * Node types
- * @readonly
  * @enum {NodeType}
  */
-export const NODE_TYPES = {
+const NODE_TYPES = {
   ROOT: 'root',
   PARAGRAPH: 'paragraph',
   TAG: 'tag',
@@ -27,6 +25,12 @@ const BLOCK_TAGS = [
   'BLOCK',
   'QUOTE',
 ];
+
+export {
+  NODE_TYPES,
+  BLOCK_NODE_TYPES,
+  BLOCK_TAGS,
+}
 
 /**
  * Recursive node finder
@@ -47,23 +51,13 @@ function recursiveFinder(node, tester, result = []) {
   return result;
 }
 
+export { recursiveFinder };
+
 /**
  * AST node class
- * @prop {NodeType} type
- * @prop {string} name
- * @prop {string} source
- * @prop {number} start
- * @prop {number} end
- * @prop {Object.<string,any>} attributes
- * @prop {Node[]} children
- * @prop {Node} parent
- * @prop {Node} root
- * @prop {boolean} isBlock
- * @prop {boolean} isRoot
- * @prop {boolean} isFirstChild
- * @prop {boolean} isLastChild
+ * @class
  */
-export default class Node {
+class Node {
 
   /**
    * @param {NodeType} type 
@@ -86,7 +80,6 @@ export default class Node {
    * @param {Node} [options.parent]
    */
   constructor(type, name = null, options = {}) {
-    this.type = type;
     let {
       source = '',
       start = -1,
@@ -94,9 +87,67 @@ export default class Node {
       attributes = {},
       parent = null,
     } = options;
+
+    /**
+     * @type {NodeType}
+     * @description Node type
+     */
+    this.type = type;
+
+    /**
+     * @type {string}
+     * @description Node name, for tag, entity
+     */
+    this.name = null;
+
+    /**
+     * @type {number}
+     * @description Start cursor position to root source
+     */
     this.start = start;
+
+    /**
+     * @type {number}
+     * @description End cursor position to root source
+     */
     this.end = end;
+
+    /**
+     * @type {number}
+     * @description Parent node
+     */
     this.parent = parent;
+
+    /**
+     * @type {string}
+     * @description Source code string, only for root node
+     */
+    this._source = null;
+
+    /**
+     * @type {string}
+     * @description Source code for none-root node
+     */
+    this.source = null;
+
+    /**
+     * @type {string}
+     * @description Text content, only for text node
+     */
+    this.content = null;
+
+    /**
+     * @type {Node[]}
+     * @description Child nodes, only for block node
+     */
+    this.children = null;
+
+    /**
+     * @type {{Object.<string,any>}}
+     * @description Attributes, for root, tag, entity node
+     */
+    this.attributes = null;
+
     if (type === NODE_TYPES.ROOT) {
       if (!_.isString(source) || source === '') {
         throw new Error('source string must be passed to ROOT node');
@@ -348,3 +399,5 @@ export default class Node {
   }
 
 }
+
+export default Node;

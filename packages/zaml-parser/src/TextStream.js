@@ -10,13 +10,9 @@ const LINE_BREAKS = /\r?\n/g;
 
 /**
  * Class holding text line data
- * @prop {TextLine[]} lines
- * @prop {string} text
- * @prop {number} ln
- * @prop {number} offset
- * @prop {number} length
+ * @typicalname line
  */
-export class TextLine {
+class TextLine {
   /**
    * @constructor
    * @param {TextLine[]} lines
@@ -26,9 +22,24 @@ export class TextLine {
    * @param {number} length
    */
   constructor(lines, text, ln, offset, length) {
+    /**
+     * @type {TextLine[]}
+     */
     this.lines = lines;
+
+    /**
+     * @type {string}
+     */
     this.text = text;
+
+    /**
+     * @type {number}
+     */
     this.ln = ln;
+
+    /**
+     * @type {number}
+     */
     this.offset = offset;
   }
 
@@ -84,19 +95,43 @@ export class TextLine {
 
 /**
  * Stream like text string
+ * @class
  */
-export default class TextStream {
+class TextStream {
 
-  constructor(text, tabSize, lineOracle) {
+  constructor(text, tabSize) {
+
+    /**
+     * @type {number}
+     */
     this.pos = this.start = 0;
+
+    /**
+     * @readonly
+     * @type {string}
+     */
     this.text = text;
+
+    /**
+     * @type {number}
+     */
     this.tabSize = tabSize || 8;
-    this.lastColumnPos = this.lastColumnValue = 0;
-    this.lineStart = 0;
-    this.lineOracle = lineOracle;
+
+    /**
+     * @type {TextLine[]}
+     */
     this.lines = [];
+
+    /**
+     * @type {{start:number,data:any}}
+     */
     this.markers = [];
+
+    /**
+     * @type {number[]}
+     */
     this.cursorStack = [];
+
     this.init();
   }
 
@@ -596,3 +631,6 @@ export default class TextStream {
   }
 
 }
+
+export { TextLine };
+export default TextStream;

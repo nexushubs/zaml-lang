@@ -3,6 +3,11 @@ import Tokenizer from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
 import Node from './Node';
 
+/**
+ * @module zaml-parser
+ * @typicalname parser
+ */
+
 export {
   Parser,
   Tokenizer,

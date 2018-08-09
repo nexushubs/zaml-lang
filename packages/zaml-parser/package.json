@@ -8,6 +8,7 @@
     "coverage": "node_modules/.bin/nyc node_modules/.bin/mocha",
     "build": "node_modules/.bin/babel src --out-dir lib",
     "watch": "node_modules/.bin/babel src --out-dir lib --watch",
+    "docs": "node_modules/.bin/jsdoc2md src/*.js > docs/API.md",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "@babel/preset-stage-3": "^7.0.0-beta.54",
     "babel-plugin-istanbul": "^4.1.6",
     "chai": "^4.1.2",
+    "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2"
   },

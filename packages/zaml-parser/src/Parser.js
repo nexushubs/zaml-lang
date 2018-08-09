@@ -1,4 +1,4 @@
-export default class Parser {
+class Parser {
 
   constructor(text) {
     this.text = text;
@@ -9,3 +9,5 @@ export default class Parser {
   }
 
 }
+
+export default Parser;

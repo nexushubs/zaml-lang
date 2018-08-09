@@ -68,7 +68,11 @@ const getStateName = (state) => {
   return stateNames[state];
 }
 
-export default class Tokenizer {
+/**
+ * Tokenizer class
+ * @class
+ */
+class Tokenizer {
 
   static from(...params) {
     return new Tokenizer(...params);
@@ -409,3 +413,5 @@ export default class Tokenizer {
   }
 
 }
+
+export default Tokenizer;
