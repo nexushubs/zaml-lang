@@ -1,7 +1,7 @@
 import Parser from './Parser';
 import Tokenizer from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
-import Node from './Node';
+import Node, { NODE_TYPES } from './Node';
 
 /**
  * @module zaml-parser
@@ -14,6 +14,7 @@ export {
   TextStream,
   TextLine,
   Node,
+  NODE_TYPES,
 };
 
 /**
