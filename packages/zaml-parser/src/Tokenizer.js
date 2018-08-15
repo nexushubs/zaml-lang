@@ -307,6 +307,7 @@ class Tokenizer {
           let value;
           if (ch === T_STRING_START) {
             value = stream.match(P_STRING_LITERAL_QUOTED);
+            value = JSON.parse(value);
           } else if (stream.match(P_DATE_LITERAL)) {
             value = stream.lastMatch;
             value = new Date(value);
