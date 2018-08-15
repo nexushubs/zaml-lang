@@ -9,6 +9,7 @@ import { stringify } from './util';
  * @enum {NodeType}
  */
 const NODE_TYPES = {
+  FRAGMENT: 'fragment',
   ROOT: 'root',
   PARAGRAPH: 'paragraph',
   TAG: 'tag',
@@ -59,6 +60,8 @@ export { recursiveFinder };
  */
 class Node {
 
+  static TYPES = NODE_TYPES;
+
   /**
    * @param {NodeType} type 
    * @param {string} [name]
@@ -66,6 +69,26 @@ class Node {
    */
   static create(type, name, options) {
     return new Node(type, name, options);
+  }
+
+  /**
+   * Check if a node is valid
+   * @param {any} node 
+   */
+  static validNode(node) {
+    if (!(node instanceof Node)) {
+      throw new TypeError('invalid node');
+    }
+  }
+
+  /**
+   * Check if a node could be parent
+   * @param {any} node 
+   */
+  static validParent(node) {
+    if (!_.isArray(node.children)) {
+      throw new Error(`Cannot not add child to node ${node.type}:${node.name}`);
+    }
   }
 
   /**
@@ -98,7 +121,7 @@ class Node {
      * @type {string}
      * @description Node name, for tag, entity
      */
-    this.name = null;
+    this.name = undefined;
 
     /**
      * @type {number}
@@ -122,31 +145,25 @@ class Node {
      * @type {string}
      * @description Source code string, only for root node
      */
-    this._source = null;
-
-    /**
-     * @type {string}
-     * @description Source code for none-root node
-     */
-    this.source = null;
+    this._source = undefined;
 
     /**
      * @type {string}
      * @description Text content, only for text node
      */
-    this.content = null;
+    this.content = undefined;
 
     /**
      * @type {Node[]}
      * @description Child nodes, only for block node
      */
-    this.children = null;
+    this.children = undefined;
 
     /**
      * @type {{Object.<string,any>}}
      * @description Attributes, for root, tag, entity node
      */
-    this.attributes = null;
+    this.attributes = undefined;
 
     if (type === NODE_TYPES.ROOT) {
       if (!_.isString(source) || source === '') {
@@ -156,7 +173,7 @@ class Node {
       this.end = source.length;
       this._source = source;
     }
-    if (BLOCK_NODE_TYPES.includes(type) || type === NODE_TYPES.TAG || type === NODE_TYPES.ENTITY) {
+    if (BLOCK_NODE_TYPES.includes(type) || [NODE_TYPES.ENTITY, NODE_TYPES.TAG, NODE_TYPES.FRAGMENT].includes(type)) {
       this.name = name;
       this.children = [];
       this.attributes = attributes;
@@ -294,8 +311,15 @@ class Node {
    * @param {Node} node 
    */
   appendChild(node) {
-    node.parent = this;
-    this.children.push(node);
+    if (node.type === NODE_TYPES.FRAGMENT) {
+      node.children.forEach(child => {
+        this.appendChild(child);
+      });
+      node.children = [];
+    } else {
+      node.parent = this;
+      this.children.push(node);
+    }
   }
 
   /**
@@ -309,13 +333,50 @@ class Node {
 
   /**
    * Remove 1 or more children
-   * @param {Node[]} nodes 
+   * @param {Node} node
    */
-  removeChild(...nodes) {
-    this.children = _.without(this.children, ...nodes);
-    _.each(nodes, node => {
-      node.parent = null;
-    });
+  removeChild(node) {
+    this.children = _.without(this.children, node);
+    node.parent = null;
+  }
+
+  /**
+   * Insert a node at specified position
+   * @param {Node} node 
+   * @param {number} index 
+   */
+  insertAt(node, index) {
+    if (node.type === NODE_TYPES.FRAGMENT) {
+      this.children.splice(index, 0, node);
+      node.parent = this;
+    } else {
+      this.children.splice(index, 0, ...node.children);
+      node.children.forEach(child => child.parent = this);
+      node.children = [];
+    }
+  }
+  /**
+   * Insert a node before another
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
+   * @param {Node} node 
+   * @param {Node} ref 
+   */
+  insertBefore(node, ref) {
+    Node.validParent(this);
+    const refIndex = this.children.indexOf(ref);
+    this.insertAt(node, refIndex);
+  }
+
+  /**
+   * Insert a node after another
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/insertAfter
+   * @param {Node} node 
+   * @param {Node} ref 
+   */
+  insertAfter(node, ref) {
+    Node.validParent(this);
+    const refIndex = this.children.indexOf(ref);
+    this.insertAt(node, refIndex + 1);
   }
 
   /**
@@ -342,6 +403,14 @@ class Node {
   }
 
   /**
+   * Remove an attribute
+   * @param {string} key 
+   */
+  removeAttribute(key) {
+    delete this.attributes[key];
+  }
+
+  /**
    * Find matched children recursively
    * @param {object} selector 
    * @param {NodeType} [selector.type] Node type
@@ -349,7 +418,7 @@ class Node {
    * @param {RegExp|string} [selector.text] Including text or pattern
    * @param {RegExp|string} [selector.source] Pattern to match source
    */
-  find(selector = {}) {
+  findBy(selector = {}) {
     const { type, name, text, source } = selector;
     return recursiveFinder(this, node => {
       let match = true;
@@ -359,8 +428,8 @@ class Node {
       if (name) {
         match = match && name === node.name;
       }
-      if (text) {
-        match = match && (_.isRegExp(text) ? text.match(node.text) : node.text.includes(text));
+      if (text && node.type === NODE_TYPES.TEXT) {
+        match = match && (_.isRegExp(text) ? text.match(node.content) : node.content.includes(text));
       }
       if (source) {
         match = match && (_.isRegExp(source) ? source.match(node.source) : node.source.includes(source));
@@ -372,8 +441,27 @@ class Node {
    * Find matched children recursively by callback
    * @param {NodeTester} callback
    */
-  findBy(callback) {
+  find(callback) {
     return recursiveFinder(this, callback);
+  }
+
+  /**
+   * Process text node in current node and parse entities
+   * @param {function(text:string):{start:number,end:number,name:string,attributes:any}[]} parser 
+   */
+  parseText(parser) {
+    const textNodes = this.findBy(node => {
+      return node.type === NODE_TYPES.TEXT && node.parent && node.parent.type !== NODE_TYPES.ENTITY;
+    });
+    textNodes.forEach(node => {
+      const result = parser(node.content);
+      if (!_.isEmpty(result)) {
+        const first = _.first(result);
+        result.forEach(match => {
+          const { start, end, name, attributes } = match;
+        });
+      }
+    });
   }
 
   /**
