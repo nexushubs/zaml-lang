@@ -5,7 +5,7 @@ Javascript ZAML tokenizer & parser.
 ## Install
 
 ```shell
-npm install zaml-parser
+npm install @lvfang/zaml-parser
 ```
 
 ## API

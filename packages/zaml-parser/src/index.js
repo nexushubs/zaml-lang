@@ -1,4 +1,3 @@
-import Parser from './Parser';
 import Tokenizer from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
 import Node, { NODE_TYPES } from './Node';
@@ -8,21 +7,12 @@ import Node, { NODE_TYPES } from './Node';
  * @typicalname parser
  */
 
-export {
-  Parser,
-  Tokenizer,
-  TextStream,
-  TextLine,
-  Node,
-  NODE_TYPES,
-};
-
 /**
  * Parse a plain text or ZAML source string, and extract common entities
  * @param {string} text Source string
  * @returns {Node}
  */
-export function parse(text) {
+function parse(text) {
   const parser = new Parser(text);
   return parser.parse();
 }
@@ -32,7 +22,17 @@ export function parse(text) {
  * @param {string} text Source string
  * @returns {Node}
  */
-export function tokenize(text) {
-  const tokenizer = new Tokenizer(text);
+function tokenize(text, options) {
+  const tokenizer = new Tokenizer(text, options);
   return tokenizer.process();
 }
+
+export {
+  Tokenizer,
+  TextStream,
+  TextLine,
+  Node,
+  NODE_TYPES,
+  parse,
+  tokenize,
+};

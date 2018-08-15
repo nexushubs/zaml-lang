@@ -44,4 +44,4 @@ export const START_MARKERS = [T_TAG_START, T_ENTITY_START];
 export const END_MARKERS = [T_TAG_END, T_ENTITY_END];
 export const P_MARKER = createPattern(`(${combinePatterns([...START_MARKERS, P_PARAGRAPH_BREAK])})`);
 
-export const PROCESSING_TIMEOUT = 1000;
+export const PROCESSING_TIMEOUT = Infinity;
