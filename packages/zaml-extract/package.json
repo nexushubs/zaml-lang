@@ -1,0 +1,39 @@
+{
+  "name": "@lvfang/zaml-extract",
+  "version": "0.1.2",
+  "description": "Enhanced AI Markup Language javascript parser & processor",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha",
+    "coverage": "node_modules/.bin/nyc node_modules/.bin/mocha",
+    "build": "node_modules/.bin/babel src --out-dir lib --source-maps",
+    "watch": "node_modules/.bin/babel src --out-dir lib --source-maps --watch --verbose ",
+    "docs": "node_modules/.bin/jsdoc2md --param-list-format list src/*.js > docs/API.md",
+    "prepublishOnly": "npm run build && npm run docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nexushubs/zaml-lang/tree/master/packages/zaml-parser"
+  },
+  "author": "alphakevin <get.so.smart@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.54",
+    "@babel/core": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.54",
+    "@babel/preset-env": "^7.0.0-beta.54",
+    "babel-plugin-istanbul": "^4.1.6",
+    "chai": "^4.1.2",
+    "jsdoc-to-markdown": "^4.0.1",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.54",
+    "isomorphic-fetch": "^2.2.1",
+    "linkify-it": "^2.0.3",
+    "lodash": "^4.17.10"
+  },
+  "gitHead": "dd28810a79c08d1d2cb8745c5792d33bac2b236a"
+}

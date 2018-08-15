@@ -1,0 +1,6 @@
+This is a link without schema: www.google.com
+This is a link with schema: https://www.example.com/hello/world
+This is a email address: someone@example.com
+This is a mention: @someone
+End of the sample file
+这是一个法条: 劳动法第13条
