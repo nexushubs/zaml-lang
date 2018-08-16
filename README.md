@@ -12,7 +12,8 @@ This repo contains the [Language Specification](./docs/spec.md) and a couple of 
 
 | Package | Version | Description |
 | -- | -- | -- |
-| [zaml-parser](./packages/zaml-parser) | `0.1.0` | ZAML javascript parser & tokenizer |
+| [zaml-parser](./packages/zaml-parser) | `0.1.2` | ZAML javascript parser & tokenizer |
+| [zaml-extract](./packages/zaml-extract) | `0.1.2` | Entity extractor helper for ZAML |
 
 ## FAQ
 
