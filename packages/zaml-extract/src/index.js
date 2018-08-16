@@ -30,6 +30,8 @@ const extract = {
     new RestExtractor(options);
   },
 
+  Extractor,
+
 };
 
 export {

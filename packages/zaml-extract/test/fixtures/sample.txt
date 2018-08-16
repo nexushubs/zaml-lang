@@ -1,6 +1,13 @@
 This is a link without schema: www.google.com
+
 This is a link with schema: https://www.example.com/hello/world
+
+This line contains multiple links: http://example.com/dir1 http://example.com/dir1
+
 This is a email address: someone@example.com
+
 This is a mention: @someone
+
+这是一个法条: 劳动法第13条，《未成年人保护法》第134条
+
 End of the sample file
-这是一个法条: 劳动法第13条

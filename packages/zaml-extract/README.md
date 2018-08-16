@@ -14,28 +14,50 @@ npm install @lvfang/zaml-extract
 
 ## Usage
 
-```ts
-interface EntityInfo {
-  start: number,
-  end: number,
-  text: string,
-  type: string,
-  item?: {},
-};
+```js
+import zaml from '@lvfang/zaml-parser';
+import extract from '@lvfang/zaml-extract';
 
-function extract(text: string): Promise<EntityInfo[]>;
-function extract(text: string[]): Promise<EntityInfo[][]>;
+const extractor = extract.create({
+  plugins: ['link'],
+});
+const node = tokenize('Hello World! www.example.com');
+node.extractEntities(extractor);
+
+console.log(JSON.stringify(node, null, 2));
 ```
 
-
-Extract entities from a string or array of strings, returns
-
-### Example
-
-```js
-import { tokenize } from 'zaml-parser';
-const node = tokenize('Hello World!');
-console.log(node);
+output:
+```json
+{
+  "type": "root",
+  "name": null,
+  "attributes": {},
+  "children": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "content": "Hello World! "
+        },
+        {
+          "type": "entity",
+          "name": "LINK",
+          "attributes": {
+            "url": "http://www.example.com"
+          },
+          "children": [
+            {
+              "type": "text",
+              "content": "www.example.com"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ## Test
@@ -52,4 +74,4 @@ DEBUG=verbose npm test
 
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)

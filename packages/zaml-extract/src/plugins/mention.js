@@ -31,10 +31,10 @@ function extractMention(text, options = {}) {
       end,
       type: 'MENTION',
       text: found,
-      item: {},
+      data: {},
     };
     if (users && users.includes(userName)) {
-      entity.item.user = userName;
+      entity.data.user = userName;
     }
     entities.push(entity);
   } while (match);

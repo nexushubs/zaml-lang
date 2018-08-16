@@ -8,6 +8,26 @@ import ExtractorBase from './plugins/base';
  */
 
 /**
+ * @typedef {EntityInfo|Promise<EntityInfo>} ExtractorResult
+ */
+
+/**
+ * @typedef {function(string):ExtractorResult} FuncExtractor
+ */
+
+/**
+ * @typedef {FuncExtractor|{extract:FuncExtractor}} ExtractorType
+ */
+
+/**
+ * @typedef {string|{name:string,options:any}|ExtractorType} ExtractorOptions
+ */
+
+/**
+ * @typedef {{plugins:ExtractorOptions[]}} ExtractorConstructorOptions
+ */
+
+/**
  * Check if a extractor is a class
  * @param {any} target
  */
@@ -26,34 +46,50 @@ const isOverlapping = (items, target) => items.some(item => (
   (item.start <= target.end && item.end >= target.end)
 ));
 
+/**
+ * Extractor class
+ */
 class Extractor {
 
+  /**
+   * @param {object} options 
+   * @param {ExtractorConstructorOptions} options.plugins
+   */
   constructor(options = {}) {
     const { plugins } = options;
-    this.plugins = _.map(plugins, pluginOptions => {
+    this.plugins = [];
+    _.forEach(plugins, options => this.addPlugin(options));
+  }
+
+  /**
+   * 
+   * @param {ExtractorOptions} options 
+   */
+  addPlugin(options) {
+    let extractor;
+    if (_.isFunction(options) || _.isFunction(options.extract)) {
+      extractor = options;
+    } else {
       let name;
-      let options = {};
-      if (_.isString(pluginOptions)) {
-        name = pluginOptions;
+      let opt = {};
+      if (_.isString(options)) {
+        name = options;
       } else {
-        ({ name, options } = pluginOptions);
+        ({ name, options: opt } = options);
       }
-      const Plugin = pluginFactory[name];
-      if (!Plugin) {
-        throw new TypeError(`could not load plugin '${name}'`);
-      }
-      if (isExtractorClass(Plugin)) {
-        return new Plugin(options);
-      } else {
-        return Plugin;
-      }
-    });
+      const plugin = pluginFactory[name];
+      extractor = isExtractorClass(plugin) ? new plugin(opt) : plugin;
+    }
+    if (!extractor) {
+      throw new TypeError(`could not load plugin '${name}'`);
+    }
+    this.plugins.push(extractor);
   }
 
   /**
    * Execute single plugin to the text (array)
    * @param {string|string[]} text 
-   * @param {function|Extractor} extractor 
+   * @param {function|{extract:function}} extractor 
    */
   execSingleExtractor(text, extractor) {
     if (_.isFunction(extractor)) {
@@ -63,7 +99,15 @@ class Extractor {
         return extractor(text);
       }
     } else if (_.isFunction(extractor.extract)) {
-      return extractor.extract(text);
+      if (_.isArray(text)) {
+        if (_.isFunction(extractor.extractArray)) {
+          return extractor.extractArray(text);
+        } else {
+          return Promise.all(text.map(t => extractor.extract(text)));
+        }
+      } else {
+        return extractor.extract(text);
+      }
     } else {
       throw new TypeError('invalid extractor');
     }
@@ -80,11 +124,9 @@ class Extractor {
       list = [text];
     }
     if (!_.isArray(list)) {
-      console.log('list = ', list);
       throw new TypeError('invalid text parameter');
     }
     const results = [...list.map(t => [])];
-    console.log(results);
     for (const extractor of this.plugins) {
       const result = await this.execSingleExtractor(list, extractor);
       result.forEach((items, i) => {
@@ -96,9 +138,16 @@ class Extractor {
         });
       });
     }
-    return _.isString(text) ? results : results[0];
+    return _.isString(text) ? results[0] : results;
   }
 
+  /**
+   * 
+   * @param {any} node 
+   */
+  async extractNode(node) {
+    
+  }
 }
 
 export default Extractor;

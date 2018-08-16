@@ -23,7 +23,6 @@ class RestExtractor extends ExtractorBase {
         },
         body: JSON.stringify(data),
       };
-      console.log(JSON.stringify(data, null, 2));
       const response = await fetch(this.options.url, requestOptions);
       return response.json();
     } catch (error) {
@@ -31,11 +30,16 @@ class RestExtractor extends ExtractorBase {
     }
   }
 
-  /**
-   * Extract array of string
-   * @param {string[]} list 
-   */
-  async extract(list) {
+  async extract(text) {
+    try {
+      let data = await this.request(text);
+      return _.get(data, 'predictions.entities');
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async extractArray(list) {
     try {
       let data = await this.request(list);
       return _.map(data.results, item => _.get(item, 'predictions.entities'));

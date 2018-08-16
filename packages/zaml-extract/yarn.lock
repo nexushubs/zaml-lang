@@ -738,6 +738,13 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@lvfang/zaml-parser@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@lvfang/zaml-parser/-/zaml-parser-0.1.2.tgz#b168cfec517b7668c144a9201d16f49e547d7d31"
+  dependencies:
+    "@babel/runtime" "^7.0.0-beta.54"
+    lodash "^4.17.10"
+
 abbrev@1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/abbrev/download/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
