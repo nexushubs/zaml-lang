@@ -247,7 +247,7 @@ class Tokenizer {
               }
               stream.popCursor();
               // replace wrapping paragraph with current block tag
-              if (node.parent.type === NODE_TYPES.PARAGRAPH) {
+              if (node.parentNode.type === NODE_TYPES.PARAGRAPH) {
                 const blockNode = node;
                 popNode();
                 node.removeChild(blockNode);

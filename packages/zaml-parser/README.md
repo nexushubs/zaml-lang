@@ -40,4 +40,4 @@ DEBUG=verbose npm test
 
 ## License
 
-[MIT](../../LICENSE)
+[MIT](./LICENSE)

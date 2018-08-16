@@ -23,7 +23,7 @@ describe('class Tokenizer', () => {
   it('process()', () => {
     const ast = tokenizer.process();
     expect(tokenizer.parsed).to.be.true;
-    expect(JSON.parse(JSON.stringify(ast))).to.deep.equal(parsed);
+    expect(JSON.parse(JSON.stringify(ast.toJSON({ position: true })))).to.deep.equal(parsed);
     expect(ast.toString()).to.equal(stringified);
   });
 

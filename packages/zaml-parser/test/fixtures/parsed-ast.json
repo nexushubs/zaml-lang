@@ -12,8 +12,6 @@
   "children": [
     {
       "type": "paragraph",
-      "name": null,
-      "attributes": {},
       "position": {
         "start": 46,
         "end": 90
@@ -42,8 +40,6 @@
       "children": [
         {
           "type": "paragraph",
-          "name": null,
-          "attributes": {},
           "position": {
             "start": 111,
             "end": 161
@@ -72,8 +68,6 @@
           "children": [
             {
               "type": "paragraph",
-              "name": null,
-              "attributes": {},
               "position": {
                 "start": 172,
                 "end": 253
@@ -178,8 +172,6 @@
         },
         {
           "type": "paragraph",
-          "name": null,
-          "attributes": {},
           "position": {
             "start": 271,
             "end": 397

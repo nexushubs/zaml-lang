@@ -55,25 +55,25 @@
 ## zaml-parser
 
 * [zaml-parser](#module_zaml-parser)
-    * [.parse(text)](#module_zaml-parser.parse) ⇒ [<code>Node</code>](#Node)
-    * [.tokenize(text)](#module_zaml-parser.tokenize) ⇒ [<code>Node</code>](#Node)
+    * [~parse(text)](#module_zaml-parser..parse) ⇒ [<code>Node</code>](#Node)
+    * [~tokenize(text)](#module_zaml-parser..tokenize) ⇒ [<code>Node</code>](#Node)
 
-<a name="module_zaml-parser.parse"></a>
+<a name="module_zaml-parser..parse"></a>
 
-### parser.parse(text) ⇒ [<code>Node</code>](#Node)
+### zaml-parser~parse(text) ⇒ [<code>Node</code>](#Node)
 Parse a plain text or ZAML source string, and extract common entities
 
-**Kind**: static method of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Kind**: inner method of [<code>zaml-parser</code>](#module_zaml-parser)  
 **Params**
 
 - text <code>string</code> - Source string
 
-<a name="module_zaml-parser.tokenize"></a>
+<a name="module_zaml-parser..tokenize"></a>
 
-### parser.tokenize(text) ⇒ [<code>Node</code>](#Node)
+### zaml-parser~tokenize(text) ⇒ [<code>Node</code>](#Node)
 Tokenize a ZAML source string
 
-**Kind**: static method of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Kind**: inner method of [<code>zaml-parser</code>](#module_zaml-parser)  
 **Params**
 
 - text <code>string</code> - Source string
@@ -92,34 +92,46 @@ AST node class
         * [.name](#Node+name) : <code>string</code>
         * [.start](#Node+start) : <code>number</code>
         * [.end](#Node+end) : <code>number</code>
-        * [.parent](#Node+parent) : <code>number</code>
-        * [._source](#Node+_source) : <code>string</code>
-        * [.source](#Node+source) : <code>string</code>
         * [.content](#Node+content) : <code>string</code>
         * [.children](#Node+children) : [<code>Array.&lt;Node&gt;</code>](#Node)
         * [.attributes](#Node+attributes) : <code>Object</code>
         * [.isBlock](#Node+isBlock) ⇒ <code>boolean</code>
+        * [.parentNode](#Node+parentNode)
+        * [.childNodes](#Node+childNodes)
         * [.isRoot](#Node+isRoot) ⇒ <code>boolean</code>
-        * [.root](#Node+root) ⇒ <code>boolean</code>
         * [.source](#Node+source) ⇒ <code>string</code>
         * [.isFirstChild](#Node+isFirstChild) ⇒ <code>boolean</code>
         * [.isLastChild](#Node+isLastChild) ⇒ <code>boolean</code>
         * [.siblings](#Node+siblings) ⇒ [<code>Array.&lt;Node&gt;</code>](#Node)
         * [.childIndex](#Node+childIndex) ⇒ <code>number</code>
         * [.nextSibling](#Node+nextSibling) ⇒ [<code>Node</code>](#Node)
-        * [.nextSibling](#Node+nextSibling) ⇒ [<code>Node</code>](#Node)
+        * [.previousSibling](#Node+previousSibling) ⇒ [<code>Node</code>](#Node)
         * [.attributes](#Node+attributes) : <code>Object.&lt;string, any&gt;</code>
+        * [.getRootNode()](#Node+getRootNode) ⇒ <code>boolean</code>
         * [.createChild(type, [name], [options])](#Node+createChild)
+        * [.contains(node)](#Node+contains)
         * [.appendChild(node)](#Node+appendChild)
         * [.appendText(text, options)](#Node+appendText)
-        * [.removeChild(...nodes)](#Node+removeChild)
+        * [.removeChild(node)](#Node+removeChild)
+        * [.insertAt(node, index)](#Node+insertAt) ⇒ [<code>Node</code>](#Node)
+        * [.insertBefore(node, ref)](#Node+insertBefore) ⇒ [<code>Node</code>](#Node)
+        * [.insertAfter(node, ref)](#Node+insertAfter) ⇒ [<code>Node</code>](#Node)
+        * [.replaceChild(newChild, oldChild)](#Node+replaceChild) ⇒ [<code>Node</code>](#Node)
+        * [.replaceWith(node)](#Node+replaceWith) ⇒ [<code>Node</code>](#Node)
         * [.setAttribute(key, value)](#Node+setAttribute)
         * [.setAttributes(data)](#Node+setAttributes)
-        * [.find(selector)](#Node+find)
-        * [.findBy(callback)](#Node+findBy)
+        * [.removeAttribute(key)](#Node+removeAttribute)
+        * [.findBy(selector)](#Node+findBy)
+        * [.find(callback)](#Node+find)
+        * [.createEntities(items)](#Node+createEntities)
+        * [.extractEntities(extractor)](#Node+extractEntities)
         * [.toString()](#Node+toString)
+        * [.toJSON(options)](#Node+toJSON)
     * _static_
         * [.create(type, [name], [options])](#Node.create)
+        * [.validNode(node)](#Node.validNode)
+        * [.validParent(node)](#Node.validParent)
+        * [.validChild(node)](#Node.validChild)
 
 <a name="new_Node_new"></a>
 
@@ -159,24 +171,6 @@ Start cursor position to root source
 End cursor position to root source
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
-<a name="Node+parent"></a>
-
-### node.parent : <code>number</code>
-Parent node
-
-**Kind**: instance property of [<code>Node</code>](#Node)  
-<a name="Node+_source"></a>
-
-### node._source : <code>string</code>
-Source code string, only for root node
-
-**Kind**: instance property of [<code>Node</code>](#Node)  
-<a name="Node+source"></a>
-
-### node.source : <code>string</code>
-Source code for none-root node
-
-**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+content"></a>
 
 ### node.content : <code>string</code>
@@ -201,16 +195,22 @@ Attributes, for root, tag, entity node
 Property indicates if the node is a block (wrapping other nodes)
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+parentNode"></a>
+
+### node.parentNode
+Get parent node, alias for node.parent
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+childNodes"></a>
+
+### node.childNodes
+Get child nodes, alias for node.children
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+isRoot"></a>
 
 ### node.isRoot ⇒ <code>boolean</code>
 If the node is root
-
-**Kind**: instance property of [<code>Node</code>](#Node)  
-<a name="Node+root"></a>
-
-### node.root ⇒ <code>boolean</code>
-Property indicates if the root is root (which has no children)
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+source"></a>
@@ -249,9 +249,9 @@ Get index of parent children
 Next sibling node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
-<a name="Node+nextSibling"></a>
+<a name="Node+previousSibling"></a>
 
-### node.nextSibling ⇒ [<code>Node</code>](#Node)
+### node.previousSibling ⇒ [<code>Node</code>](#Node)
 Previous sibling node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
@@ -259,6 +259,12 @@ Previous sibling node
 
 ### node.attributes : <code>Object.&lt;string, any&gt;</code>
 **Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+getRootNode"></a>
+
+### node.getRootNode() ⇒ <code>boolean</code>
+Property indicates if the root is root (which has no children)
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+createChild"></a>
 
 ### node.createChild(type, [name], [options])
@@ -268,6 +274,16 @@ Previous sibling node
 - type [<code>NodeType</code>](#NodeType)
 - [name] <code>string</code>
 - [options] <code>object</code>
+
+<a name="Node+contains"></a>
+
+### node.contains(node)
+whether a node is a descendant of a given node
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- node [<code>Node</code>](#Node)
 
 <a name="Node+appendChild"></a>
 
@@ -290,13 +306,70 @@ Append a node to children list
 
 <a name="Node+removeChild"></a>
 
-### node.removeChild(...nodes)
+### node.removeChild(node)
 Remove 1 or more children
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
 
-- ...nodes [<code>Array.&lt;Node&gt;</code>](#Node)
+- node [<code>Node</code>](#Node)
+
+<a name="Node+insertAt"></a>
+
+### node.insertAt(node, index) ⇒ [<code>Node</code>](#Node)
+Insert a node at specified position
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- node [<code>Node</code>](#Node)
+- index <code>number</code>
+
+<a name="Node+insertBefore"></a>
+
+### node.insertBefore(node, ref) ⇒ [<code>Node</code>](#Node)
+Insert a node before another
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**See**: https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore  
+**Params**
+
+- node [<code>Node</code>](#Node)
+- ref [<code>Node</code>](#Node)
+
+<a name="Node+insertAfter"></a>
+
+### node.insertAfter(node, ref) ⇒ [<code>Node</code>](#Node)
+Insert a node after another
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**See**: https://developer.mozilla.org/en-US/docs/Web/API/Node/insertAfter  
+**Params**
+
+- node [<code>Node</code>](#Node)
+- ref [<code>Node</code>](#Node)
+
+<a name="Node+replaceChild"></a>
+
+### node.replaceChild(newChild, oldChild) ⇒ [<code>Node</code>](#Node)
+Replace a child with another node, assuming current node is a parent
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Returns**: [<code>Node</code>](#Node) - the replaced child  
+**Params**
+
+- newChild [<code>Node</code>](#Node)
+- oldChild [<code>Node</code>](#Node)
+
+<a name="Node+replaceWith"></a>
+
+### node.replaceWith(node) ⇒ [<code>Node</code>](#Node)
+Replace current child node with another node, assuming current node is child
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- node [<code>Node</code>](#Node)
 
 <a name="Node+setAttribute"></a>
 
@@ -319,9 +392,19 @@ Set multiple attributes
 
 - data <code>Object.&lt;string, any&gt;</code> - Key - value pair
 
-<a name="Node+find"></a>
+<a name="Node+removeAttribute"></a>
 
-### node.find(selector)
+### node.removeAttribute(key)
+Remove an attribute
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code>
+
+<a name="Node+findBy"></a>
+
+### node.findBy(selector)
 Find matched children recursively
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
@@ -333,9 +416,9 @@ Find matched children recursively
     - [.text] <code>RegExp</code> | <code>string</code> - Including text or pattern
     - [.source] <code>RegExp</code> | <code>string</code> - Pattern to match source
 
-<a name="Node+findBy"></a>
+<a name="Node+find"></a>
 
-### node.findBy(callback)
+### node.find(callback)
 Find matched children recursively by callback
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
@@ -343,12 +426,42 @@ Find matched children recursively by callback
 
 - callback <code>NodeTester</code>
 
+<a name="Node+createEntities"></a>
+
+### node.createEntities(items)
+Process text node in current node and parse entities
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- items <code>Array.&lt;{start:number, end:number, name:string, attributes:any}&gt;</code>
+
+<a name="Node+extractEntities"></a>
+
+### node.extractEntities(extractor)
+Extract entities from text node
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- extractor <code>function</code> | <code>Object</code>
+
 <a name="Node+toString"></a>
 
 ### node.toString()
 Build source code of the node
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+<a name="Node+toJSON"></a>
+
+### node.toJSON(options)
+Convert node to JSON serializable object
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- options <code>object</code>
+
 <a name="Node.create"></a>
 
 ### Node.create(type, [name], [options])
@@ -358,6 +471,36 @@ Build source code of the node
 - type [<code>NodeType</code>](#NodeType)
 - [name] <code>string</code>
 - [options] <code>object</code>
+
+<a name="Node.validNode"></a>
+
+### Node.validNode(node)
+Check if a node is valid
+
+**Kind**: static method of [<code>Node</code>](#Node)  
+**Params**
+
+- node <code>any</code>
+
+<a name="Node.validParent"></a>
+
+### Node.validParent(node)
+Check if a node could be parent
+
+**Kind**: static method of [<code>Node</code>](#Node)  
+**Params**
+
+- node <code>any</code>
+
+<a name="Node.validChild"></a>
+
+### Node.validChild(node)
+Check if a node could be parent
+
+**Kind**: static method of [<code>Node</code>](#Node)  
+**Params**
+
+- node <code>any</code>
 
 <a name="TextLine"></a>
 
@@ -825,6 +968,7 @@ Process a text and parse to AST
 
 | Name | Type | Default |
 | --- | --- | --- |
+| FRAGMENT | [<code>NodeType</code>](#NodeType) | <code>fragment</code> | 
 | ROOT | [<code>NodeType</code>](#NodeType) | <code>root</code> | 
 | PARAGRAPH | [<code>NodeType</code>](#NodeType) | <code>paragraph</code> | 
 | TAG | [<code>NodeType</code>](#NodeType) | <code>tag</code> | 
