@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import '@babel/polyfill';
 import Extractor from './Extractor';
 import RestExtractor from './plugins/async/rest';
 

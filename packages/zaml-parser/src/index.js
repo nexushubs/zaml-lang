@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import Tokenizer from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
 import Node, { NODE_TYPES } from './Node';
