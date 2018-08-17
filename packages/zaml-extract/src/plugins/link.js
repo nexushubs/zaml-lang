@@ -1,4 +1,5 @@
 import createLinkify from 'linkify-it';
+import { Promise } from 'core-js';
 
 const linkify = createLinkify();
 const P_EMAIL = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -8,7 +9,7 @@ function extractLink(text) {
   if (!tokens) {
     return [];
   }
-  return tokens.map(token => ({
+  const items = tokens.map(token => ({
     start: token.index,
     end: token.lastIndex,
     type: P_EMAIL.test(token.text) ? 'EMAIL' : 'LINK',
@@ -17,6 +18,7 @@ function extractLink(text) {
       url: token.url,
     },
   }));
+  return Promise.resolve(items);
 }
 
 export default extractLink;

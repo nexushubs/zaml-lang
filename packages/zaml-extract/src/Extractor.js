@@ -8,15 +8,15 @@ import ExtractorBase from './plugins/base';
  */
 
 /**
- * @typedef {EntityInfo|Promise<EntityInfo>} ExtractorResult
+ * @typedef {function(string): Promise<EntityInfo[]>} SingleExtractor
  */
 
 /**
- * @typedef {function(string):ExtractorResult} FuncExtractor
+ * @typedef {function(string[]): Promise<EntityInfo[][]>} ArrayExtractor
  */
 
 /**
- * @typedef {FuncExtractor|{extract:FuncExtractor}} ExtractorType
+ * @typedef {SingleExtractor | {extract: SingleExtractor, extractArray: ArrayExtractor}} ExtractorType
  */
 
 /**
@@ -88,13 +88,13 @@ class Extractor {
 
   /**
    * Execute single plugin to the text (array)
-   * @param {string|string[]} text 
-   * @param {function|{extract:function}} extractor 
+   * @param {string} text 
+   * @param {ExtractorType} extractor 
    */
-  execSingleExtractor(text, extractor) {
+  async execSingleExtractor(text, extractor) {
     if (_.isFunction(extractor)) {
       if (_.isArray(text)) {
-        return text.map(t => extractor(t));
+        return Promise.all(text.map(t => extractor(t)));
       } else {
         return extractor(text);
       }
@@ -103,7 +103,7 @@ class Extractor {
         if (_.isFunction(extractor.extractArray)) {
           return extractor.extractArray(text);
         } else {
-          return Promise.all(text.map(t => extractor.extract(text)));
+          return Promise.all(text.map(t => extractor.extract(t)));
         }
       } else {
         return extractor.extract(text);
@@ -115,7 +115,7 @@ class Extractor {
 
   /**
    * Extract all entities from text by plugins
-   * @param {string|string[]} list 
+   * @param {string[]} list 
    * @returns Promise<EntityInfo>
    */
   async extract(text) {

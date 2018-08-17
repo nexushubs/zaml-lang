@@ -17,7 +17,7 @@ function extractMention(text, options = {}) {
   } = options;
   let match;
   pattern.lastIndex = 0;
-  const entities = [];
+  const items = [];
   do {
     match = pattern.exec(text);
     if (!match) {
@@ -36,9 +36,9 @@ function extractMention(text, options = {}) {
     if (users && users.includes(userName)) {
       entity.data.user = userName;
     }
-    entities.push(entity);
+    items.push(entity);
   } while (match);
-  return entities;
+  return Promise.resolve(items);
 }
 
 export default extractMention;
