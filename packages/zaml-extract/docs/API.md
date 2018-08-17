@@ -22,11 +22,11 @@
 <dl>
 <dt><a href="#EntityInfo">EntityInfo</a> : <code>Object</code></dt>
 <dd></dd>
-<dt><a href="#ExtractorResult">ExtractorResult</a> : <code><a href="#EntityInfo">EntityInfo</a></code> | <code><a href="#EntityInfo">Promise.&lt;EntityInfo&gt;</a></code></dt>
+<dt><a href="#SingleExtractor">SingleExtractor</a> : <code>function</code></dt>
 <dd></dd>
-<dt><a href="#FuncExtractor">FuncExtractor</a> : <code>function</code></dt>
+<dt><a href="#ArrayExtractor">ArrayExtractor</a> : <code>function</code></dt>
 <dd></dd>
-<dt><a href="#ExtractorType">ExtractorType</a> : <code><a href="#FuncExtractor">FuncExtractor</a></code> | <code>Object</code></dt>
+<dt><a href="#ExtractorType">ExtractorType</a> : <code><a href="#SingleExtractor">SingleExtractor</a></code> | <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#ExtractorOptions">ExtractorOptions</a> : <code>string</code> | <code>Object</code> | <code><a href="#ExtractorType">ExtractorType</a></code></dt>
 <dd></dd>
@@ -72,8 +72,8 @@ Execute single plugin to the text (array)
 **Kind**: instance method of [<code>Extractor</code>](#Extractor)  
 **Params**
 
-- text <code>string</code> | <code>Array.&lt;string&gt;</code>
-- extractor <code>function</code> | <code>Object</code>
+- text <code>string</code>
+- extractor [<code>ExtractorType</code>](#ExtractorType)
 
 <a name="Extractor+extract"></a>
 
@@ -84,7 +84,7 @@ Extract all entities from text by plugins
 **Returns**: Promise<EntityInfo>  
 **Params**
 
-- list <code>string</code> | <code>Array.&lt;string&gt;</code>
+- list <code>Array.&lt;string&gt;</code>
 
 <a name="Extractor+extractNode"></a>
 
@@ -119,17 +119,17 @@ Is entity ranges overlapped with existing items
 
 ## EntityInfo : <code>Object</code>
 **Kind**: global typedef  
-<a name="ExtractorResult"></a>
+<a name="SingleExtractor"></a>
 
-## ExtractorResult : [<code>EntityInfo</code>](#EntityInfo) \| [<code>Promise.&lt;EntityInfo&gt;</code>](#EntityInfo)
+## SingleExtractor : <code>function</code>
 **Kind**: global typedef  
-<a name="FuncExtractor"></a>
+<a name="ArrayExtractor"></a>
 
-## FuncExtractor : <code>function</code>
+## ArrayExtractor : <code>function</code>
 **Kind**: global typedef  
 <a name="ExtractorType"></a>
 
-## ExtractorType : [<code>FuncExtractor</code>](#FuncExtractor) \| <code>Object</code>
+## ExtractorType : [<code>SingleExtractor</code>](#SingleExtractor) \| <code>Object</code>
 **Kind**: global typedef  
 <a name="ExtractorOptions"></a>
 
