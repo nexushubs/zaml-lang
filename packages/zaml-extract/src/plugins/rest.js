@@ -42,7 +42,7 @@ class RestExtractor extends ExtractorBase {
   async extractArray(list) {
     try {
       let data = await this.request(list);
-      return _.map(data.results, item => _.get(item, 'predictions.entities'));
+      return _.map(data.predictions, item => _.get(item, 'entities'));
     } catch (error) {
       throw error;
     }
