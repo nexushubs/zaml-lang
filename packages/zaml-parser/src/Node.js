@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { stringify } from './util';
+import { stringify, parseValue } from './util';
+import { tokenize } from '.';
 
 /**
  * @typedef {string} NodeType
@@ -71,6 +72,38 @@ class Node {
     return new Node(type, name, options);
   }
 
+  /**
+   * Create node instance from ZAML source
+   * @param {string} source 
+   * @returns {Node}
+   */
+  static fromSource(source) {
+    return tokenize(source);
+  }
+
+  /**
+   * Create node from json serializable data
+   * @param {object} data 
+   * @returns {Node}
+   */
+  static fromJSON(data) {
+    const node = Node.create(data.type, data.name, {
+      attributes: _.mapValues(data.attributes, value => parseValue(value)),
+      content: data.content,
+    });
+    if (data.children) {
+      _.each(data.children, childData => {
+        node.appendChild(Node.fromJSON(childData));
+      });
+    }
+    node.normalize();
+    return node;
+  }
+
+  /**
+   * Creating fragment node
+   * @returns {Node}
+   */
   static createFragment() {
     return Node.create(NODE_TYPES.FRAGMENT);
   }
@@ -123,6 +156,7 @@ class Node {
       end = -1,
       attributes = {},
       parent = null,
+      content = '',
     } = options;
 
     /**
@@ -195,9 +229,6 @@ class Node {
     this.attributes = undefined;
 
     if (type === NODE_TYPES.ROOT) {
-      if (!_.isString(source) || source === '') {
-        throw new Error('source string must be passed to ROOT node');
-      }
       this.start = 0;
       this.end = source.length;
       this._source = source;
@@ -209,7 +240,7 @@ class Node {
       }
       this.children = [];
     } else if (type === NODE_TYPES.TEXT) {
-      this.content = name || '';
+      this.content = content;
     }
   }
 
@@ -382,12 +413,12 @@ class Node {
   }
 
   /**
-   * 
+   * Append text node child
    * @param {string} text 
-   * @param {} options 
+   * @param {object} options 
    */
   appendText(text, options) {
-    this.createChild(NODE_TYPES.TEXT, text, options);
+    this.createChild(NODE_TYPES.TEXT, null, { ...options, content: text });
   }
 
   /**
@@ -576,7 +607,7 @@ class Node {
 
   /**
    * Process text node in current node and parse entities
-   * @param {Array.<{start:number,end:number,name:string,attributes:any}>} items 
+   * @param {Array.<{start:number,end:number,type:string,attributes:any}>} items 
    */
   createEntities(items) {
     if (!this.type === NODE_TYPES.TEXT) {

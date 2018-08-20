@@ -16,13 +16,16 @@ import {
 
 import Node, { NODE_TYPES } from './Node';
 
+const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+
 /**
- * Stringify node attribute value
+ * Stringify attribute value
  * @param {any} value 
  */
 export function formatValue(value) {
   if (_.isDate(value)) {
-    return value.toISOString();
+    value = value.toISOString();
+    return value.replace(/T00:00:00\.000Z$/, '');
   } else if (_.isString) {
     return P_STRING_LITERAL_UNQUOTED_TESTER.test(value) ? value : JSON.stringify(value);
   } else if (_.isBoolean(value)) {
@@ -32,6 +35,17 @@ export function formatValue(value) {
   } else {
     return null;
   }
+}
+
+/**
+ * Parse attribute value
+ * @param {any} value 
+ */
+export function parseValue(value) {
+  if (P_DATE_FORMAT.test(value)) {
+    return new Date(value);
+  }
+  return value;
 }
 
 /**

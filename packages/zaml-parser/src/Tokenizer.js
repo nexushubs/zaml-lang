@@ -132,9 +132,9 @@ class Tokenizer {
     }
 
     const popNode = error => {
+      this.debug(`<== popNode: ${node.type}:${node.name}`);
       node.end = stream.pos;
       node = nodeStack.pop();
-      this.debug(`<== popNode: ${node.type}:${node.name}`);
       this.debug();
       if (!node) {
         throw new PassError(error || 'unexpected closing node');
@@ -229,6 +229,9 @@ class Tokenizer {
           if (states.isClosing) {
             if (node.type === NODE_TYPES.PARAGRAPH) {
               stream.pushCursor(start);
+              if (!node.hasChild()) {
+                node.parentNode.removeChild(node);
+              }
               popNode();
               stream.popCursor();
             }
@@ -242,8 +245,6 @@ class Tokenizer {
             if (!stream.eol()) {
               throw createError('closing block tag must take the whole line');
             }
-            stream.readLine();
-            if (stream.sol())
             state = STATE.TAG_END;
           } else {
             node.name = name;
@@ -414,9 +415,9 @@ class Tokenizer {
         }
       }
     }
-    
+    root.toString();
     this.parsed = true;
-    this.debug(JSON.stringify(root, null, 2));
+    this.debug(JSON.stringify(root.toJSON({ position: true }), null, 2));
     return root;
   }
 

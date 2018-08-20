@@ -14,6 +14,7 @@ describe('class Tokenizer', () => {
 
   beforeEach(() => {
     tokenizer = new Tokenizer(source);
+    // tokenizer = new Tokenizer(source, {verbose: true});
   });
 
   it('Constructor', () => {
@@ -21,14 +22,12 @@ describe('class Tokenizer', () => {
   });
 
   it('process()', () => {
-    const ast = tokenizer.process();
+    const node = tokenizer.process();
     expect(tokenizer.parsed).to.be.true;
-    // expect(JSON.parse(JSON.stringify(ast.toJSON({ position: true })))).to.deep.equal(parsed);
-    // console.log(ast.toSource());
-    // console.log(ast.toString());
-    // console.log(JSON.stringify(ast.toJSON({ position: true, textPosition: true }), null, 2));
-    expect(ast.findTextByRange(40, 50)).to.be.instanceOf(Node);
-    // expect(ast.toSource()).to.equal(stringified);
+    expect(JSON.parse(JSON.stringify(node.toJSON({ position: true })))).to.deep.equal(parsed);
+    // console.log(node.toSource());
+    // console.log(node.toString());
+    // console.log(JSON.stringify(node.toJSON({ position: true }), null, 2));
   });
 
 });

@@ -19,7 +19,7 @@
       "children": [
         {
           "type": "text",
-          "content": "There is something I should tell you.\n",
+          "content": "There is something I should tell you.",
           "position": {
             "start": 46,
             "end": 84
@@ -35,7 +35,7 @@
       },
       "position": {
         "start": 84,
-        "end": 90
+        "end": 270
       },
       "children": [
         {
@@ -47,7 +47,7 @@
           "children": [
             {
               "type": "text",
-              "content": "Jack says he would come here tomorrow:\n  ",
+              "content": "Jack says he would come here tomorrow:",
               "position": {
                 "start": 111,
                 "end": 155
@@ -63,7 +63,7 @@
           },
           "position": {
             "start": 155,
-            "end": 262
+            "end": 261
           },
           "children": [
             {
@@ -160,7 +160,7 @@
                 },
                 {
                   "type": "text",
-                  "content": ".”\n  ",
+                  "content": ".”",
                   "position": {
                     "start": 248,
                     "end": 253
@@ -169,49 +169,41 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "position": {
+        "start": 271,
+        "end": 397
+      },
+      "children": [
         {
-          "type": "paragraph",
+          "type": "text",
+          "content": "So we can meet together, here is the link ",
           "position": {
             "start": 271,
-            "end": 397
+            "end": 313
+          }
+        },
+        {
+          "type": "entity",
+          "name": "LINK",
+          "attributes": {
+            "url": "http://example.com/meeting/Qb238aSm"
+          },
+          "position": {
+            "start": 313,
+            "end": 396
           },
           "children": [
             {
               "type": "text",
-              "content": "So we can meet together, here is the link ",
+              "content": "http://example.com/meeting/Qb238aSm",
               "position": {
-                "start": 271,
-                "end": 313
-              }
-            },
-            {
-              "type": "entity",
-              "name": "LINK",
-              "attributes": {
-                "url": "http://example.com/meeting/Qb238aSm"
-              },
-              "position": {
-                "start": 313,
-                "end": 396
-              },
-              "children": [
-                {
-                  "type": "text",
-                  "content": "http://example.com/meeting/Qb238aSm",
-                  "position": {
-                    "start": 314,
-                    "end": 349
-                  }
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "content": "\n",
-              "position": {
-                "start": 396,
-                "end": 397
+                "start": 314,
+                "end": 349
               }
             }
           ]

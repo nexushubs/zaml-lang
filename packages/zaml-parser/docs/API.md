@@ -29,7 +29,10 @@
 <dd><p>Recursive node finder</p>
 </dd>
 <dt><a href="#formatValue">formatValue(value)</a></dt>
-<dd><p>Stringify node attribute value</p>
+<dd><p>Stringify attribute value</p>
+</dd>
+<dt><a href="#parseValue">parseValue(value)</a></dt>
+<dd><p>Parse attribute value</p>
 </dd>
 <dt><a href="#spacer">spacer(space, indent)</a></dt>
 <dd><p>Generate indent spaces</p>
@@ -120,6 +123,9 @@ AST node class
         * [.toJSON(options)](#Node+toJSON)
     * _static_
         * [.create(type, [name], [options])](#Node.create)
+        * [.fromSource(source)](#Node.fromSource) ⇒ [<code>Node</code>](#Node)
+        * [.fromJSON(data)](#Node.fromJSON) ⇒ [<code>Node</code>](#Node)
+        * [.createFragment()](#Node.createFragment) ⇒ [<code>Node</code>](#Node)
         * [.validNode(node)](#Node.validNode)
         * [.validParent(node)](#Node.validParent)
         * [.validChild(node)](#Node.validChild)
@@ -307,11 +313,13 @@ Append a node to children list
 <a name="Node+appendText"></a>
 
 ### node.appendText(text, options)
+Append text node child
+
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
 
 - text <code>string</code>
-- options
+- options <code>object</code>
 
 <a name="Node+removeChild"></a>
 
@@ -511,6 +519,32 @@ Convert node to JSON serializable object
 - [name] <code>string</code>
 - [options] <code>object</code>
 
+<a name="Node.fromSource"></a>
+
+### Node.fromSource(source) ⇒ [<code>Node</code>](#Node)
+Create node instance from ZAML source
+
+**Kind**: static method of [<code>Node</code>](#Node)  
+**Params**
+
+- source <code>string</code>
+
+<a name="Node.fromJSON"></a>
+
+### Node.fromJSON(data) ⇒ [<code>Node</code>](#Node)
+Create node from json serializable data
+
+**Kind**: static method of [<code>Node</code>](#Node)  
+**Params**
+
+- data <code>object</code>
+
+<a name="Node.createFragment"></a>
+
+### Node.createFragment() ⇒ [<code>Node</code>](#Node)
+Creating fragment node
+
+**Kind**: static method of [<code>Node</code>](#Node)  
 <a name="Node.validNode"></a>
 
 ### Node.validNode(node)
@@ -1052,7 +1086,17 @@ Recursive node finder
 <a name="formatValue"></a>
 
 ## formatValue(value)
-Stringify node attribute value
+Stringify attribute value
+
+**Kind**: global function  
+**Params**
+
+- value <code>any</code>
+
+<a name="parseValue"></a>
+
+## parseValue(value)
+Parse attribute value
 
 **Kind**: global function  
 **Params**
