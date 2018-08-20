@@ -1,6 +1,6 @@
 {
   "name": "@lvfang/zaml-extract",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Enhanced AI Markup Language javascript parser & processor",
   "main": "lib/index.js",
   "scripts": {
