@@ -468,7 +468,7 @@ Process text node in current node and parse entities
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
 
-- items <code>Array.&lt;{start:number, end:number, name:string, attributes:any}&gt;</code>
+- items <code>Array.&lt;{start:number, end:number, type:string, attributes:any}&gt;</code>
 
 <a name="Node+extractEntities"></a>
 
