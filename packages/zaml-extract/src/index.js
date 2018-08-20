@@ -21,14 +21,6 @@ const extract = {
     return new Extractor(options);
   },
 
-  /**
-   * Create rest extractor
-   * @param {any} options 
-   */
-  rest(options) {
-    new RestExtractor(options);
-  },
-
   Extractor,
 
 };
