@@ -139,16 +139,29 @@ class Node {
 
     /**
      * @type {number}
-     * @description Start cursor position to root source
+     * @description Start source position to root node
      */
     this.start = start;
 
     /**
      * @type {number}
-     * @description End cursor position to root source
+     * @description End source position to root node
      */
     this.end = end;
 
+    /**
+     * @type {number}
+     * @description Start text position to root node
+     */
+    this.textStart = -1;
+    
+
+    /**
+     * @type {number}
+     * @description End text position to root node
+     */
+    this.textEnd = -1;
+  
     /**
      * @private
      * @type {Node}
@@ -328,17 +341,6 @@ class Node {
   }
 
   /**
-   * @param {NodeType} type 
-   * @param {string} [name]
-   * @param {object} [options]
-   */
-  createChild(type, name, options) {
-    const node = new Node(type, name, options);
-    this.appendChild(node);
-    return node;
-  }
-
-  /**
    * whether a node is a descendant of a given node
    * @param {Node} node 
    */
@@ -351,6 +353,24 @@ class Node {
       node = node.parent;
     }
     return false;
+  }
+
+  /**
+   * Check if this node has any children
+   */
+  hasChild() {
+    return !_.isEmpty(this.children);
+  }
+
+  /**
+   * @param {NodeType} type 
+   * @param {string} [name]
+   * @param {object} [options]
+   */
+  createChild(type, name, options) {
+    const node = new Node(type, name, options);
+    this.appendChild(node);
+    return node;
   }
 
   /**
@@ -487,6 +507,17 @@ class Node {
   }
 
   /**
+   * Rebuild text and source position, in case modification has been applied to node
+   */
+  normalize() {
+    const source = this.toSource();
+    if (this.isRoot) {
+      this._source = source;
+    }
+    this.toString();
+  }
+
+  /**
    * Find matched children recursively
    * @param {object} selector 
    * @param {NodeType} [selector.type] Node type
@@ -511,6 +542,28 @@ class Node {
         match = match && (_.isRegExp(source) ? source.match(node.source) : node.source.includes(source));
       }
     });;
+  }
+
+  /**
+   * Find text node by text range
+   * @param {number} start 
+   * @param {number} end 
+   */
+  findTextByRange(start, end) {
+    if (this.textStart <= start && this.textEnd >= end) {
+      if (this.type === NODE_TYPES.TEXT) {
+        return this;
+      } else if (this.hasChild()) {
+        for (let i = 0; i < this.children.length; i++) {
+          const child = this.children[i];
+          const match = child.findTextByRange(start, end);
+          if (match) {
+            return match;
+          }
+        };
+      }
+    }
+    return null;
   }
 
   /**
@@ -578,18 +631,34 @@ class Node {
   }
 
   /**
-   * Build source code of the node
+   * Build plain text of the node (stripping tags & entities)
+   * @returns {string}
    */
   toString() {
     return stringify(this);
   }
 
   /**
+   * Build source code of the node
+   * @param {object} options
+   * @param {number} [options.space] Source indenting space
+   * @returns {string}
+   */
+  toSource(options = {}) {
+    return stringify(this, { ...options, toSource: true });
+  }
+
+  /**
    * Convert node to JSON serializable object
    * @param {object} options 
+   * @param {boolean} [options.position=false]
+   * @param {boolean} [options.textPosition=false]
    */
   toJSON(options = {}) {
-    const { position = false } = options; 
+    const {
+      position = false,
+      textPosition = false,
+    } = options; 
     return _.omitBy({
       type: this.type,
       name: this.name,
@@ -598,6 +667,10 @@ class Node {
       position: position ? {
         start: this.start,
         end: this.end,
+      } : undefined,
+      textPosition: textPosition ? {
+        start: this.textStart,
+        end: this.textEnd,
       } : undefined,
       children: this.children && this.children.map(child => child.toJSON(options)),
     }, _.isUndefined);

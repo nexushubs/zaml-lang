@@ -15,6 +15,8 @@ import {
   T_ASSIGN_YAML,
   T_FRONT_MATTER_FAVORED_ASSIGN,
   T_TAG_ATTRIBUTE_FAVORED_ASSIGN,
+  T_LINE_BREAKS,
+  P_SPACE_WRAPPED_LINE_BREAK,
   P_LINE_BREAK,
   P_PARAGRAPH_BREAK,
   P_WHITE_SPACE,
@@ -34,6 +36,7 @@ import {
   END_MARKERS,
   P_MARKER,
   PROCESSING_TIMEOUT,
+  T_LINE_BREAK,
 } from './constants';
 
 let stateValue = 0;
@@ -178,7 +181,11 @@ class Tokenizer {
             if (node.children.length === 0) {
               text = _.trimStart(text);
             }
-            node.appendText(text, { start, end: stream.pos });
+            text = text.replace(P_SPACE_WRAPPED_LINE_BREAK, T_LINE_BREAK);
+            text = _.trimEnd(text, T_LINE_BREAKS);
+            if (text) {
+              node.appendText(text, { start, end: stream.pos });
+            }
           }
           if (stream.match(P_PARAGRAPH_BREAK)) {
             popNode();

@@ -3,7 +3,7 @@ const fs = require('fs');
 const ZAML = require('../lib');
 
 const { expect } = chai;
-const { Tokenizer } = ZAML;
+const { Tokenizer, Node } = ZAML;
 
 describe('class Tokenizer', () => {
 
@@ -23,8 +23,12 @@ describe('class Tokenizer', () => {
   it('process()', () => {
     const ast = tokenizer.process();
     expect(tokenizer.parsed).to.be.true;
-    expect(JSON.parse(JSON.stringify(ast.toJSON({ position: true })))).to.deep.equal(parsed);
-    expect(ast.toString()).to.equal(stringified);
+    // expect(JSON.parse(JSON.stringify(ast.toJSON({ position: true })))).to.deep.equal(parsed);
+    // console.log(ast.toSource());
+    // console.log(ast.toString());
+    // console.log(JSON.stringify(ast.toJSON({ position: true, textPosition: true }), null, 2));
+    expect(ast.findTextByRange(40, 50)).to.be.instanceOf(Node);
+    // expect(ast.toSource()).to.equal(stringified);
   });
 
 });

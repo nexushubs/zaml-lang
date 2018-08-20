@@ -34,7 +34,7 @@
 <dt><a href="#spacer">spacer(space, indent)</a></dt>
 <dd><p>Generate indent spaces</p>
 </dd>
-<dt><a href="#stringify">stringify(node, [space], [indent])</a></dt>
+<dt><a href="#stringify">stringify(node, options, [indent])</a></dt>
 <dd><p>Stringify node</p>
 </dd>
 </dl>
@@ -53,21 +53,6 @@
 <a name="module_zaml-parser"></a>
 
 ## zaml-parser
-
-* [zaml-parser](#module_zaml-parser)
-    * [~parse(text)](#module_zaml-parser..parse) ⇒ [<code>Node</code>](#Node)
-    * [~tokenize(text)](#module_zaml-parser..tokenize) ⇒ [<code>Node</code>](#Node)
-
-<a name="module_zaml-parser..parse"></a>
-
-### zaml-parser~parse(text) ⇒ [<code>Node</code>](#Node)
-Parse a plain text or ZAML source string, and extract common entities
-
-**Kind**: inner method of [<code>zaml-parser</code>](#module_zaml-parser)  
-**Params**
-
-- text <code>string</code> - Source string
-
 <a name="module_zaml-parser..tokenize"></a>
 
 ### zaml-parser~tokenize(text) ⇒ [<code>Node</code>](#Node)
@@ -92,6 +77,8 @@ AST node class
         * [.name](#Node+name) : <code>string</code>
         * [.start](#Node+start) : <code>number</code>
         * [.end](#Node+end) : <code>number</code>
+        * [.textStart](#Node+textStart) : <code>number</code>
+        * [.textEnd](#Node+textEnd) : <code>number</code>
         * [.content](#Node+content) : <code>string</code>
         * [.children](#Node+children) : [<code>Array.&lt;Node&gt;</code>](#Node)
         * [.attributes](#Node+attributes) : <code>Object</code>
@@ -108,8 +95,9 @@ AST node class
         * [.previousSibling](#Node+previousSibling) ⇒ [<code>Node</code>](#Node)
         * [.attributes](#Node+attributes) : <code>Object.&lt;string, any&gt;</code>
         * [.getRootNode()](#Node+getRootNode) ⇒ <code>boolean</code>
-        * [.createChild(type, [name], [options])](#Node+createChild)
         * [.contains(node)](#Node+contains)
+        * [.hasChild()](#Node+hasChild)
+        * [.createChild(type, [name], [options])](#Node+createChild)
         * [.appendChild(node)](#Node+appendChild)
         * [.appendText(text, options)](#Node+appendText)
         * [.removeChild(node)](#Node+removeChild)
@@ -121,11 +109,14 @@ AST node class
         * [.setAttribute(key, value)](#Node+setAttribute)
         * [.setAttributes(data)](#Node+setAttributes)
         * [.removeAttribute(key)](#Node+removeAttribute)
+        * [.normalize()](#Node+normalize)
         * [.findBy(selector)](#Node+findBy)
+        * [.findTextByRange(start, end)](#Node+findTextByRange)
         * [.find(callback)](#Node+find)
         * [.createEntities(items)](#Node+createEntities)
         * [.extractEntities(extractor)](#Node+extractEntities)
-        * [.toString()](#Node+toString)
+        * [.toString()](#Node+toString) ⇒ <code>string</code>
+        * [.toSource(options)](#Node+toSource) ⇒ <code>string</code>
         * [.toJSON(options)](#Node+toJSON)
     * _static_
         * [.create(type, [name], [options])](#Node.create)
@@ -162,13 +153,25 @@ Node name, for tag, entity
 <a name="Node+start"></a>
 
 ### node.start : <code>number</code>
-Start cursor position to root source
+Start source position to root node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+end"></a>
 
 ### node.end : <code>number</code>
-End cursor position to root source
+End source position to root node
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+textStart"></a>
+
+### node.textStart : <code>number</code>
+Start text position to root node
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+textEnd"></a>
+
+### node.textEnd : <code>number</code>
+End text position to root node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+content"></a>
@@ -265,16 +268,6 @@ Previous sibling node
 Property indicates if the root is root (which has no children)
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
-<a name="Node+createChild"></a>
-
-### node.createChild(type, [name], [options])
-**Kind**: instance method of [<code>Node</code>](#Node)  
-**Params**
-
-- type [<code>NodeType</code>](#NodeType)
-- [name] <code>string</code>
-- [options] <code>object</code>
-
 <a name="Node+contains"></a>
 
 ### node.contains(node)
@@ -284,6 +277,22 @@ whether a node is a descendant of a given node
 **Params**
 
 - node [<code>Node</code>](#Node)
+
+<a name="Node+hasChild"></a>
+
+### node.hasChild()
+Check if this node has any children
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+<a name="Node+createChild"></a>
+
+### node.createChild(type, [name], [options])
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- type [<code>NodeType</code>](#NodeType)
+- [name] <code>string</code>
+- [options] <code>object</code>
 
 <a name="Node+appendChild"></a>
 
@@ -402,6 +411,12 @@ Remove an attribute
 
 - key <code>string</code>
 
+<a name="Node+normalize"></a>
+
+### node.normalize()
+Rebuild text and source position, in case modification has been applied to node
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+findBy"></a>
 
 ### node.findBy(selector)
@@ -415,6 +430,17 @@ Find matched children recursively
     - [.name] <code>string</code> - Node name
     - [.text] <code>RegExp</code> | <code>string</code> - Including text or pattern
     - [.source] <code>RegExp</code> | <code>string</code> - Pattern to match source
+
+<a name="Node+findTextByRange"></a>
+
+### node.findTextByRange(start, end)
+Find text node by text range
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- start <code>number</code>
+- end <code>number</code>
 
 <a name="Node+find"></a>
 
@@ -448,10 +474,21 @@ Extract entities from text node
 
 <a name="Node+toString"></a>
 
-### node.toString()
+### node.toString() ⇒ <code>string</code>
+Build plain text of the node (stripping tags & entities)
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+<a name="Node+toSource"></a>
+
+### node.toSource(options) ⇒ <code>string</code>
 Build source code of the node
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- options <code>object</code>
+    - [.space] <code>number</code> - Source indenting space
+
 <a name="Node+toJSON"></a>
 
 ### node.toJSON(options)
@@ -461,6 +498,8 @@ Convert node to JSON serializable object
 **Params**
 
 - options <code>object</code>
+    - [.position] <code>boolean</code> <code> = false</code>
+    - [.textPosition] <code>boolean</code> <code> = false</code>
 
 <a name="Node.create"></a>
 
@@ -1033,15 +1072,16 @@ Generate indent spaces
 
 <a name="stringify"></a>
 
-## stringify(node, [space], [indent])
+## stringify(node, options, [indent])
 Stringify node
 
 **Kind**: global function  
 **Params**
 
 - node [<code>Node</code>](#Node)
-- [space] <code>number</code> <code> = 2</code>
-- [indent] <code>number</code> <code> = 0</code>
+- options <code>object</code>
+    - [.space] <code>number</code>
+- [indent] <code>number</code> - Initial indent, increases 1 each block
 
 <a name="NodeType"></a>
 

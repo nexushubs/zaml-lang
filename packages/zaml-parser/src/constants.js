@@ -6,7 +6,7 @@ export const combinePatterns = (list) => {
 
 export const createPattern = (source, flags = 'g') => new RegExp(source, flags);
 
-export const DEFAULT_INDENT = 2;
+export const DEFAULT_INDENT_SPACES = 2;
 
 export const T_SPACE = ' ';
 export const T_TAB = '\t';
@@ -19,11 +19,13 @@ export const T_TAG_END = '}';
 export const T_ASSIGN_XML = '=';
 export const T_ASSIGN_YAML = ':';
 export const T_LINE_BREAK = '\n';
+export const T_LINE_BREAKS = '\r\n';
 export const T_PARAGRAPH_BREAK = '\n\n';
 export const T_FRONT_MATTER_FAVORED_ASSIGN = T_ASSIGN_YAML;
 export const T_TAG_ATTRIBUTE_FAVORED_ASSIGN = T_ASSIGN_XML;
 
 export const P_LINE_BREAK = /\r?\n/g;
+export const P_SPACE_WRAPPED_LINE_BREAK = /\s*\n\s*/g;
 export const P_PARAGRAPH_BREAK = createPattern(_.repeat(P_LINE_BREAK.source, 2));
 export const P_WHITE_SPACE = /\s/g;
 export const P_WHITE_SPACES_EXT = /[\s\r\n]/;
