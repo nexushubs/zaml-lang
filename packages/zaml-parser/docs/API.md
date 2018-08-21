@@ -84,7 +84,7 @@ AST node class
         * [.textEnd](#Node+textEnd) : <code>number</code>
         * [.content](#Node+content) : <code>string</code>
         * [.children](#Node+children) : [<code>Array.&lt;Node&gt;</code>](#Node)
-        * [.attributes](#Node+attributes) : <code>Object</code>
+        * [.attributes](#Node+attributes) : <code>Object.&lt;string, any&gt;</code>
         * [.isBlock](#Node+isBlock) ⇒ <code>boolean</code>
         * [.parentNode](#Node+parentNode)
         * [.childNodes](#Node+childNodes)
@@ -96,14 +96,13 @@ AST node class
         * [.childIndex](#Node+childIndex) ⇒ <code>number</code>
         * [.nextSibling](#Node+nextSibling) ⇒ [<code>Node</code>](#Node)
         * [.previousSibling](#Node+previousSibling) ⇒ [<code>Node</code>](#Node)
-        * [.attributes](#Node+attributes) : <code>Object.&lt;string, any&gt;</code>
         * [.getRootNode()](#Node+getRootNode) ⇒ <code>boolean</code>
-        * [.contains(node)](#Node+contains)
-        * [.hasChild()](#Node+hasChild)
-        * [.createChild(type, [name], [options])](#Node+createChild)
+        * [.contains(node)](#Node+contains) ⇒ <code>boolean</code>
+        * [.hasChild()](#Node+hasChild) ⇒ <code>boolean</code>
+        * [.createChild(type, [name], [options])](#Node+createChild) ⇒ [<code>Node</code>](#Node)
         * [.appendChild(node)](#Node+appendChild)
-        * [.appendText(text, options)](#Node+appendText)
-        * [.removeChild(node)](#Node+removeChild)
+        * [.appendText(text, options)](#Node+appendText) ⇒ [<code>Node</code>](#Node)
+        * [.removeChild(node)](#Node+removeChild) ⇒ [<code>Node</code>](#Node)
         * [.insertAt(node, index)](#Node+insertAt) ⇒ [<code>Node</code>](#Node)
         * [.insertBefore(node, ref)](#Node+insertBefore) ⇒ [<code>Node</code>](#Node)
         * [.insertAfter(node, ref)](#Node+insertAfter) ⇒ [<code>Node</code>](#Node)
@@ -113,14 +112,15 @@ AST node class
         * [.setAttributes(data)](#Node+setAttributes)
         * [.removeAttribute(key)](#Node+removeAttribute)
         * [.normalize()](#Node+normalize)
-        * [.findBy(selector)](#Node+findBy)
-        * [.findTextByRange(start, end)](#Node+findTextByRange)
-        * [.find(callback)](#Node+find)
+        * [.findBy(selector)](#Node+findBy) ⇒ [<code>Array.&lt;Node&gt;</code>](#Node)
+        * [.findTextByRange(start, end)](#Node+findTextByRange) ⇒ [<code>Node</code>](#Node)
+        * [.find(callback)](#Node+find) ⇒ [<code>Node</code>](#Node)
         * [.createEntities(items)](#Node+createEntities)
+        * [.createEntitiesFromText(entities)](#Node+createEntitiesFromText)
         * [.extractEntities(extractor)](#Node+extractEntities)
         * [.toString()](#Node+toString) ⇒ <code>string</code>
         * [.toSource(options)](#Node+toSource) ⇒ <code>string</code>
-        * [.toJSON(options)](#Node+toJSON)
+        * [.toJSON(options)](#Node+toJSON) ⇒ <code>object</code>
     * _static_
         * [.create(type, [name], [options])](#Node.create)
         * [.fromSource(source)](#Node.fromSource) ⇒ [<code>Node</code>](#Node)
@@ -171,13 +171,13 @@ End source position to root node
 <a name="Node+textStart"></a>
 
 ### node.textStart : <code>number</code>
-Start text position to root node
+Start text source position to root node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+textEnd"></a>
 
 ### node.textEnd : <code>number</code>
-End text position to root node
+End text source position to root node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+content"></a>
@@ -194,7 +194,7 @@ Child nodes, only for block node
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+attributes"></a>
 
-### node.attributes : <code>Object</code>
+### node.attributes : <code>Object.&lt;string, any&gt;</code>
 Attributes, for root, tag, entity node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
@@ -264,10 +264,6 @@ Next sibling node
 Previous sibling node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
-<a name="Node+attributes"></a>
-
-### node.attributes : <code>Object.&lt;string, any&gt;</code>
-**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+getRootNode"></a>
 
 ### node.getRootNode() ⇒ <code>boolean</code>
@@ -276,7 +272,7 @@ Property indicates if the root is root (which has no children)
 **Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+contains"></a>
 
-### node.contains(node)
+### node.contains(node) ⇒ <code>boolean</code>
 whether a node is a descendant of a given node
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
@@ -286,13 +282,13 @@ whether a node is a descendant of a given node
 
 <a name="Node+hasChild"></a>
 
-### node.hasChild()
+### node.hasChild() ⇒ <code>boolean</code>
 Check if this node has any children
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+createChild"></a>
 
-### node.createChild(type, [name], [options])
+### node.createChild(type, [name], [options]) ⇒ [<code>Node</code>](#Node)
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
 
@@ -312,7 +308,7 @@ Append a node to children list
 
 <a name="Node+appendText"></a>
 
-### node.appendText(text, options)
+### node.appendText(text, options) ⇒ [<code>Node</code>](#Node)
 Append text node child
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
@@ -323,7 +319,7 @@ Append text node child
 
 <a name="Node+removeChild"></a>
 
-### node.removeChild(node)
+### node.removeChild(node) ⇒ [<code>Node</code>](#Node)
 Remove 1 or more children
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
@@ -427,8 +423,8 @@ Rebuild text and source position, in case modification has been applied to node
 **Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+findBy"></a>
 
-### node.findBy(selector)
-Find matched children recursively
+### node.findBy(selector) ⇒ [<code>Array.&lt;Node&gt;</code>](#Node)
+Find matched descendants recursively
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
@@ -441,8 +437,8 @@ Find matched children recursively
 
 <a name="Node+findTextByRange"></a>
 
-### node.findTextByRange(start, end)
-Find text node by text range
+### node.findTextByRange(start, end) ⇒ [<code>Node</code>](#Node)
+Find matched text node by text source range
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
@@ -452,7 +448,7 @@ Find text node by text range
 
 <a name="Node+find"></a>
 
-### node.find(callback)
+### node.find(callback) ⇒ [<code>Node</code>](#Node)
 Find matched children recursively by callback
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
@@ -469,6 +465,16 @@ Process text node in current node and parse entities
 **Params**
 
 - items <code>Array.&lt;{start:number, end:number, type:string, attributes:any}&gt;</code>
+
+<a name="Node+createEntitiesFromText"></a>
+
+### node.createEntitiesFromText(entities)
+Create entity nodes based on text source position
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- entities <code>Array.&lt;{start:number, end:number, type:string, attributes:any}&gt;</code>
 
 <a name="Node+extractEntities"></a>
 
@@ -499,7 +505,7 @@ Build source code of the node
 
 <a name="Node+toJSON"></a>
 
-### node.toJSON(options)
+### node.toJSON(options) ⇒ <code>object</code>
 Convert node to JSON serializable object
 
 **Kind**: instance method of [<code>Node</code>](#Node)  

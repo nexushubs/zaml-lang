@@ -185,14 +185,14 @@ class Node {
 
     /**
      * @type {number}
-     * @description Start text position to root node
+     * @description Start text source position to root node
      */
     this.textStart = -1;
     
 
     /**
      * @type {number}
-     * @description End text position to root node
+     * @description End text source position to root node
      */
     this.textEnd = -1;
   
@@ -223,7 +223,7 @@ class Node {
     this.children = undefined;
 
     /**
-     * @type {{Object.<string,any>}}
+     * @type {Object.<string,any>}
      * @description Attributes, for root, tag, entity node
      */
     this.attributes = undefined;
@@ -374,6 +374,7 @@ class Node {
   /**
    * whether a node is a descendant of a given node
    * @param {Node} node 
+   * @returns {boolean}
    */
   contains(node) {
     Node.validNode(node);
@@ -388,6 +389,7 @@ class Node {
 
   /**
    * Check if this node has any children
+   * @returns {boolean}
    */
   hasChild() {
     return !_.isEmpty(this.children);
@@ -397,6 +399,7 @@ class Node {
    * @param {NodeType} type 
    * @param {string} [name]
    * @param {object} [options]
+   * @returns {Node}
    */
   createChild(type, name, options) {
     const node = new Node(type, name, options);
@@ -416,18 +419,21 @@ class Node {
    * Append text node child
    * @param {string} text 
    * @param {object} options 
+   * @returns {Node}
    */
   appendText(text, options) {
-    this.createChild(NODE_TYPES.TEXT, null, { ...options, content: text });
+    return this.createChild(NODE_TYPES.TEXT, null, { ...options, content: text });
   }
 
   /**
    * Remove 1 or more children
    * @param {Node} node
+   * @returns {Node}
    */
   removeChild(node) {
     _.pull(this.children, node);
     node.parent = null;
+    return node;
   }
 
   /**
@@ -523,9 +529,6 @@ class Node {
    * @param {Object.<string,any>} data Key - value pair
    */
   setAttributes(data) {
-    /**
-     * @type {Object.<string,any>}
-     */
     this.attributes = {...this.attributes, ...data};
   }
 
@@ -549,12 +552,13 @@ class Node {
   }
 
   /**
-   * Find matched children recursively
+   * Find matched descendants recursively
    * @param {object} selector 
    * @param {NodeType} [selector.type] Node type
    * @param {string} [selector.name] Node name
    * @param {RegExp|string} [selector.text] Including text or pattern
    * @param {RegExp|string} [selector.source] Pattern to match source
+   * @returns {Node[]}
    */
   findBy(selector = {}) {
     const { type, name, text, source } = selector;
@@ -576,9 +580,10 @@ class Node {
   }
 
   /**
-   * Find text node by text range
+   * Find matched text node by text source range
    * @param {number} start 
    * @param {number} end 
+   * @returns {Node}
    */
   findTextByRange(start, end) {
     if (this.textStart <= start && this.textEnd >= end) {
@@ -600,6 +605,7 @@ class Node {
   /**
    * Find matched children recursively by callback
    * @param {NodeTester} callback
+   * @returns {Node}
    */
   find(callback) {
     return recursiveFinder(this, callback);
@@ -633,6 +639,32 @@ class Node {
       fragment.appendText(text.substr(lastPos));
     }
     this.replaceWith(fragment);
+  }
+
+  /**
+   * Create entity nodes based on text source position
+   * @param {Array.<{start:number,end:number,type:string,attributes:any}>} entities 
+   */
+  createEntitiesFromText(entities) {
+    this.toString();
+    const cache = new Map();
+    _.each(entities, item => {
+      const textNode = this.findTextByRange(item.start, item.end);
+      if (!textNode) return;
+      if (cache.has(textNode)) {
+        cache.get(textNode).push(item);
+      } else {
+        cache.set(textNode, [item]);
+      }
+    });
+    cache.forEach((items, textNode) => {
+      console.log(items);
+      textNode.createEntities(items.map(item => ({
+        ...item,
+        start: item.start - textNode.textStart,
+        end: item.end - textNode.textStart,
+      })));
+    });
   }
 
   /**
@@ -684,6 +716,7 @@ class Node {
    * @param {object} options 
    * @param {boolean} [options.position=false]
    * @param {boolean} [options.textPosition=false]
+   * @returns {object}
    */
   toJSON(options = {}) {
     const {
