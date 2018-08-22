@@ -23,7 +23,7 @@ function extractMention(text, options = {}) {
     if (!match) {
       break;
     }
-    const [found, userName] = match;
+    const [found, username] = match;
     const start = match.index;
     const end = start + found.length;
     const entity = {
@@ -33,8 +33,8 @@ function extractMention(text, options = {}) {
       text: found,
       data: {},
     };
-    if (users && users.includes(userName)) {
-      entity.data.user = userName;
+    if (users && users.includes(username)) {
+      entity.data.username = username;
     }
     items.push(entity);
   } while (match);

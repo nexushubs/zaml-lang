@@ -35,7 +35,7 @@ describe('extractor', () => {
     extractor = new Extractor({
       plugins: [
         'link',
-        'mention',
+        { name: 'mention', options: { users: ['someone', 'someone_else']}},
         // TODO replace to mock http server
         { name: 'rest', options: { url: 'http://127.0.0.1:4040/parse' } },
       ],

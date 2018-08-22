@@ -78,7 +78,13 @@ class Extractor {
         ({ name, options: opt } = options);
       }
       const plugin = pluginFactory[name];
-      extractor = isExtractorClass(plugin) ? new plugin(opt) : plugin;
+      if (isExtractorClass(plugin)) {
+        extractor = new plugin(opt);
+      } else if (_.isFunction(plugin)) {
+        extractor = (text) => plugin(text, opt);
+      } else {
+        extractor = plugin;
+      }
     }
     if (!extractor) {
       throw new TypeError(`could not load plugin '${name}'`);
