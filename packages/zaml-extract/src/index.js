@@ -1,4 +1,3 @@
-import '@babel/polyfill';
 import Extractor from './Extractor';
 
 const extract = {
