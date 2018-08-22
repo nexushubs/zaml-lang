@@ -372,6 +372,27 @@ class Node {
   }
 
   /**
+   * Check node match the expression
+   * @example
+   * `block`: tag
+   * `@loc`: entity
+   * @param {string} expression 
+   * @returns {boolean}
+   */
+  is(expression) {
+    if (!_.isString(expression)) {
+      return false;
+    }
+    expression = expression.toUpperCase();
+    if (/^[a-z]/i.test(expression)) {
+      return this.type === NODE_TYPES.TAG && this.name === expression;
+    } else if (/^@[a-z]/i.test(expression)) {
+      return this.type === NODE_TYPES.ENTITY && this.name === expression.substr(1);
+    }
+    return false;
+  }
+
+  /**
    * whether a node is a descendant of a given node
    * @param {Node} node 
    * @returns {boolean}
@@ -533,6 +554,14 @@ class Node {
   }
 
   /**
+   * Get attribute value
+   * @param {string} key 
+   */
+  getAttribute(key) {
+    return this.attributes && this.attributes[key];
+  }
+
+  /**
    * Remove an attribute
    * @param {string} key 
    */
@@ -658,7 +687,6 @@ class Node {
       }
     });
     cache.forEach((items, textNode) => {
-      console.log(items);
       textNode.createEntities(items.map(item => ({
         ...item,
         start: item.start - textNode.textStart,
