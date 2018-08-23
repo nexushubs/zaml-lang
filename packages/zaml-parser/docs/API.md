@@ -90,6 +90,7 @@ AST node class
         * [.childNodes](#Node+childNodes)
         * [.isRoot](#Node+isRoot) ⇒ <code>boolean</code>
         * [.source](#Node+source) ⇒ <code>string</code>
+        * [.innerText](#Node+innerText) ⇒ <code>string</code>
         * [.isFirstChild](#Node+isFirstChild) ⇒ <code>boolean</code>
         * [.isLastChild](#Node+isLastChild) ⇒ <code>boolean</code>
         * [.siblings](#Node+siblings) ⇒ [<code>Array.&lt;Node&gt;</code>](#Node)
@@ -97,6 +98,7 @@ AST node class
         * [.nextSibling](#Node+nextSibling) ⇒ [<code>Node</code>](#Node)
         * [.previousSibling](#Node+previousSibling) ⇒ [<code>Node</code>](#Node)
         * [.getRootNode()](#Node+getRootNode) ⇒ <code>boolean</code>
+        * [.is(expression)](#Node+is) ⇒ <code>boolean</code>
         * [.contains(node)](#Node+contains) ⇒ <code>boolean</code>
         * [.hasChild()](#Node+hasChild) ⇒ <code>boolean</code>
         * [.createChild(type, [name], [options])](#Node+createChild) ⇒ [<code>Node</code>](#Node)
@@ -110,6 +112,7 @@ AST node class
         * [.replaceWith(node)](#Node+replaceWith) ⇒ [<code>Node</code>](#Node)
         * [.setAttribute(key, value)](#Node+setAttribute)
         * [.setAttributes(data)](#Node+setAttributes)
+        * [.getAttribute(key)](#Node+getAttribute)
         * [.removeAttribute(key)](#Node+removeAttribute)
         * [.normalize()](#Node+normalize)
         * [.findBy(selector)](#Node+findBy) ⇒ [<code>Array.&lt;Node&gt;</code>](#Node)
@@ -228,6 +231,12 @@ If the node is root
 Get source code of the node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+innerText"></a>
+
+### node.innerText ⇒ <code>string</code>
+Get node inner text
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+isFirstChild"></a>
 
 ### node.isFirstChild ⇒ <code>boolean</code>
@@ -270,6 +279,21 @@ Previous sibling node
 Property indicates if the root is root (which has no children)
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+<a name="Node+is"></a>
+
+### node.is(expression) ⇒ <code>boolean</code>
+Check node match the expression
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- expression <code>string</code>
+
+**Example**  
+```js
+`block`: tag
+`@loc`: entity
+```
 <a name="Node+contains"></a>
 
 ### node.contains(node) ⇒ <code>boolean</code>
@@ -404,6 +428,16 @@ Set multiple attributes
 **Params**
 
 - data <code>Object.&lt;string, any&gt;</code> - Key - value pair
+
+<a name="Node+getAttribute"></a>
+
+### node.getAttribute(key)
+Get attribute value
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code>
 
 <a name="Node+removeAttribute"></a>
 

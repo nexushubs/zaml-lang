@@ -292,6 +292,21 @@ class Node {
   }
 
   /**
+   * Get node inner text
+   * @returns {string}
+   */
+  get innerText() {
+    if (this.type === NODE_TYPES.TEXT) {
+      return this.content;
+    } else if (this.type === NODE_TYPES.ENTITY) {
+      const textNode = this.children[0];
+      return textNode ? textNode.content : '';
+    } else {
+      return this.toString();
+    }
+  }
+
+  /**
    * Check if the node is the first child of its parent
    * @returns {boolean}
    */
