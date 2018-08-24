@@ -671,7 +671,7 @@ class Node {
     const text = this.content;
     let lastPos = 0;
     items.forEach(item => {
-      if (item.start <= item.end || item.start < lastPos) {
+      if (item.start >= item.end || item.start < lastPos) {
         return;
       }
       if (item.start > lastPos) {

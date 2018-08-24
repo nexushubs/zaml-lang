@@ -45,7 +45,7 @@ describe('extractor', () => {
     await node.extractEntities(extractor);
     // console.log(JSON.stringify(node, null, 2));
     const newSource = node.toSource();
-    // console.log(newSource);
+    console.log(newSource);
     const newNode = zaml.tokenize(newSource);
     // console.log(JSON.stringify(newNode, null, 2));
     expect(newNode.toJSON()).to.deep.equal(node.toJSON());
