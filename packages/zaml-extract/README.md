@@ -77,7 +77,7 @@ import extract from '@lvfang/zaml-extract';
 const extractor = extract.create({
   plugins: ['link'],
 });
-const node = tokenize('Hello @everyone! this is our web site: www.example.com');
+const node = zaml.tokenize('Hello @everyone! this is our web site: www.example.com');
 node.extractEntities(extractor);
 
 console.log(JSON.stringify(node, null, 2));
