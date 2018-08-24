@@ -2,7 +2,14 @@
   "presets": [
     ["@babel/preset-env", {
       "targets": {
-        "node": "8.9.4"
+        "node": "8.9.4",
+        "browsers": [
+          "Chrome >= 52",
+          "FireFox >= 44",
+          "Safari >= 7",
+          "Explorer 11",
+          "last 4 Edge versions"
+        ]
       }
     }]
   ],

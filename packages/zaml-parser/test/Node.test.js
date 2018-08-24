@@ -37,7 +37,7 @@ describe('class Node', () => {
   //   expect(textNode.type).to.equal(NODE_TYPES.TEXT);
   // });
 
-  it.only('node.createEntitiesFromText()', () => {
+  it('node.createEntitiesFromText()', () => {
     node = Node.fromSource('The quick brown [fox]{ANIMAL} jumps over the lazy dog.');
     result = 'The [quick]{SPEED} brown [fox]{ANIMAL} [jumps]{ACTION} over the lazy [dog]{ANIMAL}.';
     text = 'The quick brown fox jumps over the lazy dog.';
