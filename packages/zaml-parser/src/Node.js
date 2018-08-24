@@ -666,10 +666,14 @@ class Node {
     if (_.isEmpty(items)) {
       return;
     }
+    items = _.sortBy(items, ['start']);
     const fragment = Node.createFragment();
     const text = this.content;
     let lastPos = 0;
     items.forEach(item => {
+      if (item.start <= item.end || item.start < lastPos) {
+        return;
+      }
       if (item.start > lastPos) {
         fragment.appendText(text.substring(lastPos, item.start));
       }

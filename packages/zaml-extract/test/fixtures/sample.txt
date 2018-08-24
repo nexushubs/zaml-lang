@@ -8,6 +8,10 @@ This is a email address: someone@example.com
 
 This is a mention: @someone
 
+This is a mention followed by a link: @someone www.example.com
+
+This is a link followed by mention: www.example.com @someone
+
 这是一个法条: 劳动法第13条，《未成年人保护法》第134条
 
 End of the sample file
