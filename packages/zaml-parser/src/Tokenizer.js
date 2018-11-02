@@ -158,7 +158,7 @@ class Tokenizer {
       switch (state) {
 
         case STATE.FRONT_MATTER: {
-          if (stream.match(T_FRONT_MATTER)) {
+          if (stream.match(T_FRONT_MATTER) || stream.findLine(T_FRONT_MATTER)) {
             states.isFrontMatter = true;
             state = STATE.TAG_ATTRIBUTE_LIST;
           } else {
@@ -279,7 +279,7 @@ class Tokenizer {
           } else if (stream.eat(T_TAG_END)) {
             state = STATE.TAG_END;
           } else {
-            if (!hasSpaces) {
+            if (!hasSpaces && this.stream.pos > 1) {
               throw createError('expecting end of tag "}" or attribute list')
             }
             state = STATE.TAG_ATTRIBUTE_NAME;

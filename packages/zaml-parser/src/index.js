@@ -1,3 +1,4 @@
+import util from 'util';
 import Tokenizer from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
 import Node, { NODE_TYPES } from './Node';
@@ -8,14 +9,21 @@ import Node, { NODE_TYPES } from './Node';
  */
 
 /**
- * Tokenize a ZAML source string
- * @param {string} text Source string
+ * Parse ZAML source into node
+ * @param {string} text ZAML source string
  * @returns {Node}
  */
-function tokenize(text, options) {
+function parse(text, options) {
   const tokenizer = new Tokenizer(text, options);
   return tokenizer.process();
 }
+
+/**
+ * Parse ZAML source into node
+ * @deprecated
+ * @param {string} text Source string
+ */
+const tokenize = util.deprecate(parse, 'zaml.tokenize() is deprecated, please use zaml.parse() instead')
 
 export {
   Tokenizer,
@@ -24,4 +32,15 @@ export {
   Node,
   NODE_TYPES,
   tokenize,
+  parse,
+};
+
+export default {
+  Tokenizer,
+  TextStream,
+  TextLine,
+  Node,
+  NODE_TYPES,
+  tokenize,
+  parse,
 };

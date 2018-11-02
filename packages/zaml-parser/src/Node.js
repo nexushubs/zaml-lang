@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { stringify, parseValue } from './util';
-import { tokenize } from '.';
+import { parse } from '.';
 
 /**
  * @typedef {string} NodeType
@@ -78,7 +78,7 @@ class Node {
    * @returns {Node}
    */
   static fromSource(source) {
-    return tokenize(source);
+    return parse(source);
   }
 
   /**

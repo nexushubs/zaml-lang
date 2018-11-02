@@ -1,15 +1,15 @@
 const chai = require('chai');
 const fs = require('fs');
 const ZAML = require('../lib');
+const { readFile, readJSON } = require('./util');
 
 const { expect } = chai;
 const { Node, NODE_TYPES } = ZAML;
 
 describe('class Node', () => {
 
-  const source = fs.readFileSync(`${__dirname}/fixtures/sample.zaml`, { encoding: 'utf8' });
-  const parsed = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/parsed-ast.json`, { encoding: 'utf8' }));
-  const stringified = fs.readFileSync(`${__dirname}/fixtures/stringified.txt`, { encoding: 'utf8' });
+  const source = readFile('fixtures/sample.zaml');
+
   let node;
 
   beforeEach(() => {
