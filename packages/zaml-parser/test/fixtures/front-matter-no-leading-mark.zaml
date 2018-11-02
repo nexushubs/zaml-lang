@@ -1,0 +1,4 @@
+hello: world
+foo: bar
+---
+The leading mark of front matter could be ignored

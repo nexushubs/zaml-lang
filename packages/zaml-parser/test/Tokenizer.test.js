@@ -1,15 +1,16 @@
 const chai = require('chai');
 const fs = require('fs');
-const ZAML = require('../lib');
+const zaml = require('../lib');
+const { readFile, readJSON } = require('./util');
 
 const { expect } = chai;
-const { Tokenizer, Node } = ZAML;
+const { Tokenizer, Node } = zaml;
 
 describe('class Tokenizer', () => {
 
-  const source = fs.readFileSync(`${__dirname}/fixtures/sample.zaml`, { encoding: 'utf8' });
-  const parsed = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/parsed-ast.json`, { encoding: 'utf8' }));
-  const stringified = fs.readFileSync(`${__dirname}/fixtures/stringified.txt`, { encoding: 'utf8' });
+  const source = readFile('fixtures/sample.zaml');
+  const parsed = readJSON('fixtures/parsed-ast.json');
+  const stringified = readFile('fixtures/stringified.txt');
   let tokenizer;
 
   beforeEach(() => {
@@ -29,5 +30,14 @@ describe('class Tokenizer', () => {
     // console.log(node.toString());
     // console.log(JSON.stringify(node.toJSON({ position: true }), null, 2));
   });
+
+  it('front-matter: no leading mark', () => {
+    const sample = readFile('fixtures/front-matter-no-leading-mark.zaml')
+    const node = zaml.parse(sample)
+    expect(node.attributes).deep.equal({
+      "hello": "world",
+      "foo": "bar"
+    })
+  })
 
 });

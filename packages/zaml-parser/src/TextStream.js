@@ -594,6 +594,10 @@ class TextStream {
     };
   }
 
+  findLine(text) {
+    return _.find(this.lines, { text });
+  }
+
   /**
    * Push current cursor to cursor stack, if new position provided, set current cursor to it
    * @param {number} [pos] 
