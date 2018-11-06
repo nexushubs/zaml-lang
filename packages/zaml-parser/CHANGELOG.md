@@ -9,10 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* Omit the beginning front matter.
 * Block labels `#label`.
 * Simple block, see [Tokenizer.test.js](./test/Tokenizer.test.js).
-* Add new selector `#some_label` for searching `Node.is()` and searching functions
+* Add new selector `#some_label` for `Node.is()` and searching functions.
 * Add node searching methods:
   * `Node.findBy()`
   * `Node.findOneBy()`
@@ -20,3 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   * `Node.findOne()`
   * `Node.querySelector()`
   * `Node.querySelectorAll()`
+
+### Changed
+
+* The beginning front matter `---` can be omitted.
