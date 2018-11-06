@@ -6,6 +6,8 @@ Javascript ZAML tokenizer & parser.
 
 ```shell
 npm install @lvfang/zaml-parser
+# or
+yarn add @lvfang/zaml-parser
 ```
 
 ## API
@@ -14,28 +16,28 @@ npm install @lvfang/zaml-parser
 
 ## Usage
 
-### `tokenize(text:string):Node`
+### `zaml.parse(text:string):Node`
 
 Parse a ZAML source code, and returns the root node of AST
 
 ### Example
 
 ```js
-import { tokenize } from 'zaml-parser';
-const node = tokenize('Hello World!');
+import zaml from 'zaml-parser';
+const node = zaml.parse('Hello World!');
 console.log(node);
 ```
 
 ## Test
 
 ```shell
-npm test
+yarn test
 ```
 
 Test with more info of tokenizing
 
 ```shell
-DEBUG=verbose npm test
+DEBUG=verbose yarn test
 ```
 
 ## License

@@ -37,7 +37,7 @@ export {
 /**
  * Recursive node finder
  * @param {Node} node 
- * @param {(node: Node) => boolean | string} tester 
+ * @param {function(Node):boolean|string} tester 
  * @param {Node[]} [result=[]] Node list
  * @returns {Node[]}
  */
@@ -56,7 +56,7 @@ function find(node, tester = () => true, result = []) {
 /**
  * Recursive node finder
  * @param {Node} node 
- * @param {(node: Node) => boolean} tester 
+ * @param {function(Node):boolean|string} tester 
  * @returns {Node}
  */
 function findOne(node, tester = () => true) {
@@ -244,7 +244,7 @@ class Node {
     this.children = [];
 
     /**
-     * @type {{[key:string]:any}}
+     * @type {Object.<string,any>}
      * @description Attributes, for root, tag, entity node
      */
     this.attributes = {};
