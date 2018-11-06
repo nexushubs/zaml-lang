@@ -134,13 +134,13 @@ describe('class TextStream', () => {
     expect(stream.pos).to.equal(5);
   });
 
-  it('eatSpace() no space to eat', () => {
-    expect(stream.eatSpace()).to.be.false;
+  it('eatSpaces() no space to eat', () => {
+    expect(stream.eatSpaces()).to.be.false;
   });
 
-  it('eatSpace() eat spaces', () => {
+  it('eatSpaces() eat spaces', () => {
     stream = new TextStream(`      ${sample}`);
-    expect(stream.eatSpace()).to.be.true;
+    expect(stream.eatSpaces()).to.be.true;
     expect(stream.pos).to.equal(6);
   });
 

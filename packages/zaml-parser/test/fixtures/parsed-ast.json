@@ -113,7 +113,6 @@
                 {
                   "type": "entity",
                   "name": "LOC",
-                  "attributes": {},
                   "position": {
                     "start": 203,
                     "end": 214

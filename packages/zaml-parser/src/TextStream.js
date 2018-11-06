@@ -274,10 +274,15 @@ class TextStream {
   eat(pattern) {
     const ch = this.text.charAt(this.pos) || undefined;
     let ok;
-    if (typeof pattern == "string") {
-      ok = ch == pattern;
-    } else {
-      ok = ch && (pattern.test ? pattern.test(ch) : pattern(ch))
+    if (_.isUndefined(ch)) {
+      ok = false;
+    } else if (_.isString(pattern)) {
+      ok = ch === pattern;
+    } else if (_.isRegExp(pattern)) {
+      pattern.lastIndex = 0;
+      ok = pattern.test(ch);
+    } else if (_.isFunction(pattern)) {
+      ok = pattern(ch);
     }
     if (ok) {
       this.lastMatch = ch;
@@ -294,7 +299,7 @@ class TextStream {
    */
   eatWhile(pattern) {
     const start = this.pos;
-    while (this.eat(pattern)) { };
+    while (this.eat(pattern)) {};
     return this.pos > start;
   }
 
@@ -321,7 +326,7 @@ class TextStream {
    * Consumes spaces
    * @returns {boolean} If any space has been consumed
    */
-  eatSpace() {
+  eatSpaces() {
     let start = this.pos
     while (/[\s\u00a0]/.test(this.text.charAt(this.pos))) {
       this.pos++;
@@ -595,7 +600,7 @@ class TextStream {
   }
 
   findLine(text) {
-    return _.find(this.lines, { text });
+    return _.find(this.lines, line => _.trim(line.text) === text);
   }
 
   /**

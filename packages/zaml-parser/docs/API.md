@@ -56,15 +56,32 @@
 <a name="module_zaml-parser"></a>
 
 ## zaml-parser
+
+* [zaml-parser](#module_zaml-parser)
+    * ~~[~tokenize](#module_zaml-parser..tokenize)~~
+    * [~parse(text)](#module_zaml-parser..parse) ⇒ [<code>Node</code>](#Node)
+
 <a name="module_zaml-parser..tokenize"></a>
 
-### zaml-parser~tokenize(text) ⇒ [<code>Node</code>](#Node)
-Tokenize a ZAML source string
+### ~~zaml-parser~tokenize~~
+***Deprecated***
+
+Parse ZAML source into node
+
+**Kind**: inner constant of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Params**
+
+- text <code>string</code> - Source string
+
+<a name="module_zaml-parser..parse"></a>
+
+### zaml-parser~parse(text) ⇒ [<code>Node</code>](#Node)
+Parse ZAML source into node
 
 **Kind**: inner method of [<code>zaml-parser</code>](#module_zaml-parser)  
 **Params**
 
-- text <code>string</code> - Source string
+- text <code>string</code> - ZAML source string
 
 <a name="Node"></a>
 
@@ -1075,7 +1092,7 @@ Process a text and parse to AST
 **Returns**: [<code>Node</code>](#Node) - Root node of parsed AST  
 <a name="NODE_TYPES"></a>
 
-## NODE_TYPES : <code>enum</code>
+## NODE\_TYPES : <code>enum</code>
 **Kind**: global enum  
 **Properties**
 

@@ -16,7 +16,7 @@ import {
 
 import Node, { NODE_TYPES } from './Node';
 
-const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/;
 
 /**
  * Stringify attribute value
@@ -24,8 +24,7 @@ const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
  */
 export function formatValue(value) {
   if (_.isDate(value)) {
-    value = value.toISOString();
-    return value.replace(/T00:00:00\.000Z$/, '');
+    return value.toISOString().replace(/T00:00:00\.000Z$/, '');
   } else if (_.isString) {
     return P_STRING_LITERAL_UNQUOTED_TESTER.test(value) ? value : JSON.stringify(value);
   } else if (_.isBoolean(value)) {

@@ -37,23 +37,44 @@ export {
 /**
  * Recursive node finder
  * @param {Node} node 
- * @param {function(Node):boolean} tester 
+ * @param {(node: Node) => boolean | string} tester 
  * @param {Node[]} [result=[]] Node list
  * @returns {Node[]}
  */
-function recursiveFinder(node, tester, result = []) {
-  if (tester(node)) {
+function find(node, tester = () => true, result = []) {
+  if (_.isString(tester) ? node.is(tester) : tester(node)) {
     result.push(node);
   }
   if (!_.isEmpty(node.children)) {
-    node.children.forEach(childNode => {
-      recursiveFinder(childNode, tester, result);
-    });
+    for (const childNode of node.children) {
+      find(childNode, tester, result);
+    }
   }
   return result;
 }
 
-export { recursiveFinder };
+/**
+ * Recursive node finder
+ * @param {Node} node 
+ * @param {(node: Node) => boolean} tester 
+ * @returns {Node}
+ */
+function findOne(node, tester = () => true) {
+  if (tester(node)) {
+    return node;
+  }
+  if (!_.isEmpty(node.children)) {
+    node.children.forEach(childNode => {
+      const result = findOne(childNode, tester);
+      if (result) {
+        return result;
+      }
+    });
+  }
+  return null;
+}
+
+export { find };
 
 /**
  * AST node class
@@ -220,13 +241,19 @@ class Node {
      * @type {Node[]}
      * @description Child nodes, only for block node
      */
-    this.children = undefined;
+    this.children = [];
 
     /**
-     * @type {Object.<string,any>}
+     * @type {{[key:string]:any}}
      * @description Attributes, for root, tag, entity node
      */
-    this.attributes = undefined;
+    this.attributes = {};
+
+    /**
+     * @type {string[]}
+     * @description Node labels
+     */
+    this.labels = [];
 
     if (type === NODE_TYPES.ROOT) {
       this.start = 0;
@@ -236,9 +263,8 @@ class Node {
     if (BLOCK_NODE_TYPES.includes(type) || [NODE_TYPES.ENTITY, NODE_TYPES.TAG, NODE_TYPES.FRAGMENT].includes(type)) {
       if (type !== NODE_TYPES.PARAGRAPH) {
         this.name = name;
-        this.attributes = attributes;
+        this.setAttributes(attributes);
       }
-      this.children = [];
     } else if (type === NODE_TYPES.TEXT) {
       this.content = content;
     }
@@ -399,9 +425,11 @@ class Node {
       return false;
     }
     expression = expression.toUpperCase();
-    if (/^[a-z]/i.test(expression)) {
+    if (/^[A-Z]/.test(expression)) {
       return this.type === NODE_TYPES.TAG && this.name === expression;
-    } else if (/^@[a-z]/i.test(expression)) {
+    } else if (/^#/.test(expression)) {
+      return this.type === NODE_TYPES.TAG && this.labels.includes(expression.substr(1));
+    } else if (/^@[A-Z]/.test(expression)) {
       return this.type === NODE_TYPES.ENTITY && this.name === expression.substr(1);
     }
     return false;
@@ -554,10 +582,7 @@ class Node {
    * @param {any} value Attribute value
    */
   setAttribute(key, value) {
-    if (!this.attributes) {
-      this.attributes = {};
-    }
-    this.attributes[key] = value;
+    _.set(this.attributes, key, value);
   }
 
   /**
@@ -565,7 +590,7 @@ class Node {
    * @param {Object.<string,any>} data Key - value pair
    */
   setAttributes(data) {
-    this.attributes = {...this.attributes, ...data};
+    _.merge(this.attributes, data);
   }
 
   /**
@@ -573,7 +598,7 @@ class Node {
    * @param {string} key 
    */
   getAttribute(key) {
-    return this.attributes && this.attributes[key];
+    return _.get(this.attributes, key);
   }
 
   /**
@@ -581,7 +606,28 @@ class Node {
    * @param {string} key 
    */
   removeAttribute(key) {
-    delete this.attributes[key];
+    _.unset(this.attributes, key);
+  }
+
+  /**
+   * Add label
+   * @param {string} label 
+   */
+  addLabel(label) {
+    if (!_.isString(label)) {
+      throw new TypeError('label must be string');
+    }
+    if (!this.labels.includes(label)) {
+      this.labels.push(label);
+    }
+  }
+
+  /**
+   * Remove label
+   * @param {string} label 
+   */
+  removeLabel(label) {
+    _.pull(this.labels, label);
   }
 
   /**
@@ -601,12 +647,15 @@ class Node {
    * @param {NodeType} [selector.type] Node type
    * @param {string} [selector.name] Node name
    * @param {RegExp|string} [selector.text] Including text or pattern
+   * @param {string|string[]} [selector.label] Label names
    * @param {RegExp|string} [selector.source] Pattern to match source
-   * @returns {Node[]}
+   * @param {boolean} [one]
+   * @returns {Node|Node[]}
    */
-  findBy(selector = {}) {
+  findBy(selector = {}, one = false) {
     const { type, name, text, source } = selector;
-    return recursiveFinder(this, node => {
+    const finder = one ? find : findOne;
+    return finder(this, node => {
       let match = true;
       if (type) {
         match = match && type === node.type;
@@ -617,10 +666,24 @@ class Node {
       if (text && node.type === NODE_TYPES.TEXT) {
         match = match && (_.isRegExp(text) ? text.match(node.content) : node.content.includes(text));
       }
+      if (label) {
+        if (!_.isArray(label)) {
+          label = [label];
+        }
+        match = match && (_.intersection(this.labels, label).length > 0);
+      }
       if (source) {
         match = match && (_.isRegExp(source) ? source.match(node.source) : node.source.includes(source));
       }
     });;
+  }
+
+  /**
+   * Find nodes by selector recursively and return the first one
+   * @param {any} selector 
+   */
+  findOneBy(selector = {}) {
+    return this.findBy(selector, true);
   }
 
   /**
@@ -649,10 +712,37 @@ class Node {
   /**
    * Find matched children recursively by callback
    * @param {NodeTester} callback
-   * @returns {Node}
+   * @returns {Node[]}
    */
   find(callback) {
-    return recursiveFinder(this, callback);
+    return find(this, callback);
+  }
+
+  /**
+   * Find matched children recursively and return the first one
+   * @param {NodeTester} callback
+   * @returns {Node}
+   */
+  findOne(callback) {
+    return findOne(this, callback);
+  }
+
+  /**
+   * Find all nodes by selector, compared by is()
+   * @param {string} selector 
+   * @returns {Node}
+   */
+  querySelectorAll(selector) {
+    return find(this, selector);
+  }
+  
+  /**
+   * Find nodes by selector and return the first one, compared by is()
+   * @param {string} selector 
+   * @returns {Node}
+   */
+  querySelector(selector) {
+    return findOne(this, selector);
   }
 
   /**
@@ -774,7 +864,8 @@ class Node {
       type: this.type,
       name: this.name,
       content: this.content,
-      attributes: this.attributes,
+      attributes: _.isEmpty(this.attributes) ? undefined : this.attributes,
+      labels: this.labels.length ? this.labels : undefined,
       position: position ? {
         start: this.start,
         end: this.end,
@@ -783,7 +874,7 @@ class Node {
         start: this.textStart,
         end: this.textEnd,
       } : undefined,
-      children: this.children && this.children.map(child => child.toJSON(options)),
+      children: _.isEmpty(this.children) ? undefined : this.children.map(child => child.toJSON(options)),
     }, _.isUndefined);
   }
 

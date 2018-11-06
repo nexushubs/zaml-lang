@@ -21,9 +21,11 @@ import {
   P_PARAGRAPH_BREAK,
   P_WHITE_SPACE,
   P_WHITE_SPACES_EXT,
-  P_TAG_ATTRIBUTE_ASSIGN,
   P_TAG_NAME,
-  P_TAG_ATTRIBUTE_NAME,
+  P_LABEL_START,
+  P_LABEL_NAME,
+  P_ATTRIBUTE_ASSIGN,
+  P_ATTRIBUTE_NAME,
   T_STRING_START,
   P_DATE_LITERAL,
   P_NUMBER_START,
@@ -54,14 +56,17 @@ const STATE = {
   START: stateValue++,
   TAG_START: stateValue++,
   TAG_NAME: stateValue++,
-  TAG_ATTRIBUTE_LIST: stateValue++,
-  TAG_ATTRIBUTE_NAME: stateValue++,
-  TAG_ATTRIBUTE_VALUE: stateValue++,
-  TAG_ATTRIBUTE_FINISH: stateValue++,
+  ATTRIBUTE_LIST: stateValue++,
+  ATTRIBUTE_NAME: stateValue++,
+  ATTRIBUTE_ASSIGN: stateValue++,
+  ATTRIBUTE_VALUE: stateValue++,
+  ATTRIBUTE_FINISH: stateValue++,
   TAG_END: stateValue++,
+  LABEL_START: stateValue++,
   ENTITY_START: stateValue++,
   ENTITY_BODY: stateValue++,
   ENTITY_END: stateValue++,
+  END: stateValue++,
   FINISH: stateValue++,
 };
 
@@ -114,8 +119,12 @@ class Tokenizer {
     let state = STATE.FRONT_MATTER;
     let start = 0;
     const states = {
+      unWrappedBlock: false,
+      simpleBlock: false,
       isClosing: false,
       isFrontMatter: false,
+      key: null,
+      value: null,
     };
     const root = Node.create(NODE_TYPES.ROOT, null, { source: text });
     const nodeStack = [];
@@ -134,14 +143,33 @@ class Tokenizer {
     const popNode = error => {
       this.debug(`<== popNode: ${node.type}:${node.name}`);
       node.end = stream.pos;
+      if (node.start === node.end || (node.type === NODE_TYPES.PARAGRAPH && !node.hasChild())) {
+        node.parentNode.removeChild(node);
+      }
       node = nodeStack.pop();
       this.debug();
       if (!node) {
-        throw new PassError(error || 'unexpected closing node');
+        throw createError(error || 'unexpected closing node');
       }
     };
 
+    // replace wrapping paragraph with current block tag
+    const levelUpBlock = () => {
+      if (node.parentNode.type === NODE_TYPES.PARAGRAPH) {
+        const blockNode = node;
+        popNode();
+        node.removeChild(blockNode);
+        popNode();
+        node.appendChild(blockNode);
+        pushNode(blockNode);
+      }
+    }
+
     const createError = message => {
+      this.debug(`error: '${message}'`);
+      this.debug('current node:');
+      this.debug(node.toJSON());
+      this.debug('current parsing state:');
       this.debug(JSON.stringify(root, null, 2));
       return new ParseError(message, text, stream.pos);
     };
@@ -160,7 +188,7 @@ class Tokenizer {
         case STATE.FRONT_MATTER: {
           if (stream.match(T_FRONT_MATTER) || stream.findLine(T_FRONT_MATTER)) {
             states.isFrontMatter = true;
-            state = STATE.TAG_ATTRIBUTE_LIST;
+            state = STATE.ATTRIBUTE_LIST;
           } else {
             state = STATE.NORMAL;
           }
@@ -169,11 +197,11 @@ class Tokenizer {
 
         case STATE.NORMAL: {
           if (stream.sol()) {
-            stream.eatSpace();
+            stream.eatSpaces();
           }
           start = stream.pos;
           if (node.type !== NODE_TYPES.PARAGRAPH) {
-            const child = node.createChild(NODE_TYPES.PARAGRAPH, null, { start })
+            const child = node.createChild(NODE_TYPES.PARAGRAPH, null, { start });
             pushNode(child);
           }
           let text = stream.readTo(P_MARKER, { toEOF: true });
@@ -188,6 +216,9 @@ class Tokenizer {
             }
           }
           if (stream.match(P_PARAGRAPH_BREAK)) {
+            if (states.unWrappedBlock) {
+              popNode();
+            }
             popNode();
           } else {
             state = STATE.START;
@@ -200,6 +231,12 @@ class Tokenizer {
           const ch = stream.eat(P_MARKER);
           if (ch === T_TAG_START) {
             state = STATE.TAG_START;
+          } else if (P_LABEL_START.test(ch)) {
+            states.unWrappedBlock = true;
+            state = STATE.TAG_START;
+          } else if (ch === T_TAG_END) {
+            states.isClosing = true;
+            state = STATE.TAG_END;
           } else if (ch === T_ENTITY_START) {
             state = STATE.ENTITY_START;
           } else if (stream.eof()) {
@@ -209,15 +246,26 @@ class Tokenizer {
         }
         
         case STATE.TAG_START: {
-          const chr = stream.eat(T_TAG_CLOSING);
-          states.isClosing = false;
-          if (chr) {
+          if (stream.eat(T_TAG_CLOSING)) {
             states.isClosing = true;
+            state = STATE.TAG_NAME;
+          } else if (stream.match(P_LINE_BREAK)) {
+            state = STATE.NORMAL;
+          } else if (states.unWrappedBlock || stream.eat(P_LABEL_START)) {
+            state = STATE.LABEL_START;
           } else {
             const child = node.createChild(NODE_TYPES.TAG, '', { start });
             pushNode(child);
+            state = STATE.TAG_NAME;
           }
-          state = STATE.TAG_NAME;
+          if (state === STATE.NORMAL || state === STATE.LABEL_START) {
+            if (node.type = NODE_TYPES.PARAGRAPH) {
+              popNode();
+            }
+            states.simpleBlock = true;
+            const child = node.createChild(NODE_TYPES.TAG, 'BLOCK', { start })
+            pushNode(child)
+          }
           break;
         }
         
@@ -229,9 +277,6 @@ class Tokenizer {
           if (states.isClosing) {
             if (node.type === NODE_TYPES.PARAGRAPH) {
               stream.pushCursor(start);
-              if (!node.hasChild()) {
-                node.parentNode.removeChild(node);
-              }
               popNode();
               stream.popCursor();
             }
@@ -254,63 +299,72 @@ class Tokenizer {
                 throw createError('unexpected start of block inline');
               }
               stream.popCursor();
-              // replace wrapping paragraph with current block tag
-              if (node.parentNode.type === NODE_TYPES.PARAGRAPH) {
-                const blockNode = node;
-                popNode();
-                node.removeChild(blockNode);
-                popNode();
-                node.appendChild(blockNode);
-                pushNode(blockNode);
-              }
+              levelUpBlock();
             }
-            state = STATE.TAG_ATTRIBUTE_LIST;
+            state = STATE.ATTRIBUTE_LIST;
           }
           break;
         }
         
-        case STATE.TAG_ATTRIBUTE_LIST: {
-          const hasSpaces = stream.eatWhile(P_WHITE_SPACES_EXT);
+        case STATE.ATTRIBUTE_LIST: {
+          const hasSpaces = stream.eatWhile(states.simpleBlock ? P_WHITE_SPACE : P_WHITE_SPACES_EXT);
           if (states.isFrontMatter && stream.match(T_FRONT_MATTER)) {
             if (!stream.match(P_LINE_BREAK)) {
               throw createError('expected new line after front matter closed');
             }
             state = STATE.NORMAL;
+          } else if (stream.match(P_LINE_BREAK)) {
+            state = STATE.NORMAL;
           } else if (stream.eat(T_TAG_END)) {
             state = STATE.TAG_END;
+          } else if (stream.match(P_LABEL_START)) {
+            state = STATE.LABEL_START;
           } else {
             if (!hasSpaces && this.stream.pos > 1) {
-              throw createError('expecting end of tag "}" or attribute list')
+              if (_.isEmpty(node.attributes) && P_ATTRIBUTE_ASSIGN.test(stream.peek())) {
+                states.simpleBlock = true;
+                states.key = node.name;
+                node.name = 'BLOCK';
+                levelUpBlock();
+                state = STATE.ATTRIBUTE_ASSIGN;
+                break;
+              } else {
+                throw createError('expecting end of tag "}" or attribute list');
+              }
             }
-            state = STATE.TAG_ATTRIBUTE_NAME;
+            state = STATE.ATTRIBUTE_NAME;
           }
           break;
         }
         
-        case STATE.TAG_ATTRIBUTE_NAME: {
-          stream.pushMarker({ type: 'attribute' });
-          const key = stream.match(P_TAG_ATTRIBUTE_NAME);
+        case STATE.ATTRIBUTE_NAME: {
+          const key = stream.match(P_ATTRIBUTE_NAME);
           if (!key) {
             throw createError('expecting attribute name');
           }
-          stream.setMarkerData({ key });
+          states.key = key;
+          state = STATE.ATTRIBUTE_ASSIGN;
+          break;
+        }
+        
+        case STATE.ATTRIBUTE_ASSIGN: {
           let ch = stream.peek();
           if (ch === T_TAG_END) {
-            state = STATE.TAG_ATTRIBUTE_FINISH;
+            state = STATE.ATTRIBUTE_FINISH;
           } else {
-            ch = stream.eat(P_TAG_ATTRIBUTE_ASSIGN);
+            ch = stream.eat(P_ATTRIBUTE_ASSIGN);
             if (!ch) {
               throw createError('expecting assignment "=" or ":"');
             }
             if (ch = T_ASSIGN_YAML) {
-              stream.eatSpace();
+              stream.eatSpaces();
             }
-            state = STATE.TAG_ATTRIBUTE_VALUE;
+            state = STATE.ATTRIBUTE_VALUE;
           }
           break;
         }
 
-        case STATE.TAG_ATTRIBUTE_VALUE: {
+        case STATE.ATTRIBUTE_VALUE: {
           const ch = stream.peek();
           let value;
           if (ch === T_STRING_START) {
@@ -335,27 +389,31 @@ class Tokenizer {
           if (_.isNull(value)) {
             throw createError('invalid attribute value');
           }
-          stream.setMarkerData({ value });
-          state = STATE.TAG_ATTRIBUTE_FINISH;
+          states.value = value;
+          state = STATE.ATTRIBUTE_FINISH;
           break;
         }
 
-        case STATE.TAG_ATTRIBUTE_FINISH: {
-          const attribute = stream.popMarker();
-          let { key, value } = attribute.data;
+        case STATE.ATTRIBUTE_FINISH: {
+          let { key, value } = states;
+          states.key = null;
+          states.value = null;
           if (_.isUndefined(value)) {
             value = true;
           }
           node.setAttribute(key, value);
           this.debug(`# attribute ${key}=${JSON.stringify(value)}`);
           this.debug();
-          state = STATE.TAG_ATTRIBUTE_LIST;
+          state = STATE.ATTRIBUTE_LIST;
           break;
         }
 
         case STATE.TAG_END: {
           if (!node.isBlock || states.isClosing) {
             const tagNode = node;
+            if (node.type === NODE_TYPES.PARAGRAPH) {
+              popNode();
+            }
             popNode();
             if (node.type === NODE_TYPES.ENTITY) {
               // copy tag properties to entity and remove temporary tag node
@@ -368,11 +426,24 @@ class Tokenizer {
           }
           if (states.isClosing) {
             stream.skipOver(P_LINE_BREAK);
+            states.isClosing = false;
           }
+          states.unWrappedBlock = false;
+          states.simpleBlock = false;
           state = STATE.NORMAL;
           break;
         }
         
+        case STATE.LABEL_START: {
+          const label = stream.match(P_LABEL_NAME);
+          if (!label) {
+            throw createError('expected label name');
+          }
+          node.addLabel(label);
+          state = STATE.ATTRIBUTE_LIST;
+          break;
+        }
+
         case STATE.ENTITY_START: {
           const child = node.createChild(NODE_TYPES.ENTITY, '', { start });
           pushNode(child);
@@ -405,7 +476,7 @@ class Tokenizer {
         }
         
         case STATE.END: {
-          node.end = stream.pos;
+          popNode();
           state = STATE.FINISH;
           break;
         }
@@ -417,6 +488,7 @@ class Tokenizer {
     }
     root.toString();
     this.parsed = true;
+    this.debug('parsed result:');
     this.debug(JSON.stringify(root.toJSON({ position: true }), null, 2));
     return root;
   }

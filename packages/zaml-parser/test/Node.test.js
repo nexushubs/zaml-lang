@@ -21,8 +21,8 @@ describe('class Node', () => {
   });
 
   it('node.fromJSON()', () => {
-    node = Node.fromSource(source);
-    // console.log(node.toSource());
+    node = Node.fromJSON(readJSON('fixtures/parsed-ast.json'));
+    expect(node.toSource()).to.equal(source);
     // expect(Node.fromJSON(parsed).toJSON({ position: true })).to.deep.equal(parsed);
   });
 
