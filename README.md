@@ -1,6 +1,6 @@
 # ZAML - Zebra (Hybrid) AI Markup Language
 
-![ZAML Logo](./docs/logo.png)
+<img alt="ZAML Logo" src="./docs/logo.svg" style="width:500px">
 
 ## Introduction
 
