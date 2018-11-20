@@ -2,8 +2,8 @@ const chai = require('chai');
 const fs = require('fs');
 const zaml = require('../lib');
 const { readFile, readJSON } = require('./util');
-
-const { expect } = chai;
+const { ParseError } = require('../lib/ParseError.js');
+const { expect, assert } = chai;
 const { Tokenizer, Node } = zaml;
 
 describe('class Tokenizer', () => {
@@ -117,6 +117,13 @@ describe('class Tokenizer', () => {
       expect(node.childNodes[0].labels.sort()).deep.equal(['BAR', 'FOO']);
     });
 
+  });
+
+  it('process empty start expect throw error', () => {
+    const sample = `# tag`;
+    // TODO: found out why second parse go wrong
+    assert.throws(() => zaml.parse(sample), ParseError);
+    assert.throws(() => zaml.parse(sample), ParseError);
   });
 
 });

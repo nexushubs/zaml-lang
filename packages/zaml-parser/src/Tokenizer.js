@@ -241,6 +241,8 @@ class Tokenizer {
             state = STATE.ENTITY_START;
           } else if (stream.eof()) {
             state = STATE.END;
+          } else {
+            throw createError('empty start')
           }
           break;
         }
