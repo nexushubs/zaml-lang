@@ -1,7 +1,7 @@
 {
-  "name": "@lvfang/zaml-extract",
+  "name": "@zaml/extract",
   "version": "0.3.0",
-  "description": "Enhanced AI Markup Language javascript parser & processor",
+  "description": "Entity extracting helper for ZAML",
   "main": "lib/index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha",
@@ -37,7 +37,7 @@
     "lodash": "^4.17.10"
   },
   "peerDependencies": {
-    "@lvfang/zaml-parser": "^0.2.6"
+    "@zaml/parser": "^0.3.3"
   },
   "gitHead": "dd28810a79c08d1d2cb8745c5792d33bac2b236a"
 }

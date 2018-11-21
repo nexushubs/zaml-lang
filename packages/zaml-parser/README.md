@@ -1,6 +1,6 @@
 # zaml-parser
 
-Javascript ZAML tokenizer & parser.
+Javascript tokenizer & lexer for [ZAML](https://github.com/nexushubs/zaml-lang).
 
 ## Install
 

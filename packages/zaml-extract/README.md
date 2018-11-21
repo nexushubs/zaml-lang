@@ -1,6 +1,6 @@
 # zaml-extract
 
-ZAML helper for entity extracting
+Entity extracting helper for [ZAML](https://github.com/nexushubs/zaml-lang).
 
 ## Install
 
