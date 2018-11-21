@@ -12,7 +12,7 @@ import {
   T_TAG_CLOSING,
   T_TAG_END,
   T_ASSIGN_XML,
-  T_ASSIGN_YAML,
+  P_ASSIGN_YAML,
   T_FRONT_MATTER_FAVORED_ASSIGN,
   T_TAG_ATTRIBUTE_FAVORED_ASSIGN,
   T_LINE_BREAKS,
@@ -186,6 +186,7 @@ class Tokenizer {
       switch (state) {
 
         case STATE.FRONT_MATTER: {
+          stream.eatWhile(P_WHITE_SPACES_EXT);
           if (stream.match(T_FRONT_MATTER) || stream.findLine(T_FRONT_MATTER)) {
             states.isFrontMatter = true;
             state = STATE.ATTRIBUTE_LIST;
@@ -309,7 +310,7 @@ class Tokenizer {
         }
         
         case STATE.ATTRIBUTE_LIST: {
-          const hasSpaces = stream.eatWhile(states.simpleBlock ? P_WHITE_SPACE : P_WHITE_SPACES_EXT);
+          const hasSpaces = stream.eatWhile(states.simpleBlock ? P_WHITE_SPACE : P_WHITE_SPACES_EXT) || states.isFrontMatter;
           if (states.isFrontMatter && stream.match(T_FRONT_MATTER)) {
             if (!stream.match(P_LINE_BREAK)) {
               throw createError('expected new line after front matter closed');
@@ -358,7 +359,7 @@ class Tokenizer {
             if (!ch) {
               throw createError('expecting assignment "=" or ":"');
             }
-            if (ch = T_ASSIGN_YAML) {
+            if (P_ASSIGN_YAML.test(ch)) {
               stream.eatSpaces();
             }
             state = STATE.ATTRIBUTE_VALUE;

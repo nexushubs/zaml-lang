@@ -17,13 +17,14 @@ export const T_TAG_START = '{';
 export const T_TAG_CLOSING = '/';
 export const T_TAG_END = '}';
 export const T_ASSIGN_XML = '=';
-export const T_ASSIGN_YAML = ':';
+export const T_ASSIGN_YAML = ':：';
 export const T_LINE_BREAK = '\n';
 export const T_LINE_BREAKS = '\r\n';
 export const T_PARAGRAPH_BREAK = '\n\n';
-export const T_FRONT_MATTER_FAVORED_ASSIGN = T_ASSIGN_YAML;
+export const T_FRONT_MATTER_FAVORED_ASSIGN = P_ASSIGN_YAML;
 export const T_TAG_ATTRIBUTE_FAVORED_ASSIGN = T_ASSIGN_XML;
 
+export const P_ASSIGN_YAML = /[:：]/;
 export const P_LINE_BREAK = /\r?\n/g;
 export const P_SPACE_WRAPPED_LINE_BREAK = /\s*\n\s*/g;
 export const P_PARAGRAPH_BREAK = createPattern(_.repeat(P_LINE_BREAK.source, 2));

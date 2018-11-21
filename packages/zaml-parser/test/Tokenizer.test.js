@@ -28,6 +28,13 @@ describe('class Tokenizer', () => {
     expect(JSON.parse(JSON.stringify(node.toJSON({ position: true })))).to.deep.equal(parsed);
   });
 
+  it('process empty start expect throw error', () => {
+    const sample = `# tag`;
+    // TODO: found out why second parse go wrong
+    assert.throws(() => zaml.parse(sample), ParseError);
+    assert.throws(() => zaml.parse(sample), ParseError);
+  });
+
   describe('feature: front matter', () => {
 
     it('front matter without leading mark', () => {
@@ -42,8 +49,22 @@ describe('class Tokenizer', () => {
         hello: 'world',
         foo: 'bar'
       });
-    })
+    });
 
+    it('front matter assignment with full width character "："', () => {
+      const sample = `
+      ---
+      语言：中文
+      字符：全角
+      ---
+      `;
+      const node = zaml.parse(sample);
+      expect(node.attributes).deep.equals({
+        '语言': '中文',
+        '字符': '全角',
+      });
+    });
+  
   });
 
   describe('feature: simple block', () => {
@@ -117,13 +138,6 @@ describe('class Tokenizer', () => {
       expect(node.childNodes[0].labels.sort()).deep.equal(['BAR', 'FOO']);
     });
 
-  });
-
-  it('process empty start expect throw error', () => {
-    const sample = `# tag`;
-    // TODO: found out why second parse go wrong
-    assert.throws(() => zaml.parse(sample), ParseError);
-    assert.throws(() => zaml.parse(sample), ParseError);
   });
 
 });
