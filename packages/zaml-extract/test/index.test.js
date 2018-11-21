@@ -1,7 +1,7 @@
 const chai = require('chai');
 const fs = require('fs');
 const extractor = require('../lib');
-const zaml = require('@lvfang/zaml-parser');
+const zaml = require('@zaml/parser');
 
 const { expect } = chai;
 const { Extractor, RestExtractor } = extractor;

@@ -5,7 +5,7 @@ Entity extracting helper for [ZAML](https://github.com/nexushubs/zaml-lang).
 ## Install
 
 ```shell
-npm install @lvfang/zaml-extract
+npm install @zaml/extract
 ```
 
 ## Usage
@@ -71,8 +71,8 @@ the former ones will be kept.
 ### Example
 
 ```js
-import zaml from '@lvfang/zaml-parser';
-import extract from '@lvfang/zaml-extract';
+import zaml from '@zaml/parser';
+import extract from '@zaml/extract';
 
 const extractor = extract.create({
   plugins: ['link'],

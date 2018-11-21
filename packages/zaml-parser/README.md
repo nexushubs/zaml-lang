@@ -5,9 +5,9 @@ Javascript tokenizer & lexer for [ZAML](https://github.com/nexushubs/zaml-lang).
 ## Install
 
 ```shell
-npm install @lvfang/zaml-parser
+npm install @zaml/parser
 # or
-yarn add @lvfang/zaml-parser
+yarn add @zaml/parser
 ```
 
 ## API
