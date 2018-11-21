@@ -8,12 +8,25 @@ This repo contains the [Language Specification](./docs/spec.md) and a couple of 
 
 > Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), ZAML is a human readable marked up language which could be easily transformed into computer data structure.
 
+Quick Look:
+
+```zaml
+---
+foo: bar
+---
+#Question
+What is your name?
+
+#Answer
+My name is [Jack]{PER}
+```
+
 ## Packages
 
 | Package | Version | Description |
 | -- | -- | -- |
-| [zaml-parser](./packages/zaml-parser) | `0.3.0` | ZAML javascript tokenizer & lexer |
-| [zaml-extract](./packages/zaml-extract) | `0.2.8` | Entity extractor helper for ZAML |
+| [zaml-parser](./packages/zaml-parser) | `0.3.3` | ZAML javascript tokenizer & lexer |
+| [zaml-extract](./packages/zaml-extract) | `0.3.0` | Entity extractor helper for ZAML |
 
 ## FAQ
 
