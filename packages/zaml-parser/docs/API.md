@@ -1,7 +1,7 @@
 ## Modules
 
 <dl>
-<dt><a href="#module_zaml-parser">zaml-parser</a></dt>
+<dt><a href="#module_@zaml/parser">@zaml/parser</a></dt>
 <dd></dd>
 </dl>
 
@@ -56,32 +56,32 @@
 <dd></dd>
 </dl>
 
-<a name="module_zaml-parser"></a>
+<a name="module_@zaml/parser"></a>
 
-## zaml-parser
+## @zaml/parser
 
-* [zaml-parser](#module_zaml-parser)
-    * ~~[~tokenize](#module_zaml-parser..tokenize)~~
-    * [~parse(text)](#module_zaml-parser..parse) ⇒ [<code>Node</code>](#Node)
+* [@zaml/parser](#module_@zaml/parser)
+    * ~~[~tokenize](#module_@zaml/parser..tokenize)~~
+    * [~parse(text)](#module_@zaml/parser..parse) ⇒ [<code>Node</code>](#Node)
 
-<a name="module_zaml-parser..tokenize"></a>
+<a name="module_@zaml/parser..tokenize"></a>
 
-### ~~zaml-parser~tokenize~~
+### ~~@zaml/parser~tokenize~~
 ***Deprecated***
 
 Parse ZAML source into node
 
-**Kind**: inner constant of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Kind**: inner constant of [<code>@zaml/parser</code>](#module_@zaml/parser)  
 **Params**
 
 - text <code>string</code> - Source string
 
-<a name="module_zaml-parser..parse"></a>
+<a name="module_@zaml/parser..parse"></a>
 
-### zaml-parser~parse(text) ⇒ [<code>Node</code>](#Node)
+### @zaml/parser~parse(text) ⇒ [<code>Node</code>](#Node)
 Parse ZAML source into node
 
-**Kind**: inner method of [<code>zaml-parser</code>](#module_zaml-parser)  
+**Kind**: inner method of [<code>@zaml/parser</code>](#module_@zaml/parser)  
 **Params**
 
 - text <code>string</code> - ZAML source string

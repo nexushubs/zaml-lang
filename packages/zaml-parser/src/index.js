@@ -4,7 +4,7 @@ import TextStream, { TextLine } from './TextStream';
 import Node, { NODE_TYPES } from './Node';
 
 /**
- * @module zaml-parser
+ * @module @zaml/parser
  * @typicalname parser
  */
 
