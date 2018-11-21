@@ -39,5 +39,5 @@
   "peerDependencies": {
     "@zaml/parser": "^0.4.0"
   },
-  "gitHead": "dd28810a79c08d1d2cb8745c5792d33bac2b236a"
+  "gitHead": "be8ebbe2a12eca887a5d9696186bb42bc40beb29"
 }
