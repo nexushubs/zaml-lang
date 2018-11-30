@@ -24,6 +24,7 @@
     "@babel/plugin-transform-runtime": "^7.0.0-rc.1",
     "@babel/polyfill": "^7.0.0-rc.1",
     "@babel/preset-env": "^7.0.0-rc.1",
+    "@zaml/parser": "^0.4.0",
     "babel-plugin-istanbul": "^4.1.6",
     "chai": "^4.1.2",
     "jsdoc-to-markdown": "^4.0.1",
@@ -35,9 +36,6 @@
     "isomorphic-fetch": "^2.2.1",
     "linkify-it": "^2.0.3",
     "lodash": "^4.17.10"
-  },
-  "peerDependencies": {
-    "@zaml/parser": "^0.4.0"
   },
   "gitHead": "be8ebbe2a12eca887a5d9696186bb42bc40beb29"
 }

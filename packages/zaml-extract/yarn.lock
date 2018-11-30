@@ -577,6 +577,13 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.1.2":
+  version "7.1.5"
+  resolved "http://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.1.5.tgz#4170907641cf1f61508f563ece3725150cc6fe39"
+  integrity sha1-QXCQdkHPH2FQj1Y+zjclFQzG/jk=
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@7.0.0-beta.51":
   version "7.0.0-beta.51"
   resolved "http://registry.npm.taobao.org/@babel/template/download/@babel/template-7.0.0-beta.51.tgz#9602a40aebcf357ae9677e2532ef5fc810f5fbff"
@@ -639,6 +646,14 @@
     esutils "^2.0.2"
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
+
+"@zaml/parser@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/@zaml/parser/-/parser-0.4.0.tgz#41151444159690fbcbdd6c8ef1d9b975b9965a3c"
+  integrity sha512-uDgf1W7ueaboVl6rAI1HOHP8OaS4fb/ZKFqyI9XZZdF9nPW5Y4pyoLqLyap/uoKsGRFVjYmsjANrbc5PdRqWvQ==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    lodash "^4.17.11"
 
 abbrev@1:
   version "1.1.1"
@@ -1987,6 +2002,11 @@ lodash.pick@^4.4.0:
 lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.10"
   resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
 
 longest@^1.0.1:
   version "1.0.1"

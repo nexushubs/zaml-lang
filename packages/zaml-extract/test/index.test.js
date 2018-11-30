@@ -40,13 +40,13 @@ describe('extractor', () => {
         { name: 'rest', options: { url: 'http://127.0.0.1:4040/parse' } },
       ],
     });
-    const node = zaml.tokenize(sample);
+    const node = zaml.parse(sample);
     // console.log(JSON.stringify(node, null, 2));
     await node.extractEntities(extractor);
     // console.log(JSON.stringify(node, null, 2));
     const newSource = node.toSource();
     // console.log(newSource);
-    const newNode = zaml.tokenize(newSource);
+    const newNode = zaml.parse(newSource);
     // console.log(JSON.stringify(newNode, null, 2));
     expect(newNode.toJSON()).to.deep.equal(node.toJSON());
   });

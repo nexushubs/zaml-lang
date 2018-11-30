@@ -134,7 +134,14 @@ class Extractor {
     }
     const results = [...list.map(t => [])];
     for (const extractor of this.plugins) {
-      const result = await this.execSingleExtractor(list, extractor);
+      let result;
+      try {
+        result = await this.execSingleExtractor(list, extractor);
+      } catch (e) {
+        console.error('extractor execution error:', extractor);
+        console.error(e);
+        result = [];
+      }
       result.forEach((items, i) => {
         const extracted = results[i];
         items.forEach(item => {
