@@ -35,6 +35,20 @@ describe('class Tokenizer', () => {
     assert.throws(() => zaml.parse(sample), ParseError);
   });
 
+  it('robot Q&A example', () => {
+    const sample = `
+      ---
+      foo: bar
+      ---
+      #Question
+      What is your name?
+      
+      #Answer
+      My name is [Jack]{PER}
+    `;
+    zaml.parse(sample);
+  });
+
   describe('feature: front matter', () => {
 
     it('front matter without leading mark', () => {

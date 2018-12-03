@@ -230,6 +230,7 @@ class Tokenizer {
         case STATE.START: {
           start = stream.pos;
           const ch = stream.eat(P_MARKER);
+          P_LABEL_START.lastIndex = 0;
           if (ch === T_TAG_START) {
             state = STATE.TAG_START;
           } else if (P_LABEL_START.test(ch)) {
@@ -254,7 +255,7 @@ class Tokenizer {
             state = STATE.TAG_NAME;
           } else if (stream.match(P_LINE_BREAK)) {
             state = STATE.NORMAL;
-          } else if (states.unWrappedBlock || stream.eat(P_LABEL_START)) {
+          } else if (node.type !== NODE_TYPES.ENTITY && (states.unWrappedBlock || stream.eat(P_LABEL_START))) {
             state = STATE.LABEL_START;
           } else {
             const child = node.createChild(NODE_TYPES.TAG, '', { start });
