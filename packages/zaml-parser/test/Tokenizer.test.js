@@ -35,7 +35,7 @@ describe('class Tokenizer', () => {
     assert.throws(() => zaml.parse(sample), ParseError);
   });
 
-  it('robot Q&A example', () => {
+  it('robot Q&A sample', () => {
     const sample = `
       ---
       foo: bar
@@ -49,14 +49,57 @@ describe('class Tokenizer', () => {
     zaml.parse(sample);
   });
 
+  it('contract sample', () => {
+
+    const sample = `
+      甲方：北京XXX科技有限公司
+      乙方：王XX
+      ---
+      甲乙双方经友好协商，达成如下协议。
+      
+      #标的
+      一、甲方租赁乙方所有的位于[北京市朝阳区XX路44号]{LOC}门市房一间，{INLINE #面积}使用面积为[105平方米]{AREA}{/INLINE}，{INLINE #租期 #时间范围}租期为[2019年1月1日]{DATE}至[2040年12月31日]{DATE}{/INLINE}，租金为[十万元人民币]{MONEY value=100000}。
+      
+      #用途
+      二、该门市房的用途为新注册公司的经营地。
+      
+      #付款方式 #支付时间
+      三、租金按月结算。甲方[每月一日]{DATE}向乙方指定账户一次汇入当月租金。
+      
+      #押金
+      四、甲方应于合同生效起[五日内]{DATE}向乙方支付押金[一万元整]{MONEY value=10000}。租赁期满或合同解除后两日内，乙方应无息返还。
+      
+      {#违约责任
+        五、违约责任
+      
+        1. 付款方未按照约定付款的，每逾期[一天]{TIME}，应按逾期金额的1%向收款方支付违约金。
+      
+        2. 乙方延迟交房的，每逾期一天，应向甲方支付违约金[100元]{MONEY value=100}，并将租期做相应的顺延。
+      }
+      
+      {#不可抗力
+        六、发生如下情形，任何一方有权解除合同，并不承担违约责任：
+        
+        #政府行为
+        1. 该门市房被政府列入拆迁范围；
+      
+        2. 发生地震、火灾等不可抗力。
+      }
+      
+      #争议解决
+      七、双方发生争议协调不成的，应向甲方所在地人民法院起诉。
+    `;
+    zaml.parse(sample);
+  });
+
   describe('feature: front matter', () => {
 
-    it('front matter without leading mark', () => {
+    it('front matter without leading marker', () => {
       const sample = `
         hello: world
         foo: bar
         ---
-        The leading mark of front matter could be ignored
+        The leading marker of front matter could be ignored
       `;
       const node = zaml.parse(sample);
       expect(node.attributes).deep.equal({
@@ -64,6 +107,20 @@ describe('class Tokenizer', () => {
         foo: 'bar'
       });
     });
+
+    // it('front matter without marker', () => {
+    //   const sample = `
+    //     hello: world
+    //     foo: bar
+
+    //     The marker of front matter could be ignored
+    //   `;
+    //   const node = zaml.parse(sample);
+    //   expect(node.attributes).deep.equal({
+    //     hello: 'world',
+    //     foo: 'bar'
+    //   });
+    // });
 
     it('front matter assignment with full width character "："', () => {
       const sample = `

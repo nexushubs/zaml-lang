@@ -119,7 +119,8 @@ class Tokenizer {
     let state = STATE.FRONT_MATTER;
     let start = 0;
     const states = {
-      unWrappedBlock: false,
+      unwrapped: false,
+      inline: false,
       simpleBlock: false,
       isClosing: false,
       isFrontMatter: false,
@@ -197,7 +198,9 @@ class Tokenizer {
         }
 
         case STATE.NORMAL: {
+          let sol = false;
           if (stream.sol()) {
+            sol = true;
             stream.eatSpaces();
           }
           start = stream.pos;
@@ -217,10 +220,10 @@ class Tokenizer {
             }
           }
           if (stream.match(P_PARAGRAPH_BREAK)) {
-            if (states.unWrappedBlock) {
+            popNode();
+            if (node.getAttribute('unwrapped')) {
               popNode();
             }
-            popNode();
           } else {
             state = STATE.START;
           }
@@ -234,7 +237,7 @@ class Tokenizer {
           if (ch === T_TAG_START) {
             state = STATE.TAG_START;
           } else if (P_LABEL_START.test(ch)) {
-            states.unWrappedBlock = true;
+            states.unwrapped = true;
             state = STATE.TAG_START;
           } else if (ch === T_TAG_END) {
             states.isClosing = true;
@@ -255,7 +258,7 @@ class Tokenizer {
             state = STATE.TAG_NAME;
           } else if (stream.match(P_LINE_BREAK)) {
             state = STATE.NORMAL;
-          } else if (node.type !== NODE_TYPES.ENTITY && (states.unWrappedBlock || stream.eat(P_LABEL_START))) {
+          } else if (node.type !== NODE_TYPES.ENTITY && (states.unwrapped || stream.eat(P_LABEL_START))) {
             state = STATE.LABEL_START;
           } else {
             const child = node.createChild(NODE_TYPES.TAG, '', { start });
@@ -268,6 +271,10 @@ class Tokenizer {
             }
             states.simpleBlock = true;
             const child = node.createChild(NODE_TYPES.TAG, 'BLOCK', { start })
+            if (states.unwrapped) {
+              child.setAttribute('unwrapped', true);
+              states.unwrapped = false;
+            }
             pushNode(child)
           }
           break;
@@ -278,6 +285,7 @@ class Tokenizer {
           if (!name) {
             throw createError('expected tag name');
           }
+          states.inline = name === 'INLINE';
           if (states.isClosing) {
             if (node.type === NODE_TYPES.PARAGRAPH) {
               stream.pushCursor(start);
@@ -291,7 +299,7 @@ class Tokenizer {
             if (!ch) {
               throw createError('invalid closing tag');
             }
-            if (!stream.eol()) {
+            if (!states.inline && !stream.eol()) {
               throw createError('closing block tag must take the whole line');
             }
             state = STATE.TAG_END;
@@ -299,7 +307,7 @@ class Tokenizer {
             node.name = name;
             if (node.isBlock) {
               stream.pushCursor(node.start);
-              if (!stream.sol(true)) {
+              if (node.name === 'BLOCK' && !stream.sol(true)) {
                 throw createError('unexpected start of block inline');
               }
               stream.popCursor();
@@ -429,10 +437,12 @@ class Tokenizer {
             }
           }
           if (states.isClosing) {
-            stream.skipOver(P_LINE_BREAK);
+            if (!states.inline) {
+              stream.skipOver(P_LINE_BREAK);
+            }
             states.isClosing = false;
           }
-          states.unWrappedBlock = false;
+          states.inline = false;
           states.simpleBlock = false;
           state = STATE.NORMAL;
           break;

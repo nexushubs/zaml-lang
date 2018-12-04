@@ -25,6 +25,7 @@ const BLOCK_NODE_TYPES = [
 
 const BLOCK_TAGS = [
   'BLOCK',
+  'INLINE',
   'QUOTE',
 ];
 

@@ -1,4 +1,7 @@
 import _ from 'lodash';
+import {
+  P_FULL_WIDTH_CHARACTER
+} from './constants';
 
 // improved from https://github.com/codemirror/CodeMirror/blob/master/src/util/StringStream.js
 const NOT_FOUND = -1;
@@ -634,8 +637,9 @@ class TextStream {
     console.log(`${isCurrent ? '>' : ' '} ${_.padStart(ln, numWidth)} | ${text}`);
   }
 
-  debugCursor(col, numWidth) {
-    console.log(`  ${_.repeat(' ', numWidth)} | ${_.repeat(' ', col - 1)}^`);
+  debugCursor(text, col, numWidth) {
+    const pos = text.substr(0, col - 1).replace(P_FULL_WIDTH_CHARACTER, 'XX').length;
+    console.log(`  ${_.repeat(' ', numWidth)} | ${_.repeat(' ', pos)}^`);
   }
 
   debugState(range = 1) {
@@ -647,7 +651,7 @@ class TextStream {
       const isCurrent = line.ln === ln;
       this.debugLine(line, numWidth, isCurrent);
       if (isCurrent) {
-        this.debugCursor(col, numWidth);
+        this.debugCursor(line.text, col, numWidth);
       }
     });
     console.log();
