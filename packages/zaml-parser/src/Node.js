@@ -25,8 +25,15 @@ const BLOCK_NODE_TYPES = [
 
 const BLOCK_TAGS = [
   'BLOCK',
-  'INLINE',
   'QUOTE',
+  'SECTION',
+  'HEADER',
+  'FOOTER',
+];
+
+const WRAPPING_TAGS = [
+  ...BLOCK_TAGS,
+  'INLINE',
 ];
 
 export {
@@ -272,15 +279,46 @@ class Node {
   }
 
   /**
+   * Check if the node is tag
+   * @returns {boolean}
+   */
+  get isTag() {
+    return this.type === NODE_TYPES.TAG;
+  }
+
+  /**
+   * Check if the node is wrapping tag
+   * @returns {boolean}
+   */
+  get isWrappingTag() {
+    return this.isTag && WRAPPING_TAGS.includes(this.name);
+  }
+
+  /**
+   * Check if the node is block tag
+   * @returns {boolean}
+   */
+  get isBlockTag() {
+    return this.isTag && BLOCK_TAGS.includes(this.name);
+  }
+
+  /**
    * Property indicates if the node is a block (wrapping other nodes)
    * @returns {boolean}
    */
   get isBlock() {
     const { type, name } = this;
-    return BLOCK_NODE_TYPES.includes(type)
-      || (type === NODE_TYPES.TAG && BLOCK_TAGS.includes(name));
+    return BLOCK_NODE_TYPES.includes(type) || this.isBlockTag;
   }
-  
+
+  /**
+   * If node is inline block
+   * @returns {boolean}
+   */
+  get isInlineBlock() {
+    return this.type === NODE_TYPES.TAG && this.name === 'INLINE';
+  }
+
   /**
    * Get parent node, alias for node.parent
    */

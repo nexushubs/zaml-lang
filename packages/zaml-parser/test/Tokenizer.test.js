@@ -89,7 +89,10 @@ describe('class Tokenizer', () => {
       #争议解决
       七、双方发生争议协调不成的，应向甲方所在地人民法院起诉。
     `;
-    zaml.parse(sample);
+    const node = zaml.parse(sample);
+    // console.log(JSON.stringify(node.toJSON(), null, 2));
+    // console.log(node.toSource())
+    // console.log(node.toString())
   });
 
   describe('feature: front matter', () => {

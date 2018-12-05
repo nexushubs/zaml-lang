@@ -198,13 +198,11 @@ class Tokenizer {
         }
 
         case STATE.NORMAL: {
-          let sol = false;
-          if (stream.sol()) {
-            sol = true;
+          if (stream.sol(true) || stream.eol(true)) {
             stream.eatSpaces();
           }
           start = stream.pos;
-          if (node.type !== NODE_TYPES.PARAGRAPH) {
+          if (node.type !== NODE_TYPES.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
             const child = node.createChild(NODE_TYPES.PARAGRAPH, null, { start });
             pushNode(child);
           }
@@ -305,13 +303,15 @@ class Tokenizer {
             state = STATE.TAG_END;
           } else {
             node.name = name;
-            if (node.isBlock) {
+            if (node.isWrappingTag) {
               stream.pushCursor(node.start);
               if (node.name === 'BLOCK' && !stream.sol(true)) {
                 throw createError('unexpected start of block inline');
               }
               stream.popCursor();
-              levelUpBlock();
+              if (node.isBlock) {
+                levelUpBlock();
+              }
             }
             state = STATE.ATTRIBUTE_LIST;
           }
@@ -421,7 +421,7 @@ class Tokenizer {
         }
 
         case STATE.TAG_END: {
-          if (!node.isBlock || states.isClosing) {
+          if (!node.isWrappingTag || states.isClosing) {
             const tagNode = node;
             if (node.type === NODE_TYPES.PARAGRAPH) {
               popNode();

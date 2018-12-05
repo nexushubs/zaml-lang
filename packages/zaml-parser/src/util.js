@@ -107,29 +107,48 @@ export function stringify(node, options, indent = -1, pos = 0) {
       text += T_TAG_START + node.name;
       _.each(node.attributes, (value, key) => {
         if (_.isBoolean(value) && value) {
-          text += ` ${value}`;
+          text += ` ${key}`;
         } else {
           text += ` ${key}=${formatValue(value)}`;
         }
+      });
+      _.each(node.labels, label => {
+        text += ` #${label}`;
       });
       text += T_TAG_END;
       if (node.isBlock) {
         text += T_LINE_BREAK;
       }
     }
-    if (node.isBlock) {
-      if (options.toSource && node.type === NODE_TYPES.PARAGRAPH) {
-        text += spacer(options.space, indent);
-      }
+    if (options.toSource && node.type === NODE_TYPES.PARAGRAPH) {
+      text += spacer(options.space, indent);
+    }
+    if (node.isBlock || node.isWrappingTag && !_.isEmpty(node.children)) {
       node.children.forEach(child => {
         const subText = stringify(child, options, indent + 1, pos + text.length);
         text += subText;
       });
-      if (node.type === NODE_TYPES.PARAGRAPH) {
-        const next = node.nextSibling;
-        text += (next && next.type === NODE_TYPES.PARAGRAPH) ? T_PARAGRAPH_BREAK : T_LINE_BREAK;
-      } else if (options.toSource && !node.isRoot) {
-        text += spacer(options.space, indent) + T_TAG_START + T_TAG_CLOSING + node.name + T_TAG_END + T_LINE_BREAK;
+    }
+    const next = node.nextSibling;
+    if (node.isBlock) {
+      if (options.toSource) {
+        text = _.trimEnd(text, T_LINE_BREAK);
+      }
+      text += T_LINE_BREAK;
+      if (node.type === NODE_TYPES.PARAGRAPH && !node.isLastChild) {
+        text += T_LINE_BREAK;
+      }
+    }
+    if (options.toSource && node.isWrappingTag) {
+      if (node.isBlockTag) {
+        text += spacer(options.space, indent);
+      }
+      text += T_TAG_START + T_TAG_CLOSING + node.name + T_TAG_END;
+      if (node.isBlockTag) {
+        text += T_LINE_BREAK;
+        if (next && next.isBlock) {
+          text += T_LINE_BREAK;
+        }
       }
     }
   }

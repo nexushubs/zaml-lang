@@ -21,8 +21,9 @@ describe('class Node', () => {
   });
 
   it('node.fromJSON()', () => {
-    node = Node.fromJSON(readJSON('fixtures/parsed-ast.json'));
-    expect(node.toSource()).to.equal(source);
+    const sample = readJSON('fixtures/parsed-ast.json')
+    node = Node.fromJSON(sample);
+    expect(node.toSource().replace(/\n\n/g, '\n')).to.equal(source);
     // expect(Node.fromJSON(parsed).toJSON({ position: true })).to.deep.equal(parsed);
   });
 
