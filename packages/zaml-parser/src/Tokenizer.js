@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import TextStream from './TextStream';
 import ParseError from './ParseError';
-import Node, { NODE_TYPES } from './Node';
+import Node, { NodeType } from './Node';
 import {
   T_SPACE,
   T_TAB,
@@ -127,7 +127,7 @@ class Tokenizer {
       key: null,
       value: null,
     };
-    const root = Node.create(NODE_TYPES.ROOT, null, { source: text });
+    const root = Node.create(NodeType.ROOT, null, { source: text });
     const nodeStack = [];
     let node = root;
 
@@ -144,7 +144,7 @@ class Tokenizer {
     const popNode = error => {
       this.debug(`<== popNode: ${node.type}:${node.name}`);
       node.end = stream.pos;
-      if (node.start === node.end || (node.type === NODE_TYPES.PARAGRAPH && !node.hasChild())) {
+      if (node.start === node.end || (node.type === NodeType.PARAGRAPH && !node.hasChild())) {
         node.parentNode.removeChild(node);
       }
       node = nodeStack.pop();
@@ -156,7 +156,7 @@ class Tokenizer {
 
     // replace wrapping paragraph with current block tag
     const levelUpBlock = () => {
-      if (node.parentNode.type === NODE_TYPES.PARAGRAPH) {
+      if (node.parentNode.type === NodeType.PARAGRAPH) {
         const blockNode = node;
         popNode();
         node.removeChild(blockNode);
@@ -202,8 +202,8 @@ class Tokenizer {
             stream.eatSpaces();
           }
           start = stream.pos;
-          if (node.type !== NODE_TYPES.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
-            const child = node.createChild(NODE_TYPES.PARAGRAPH, null, { start });
+          if (node.type !== NodeType.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
+            const child = node.createChild(NodeType.PARAGRAPH, null, { start });
             pushNode(child);
           }
           let text = stream.readTo(P_MARKER, { toEOF: true });
@@ -256,19 +256,19 @@ class Tokenizer {
             state = STATE.TAG_NAME;
           } else if (stream.match(P_LINE_BREAK)) {
             state = STATE.NORMAL;
-          } else if (node.type !== NODE_TYPES.ENTITY && (states.unwrapped || stream.eat(P_LABEL_START))) {
+          } else if (node.type !== NodeType.ENTITY && (states.unwrapped || stream.eat(P_LABEL_START))) {
             state = STATE.LABEL_START;
           } else {
-            const child = node.createChild(NODE_TYPES.TAG, '', { start });
+            const child = node.createChild(NodeType.TAG, '', { start });
             pushNode(child);
             state = STATE.TAG_NAME;
           }
           if (state === STATE.NORMAL || state === STATE.LABEL_START) {
-            if (node.type = NODE_TYPES.PARAGRAPH) {
+            if (node.type = NodeType.PARAGRAPH) {
               popNode();
             }
             states.simpleBlock = true;
-            const child = node.createChild(NODE_TYPES.TAG, 'BLOCK', { start })
+            const child = node.createChild(NodeType.TAG, 'BLOCK', { start })
             if (states.unwrapped) {
               child.setAttribute('unwrapped', true);
               states.unwrapped = false;
@@ -285,7 +285,7 @@ class Tokenizer {
           }
           states.inline = name === 'INLINE';
           if (states.isClosing) {
-            if (node.type === NODE_TYPES.PARAGRAPH) {
+            if (node.type === NodeType.PARAGRAPH) {
               stream.pushCursor(start);
               popNode();
               stream.popCursor();
@@ -423,11 +423,11 @@ class Tokenizer {
         case STATE.TAG_END: {
           if (!node.isWrappingTag || states.isClosing) {
             const tagNode = node;
-            if (node.type === NODE_TYPES.PARAGRAPH) {
+            if (node.type === NodeType.PARAGRAPH) {
               popNode();
             }
             popNode();
-            if (node.type === NODE_TYPES.ENTITY) {
+            if (node.type === NodeType.ENTITY) {
               // copy tag properties to entity and remove temporary tag node
               node.setAttributes(tagNode.attributes);
               node.name = tagNode.name;
@@ -459,7 +459,7 @@ class Tokenizer {
         }
 
         case STATE.ENTITY_START: {
-          const child = node.createChild(NODE_TYPES.ENTITY, '', { start });
+          const child = node.createChild(NodeType.ENTITY, '', { start });
           pushNode(child);
           state = STATE.ENTITY_BODY;
           break;

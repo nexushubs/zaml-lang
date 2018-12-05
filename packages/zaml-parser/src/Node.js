@@ -3,13 +3,9 @@ import { stringify, parseValue } from './util';
 import { parse } from '.';
 
 /**
- * @typedef {string} NodeType
- */
-
-/**
  * @enum {NodeType}
  */
-const NODE_TYPES = {
+const NodeType = {
   FRAGMENT: 'fragment',
   ROOT: 'root',
   PARAGRAPH: 'paragraph',
@@ -18,12 +14,14 @@ const NODE_TYPES = {
   TEXT: 'text',
 }
 
-const BLOCK_NODE_TYPES = [
-  NODE_TYPES.ROOT,
-  NODE_TYPES.PARAGRAPH,
+const NodeTypes = _.values(NodeType);
+
+const BlockNodeTypes = [
+  NodeType.ROOT,
+  NodeType.PARAGRAPH,
 ];
 
-const BLOCK_TAGS = [
+const BlockTags = [
   'BLOCK',
   'QUOTE',
   'SECTION',
@@ -31,15 +29,15 @@ const BLOCK_TAGS = [
   'FOOTER',
 ];
 
-const WRAPPING_TAGS = [
-  ...BLOCK_TAGS,
+const WrappingTags = [
+  ...BlockTags,
   'INLINE',
 ];
 
 export {
-  NODE_TYPES,
-  BLOCK_NODE_TYPES,
-  BLOCK_TAGS,
+  NodeType,
+  BlockNodeTypes,
+  BlockTags,
 }
 
 /**
@@ -72,12 +70,12 @@ function findOne(node, tester = () => true) {
     return node;
   }
   if (!_.isEmpty(node.children)) {
-    node.children.forEach(childNode => {
+    for (const childNode of node.children) {
       const result = findOne(childNode, tester);
       if (result) {
         return result;
       }
-    });
+    };
   }
   return null;
 }
@@ -90,7 +88,7 @@ export { find };
  */
 class Node {
 
-  static TYPES = NODE_TYPES;
+  static Types = NodeType;
 
   /**
    * @param {NodeType} type 
@@ -134,7 +132,7 @@ class Node {
    * @returns {Node}
    */
   static createFragment() {
-    return Node.create(NODE_TYPES.FRAGMENT);
+    return Node.create(NodeType.FRAGMENT);
   }
 
   /**
@@ -187,6 +185,10 @@ class Node {
       parent = null,
       content = '',
     } = options;
+
+    if (type && !NodeTypes.includes(type)) {
+      throw new TypeError(`invalid node type ${type}`);
+    }
 
     /**
      * @type {NodeType}
@@ -263,17 +265,17 @@ class Node {
      */
     this.labels = [];
 
-    if (type === NODE_TYPES.ROOT) {
+    if (type === NodeType.ROOT) {
       this.start = 0;
       this.end = source.length;
       this._source = source;
     }
-    if (BLOCK_NODE_TYPES.includes(type) || [NODE_TYPES.ENTITY, NODE_TYPES.TAG, NODE_TYPES.FRAGMENT].includes(type)) {
-      if (type !== NODE_TYPES.PARAGRAPH) {
+    if (BlockNodeTypes.includes(type) || [NodeType.ENTITY, NodeType.TAG, NodeType.FRAGMENT].includes(type)) {
+      if (type !== NodeType.PARAGRAPH) {
         this.name = name;
         this.setAttributes(attributes);
       }
-    } else if (type === NODE_TYPES.TEXT) {
+    } else if (type === NodeType.TEXT) {
       this.content = content;
     }
   }
@@ -283,7 +285,7 @@ class Node {
    * @returns {boolean}
    */
   get isTag() {
-    return this.type === NODE_TYPES.TAG;
+    return this.type === NodeType.TAG;
   }
 
   /**
@@ -291,7 +293,7 @@ class Node {
    * @returns {boolean}
    */
   get isWrappingTag() {
-    return this.isTag && WRAPPING_TAGS.includes(this.name);
+    return this.isTag && WrappingTags.includes(this.name);
   }
 
   /**
@@ -299,7 +301,7 @@ class Node {
    * @returns {boolean}
    */
   get isBlockTag() {
-    return this.isTag && BLOCK_TAGS.includes(this.name);
+    return this.isTag && BlockTags.includes(this.name);
   }
 
   /**
@@ -308,7 +310,7 @@ class Node {
    */
   get isBlock() {
     const { type, name } = this;
-    return BLOCK_NODE_TYPES.includes(type) || this.isBlockTag;
+    return BlockNodeTypes.includes(type) || this.isBlockTag;
   }
 
   /**
@@ -316,7 +318,7 @@ class Node {
    * @returns {boolean}
    */
   get isInlineBlock() {
-    return this.type === NODE_TYPES.TAG && this.name === 'INLINE';
+    return this.type === NodeType.TAG && this.name === 'INLINE';
   }
 
   /**
@@ -338,7 +340,7 @@ class Node {
    * @returns {boolean}
    */
   get isRoot() {
-    return this.type === NODE_TYPES.ROOT;
+    return this.type === NodeType.ROOT;
   }
 
   /**
@@ -346,7 +348,7 @@ class Node {
    * @returns {string}
    */
   get source() {
-    if (this.type === NODE_TYPES.ROOT) {
+    if (this.type === NodeType.ROOT) {
       return this._source;
     }
     const rootNode = this.getRootNode();
@@ -361,9 +363,9 @@ class Node {
    * @returns {string}
    */
   get innerText() {
-    if (this.type === NODE_TYPES.TEXT) {
+    if (this.type === NodeType.TEXT) {
       return this.content;
-    } else if (this.type === NODE_TYPES.ENTITY) {
+    } else if (this.type === NodeType.ENTITY) {
       const textNode = this.children[0];
       return textNode ? textNode.content : '';
     } else {
@@ -465,11 +467,11 @@ class Node {
     }
     expression = expression.toUpperCase();
     if (/^[A-Z]/.test(expression)) {
-      return this.type === NODE_TYPES.TAG && this.name === expression;
+      return this.type === NodeType.TAG && this.name === expression;
     } else if (/^#/.test(expression)) {
-      return this.type === NODE_TYPES.TAG && this.labels.includes(expression.substr(1));
+      return this.type === NodeType.TAG && this.labels.includes(expression.substr(1));
     } else if (/^@[A-Z]/.test(expression)) {
-      return this.type === NODE_TYPES.ENTITY && this.name === expression.substr(1);
+      return this.type === NodeType.ENTITY && this.name === expression.substr(1);
     }
     return false;
   }
@@ -525,7 +527,7 @@ class Node {
    * @returns {Node}
    */
   appendText(text, options) {
-    return this.createChild(NODE_TYPES.TEXT, null, { ...options, content: text });
+    return this.createChild(NodeType.TEXT, null, { ...options, content: text });
   }
 
   /**
@@ -546,7 +548,7 @@ class Node {
    * @returns {Node}
    */
   insertAt(node, index) {
-    if (node.type === NODE_TYPES.FRAGMENT) {
+    if (node.type === NodeType.FRAGMENT) {
       this.children.splice(index, 0, ...node.children);
       node.children.forEach(child => child.parent = this);
       node.children = [];
@@ -692,8 +694,8 @@ class Node {
    * @returns {Node|Node[]}
    */
   findBy(selector = {}, one = false) {
-    const { type, name, text, source } = selector;
-    const finder = one ? find : findOne;
+    const { type, name, text, source, label } = selector;
+    const finder = one ? findOne : find;
     return finder(this, node => {
       let match = true;
       if (type) {
@@ -702,7 +704,7 @@ class Node {
       if (name) {
         match = match && name === node.name;
       }
-      if (text && node.type === NODE_TYPES.TEXT) {
+      if (text && node.type === NodeType.TEXT) {
         match = match && (_.isRegExp(text) ? text.match(node.content) : node.content.includes(text));
       }
       if (label) {
@@ -714,6 +716,7 @@ class Node {
       if (source) {
         match = match && (_.isRegExp(source) ? source.match(node.source) : node.source.includes(source));
       }
+      return match;
     });;
   }
 
@@ -733,7 +736,7 @@ class Node {
    */
   findTextByRange(start, end) {
     if (this.textStart <= start && this.textEnd >= end) {
-      if (this.type === NODE_TYPES.TEXT) {
+      if (this.type === NodeType.TEXT) {
         return this;
       } else if (this.hasChild()) {
         for (let i = 0; i < this.children.length; i++) {
@@ -789,7 +792,7 @@ class Node {
    * @param {Array.<{start:number,end:number,type:string,attributes:any}>} items 
    */
   createEntities(items) {
-    if (!this.type === NODE_TYPES.TEXT) {
+    if (!this.type === NodeType.TEXT) {
       console.warn('extractEntity() should exec only on text node');
     }
     if (_.isEmpty(items)) {
@@ -806,7 +809,7 @@ class Node {
       if (item.start > lastPos) {
         fragment.appendText(text.substring(lastPos, item.start));
       }
-      const entityNode = fragment.createChild(NODE_TYPES.ENTITY, item.type, {
+      const entityNode = fragment.createChild(NodeType.ENTITY, item.type, {
         attributes: item.data,
       });
       entityNode.appendText(text.substring(item.start, item.end));
@@ -849,7 +852,7 @@ class Node {
    */
   async extractEntities(extractor) {
     const nodeList = this.find(node => {
-      return node.type === NODE_TYPES.TEXT && node.parent && node.parent.type !== NODE_TYPES.ENTITY;
+      return node.type === NodeType.TEXT && node.parent && node.parent.type !== NodeType.ENTITY;
     });
     const textList = nodeList.map(node => node.content);
     let result;

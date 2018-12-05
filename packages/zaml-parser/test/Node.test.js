@@ -4,25 +4,20 @@ const ZAML = require('../lib');
 const { readFile, readJSON } = require('./util');
 
 const { expect } = chai;
-const { Node, NODE_TYPES } = ZAML;
+const { Node, NodeType } = ZAML;
 
 describe('class Node', () => {
 
   const source = readFile('fixtures/sample.zaml');
 
-  let node;
-
-  beforeEach(() => {
-    node = new Node(NODE_TYPES);
-  });
-
   it('Constructor', () => {
+    const node = new Node(NodeType.Root);
     expect(node).to.be.instanceOf(Node);
   });
 
   it('node.fromJSON()', () => {
     const sample = readJSON('fixtures/parsed-ast.json')
-    node = Node.fromJSON(sample);
+    const node = Node.fromJSON(sample);
     expect(node.toSource().replace(/\n\n/g, '\n')).to.equal(source);
     // expect(Node.fromJSON(parsed).toJSON({ position: true })).to.deep.equal(parsed);
   });
@@ -39,7 +34,7 @@ describe('class Node', () => {
   // });
 
   it('node.createEntitiesFromText()', () => {
-    node = Node.fromSource('The quick brown [fox]{ANIMAL} jumps over the lazy dog.');
+    const node = Node.fromSource('The quick brown [fox]{ANIMAL} jumps over the lazy dog.');
     result = 'The [quick]{SPEED} brown [fox]{ANIMAL} [jumps]{ACTION} over the lazy [dog]{ANIMAL}.';
     text = 'The quick brown fox jumps over the lazy dog.';
     const entities = [{

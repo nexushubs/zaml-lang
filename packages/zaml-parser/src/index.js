@@ -1,7 +1,7 @@
 import util from 'util';
 import Tokenizer from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
-import Node, { NODE_TYPES } from './Node';
+import Node, { NodeType } from './Node';
 
 /**
  * @module @zaml/parser
@@ -30,7 +30,7 @@ export {
   TextStream,
   TextLine,
   Node,
-  NODE_TYPES,
+  NodeType,
   tokenize,
   parse,
 };
@@ -40,7 +40,7 @@ export default {
   TextStream,
   TextLine,
   Node,
-  NODE_TYPES,
+  NodeType,
   tokenize,
   parse,
 };

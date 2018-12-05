@@ -14,7 +14,7 @@ import {
   P_STRING_LITERAL_UNQUOTED_TESTER,
 } from './constants';
 
-import Node, { NODE_TYPES } from './Node';
+import Node, { NodeType } from './Node';
 
 const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/;
 
@@ -80,7 +80,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
   } else {
     node.textStart = pos;
   }
-  if (node.type === NODE_TYPES.TEXT) {
+  if (node.type === NodeType.TEXT) {
     text += node.content;
   } else {
     if (options.toSource && node.isRoot && !_.isEmpty(node.attributes)) {
@@ -90,7 +90,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
       });
       text += T_FRONT_MATTER + T_LINE_BREAK;
     }
-    if (node.type === NODE_TYPES.ENTITY) {
+    if (node.type === NodeType.ENTITY) {
       const child = _.first(node.children);
       if (options.toSource) {
         text += T_ENTITY_START;
@@ -100,7 +100,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
         text += T_ENTITY_END;
       }
     }
-    if (options.toSource && (node.type === NODE_TYPES.TAG || node.type === NODE_TYPES.ENTITY)) {
+    if (options.toSource && (node.type === NodeType.TAG || node.type === NodeType.ENTITY)) {
       if (node.isBlock) {
         text += spacer(options.space, indent);
       }
@@ -120,7 +120,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
         text += T_LINE_BREAK;
       }
     }
-    if (options.toSource && node.type === NODE_TYPES.PARAGRAPH) {
+    if (options.toSource && node.type === NodeType.PARAGRAPH) {
       text += spacer(options.space, indent);
     }
     if (node.isBlock || node.isWrappingTag && !_.isEmpty(node.children)) {
@@ -135,7 +135,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
         text = _.trimEnd(text, T_LINE_BREAK);
       }
       text += T_LINE_BREAK;
-      if (node.type === NODE_TYPES.PARAGRAPH && !node.isLastChild) {
+      if (node.type === NodeType.PARAGRAPH && !node.isLastChild) {
         text += T_LINE_BREAK;
       }
     }
