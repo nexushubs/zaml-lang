@@ -48,8 +48,6 @@
 ## Typedefs
 
 <dl>
-<dt><a href="#NodeType">NodeType</a> : <code>string</code></dt>
-<dd></dd>
 <dt><a href="#TextPattern">TextPattern</a> : <code>string</code> | <code>RegExp</code></dt>
 <dd></dd>
 <dt><a href="#TokenizingState">TokenizingState</a> : <code>number</code></dt>
@@ -104,9 +102,15 @@ AST node class
         * [.textEnd](#Node+textEnd) : <code>number</code>
         * [.content](#Node+content) : <code>string</code>
         * [.children](#Node+children) : [<code>Array.&lt;Node&gt;</code>](#Node)
-        * [.attributes](#Node+attributes) : <code>Object.&lt;string, any&gt;</code>
         * [.labels](#Node+labels) : <code>Array.&lt;string&gt;</code>
+        * [.attributes](#Node+attributes) : <code>Object.&lt;string, any&gt;</code>
+        * [.metadata](#Node+metadata) : <code>Object.&lt;string, any&gt;</code>
+        * [.labels](#Node+labels) : <code>Array.&lt;string&gt;</code>
+        * [.isTag](#Node+isTag) ⇒ <code>boolean</code>
+        * [.isWrappingTag](#Node+isWrappingTag) ⇒ <code>boolean</code>
+        * [.isBlockTag](#Node+isBlockTag) ⇒ <code>boolean</code>
         * [.isBlock](#Node+isBlock) ⇒ <code>boolean</code>
+        * [.isInlineBlock](#Node+isInlineBlock) ⇒ <code>boolean</code>
         * [.parentNode](#Node+parentNode)
         * [.childNodes](#Node+childNodes)
         * [.isRoot](#Node+isRoot) ⇒ <code>boolean</code>
@@ -118,6 +122,8 @@ AST node class
         * [.childIndex](#Node+childIndex) ⇒ <code>number</code>
         * [.nextSibling](#Node+nextSibling) ⇒ [<code>Node</code>](#Node)
         * [.previousSibling](#Node+previousSibling) ⇒ [<code>Node</code>](#Node)
+        * [.firstChild](#Node+firstChild) ⇒ [<code>Node</code>](#Node)
+        * [.lastChild](#Node+lastChild) ⇒ [<code>Node</code>](#Node)
         * [.getRootNode()](#Node+getRootNode) ⇒ <code>boolean</code>
         * [.is(expression)](#Node+is) ⇒ <code>boolean</code>
         * [.contains(node)](#Node+contains) ⇒ <code>boolean</code>
@@ -135,8 +141,14 @@ AST node class
         * [.setAttributes(data)](#Node+setAttributes)
         * [.getAttribute(key)](#Node+getAttribute)
         * [.removeAttribute(key)](#Node+removeAttribute)
+        * [.clearAttributes()](#Node+clearAttributes)
+        * [.setMetadata(key, value)](#Node+setMetadata)
+        * [.getMetadata(key)](#Node+getMetadata)
+        * [.removeMetadata(key)](#Node+removeMetadata)
+        * [.clearMetadata()](#Node+clearMetadata)
         * [.addLabel(label)](#Node+addLabel)
         * [.removeLabel(label)](#Node+removeLabel)
+        * [.clearLabels()](#Node+clearLabels)
         * [.normalize()](#Node+normalize)
         * [.findBy(selector, [one])](#Node+findBy) ⇒ [<code>Node</code>](#Node) \| [<code>Array.&lt;Node&gt;</code>](#Node)
         * [.findOneBy(selector)](#Node+findOneBy)
@@ -222,10 +234,22 @@ Text content, only for text node
 Child nodes, only for block node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+labels"></a>
+
+### node.labels : <code>Array.&lt;string&gt;</code>
+node labels
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+attributes"></a>
 
 ### node.attributes : <code>Object.&lt;string, any&gt;</code>
 Attributes, for root, tag, entity node
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+metadata"></a>
+
+### node.metadata : <code>Object.&lt;string, any&gt;</code>
+Block metadata
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+labels"></a>
@@ -234,10 +258,34 @@ Attributes, for root, tag, entity node
 Node labels
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+isTag"></a>
+
+### node.isTag ⇒ <code>boolean</code>
+Check if the node is tag
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+isWrappingTag"></a>
+
+### node.isWrappingTag ⇒ <code>boolean</code>
+Check if the node is wrapping tag
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+isBlockTag"></a>
+
+### node.isBlockTag ⇒ <code>boolean</code>
+Check if the node is block tag
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+isBlock"></a>
 
 ### node.isBlock ⇒ <code>boolean</code>
 Property indicates if the node is a block (wrapping other nodes)
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+isInlineBlock"></a>
+
+### node.isInlineBlock ⇒ <code>boolean</code>
+If node is inline block
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+parentNode"></a>
@@ -304,6 +352,18 @@ Next sibling node
 
 ### node.previousSibling ⇒ [<code>Node</code>](#Node)
 Previous sibling node
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+firstChild"></a>
+
+### node.firstChild ⇒ [<code>Node</code>](#Node)
+Get the first child of current node
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
+<a name="Node+lastChild"></a>
+
+### node.lastChild ⇒ [<code>Node</code>](#Node)
+Get the last child of current node
 
 **Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+getRootNode"></a>
@@ -482,6 +542,49 @@ Remove an attribute
 
 - key <code>string</code>
 
+<a name="Node+clearAttributes"></a>
+
+### node.clearAttributes()
+Remove all attributes
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+<a name="Node+setMetadata"></a>
+
+### node.setMetadata(key, value)
+Set metadata
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code> | <code>object</code> - Attribute key
+- value <code>any</code> - Attribute value
+
+<a name="Node+getMetadata"></a>
+
+### node.getMetadata(key)
+Get metadata value
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code>
+
+<a name="Node+removeMetadata"></a>
+
+### node.removeMetadata(key)
+Remove a metadata
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code>
+
+<a name="Node+clearMetadata"></a>
+
+### node.clearMetadata()
+Remove all metadata
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+addLabel"></a>
 
 ### node.addLabel(label)
@@ -502,6 +605,12 @@ Remove label
 
 - label <code>string</code>
 
+<a name="Node+clearLabels"></a>
+
+### node.clearLabels()
+Remove all labels
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
 <a name="Node+normalize"></a>
 
 ### node.normalize()
@@ -815,8 +924,8 @@ Stream like text string
     * [.peek()](#TextStream+peek) ⇒ <code>string</code>
     * [.next()](#TextStream+next) ⇒ <code>string</code>
     * [.eat(pattern)](#TextStream+eat) ⇒ <code>string</code>
-    * [.eatWhile(match)](#TextStream+eatWhile) ⇒ <code>boolean</code>
-    * [.eatUntil(pattern)](#TextStream+eatUntil) ⇒ <code>boolean</code>
+    * [.eatWhile(match)](#TextStream+eatWhile) ⇒ <code>string</code>
+    * [.eatUntil(pattern)](#TextStream+eatUntil) ⇒ <code>string</code>
     * [.eatSpaces()](#TextStream+eatSpaces) ⇒ <code>boolean</code>
     * [.search(pattern, [options])](#TextStream+search)
     * [.read([n])](#TextStream+read)
@@ -946,22 +1055,22 @@ Consumes one char if the next char fitting the pattern
 
 <a name="TextStream+eatWhile"></a>
 
-### stream.eatWhile(match) ⇒ <code>boolean</code>
+### stream.eatWhile(match) ⇒ <code>string</code>
 Consumes chars while fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
-**Returns**: <code>boolean</code> - If any chars been consumed  
+**Returns**: <code>string</code> - eaten characters  
 **Params**
 
 - match [<code>TextPattern</code>](#TextPattern)
 
 <a name="TextStream+eatUntil"></a>
 
-### stream.eatUntil(pattern) ⇒ <code>boolean</code>
+### stream.eatUntil(pattern) ⇒ <code>string</code>
 Consumes chars until the first char not fitting the pattern
 
 **Kind**: instance method of [<code>TextStream</code>](#TextStream)  
-**Returns**: <code>boolean</code> - If any chars been consumed  
+**Returns**: <code>string</code> - eaten characters  
 **Params**
 
 - pattern [<code>TextPattern</code>](#TextPattern) - char or pattern
@@ -1168,9 +1277,9 @@ Process a text and parse to AST
 
 **Kind**: instance method of [<code>Tokenizer</code>](#Tokenizer)  
 **Returns**: [<code>Node</code>](#Node) - Root node of parsed AST  
-<a name="NODE_TYPES"></a>
+<a name="NodeType"></a>
 
-## NODE\_TYPES : <code>enum</code>
+## NodeType : <code>enum</code>
 **Kind**: global enum  
 **Properties**
 
@@ -1276,10 +1385,6 @@ Stringify node
     - [.space] <code>number</code>
 - [indent] <code>number</code> - Initial indent, increases 1 each block
 
-<a name="NodeType"></a>
-
-## NodeType : <code>string</code>
-**Kind**: global typedef  
 <a name="TextPattern"></a>
 
 ## TextPattern : <code>string</code> \| <code>RegExp</code>
