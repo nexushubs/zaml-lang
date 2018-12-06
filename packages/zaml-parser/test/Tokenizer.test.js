@@ -95,7 +95,7 @@ describe('class Tokenizer', () => {
     // console.log(node.toString())
   });
 
-  describe('feature: front matter', () => {
+  describe('feature: front matter & block metadata', () => {
 
     it('front matter without leading marker', () => {
       const sample = `
@@ -105,7 +105,21 @@ describe('class Tokenizer', () => {
         The leading marker of front matter could be ignored
       `;
       const node = zaml.parse(sample);
-      expect(node.attributes).deep.equal({
+      expect(node.metadata).deep.equal({
+        hello: 'world',
+        foo: 'bar'
+      });
+    });
+
+    it('front matter without ending marker', () => {
+      const sample = `
+        hello: world
+        foo: bar
+
+        The leading marker of front matter could be ignored
+      `;
+      const node = zaml.parse(sample);
+      expect(node.metadata).deep.equal({
         hello: 'world',
         foo: 'bar'
       });
@@ -125,6 +139,23 @@ describe('class Tokenizer', () => {
     //   });
     // });
 
+    it('block metadata', () => {
+      const sample = `
+      {BLOCK}
+        hello: world
+        foo: bar
+        ---
+        Block content
+      {/BLOCK}
+      `;
+      const node = zaml.parse(sample);
+      expect(node.firstChild).to.be.instanceOf(Node);
+      expect(node.firstChild.metadata).deep.equals({
+        hello: 'world',
+        foo: 'bar',
+      });
+    });
+
     it('front matter assignment with full width character "："', () => {
       const sample = `
       ---
@@ -133,7 +164,7 @@ describe('class Tokenizer', () => {
       ---
       `;
       const node = zaml.parse(sample);
-      expect(node.attributes).deep.equals({
+      expect(node.metadata).deep.equals({
         '语言': '中文',
         '字符': '全角',
       });

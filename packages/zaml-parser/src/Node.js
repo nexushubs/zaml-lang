@@ -116,6 +116,7 @@ class Node {
   static fromJSON(data) {
     const node = Node.create(data.type, data.name, {
       attributes: _.mapValues(data.attributes, value => parseValue(value)),
+      metadata: _.mapValues(data.metadata, value => parseValue(value)),
       content: data.content,
     });
     if (data.children) {
@@ -182,6 +183,8 @@ class Node {
       start = -1,
       end = -1,
       attributes = {},
+      metadata = {},
+      labels = [],
       parent = null,
       content = '',
     } = options;
@@ -254,10 +257,22 @@ class Node {
     this.children = [];
 
     /**
+     * @type {string[]}
+     * @description node labels
+     */
+    this.labels = [];
+
+    /**
      * @type {Object.<string,any>}
      * @description Attributes, for root, tag, entity node
      */
     this.attributes = {};
+
+    /**
+     * @type {Object.<string,any>}
+     * @description Block metadata
+     */
+    this.metadata = {};
 
     /**
      * @type {string[]}
@@ -273,7 +288,9 @@ class Node {
     if (BlockNodeTypes.includes(type) || [NodeType.ENTITY, NodeType.TAG, NodeType.FRAGMENT].includes(type)) {
       if (type !== NodeType.PARAGRAPH) {
         this.name = name;
-        this.setAttributes(attributes);
+        this.attributes = attributes;
+        this.metadata = metadata;
+        this.labels = labels;
       }
     } else if (type === NodeType.TEXT) {
       this.content = content;
@@ -493,6 +510,24 @@ class Node {
   }
 
   /**
+   * Get the first child of current node
+   * @returns {Node}
+   */
+  get firstChild() {
+    Node.validParent(this);
+    return _.first(this.children);
+  }
+
+  /**
+   * Get the last child of current node
+   * @returns {Node}
+   */
+  get lastChild() {
+    Node.validParent(this);
+    return _.last(this.children);
+  }
+
+  /**
    * Check if this node has any children
    * @returns {boolean}
    */
@@ -651,6 +686,49 @@ class Node {
   }
 
   /**
+   * Remove all attributes
+   */
+  clearAttributes() {
+    this.attributes = {};
+  }
+
+  /**
+   * Set metadata
+   * @param {string|object} key Attribute key
+   * @param {any} value Attribute value
+   */
+  setMetadata(key, value) {
+    if (_.isObject(key)) {
+      _.merge(this.metadata, key);
+    } else {
+      _.set(this.metadata, key, value);
+    }
+  }
+
+  /**
+   * Get metadata value
+   * @param {string} key 
+   */
+  getMetadata(key) {
+    return _.get(this.metadata, key);
+  }
+
+  /**
+   * Remove a metadata
+   * @param {string} key 
+   */
+  removeMetadata(key) {
+    _.unset(this.metadata, key);
+  }
+
+  /**
+   * Remove all metadata
+   */
+  clearMetadata() {
+    this.metadata = {};
+  }
+
+  /**
    * Add label
    * @param {string} label 
    */
@@ -669,6 +747,13 @@ class Node {
    */
   removeLabel(label) {
     _.pull(this.labels, label);
+  }
+
+  /**
+   * Remove all labels
+   */
+  clearLabels() {
+    this.labels = [];
   }
 
   /**
@@ -907,6 +992,7 @@ class Node {
       name: this.name,
       content: this.content,
       attributes: _.isEmpty(this.attributes) ? undefined : this.attributes,
+      metadata: _.isEmpty(this.metadata) ? undefined : this.metadata,
       labels: this.labels.length ? this.labels : undefined,
       position: position ? {
         start: this.start,

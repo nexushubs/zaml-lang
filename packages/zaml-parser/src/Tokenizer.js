@@ -26,6 +26,7 @@ import {
   P_LABEL_NAME,
   P_ATTRIBUTE_ASSIGN,
   P_ATTRIBUTE_NAME,
+  P_ATTRIBUTE_LIST,
   T_STRING_START,
   P_DATE_LITERAL,
   P_NUMBER_START,
@@ -188,7 +189,7 @@ class Tokenizer {
 
         case STATE.FRONT_MATTER: {
           stream.eatWhile(P_WHITE_SPACES_EXT);
-          if (stream.match(T_FRONT_MATTER) || stream.findLine(T_FRONT_MATTER)) {
+          if (stream.match(T_FRONT_MATTER) || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
             states.isFrontMatter = true;
             state = STATE.ATTRIBUTE_LIST;
           } else {
@@ -319,20 +320,50 @@ class Tokenizer {
         }
         
         case STATE.ATTRIBUTE_LIST: {
-          const hasSpaces = stream.eatWhile(states.simpleBlock ? P_WHITE_SPACE : P_WHITE_SPACES_EXT) || states.isFrontMatter;
-          if (states.isFrontMatter && stream.match(T_FRONT_MATTER)) {
-            if (!stream.match(P_LINE_BREAK)) {
-              throw createError('expected new line after front matter closed');
+          const spacePattern = (states.simpleBlock || node.getAttribute('unwrapped')) ? P_WHITE_SPACE : P_WHITE_SPACES_EXT;
+          const spaces = stream.eatWhile(spacePattern);
+          const { isFrontMatter } = states;
+          if (isFrontMatter) {
+            let endOfFrontMatter = false;
+            if (stream.match(T_FRONT_MATTER)) {
+              if (!stream.match(P_LINE_BREAK)) {
+                throw createError('expected new line after front matter closed');
+              }
+              endOfFrontMatter = true;
             }
-            state = STATE.NORMAL;
-          } else if (stream.match(P_LINE_BREAK)) {
+            const lineBreaks = spaces.match(P_LINE_BREAK);
+            if (lineBreaks && lineBreaks.length > 1) {
+              endOfFrontMatter = true;
+            }
+            if (endOfFrontMatter) {
+              state = STATE.NORMAL;
+              states.isFrontMatter = false;
+              break;
+            }
+            // deal with simple block at the beginning
+            if (node.type === NodeType.ROOT && !stream.match(P_ATTRIBUTE_LIST, { consume: false }) && lineBreaks && lineBreaks.length === 1) {
+              const child = node.createChild(NodeType.TAG, 'BLOCK', {
+                labels: node.labels,
+                attributes: {
+                  unwrapped: true,
+                },
+                metadata: node.metadata,
+              });
+              node.clearLabels();
+              node.clearMetadata();
+              pushNode(child);
+              state = STATE.NORMAL;
+              break;
+            }
+          }
+          if (stream.match(P_LINE_BREAK)) {
             state = STATE.NORMAL;
           } else if (stream.eat(T_TAG_END)) {
             state = STATE.TAG_END;
           } else if (stream.match(P_LABEL_START)) {
             state = STATE.LABEL_START;
           } else {
-            if (!hasSpaces && this.stream.pos > 1) {
+            if (!(spaces || states.isFrontMatter) && this.stream.pos > 1) {
               if (_.isEmpty(node.attributes) && P_ATTRIBUTE_ASSIGN.test(stream.peek())) {
                 states.simpleBlock = true;
                 states.key = node.name;
@@ -413,7 +444,11 @@ class Tokenizer {
           if (_.isUndefined(value)) {
             value = true;
           }
-          node.setAttribute(key, value);
+          if (states.isFrontMatter) {
+            node.setMetadata(key, value);
+          } else {
+            node.setAttribute(key, value);
+          }
           this.debug(`# attribute ${key}=${JSON.stringify(value)}`);
           this.debug();
           state = STATE.ATTRIBUTE_LIST;
@@ -421,6 +456,7 @@ class Tokenizer {
         }
 
         case STATE.TAG_END: {
+          const parseMetadata = node.isBlockTag && !states.isClosing;
           if (!node.isWrappingTag || states.isClosing) {
             const tagNode = node;
             if (node.type === NodeType.PARAGRAPH) {
@@ -444,7 +480,11 @@ class Tokenizer {
           }
           states.inline = false;
           states.simpleBlock = false;
-          state = STATE.NORMAL;
+          if (parseMetadata) {
+            state = STATE.FRONT_MATTER;
+          } else {
+            state = STATE.NORMAL;
+          }
           break;
         }
         

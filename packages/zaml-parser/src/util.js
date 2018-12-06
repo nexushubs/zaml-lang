@@ -83,9 +83,9 @@ export function stringify(node, options, indent = -1, pos = 0) {
   if (node.type === NodeType.TEXT) {
     text += node.content;
   } else {
-    if (options.toSource && node.isRoot && !_.isEmpty(node.attributes)) {
+    if (options.toSource && !_.isEmpty(node.metadata)) {
       text += T_FRONT_MATTER + T_LINE_BREAK;
-      _.each(node.attributes, (value, key) => {
+      _.each(node.metadata, (value, key) => {
         text += `${key}: ${formatValue(value)}` + T_LINE_BREAK;
       });
       text += T_FRONT_MATTER + T_LINE_BREAK;

@@ -298,31 +298,40 @@ class TextStream {
   /**
    * Consumes chars while fitting the pattern
    * @param {TextPattern} match 
-   * @returns {boolean} If any chars been consumed
+   * @returns {string} eaten characters
    */
   eatWhile(pattern) {
     const start = this.pos;
-    while (this.eat(pattern)) {};
-    return this.pos > start;
+    let chr;
+    let string = '';
+    do {
+      chr = this.eat(pattern);
+      if (chr) {
+        string += chr;
+      }
+    } while (chr && !this.eof());
+    return string;
   }
 
   /**
    * Consumes chars until the first char not fitting the pattern
    * @param {TextPattern} pattern char or pattern
-   * @returns {boolean} If any chars been consumed
+   * @returns {string} eaten characters
    */
   eatUntil(pattern) {
     const start = this.pos;
     let ch;
+    let string = '';
     do {
       ch = this.eat(pattern);
       if (!ch) {
+        string += this.peek();
         this.pos++;
       } else {
         this.pos--;
       }
     } while (!ch && !this.eof());
-    return this.pos > start;
+    return string;
   }
 
   /**

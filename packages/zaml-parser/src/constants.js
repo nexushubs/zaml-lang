@@ -35,6 +35,7 @@ export const P_LABEL_START = /[#＃]/g;
 export const P_LABEL_NAME = /[\p{Script=Hani}A-Za-z][\p{Script=Hani}\w.]*/gu;
 export const P_ATTRIBUTE_ASSIGN = createPattern(`[${[T_ASSIGN_XML, T_ASSIGN_YAML].join('')}]`, '');
 export const P_ATTRIBUTE_NAME = createPattern(`(?:${P_LABEL_NAME.source})(?=${combinePatterns([P_WHITE_SPACE, P_ATTRIBUTE_ASSIGN, T_TAG_END])})`, 'gu');
+export const P_ATTRIBUTE_LIST = createPattern(`(${P_LABEL_NAME.source}${P_ATTRIBUTE_ASSIGN.source}|${P_LABEL_START.source}${P_LABEL_NAME.source})`);
 export const P_TAG_NAME = P_ATTRIBUTE_NAME;
 export const T_STRING_START = '"';
 export const P_DATE_LITERAL = /\d{4}-[01]\d-[0-3]\d(?:T[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))?/g;

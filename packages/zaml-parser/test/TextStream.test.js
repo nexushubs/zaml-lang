@@ -112,25 +112,25 @@ describe('class TextStream', () => {
   });
 
   it('eatWhile() char', () => {
-    expect(stream.eatWhile('l')).to.be.false;
+    expect(stream.eatWhile('l')).to.equal('');
     stream.next();
     stream.next();
-    expect(stream.eatWhile('l')).to.be.true;
+    expect(stream.eatWhile('l')).to.equal('ll');
     expect(stream.pos).to.equal(4);
   });
 
   it('eatWhile() regexp pattern', () => {
-    expect(stream.eatWhile(/[a-z]/i)).to.be.true;
+    expect(stream.eatWhile(/[a-z]/i)).to.equal('Hello');
     expect(stream.pos).to.equal(5);
   });
 
   it('eatUntil() char', () => {
-    expect(stream.eatUntil(' ')).to.be.true;
+    expect(stream.eatUntil(' ')).to.equal('Hello');
     expect(stream.pos).to.equal(5);
   });
 
   it('eatUntil() regexp pattern', () => {
-    expect(stream.eatUntil(/[^a-z]/i)).to.be.true;
+    expect(stream.eatUntil(/[^a-z]/i)).to.equal('Hello');
     expect(stream.pos).to.equal(5);
   });
 
