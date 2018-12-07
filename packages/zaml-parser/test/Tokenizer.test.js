@@ -292,5 +292,36 @@ describe('class Tokenizer', () => {
     });
 
   });
+
+  describe('feature: comments', () => {
+    
+    it('single line comments', () => {
+      const sample = `
+        ~comment text
+
+        Main text content ~comment text
+      `;
+      const node = zaml.parse(sample);
+      // console.log(JSON.stringify(node.toJSON(), null, 2));
+    });
+    
+    it('multiple line comments', () => {
+      const sample = `
+        ~~~
+        multiple line
+        comments
+        ~~~
+
+        ~~~~
+        another
+        comment
+        block
+        ~~~~
+      `;
+      const node = zaml.parse(sample);
+      // console.log(JSON.stringify(node.toJSON(), null, 2));
+    });
+
+  });
   
 });

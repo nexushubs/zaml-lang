@@ -16,6 +16,8 @@ import {
   T_METADATA_FAVORED_ASSIGN,
   T_TAG_ATTRIBUTE_FAVORED_ASSIGN,
   T_LINE_BREAKS,
+  T_SINGLE_LINE_COMMENT,
+  P_MULTIPLE_LINE_COMMENT,
   P_SPACE_WRAPPED_LINE_BREAK,
   P_LINE_BREAK,
   P_PARAGRAPH_BREAK,
@@ -54,6 +56,8 @@ let stateValue = 0;
 const STATE = {
   METADATA: stateValue++,
   NORMAL: stateValue++,
+  SINGLE_COMMENT: stateValue++,
+  MULTIPLE_COMMENT: stateValue++,
   START: stateValue++,
   TAG_START: stateValue++,
   TAG_NAME: stateValue++,
@@ -180,15 +184,25 @@ class Tokenizer {
       return new ParseError(message, text, stream.pos);
     };
     
+    let lastState = null;
+    let lastPos = -1;
+
     while (state !== STATE.FINISH) {
+      // parse failure watcher
       if (Date.now() - timeStart >= PROCESSING_TIMEOUT) {
         this.debug('parsing timeout!');
         state = STATE.FINISH;
       }
+      if (state === lastState && lastPos === stream.pos) {
+        throw new Error('Parser fall into infinite loop!');
+      }
+      lastState = state;
+      lastPos = stream.pos;
       this.debug('#', getStateName(state), 'pos:', stream.pos);
       if (this.options.verbose) {
         stream.debugState();
       }
+      
       switch (state) {
 
         case STATE.METADATA: {
@@ -240,7 +254,14 @@ class Tokenizer {
           start = stream.pos;
           const ch = stream.eat(P_MARKER);
           P_LABEL_START.lastIndex = 0;
-          if (ch === T_TAG_START) {
+          if (ch === T_SINGLE_LINE_COMMENT) {
+            const rest = stream.eatWhile(T_SINGLE_LINE_COMMENT);
+            if (rest.length === 0) {
+              state = STATE.SINGLE_COMMENT;
+            } else {
+              state = STATE.MULTIPLE_COMMENT;
+            }
+          } else if (ch === T_TAG_START) {
             state = STATE.TAG_START;
           } else if (P_LABEL_START.test(ch)) {
             states.unwrapped = true;
@@ -255,6 +276,32 @@ class Tokenizer {
           } else {
             throw createError('empty start')
           }
+          break;
+        }
+
+        case STATE.SINGLE_COMMENT:
+        case STATE.MULTIPLE_COMMENT: {
+          start = stream.pos;
+          let content;
+          if (state === STATE.SINGLE_COMMENT) {
+            content = stream.readTo(P_LINE_BREAK);
+          } else {
+            content = stream.readTo(P_MULTIPLE_LINE_COMMENT, { skipMatched: true });
+          }
+          if (content) {
+            if (state === STATE.MULTIPLE_COMMENT) {
+              content = content.replace(P_SPACE_WRAPPED_LINE_BREAK, '\n');
+            }
+            content = _.trim(content);
+          }
+          if (content) {
+            node.createChild(NodeType.COMMENT, null, {
+              start,
+              end: stream.pos,
+              content,
+            });
+          }
+          state = STATE.NORMAL;
           break;
         }
         

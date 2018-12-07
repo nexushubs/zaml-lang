@@ -11,6 +11,8 @@ export const DEFAULT_INDENT_SPACES = 2;
 export const T_SPACE = ' ';
 export const T_TAB = '\t';
 export const T_METADATA_MARKER = `---`;
+export const T_SINGLE_LINE_COMMENT = '~';
+export const P_MULTIPLE_LINE_COMMENT = '~{3,}';
 export const T_ENTITY_START = '[';
 export const T_ENTITY_END = ']';
 export const T_TAG_START = '{';
@@ -50,6 +52,6 @@ export const P_FULL_WIDTH_CHARACTER = /[\p{Script=Hani}！＠＃￥％…＆×�
 
 export const START_MARKERS = [T_TAG_START, T_ENTITY_START, P_LABEL_START];
 export const END_MARKERS = [T_TAG_END, T_ENTITY_END];
-export const P_MARKER = createPattern(`(${combinePatterns([P_PARAGRAPH_BREAK, ...START_MARKERS, T_TAG_END])})`);
+export const P_MARKER = createPattern(`(${combinePatterns([P_PARAGRAPH_BREAK, ...START_MARKERS, T_TAG_END, P_MULTIPLE_LINE_COMMENT, T_SINGLE_LINE_COMMENT])})`);
 
 export const PROCESSING_TIMEOUT = Infinity;

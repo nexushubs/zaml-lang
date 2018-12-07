@@ -12,6 +12,7 @@ const NodeType = {
   TAG: 'tag',
   ENTITY: 'entity',
   TEXT: 'text',
+  COMMENT: 'comment',
 }
 
 const NodeTypes = _.values(NodeType);
@@ -331,7 +332,7 @@ class Node {
         this.metadata = metadata;
         this.labels = labels;
       }
-    } else if (type === NodeType.TEXT) {
+    } else if (type === NodeType.TEXT || type === NodeType.COMMENT) {
       this.content = content;
     }
   }
