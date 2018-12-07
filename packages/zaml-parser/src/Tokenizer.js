@@ -5,7 +5,7 @@ import Node, { NodeType } from './Node';
 import {
   T_SPACE,
   T_TAB,
-  T_FRONT_MATTER,
+  T_METADATA_MARKER,
   T_ENTITY_START,
   T_ENTITY_END,
   T_TAG_START,
@@ -13,7 +13,7 @@ import {
   T_TAG_END,
   T_ASSIGN_XML,
   P_ASSIGN_YAML,
-  T_FRONT_MATTER_FAVORED_ASSIGN,
+  T_METADATA_FAVORED_ASSIGN,
   T_TAG_ATTRIBUTE_FAVORED_ASSIGN,
   T_LINE_BREAKS,
   P_SPACE_WRAPPED_LINE_BREAK,
@@ -52,7 +52,7 @@ let stateValue = 0;
  * @enum {TokenizingState}
  */
 const STATE = {
-  FRONT_MATTER: stateValue++,
+  METADATA: stateValue++,
   NORMAL: stateValue++,
   START: stateValue++,
   TAG_START: stateValue++,
@@ -75,6 +75,11 @@ const stateNames = _.keys(STATE);
 
 const getStateName = (state) => {
   return stateNames[state];
+}
+
+const countLineBreaks = (text) => {
+  const result = text.match(P_LINE_BREAK);
+  return result ? result.length : 0;
 }
 
 /**
@@ -117,14 +122,13 @@ class Tokenizer {
   process() {
     const { text, stream } = this;
     const timeStart = Date.now();
-    let state = STATE.FRONT_MATTER;
+    let state = STATE.METADATA;
     let start = 0;
     const states = {
       unwrapped: false,
       inline: false,
-      simpleBlock: false,
+      embedded: false,
       isClosing: false,
-      isFrontMatter: false,
       key: null,
       value: null,
     };
@@ -187,10 +191,10 @@ class Tokenizer {
       }
       switch (state) {
 
-        case STATE.FRONT_MATTER: {
+        case STATE.METADATA: {
           stream.eatWhile(P_WHITE_SPACES_EXT);
-          if (stream.match(T_FRONT_MATTER) || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
-            states.isFrontMatter = true;
+          if (stream.match(T_METADATA_MARKER) || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
+            node.states.metadata = true;
             state = STATE.ATTRIBUTE_LIST;
           } else {
             state = STATE.NORMAL;
@@ -199,15 +203,18 @@ class Tokenizer {
         }
 
         case STATE.NORMAL: {
+          let lineBreaks = 0;
           if (stream.sol(true) || stream.eol(true)) {
-            stream.eatSpaces();
+            const spaces = stream.eatWhile(P_WHITE_SPACES_EXT);
+            lineBreaks = countLineBreaks(spaces);
           }
           start = stream.pos;
           if (node.type !== NodeType.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
             const child = node.createChild(NodeType.PARAGRAPH, null, { start });
             pushNode(child);
           }
-          let text = stream.readTo(P_MARKER, { toEOF: true });
+          const originalText = stream.readTo(P_MARKER, { toEOF: true });
+          let text = originalText;
           if (text) {
             if (node.children.length === 0) {
               text = _.trimStart(text);
@@ -218,9 +225,9 @@ class Tokenizer {
               node.appendText(text, { start, end: stream.pos });
             }
           }
-          if (stream.match(P_PARAGRAPH_BREAK)) {
+          if (stream.match(P_PARAGRAPH_BREAK) || (!text && lineBreaks === 2) || countLineBreaks(originalText) > 0) {
             popNode();
-            if (node.getAttribute('unwrapped')) {
+            if (node.states.unwrapped) {
               popNode();
             }
           } else {
@@ -260,7 +267,14 @@ class Tokenizer {
           } else if (node.type !== NodeType.ENTITY && (states.unwrapped || stream.eat(P_LABEL_START))) {
             state = STATE.LABEL_START;
           } else {
-            const child = node.createChild(NodeType.TAG, '', { start });
+            const child = Node.create(NodeType.TAG, '', { start });
+            if (states.embedded) {
+              child.states.embedded = true;
+              child.states.metaKey = states.key;
+              states.embedded = false;
+            } else {
+              node.appendChild(child);
+            }
             pushNode(child);
             state = STATE.TAG_NAME;
           }
@@ -268,12 +282,14 @@ class Tokenizer {
             if (node.type = NodeType.PARAGRAPH) {
               popNode();
             }
-            states.simpleBlock = true;
-            const child = node.createChild(NodeType.TAG, 'BLOCK', { start })
-            if (states.unwrapped) {
-              child.setAttribute('unwrapped', true);
-              states.unwrapped = false;
-            }
+            const child = node.createChild(NodeType.TAG, 'BLOCK', {
+              start,
+              states: {
+                simpleBlock: true,
+                unwrapped: states.unwrapped,
+              },
+            });
+            states.unwrapped = false;
             pushNode(child)
           }
           break;
@@ -320,31 +336,31 @@ class Tokenizer {
         }
         
         case STATE.ATTRIBUTE_LIST: {
-          const spacePattern = (states.simpleBlock || node.getAttribute('unwrapped')) ? P_WHITE_SPACE : P_WHITE_SPACES_EXT;
+          const spacePattern = (node.states.simpleBlock || node.states.unwrapped) ? P_WHITE_SPACE : P_WHITE_SPACES_EXT;
           const spaces = stream.eatWhile(spacePattern);
-          const { isFrontMatter } = states;
-          if (isFrontMatter) {
+          const isParsingMetadata = node.states.metadata;
+          if (isParsingMetadata) {
             let endOfFrontMatter = false;
-            if (stream.match(T_FRONT_MATTER)) {
+            if (stream.match(T_METADATA_MARKER)) {
               if (!stream.match(P_LINE_BREAK)) {
-                throw createError('expected new line after front matter closed');
+                throw createError('expected new line after metadata closed');
               }
               endOfFrontMatter = true;
             }
-            const lineBreaks = spaces.match(P_LINE_BREAK);
-            if (lineBreaks && lineBreaks.length > 1) {
+            const lineBreaks = countLineBreaks(spaces);
+            if (lineBreaks > 1) {
               endOfFrontMatter = true;
             }
             if (endOfFrontMatter) {
               state = STATE.NORMAL;
-              states.isFrontMatter = false;
+              node.states.metadata = false;
               break;
             }
             // deal with simple block at the beginning
-            if (node.type === NodeType.ROOT && !stream.match(P_ATTRIBUTE_LIST, { consume: false }) && lineBreaks && lineBreaks.length === 1) {
+            if (node.type === NodeType.ROOT && !stream.match(P_ATTRIBUTE_LIST, { consume: false }) && lineBreaks === 1) {
               const child = node.createChild(NodeType.TAG, 'BLOCK', {
                 labels: node.labels,
-                attributes: {
+                states: {
                   unwrapped: true,
                 },
                 metadata: node.metadata,
@@ -363,11 +379,11 @@ class Tokenizer {
           } else if (stream.match(P_LABEL_START)) {
             state = STATE.LABEL_START;
           } else {
-            if (!(spaces || states.isFrontMatter) && this.stream.pos > 1) {
+            if (!(spaces || isParsingMetadata) && this.stream.pos > 1) {
               if (_.isEmpty(node.attributes) && P_ATTRIBUTE_ASSIGN.test(stream.peek())) {
-                states.simpleBlock = true;
                 states.key = node.name;
                 node.name = 'BLOCK';
+                node.states.simpleBlock = true;
                 levelUpBlock();
                 state = STATE.ATTRIBUTE_ASSIGN;
                 break;
@@ -410,7 +426,11 @@ class Tokenizer {
         case STATE.ATTRIBUTE_VALUE: {
           const ch = stream.peek();
           let value;
-          if (ch === T_STRING_START) {
+          if (ch === T_TAG_START || ch === T_ENTITY_START) {
+            states.embedded = true;
+            state = STATE.START;
+            break;
+          } else if (ch === T_STRING_START) {
             value = stream.match(P_STRING_LITERAL_QUOTED);
             value = JSON.parse(value);
           } else if (stream.match(P_DATE_LITERAL)) {
@@ -444,12 +464,12 @@ class Tokenizer {
           if (_.isUndefined(value)) {
             value = true;
           }
-          if (states.isFrontMatter) {
+          if (node.states.metadata) {
             node.setMetadata(key, value);
           } else {
             node.setAttribute(key, value);
           }
-          this.debug(`# attribute ${key}=${JSON.stringify(value)}`);
+          this.debug(`# ${node.states.metadata ? 'metadata' : 'attribute'} ${key}=${JSON.stringify(value)}`);
           this.debug();
           state = STATE.ATTRIBUTE_LIST;
           break;
@@ -457,8 +477,8 @@ class Tokenizer {
 
         case STATE.TAG_END: {
           const parseMetadata = node.isBlockTag && !states.isClosing;
+          let tagNode = node;
           if (!node.isWrappingTag || states.isClosing) {
-            const tagNode = node;
             if (node.type === NodeType.PARAGRAPH) {
               popNode();
             }
@@ -469,8 +489,17 @@ class Tokenizer {
               node.name = tagNode.name;
               node.removeChild(tagNode);
               state = STATE.ENTITY_END;
+              tagNode = node;
               popNode();
             }
+            if (tagNode.states.embedded) {
+              if (node.states.metadata) {
+                node.setMetadata(tagNode.states.metaKey, tagNode);
+              } else {
+                node.setAttribute(tagNode.states.metaKey, tagNode);
+              }
+            }
+            node.states.metadata = false;
           }
           if (states.isClosing) {
             if (!states.inline) {
@@ -479,9 +508,8 @@ class Tokenizer {
             states.isClosing = false;
           }
           states.inline = false;
-          states.simpleBlock = false;
-          if (parseMetadata) {
-            state = STATE.FRONT_MATTER;
+          if (parseMetadata || tagNode.states.embedded) {
+            state = STATE.METADATA;
           } else {
             state = STATE.NORMAL;
           }
@@ -499,7 +527,14 @@ class Tokenizer {
         }
 
         case STATE.ENTITY_START: {
-          const child = node.createChild(NodeType.ENTITY, '', { start });
+          const child = Node.create(NodeType.ENTITY, '', { start });
+          if (states.embedded) {
+            child.states.embedded = true;
+            child.states.metaKey = states.key;
+            states.embedded = false;
+          } else {
+            node.appendChild(child);
+          }
           pushNode(child);
           state = STATE.ENTITY_BODY;
           break;

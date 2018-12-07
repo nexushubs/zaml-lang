@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.4.2] - 2018-12-05
+## [0.5.0] - 2018-12-05
 
 ### Added
 
@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 * `stringify()`: Fix source output of block labels, better block line break.
+
+### Changed
+
+* Front-matter is renamed to metadata, and support block scope now.
 
 ## [0.4.1] - 2018-11-30
 

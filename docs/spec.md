@@ -62,9 +62,9 @@ Expression is a syntax used to demonstrate ZAML language format
 | `<attribute>`      | `<key>` `=` `<value>`          | `value` should be encoded in URI component format   |
 | `<attribute-list>` | ( `<attribute>` `<space>` ){n} | The comma after the last attribute could be omitted |
 
-### 3.3 Front Matter
+### 3.3 Metadata
 
-Front matter is used for defining variables for the whole YAML source, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
+Metadata is used for defining value for the whole YAML document, also for `BLOCK` tag, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
 
 Examples:
 
@@ -75,7 +75,7 @@ author: Peter
 ---
 ```
 
-Front mater is parsed into attributes of root AST node.
+Metadata is parsed into `.metadata` of the AST node.
 
 ### 3.4 Sections
 

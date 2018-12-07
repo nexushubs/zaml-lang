@@ -10,7 +10,7 @@ export const DEFAULT_INDENT_SPACES = 2;
 
 export const T_SPACE = ' ';
 export const T_TAB = '\t';
-export const T_FRONT_MATTER = `---`;
+export const T_METADATA_MARKER = `---`;
 export const T_ENTITY_START = '[';
 export const T_ENTITY_END = ']';
 export const T_TAG_START = '{';
@@ -21,7 +21,7 @@ export const T_ASSIGN_YAML = ':：';
 export const T_LINE_BREAK = '\n';
 export const T_LINE_BREAKS = '\r\n';
 export const T_PARAGRAPH_BREAK = '\n\n';
-export const T_FRONT_MATTER_FAVORED_ASSIGN = P_ASSIGN_YAML;
+export const T_METADATA_FAVORED_ASSIGN = P_ASSIGN_YAML;
 export const T_TAG_ATTRIBUTE_FAVORED_ASSIGN = T_ASSIGN_XML;
 
 export const P_ASSIGN_YAML = /[:：]/;

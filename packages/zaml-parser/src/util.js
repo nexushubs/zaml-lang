@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import {
   DEFAULT_INDENT_SPACES,
-  T_FRONT_MATTER,
+  T_METADATA_MARKER,
   T_SPACE,
   T_LINE_BREAK,
   T_TAG_START,
@@ -60,9 +60,11 @@ export function spacer(space, indent) {
 /**
  * Stringify node
  * @param {Node} node 
- * @param {object} options
- * @param {number} [options.space] 
+ * @param {object} [options]
+ * @param {number} [options.space] White spaces each indent
+ * @param {boolean} [options.toSource] To ZAML source code
  * @param {number} [indent] Initial indent, increases 1 each block
+ * @param {number} Initial position
  */
 export function stringify(node, options, indent = -1, pos = 0) {
   let text = '';
@@ -84,11 +86,17 @@ export function stringify(node, options, indent = -1, pos = 0) {
     text += node.content;
   } else {
     if (options.toSource && !_.isEmpty(node.metadata)) {
-      text += T_FRONT_MATTER + T_LINE_BREAK;
+      text += T_METADATA_MARKER + T_LINE_BREAK;
       _.each(node.metadata, (value, key) => {
-        text += `${key}: ${formatValue(value)}` + T_LINE_BREAK;
+        text += `${key}: `;
+        if (value instanceof Node) {
+          text += stringify(node, options, 0, pos + text.length);
+        } else {
+          text += formatValue(value);
+        }
+        text += T_LINE_BREAK;
       });
-      text += T_FRONT_MATTER + T_LINE_BREAK;
+      text += T_METADATA_MARKER + T_LINE_BREAK;
     }
     if (node.type === NodeType.ENTITY) {
       const child = _.first(node.children);
@@ -108,6 +116,8 @@ export function stringify(node, options, indent = -1, pos = 0) {
       _.each(node.attributes, (value, key) => {
         if (_.isBoolean(value) && value) {
           text += ` ${key}`;
+        } else if (value instanceof Node) {
+          text += stringify(node, options, 0, pos + text.length);
         } else {
           text += ` ${key}=${formatValue(value)}`;
         }

@@ -651,7 +651,7 @@ class TextStream {
     console.log(`  ${_.repeat(' ', numWidth)} | ${_.repeat(' ', pos)}^`);
   }
 
-  debugState(range = 1) {
+  debugState(range = 0) {
     const { ln, col } = this.getPosition();
     const lineIndex = ln - 1;
     const lines = _.slice(this.lines, _.max([lineIndex - range, 0]), _.min([lineIndex + range + 1, this.lines.length]));

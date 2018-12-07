@@ -80,6 +80,49 @@ function findOne(node, tester = () => true) {
   return null;
 }
 
+function parseJson(json) {
+  const node = Node.create(json.type, json.name, {
+    attributes: parseJsonMap(json.attributes),
+    metadata: parseJsonMap(json.metadata),
+    content: json.content,
+  });
+  if (json.children) {
+    _.each(json.children, childData => {
+      node.appendChild(parseJson(childData));
+    });
+  }
+  node.normalize();
+  return node;
+}
+
+/**
+ * Map metadata & attributes to JSON
+ * @param {Object<string,any>} map 
+ */
+function toJsonMap(map) {
+  if (_.isEmpty(map)) {
+    return undefined;
+  }
+  return _.mapValues(map, (value) => {
+    if (value instanceof Node) {
+      return value.toJSON();
+    }
+    return value;
+  })
+}
+
+function parseJsonMap(json) {
+  if (_.isEmpty(json)) {
+    return undefined;
+  }
+  return _.mapValues(json, (value) => {
+    if (_.isPlainObject(value)) {
+      return parseJson(value);
+    }
+    return parseValue(value);
+  });
+}
+
 export { find };
 
 /**
@@ -110,22 +153,11 @@ class Node {
 
   /**
    * Create node from json serializable data
-   * @param {object} data 
+   * @param {object} json 
    * @returns {Node}
    */
-  static fromJSON(data) {
-    const node = Node.create(data.type, data.name, {
-      attributes: _.mapValues(data.attributes, value => parseValue(value)),
-      metadata: _.mapValues(data.metadata, value => parseValue(value)),
-      content: data.content,
-    });
-    if (data.children) {
-      _.each(data.children, childData => {
-        node.appendChild(Node.fromJSON(childData));
-      });
-    }
-    node.normalize();
-    return node;
+  static fromJSON(json) {
+    return parseJson(json)
   }
 
   /**
@@ -182,6 +214,7 @@ class Node {
       source = '',
       start = -1,
       end = -1,
+      states,
       attributes = {},
       metadata = {},
       labels = [],
@@ -192,6 +225,12 @@ class Node {
     if (type && !NodeTypes.includes(type)) {
       throw new TypeError(`invalid node type ${type}`);
     }
+
+    /**
+     * Parser states
+     * @type {Object<string,any>}
+     */
+    this.states = states || {};
 
     /**
      * @type {NodeType}
@@ -678,6 +717,15 @@ class Node {
   }
 
   /**
+   * Check if a specified attribute key exists
+   * @param {string} key 
+   * @returns {boolean}
+   */
+  hasAttribute(key) {
+    return _.has(this.attributes, key)
+  }
+
+  /**
    * Remove an attribute
    * @param {string} key 
    */
@@ -729,7 +777,16 @@ class Node {
   }
 
   /**
-   * Add label
+   * Check if a specified metadata key exists
+   * @param {string} key 
+   * @returns {boolean}
+   */
+  hasMetadata(key) {
+    return _.has(this.metadata, key)
+  }
+
+  /**
+   * Add label to node
    * @param {string} label 
    */
   addLabel(label) {
@@ -739,6 +796,15 @@ class Node {
     if (!this.labels.includes(label)) {
       this.labels.push(label);
     }
+  }
+
+  /**
+   * Check if the node has specified label
+   * @param {string} label 
+   * @returns {boolean}
+   */
+  hasLabel(label) {
+    return this.labels.includes(label);
   }
 
   /**
@@ -991,8 +1057,8 @@ class Node {
       type: this.type,
       name: this.name,
       content: this.content,
-      attributes: _.isEmpty(this.attributes) ? undefined : this.attributes,
-      metadata: _.isEmpty(this.metadata) ? undefined : this.metadata,
+      attributes: toJsonMap(this.attributes),
+      metadata: toJsonMap(this.metadata),
       labels: this.labels.length ? this.labels : undefined,
       position: position ? {
         start: this.start,

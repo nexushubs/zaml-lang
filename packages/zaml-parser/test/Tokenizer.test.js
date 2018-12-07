@@ -52,47 +52,62 @@ describe('class Tokenizer', () => {
   it('contract sample', () => {
 
     const sample = `
-      甲方：北京XXX科技有限公司
-      乙方：王XX
+      #租赁合同
+      甲方：[北京星核软件有限公司]{ORG}
+      组织机构代码：[345976348]{SOC}
+      法定代表人：[张鸿峰]{PER}
+      地址：[北京市朝阳区方恒国际D座2806]{LOC}
+      乙方：[孙继顺]{PER}
+      身份证号：[230101197701018888]{ID}
+      手机号：[13945018888]{MOBILE}
       ---
+      
       甲乙双方经友好协商，达成如下协议。
       
-      #标的
-      一、甲方租赁乙方所有的位于[北京市朝阳区XX路44号]{LOC}门市房一间，{INLINE #面积}使用面积为[105平方米]{AREA}{/INLINE}，{INLINE #租期 #时间范围}租期为[2019年1月1日]{DATE}至[2040年12月31日]{DATE}{/INLINE}，租金为[十万元人民币]{MONEY value=100000}。
+      #标的 #租赁物 #不动产
+      一、甲方租赁{INLINE #声明与保证}乙方所有的{/INLINE}位于[北京市朝阳区南磨房路37号]{LOC}门市房一间，使用面积为[105平方米]{AREA}，{INLINE #租期 #租赁期限 #计租日}租期为[2019年1月1日]{DATE}至[2019年12月31日]{DATE}{/INLINE}，{INLINE #租金}租金为[十万元人民币]{MONEY value=100000}{/INLINE}。
       
       #用途
       二、该门市房的用途为新注册公司的经营地。
       
-      #付款方式 #支付时间
-      三、租金按月结算。甲方[每月一日]{DATE}向乙方指定账户一次汇入当月租金。
+      #付款方式 #计费方式 #按月结算 #支付时间
+      三、租金按月结算。{INLINE #义务}甲方[每月一日]{DATE}向乙方指定账户一次汇入当月租金。{/INLINE}
+      
+      #定金
+      四、{INLINE #义务 #支付}甲方应于合同生效起[五日内]{DATE}向乙方支付定金[一万元整]{MONEY}。{/INLINE}
+      
+      #交付租赁物 #免租期
+      五、乙方应在收到定金给交给乙方钥匙用于提前装修。装修费用由甲方自行承担。
       
       #押金
-      四、甲方应于合同生效起[五日内]{DATE}向乙方支付押金[一万元整]{MONEY value=10000}。租赁期满或合同解除后两日内，乙方应无息返还。
+      六、{INLINE #义务 #支付}甲方应于计租日前向乙方支付押金[一万元整]{MONEY}。{/INLINE} {INLINE #义务 #返还}租赁期满或合同解除后[两日内]{DATE}，乙方应无息返还。{/INLINE}
       
       {#违约责任
-        五、违约责任
+        七、违约责任
       
-        1. 付款方未按照约定付款的，每逾期[一天]{TIME}，应按逾期金额的1%向收款方支付违约金。
+        #逾期付款
+        1. 付款方未按照约定付款的，每逾期[一天]{DATE}，应按逾期金额的1%向收款方支付违约金。
       
-        2. 乙方延迟交房的，每逾期一天，应向甲方支付违约金[100元]{MONEY value=100}，并将租期做相应的顺延。
+        #预期交付租赁物
+        2. 乙方延迟交房的，每逾期一天，应向甲方支付违约金[100元]{DATE}，并将租期做相应的顺延。
       }
-      
+
       {#不可抗力
-        六、发生如下情形，任何一方有权解除合同，并不承担违约责任：
-        
-        #政府行为
+        八、发生如下情形，任何一方有权解除合同，并不承担违约责任：
+      
+        #政府行为 #拆迁
         1. 该门市房被政府列入拆迁范围；
       
         2. 发生地震、火灾等不可抗力。
       }
-      
-      #争议解决
+
+      #争议解决 #法院起诉
       七、双方发生争议协调不成的，应向甲方所在地人民法院起诉。
     `;
     const node = zaml.parse(sample);
     // console.log(JSON.stringify(node.toJSON(), null, 2));
     // console.log(node.toSource())
-    // console.log(node.toString())
+    console.log(node.toString())
   });
 
   describe('feature: front matter & block metadata', () => {
@@ -245,4 +260,37 @@ describe('class Tokenizer', () => {
 
   });
 
+  describe('feature: embedded entity & tag in metadata', () => {
+    
+    it('embedded tag parsing', () => {
+      const sample = `
+        ---
+        foo: {INLINE #tag attr1=value1}Embedded block content{/INLINE}
+        ---
+        Main text content
+      `;
+      const node = zaml.parse(sample);
+      expect(node.metadata.foo).to.be.instanceOf(Node);
+      expect(node.metadata.foo.type).to.equal(Node.Types.TAG);
+      expect(node.metadata.foo.hasLabel('tag')).to.be.true;
+      expect(node.metadata.foo.getAttribute('attr1')).to.equal('value1');
+      expect(node.metadata.foo.firstChild.content).to.equal('Embedded block content');
+    });
+    
+    it('embedded entity parsing', () => {
+      const sample = `
+        ---
+        foo: [Jack]{PER lang=English}
+        ---
+        Main text content
+      `;
+      const node = zaml.parse(sample);
+      expect(node.metadata.foo).to.be.instanceOf(Node);
+      expect(node.metadata.foo.type).to.equal(Node.Types.ENTITY);
+      expect(node.metadata.foo.firstChild.content).to.equal('Jack');
+      expect(node.metadata.foo.getAttribute('lang')).to.equal('English');
+    });
+
+  });
+  
 });
