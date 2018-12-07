@@ -499,7 +499,6 @@ class Tokenizer {
                 node.setAttribute(tagNode.states.metaKey, tagNode);
               }
             }
-            node.states.metadata = false;
           }
           if (states.isClosing) {
             if (!states.inline) {
@@ -508,8 +507,10 @@ class Tokenizer {
             states.isClosing = false;
           }
           states.inline = false;
-          if (parseMetadata || tagNode.states.embedded) {
+          if (parseMetadata) {
             state = STATE.METADATA;
+          } else if (tagNode.states.embedded && (!tagNode.isWrappingTag || states.isClosing)) {
+            state = STATE.ATTRIBUTE_LIST;
           } else {
             state = STATE.NORMAL;
           }

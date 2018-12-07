@@ -107,7 +107,7 @@ describe('class Tokenizer', () => {
     const node = zaml.parse(sample);
     // console.log(JSON.stringify(node.toJSON(), null, 2));
     // console.log(node.toSource())
-    console.log(node.toString())
+    // console.log(node.toString())
   });
 
   describe('feature: front matter & block metadata', () => {
