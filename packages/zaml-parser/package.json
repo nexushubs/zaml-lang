@@ -1,6 +1,6 @@
 {
   "name": "@zaml/parser",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "ZAML tokenizer & lexer",
   "main": "lib/index.js",
   "scripts": {
