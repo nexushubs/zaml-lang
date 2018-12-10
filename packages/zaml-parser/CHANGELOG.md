@@ -9,15 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* Add support for inline block.
+* Support for inline block tag `{INLINE}`.
+* Support block scope metadata.
+* Support tag & entity in attributes & metadata.
 
 ### Fixed
 
-* `stringify()`: Fix source output of block labels, better block line break.
+* Fix `node.toSource()` output of block labels, better block line break.
 
 ### Changed
 
-* Front-matter is renamed to metadata, and support block scope now.
+* Front-matter is renamed to metadata.
 
 ## [0.4.1] - 2018-11-30
 
