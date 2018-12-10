@@ -613,7 +613,9 @@ class Tokenizer {
         }
         
         case STATE.END: {
-          popNode();
+          if (node.type !== NodeType.ROOT) {
+            popNode();
+          }
           state = STATE.FINISH;
           break;
         }
