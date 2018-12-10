@@ -33,6 +33,8 @@ const BlockTags = [
 const WrappingTags = [
   ...BlockTags,
   'INLINE',
+  'NUM',
+  'HEADING',
 ];
 
 export {
@@ -221,6 +223,7 @@ class Node {
       labels = [],
       parent = null,
       content = '',
+      text = '',
     } = options;
 
     if (type && !NodeTypes.includes(type)) {
@@ -325,6 +328,11 @@ class Node {
       this.end = source.length;
       this._source = source;
     }
+    
+    if (text) {
+      this.appendText(text);
+    }
+
     if (BlockNodeTypes.includes(type) || [NodeType.ENTITY, NodeType.TAG, NodeType.FRAGMENT].includes(type)) {
       if (type !== NodeType.PARAGRAPH) {
         this.name = name;
@@ -375,7 +383,7 @@ class Node {
    * @returns {boolean}
    */
   get isInlineBlock() {
-    return this.type === NodeType.TAG && this.name === 'INLINE';
+    return this.isTag && !this.isBlockTag;
   }
 
   /**
@@ -513,8 +521,8 @@ class Node {
   /**
    * Check node match the expression
    * @example
-   * `block`: tag
-   * `@loc`: entity
+   * `BLOCK`: tag
+   * `@LOC`: entity
    * @param {string} expression 
    * @returns {boolean}
    */
