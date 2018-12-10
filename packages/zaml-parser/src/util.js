@@ -90,7 +90,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
       _.each(node.metadata, (value, key) => {
         text += `${key}: `;
         if (value instanceof Node) {
-          text += stringify(node, options, 0, pos + text.length);
+          text += stringify(value, options, 0, pos + text.length);
         } else {
           text += formatValue(value);
         }
