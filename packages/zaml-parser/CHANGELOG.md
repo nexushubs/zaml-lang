@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.2] - 2018-12-13
+
+### Added
+
+* Support simple inline block `{#label text content}`, by `node.toSource({ simple: true })`.
+* Colorful console debug with [chalk](https://github.com/chalk/chalk).
+
 ## [0.5.1] - 2018-12-10
 
 ### Added

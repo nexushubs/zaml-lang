@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import chalk from 'chalk';
 import {
   P_FULL_WIDTH_CHARACTER
 } from './constants';
@@ -638,17 +639,26 @@ class TextStream {
     return this.pos;
   }
 
-  debugLine(line, numWidth, isCurrent) {
-    const { ln, text } = line;
+  /**
+   * 
+   * @param {TextLine} line 
+   * @param {number} numWidth 
+   * @param {number} col 
+   */
+  debugLine(line, numWidth, col) {
+    let { ln, text } = line;
     if (_.isUndefined(numWidth)) {
       numWidth = (ln + '').length;
     }
-    console.log(`${isCurrent ? '>' : ' '} ${_.padStart(ln, numWidth)} | ${text}`);
+    if (col) {
+      text = text.substring(0, col - 1) + chalk.bgBlue(text.charAt(col - 1)) + text.substring(col);
+    }
+    console.log(`${chalk.blueBright(`${col ? '>' : ' '} ${_.padStart(ln, numWidth)} |`)} ${text}`);
   }
 
   debugCursor(text, col, numWidth) {
     const pos = text.substr(0, col - 1).replace(P_FULL_WIDTH_CHARACTER, 'XX').length;
-    console.log(`  ${_.repeat(' ', numWidth)} | ${_.repeat(' ', pos)}^`);
+    console.log(chalk.blueBright(`  ${_.repeat(' ', numWidth)} | ${_.repeat(' ', pos)}^ ${col}`));
   }
 
   debugState(range = 0) {
@@ -658,7 +668,7 @@ class TextStream {
     const numWidth = _.max(lines.map(l => (l.ln + '').length));
     lines.forEach((line) => {
       const isCurrent = line.ln === ln;
-      this.debugLine(line, numWidth, isCurrent);
+      this.debugLine(line, numWidth, isCurrent ? col : 0);
       if (isCurrent) {
         this.debugCursor(line.text, col, numWidth);
       }

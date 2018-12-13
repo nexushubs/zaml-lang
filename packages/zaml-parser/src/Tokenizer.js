@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import chalk from 'chalk';
 import TextStream from './TextStream';
 import ParseError from './ParseError';
 import Node, { NodeType } from './Node';
@@ -140,24 +141,47 @@ class Tokenizer {
     const nodeStack = [];
     let node = root;
 
+    const getNodeString = (node) => `${node.type}${node.name ? `:${node.name}` : ''}`;
+
+    const debugStack = (lastNode) => {
+      if (!this.options.verbose) {
+        return;
+      }
+      const separator = ' > ';
+      const stack = [...nodeStack, node];
+      const list = stack.map((n, i) => {
+        let text = getNodeString(n);
+        if (i === stack.length - 1) {
+          text = chalk.cyanBright(text);
+        } else {
+          text = chalk.green(text);
+        }
+        return text;
+      });
+      let result = list.join(chalk.redBright(separator));
+      if (lastNode) {
+        result += chalk.grey(`${separator}${getNodeString(lastNode)}`);
+      }
+      return result;
+    }
+
     const pushNode = n => {
-      this.debug(`==> pushNode: ${n.type}:${n.name}`);
-      this.debug();
       if (node.start === -1) {
         node.start = stream.pos;
       }
       nodeStack.push(node);
       node = n;
+      this.debug(`push: ${debugStack()}\n`);
     }
 
     const popNode = error => {
-      this.debug(`<== popNode: ${node.type}:${node.name}`);
+      const lastNode = node;
       node.end = stream.pos;
       if (node.start === node.end || (node.type === NodeType.PARAGRAPH && !node.hasChild())) {
         node.parentNode.removeChild(node);
       }
       node = nodeStack.pop();
-      this.debug();
+      this.debug(`pop : ${debugStack(lastNode)}\n`);
       if (!node) {
         throw createError(error || 'unexpected closing node');
       }
@@ -198,7 +222,7 @@ class Tokenizer {
       }
       lastState = state;
       lastPos = stream.pos;
-      this.debug('#', getStateName(state), 'pos:', stream.pos);
+      this.debug(chalk.magenta('#', getStateName(state), 'pos:', stream.pos));
       if (this.options.verbose) {
         stream.debugState();
       }
@@ -326,10 +350,13 @@ class Tokenizer {
             state = STATE.TAG_NAME;
           }
           if (state === STATE.NORMAL || state === STATE.LABEL_START) {
-            if (node.type = NodeType.PARAGRAPH) {
+            stream.pushCursor(start);
+            const tagName = stream.sol(true) ? 'BLOCK' : 'INLINE';
+            stream.popCursor();
+            if (node.type === NodeType.PARAGRAPH && tagName === 'BLOCK') {
               popNode();
             }
-            const child = node.createChild(NodeType.TAG, 'BLOCK', {
+            const child = node.createChild(NodeType.TAG, tagName, {
               start,
               states: {
                 simpleBlock: true,
@@ -439,6 +466,11 @@ class Tokenizer {
               }
             }
             state = STATE.ATTRIBUTE_NAME;
+            if (stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
+              state = STATE.ATTRIBUTE_NAME;
+            } else {
+              state = STATE.NORMAL;
+            }
           }
           break;
         }
@@ -525,6 +557,7 @@ class Tokenizer {
         case STATE.TAG_END: {
           const parseMetadata = node.isBlockTag && !states.isClosing;
           let tagNode = node;
+          states.inline = tagNode.isInlineBlock;
           if (!node.isWrappingTag || states.isClosing) {
             if (node.type === NodeType.PARAGRAPH) {
               popNode();
@@ -547,12 +580,10 @@ class Tokenizer {
               }
             }
           }
-          if (states.isClosing) {
-            if (!states.inline) {
-              stream.skipOver(P_LINE_BREAK);
-            }
-            states.isClosing = false;
+          if (states.isClosing && !states.inline) {
+            stream.skipOver(P_LINE_BREAK);
           }
+          states.isClosing = false;
           states.inline = false;
           if (parseMetadata) {
             state = STATE.METADATA;

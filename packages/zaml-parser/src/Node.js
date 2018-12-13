@@ -370,6 +370,14 @@ class Node {
   }
 
   /**
+   * Check if the node is simple block or inline block
+   * @returns {boolean}
+   */
+  get isSimpleTag() {
+    return this.isTag && ['BLOCK', 'INLINE'].includes(this.name);
+  }
+
+  /**
    * Property indicates if the node is a block (wrapping other nodes)
    * @returns {boolean}
    */

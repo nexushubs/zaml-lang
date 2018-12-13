@@ -62,6 +62,7 @@ export function spacer(space, indent) {
  * @param {Node} node 
  * @param {object} [options]
  * @param {number} [options.space] White spaces each indent
+ * @param {boolean} [options.simple] Enable simple block when suitable
  * @param {boolean} [options.toSource] To ZAML source code
  * @param {number} [indent] Initial indent, increases 1 each block
  * @param {number} Initial position
@@ -75,8 +76,10 @@ export function stringify(node, options, indent = -1, pos = 0) {
   }
   options = _.defaults(options, {
     space: DEFAULT_INDENT_SPACES,
+    simple: false,
     toSource: false,
   });
+  const simpleTag = options.simple && node.isSimpleTag;
   if (options.toSource) {
     node.start = pos;
   } else {
@@ -112,20 +115,35 @@ export function stringify(node, options, indent = -1, pos = 0) {
       if (node.isBlock) {
         text += spacer(options.space, indent);
       }
-      text += T_TAG_START + node.name;
-      _.each(node.attributes, (value, key) => {
+      if (!(simpleTag && node.children.length === 1)) {
+        text += T_TAG_START;
+      }
+      if (!simpleTag) {
+        text += node.name;
+      }
+      let listCount = 0;
+      _.keys(node.attributes).forEach((key, i) => {
+        const value = node.attributes[key];
+        listCount++;
+        if (!simpleTag || listCount > 1) {
+          text += T_SPACE;
+        }
         if (_.isBoolean(value) && value) {
-          text += ` ${key}`;
+          text += key;
         } else if (value instanceof Node) {
           text += stringify(node, options, 0, pos + text.length);
         } else {
-          text += ` ${key}=${formatValue(value)}`;
+          text += `${key}=${formatValue(value)}`;
         }
       });
-      _.each(node.labels, label => {
-        text += ` #${label}`;
+      _.each(node.labels, (label, i) => {
+        listCount++;
+        if (!simpleTag || listCount > 1) {
+          text += T_SPACE;
+        }
+        text += `#${label}`;
       });
-      text += T_TAG_END;
+      text += simpleTag ? T_SPACE : T_TAG_END;
       if (node.isBlock) {
         text += T_LINE_BREAK;
       }
@@ -153,7 +171,13 @@ export function stringify(node, options, indent = -1, pos = 0) {
       if (node.isBlockTag) {
         text += spacer(options.space, indent);
       }
-      text += T_TAG_START + T_TAG_CLOSING + node.name + T_TAG_END;
+      if (simpleTag) {
+        if (node.children.length > 1) {
+          text += T_TAG_END;
+        }
+      } else {
+        text += T_TAG_START + T_TAG_CLOSING + node.name + T_TAG_END;
+      }
       if (node.isBlockTag) {
         text += T_LINE_BREAK;
         if (next && next.isBlock) {
@@ -167,5 +191,5 @@ export function stringify(node, options, indent = -1, pos = 0) {
   } else {
     node.textEnd = node.textStart + text.length;
   }
-  return text;
+  return text.replace(/\n\s*\n\s*\n/g, '\n\n');
 }

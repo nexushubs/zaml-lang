@@ -31,6 +31,9 @@
 <dt><a href="#findOne">findOne(node, tester)</a> ⇒ <code><a href="#Node">Node</a></code></dt>
 <dd><p>Recursive node finder</p>
 </dd>
+<dt><a href="#toJsonMap">toJsonMap(map)</a></dt>
+<dd><p>Map metadata &amp; attributes to JSON</p>
+</dd>
 <dt><a href="#formatValue">formatValue(value)</a></dt>
 <dd><p>Stringify attribute value</p>
 </dd>
@@ -40,7 +43,7 @@
 <dt><a href="#spacer">spacer(space, indent)</a></dt>
 <dd><p>Generate indent spaces</p>
 </dd>
-<dt><a href="#stringify">stringify(node, options, [indent])</a></dt>
+<dt><a href="#stringify">stringify(node, [options], [indent], Initial)</a></dt>
 <dd><p>Stringify node</p>
 </dd>
 </dl>
@@ -94,6 +97,7 @@ AST node class
 * [Node](#Node)
     * [new Node(type, [name], [options])](#new_Node_new)
     * _instance_
+        * [.states](#Node+states) : <code>Object.&lt;string, any&gt;</code>
         * [.type](#Node+type) : [<code>NodeType</code>](#NodeType)
         * [.name](#Node+name) : <code>string</code>
         * [.start](#Node+start) : <code>number</code>
@@ -140,13 +144,16 @@ AST node class
         * [.setAttribute(key, value)](#Node+setAttribute)
         * [.setAttributes(data)](#Node+setAttributes)
         * [.getAttribute(key)](#Node+getAttribute)
+        * [.hasAttribute(key)](#Node+hasAttribute) ⇒ <code>boolean</code>
         * [.removeAttribute(key)](#Node+removeAttribute)
         * [.clearAttributes()](#Node+clearAttributes)
         * [.setMetadata(key, value)](#Node+setMetadata)
         * [.getMetadata(key)](#Node+getMetadata)
         * [.removeMetadata(key)](#Node+removeMetadata)
         * [.clearMetadata()](#Node+clearMetadata)
+        * [.hasMetadata(key)](#Node+hasMetadata) ⇒ <code>boolean</code>
         * [.addLabel(label)](#Node+addLabel)
+        * [.hasLabel(label)](#Node+hasLabel) ⇒ <code>boolean</code>
         * [.removeLabel(label)](#Node+removeLabel)
         * [.clearLabels()](#Node+clearLabels)
         * [.normalize()](#Node+normalize)
@@ -166,7 +173,7 @@ AST node class
     * _static_
         * [.create(type, [name], [options])](#Node.create)
         * [.fromSource(source)](#Node.fromSource) ⇒ [<code>Node</code>](#Node)
-        * [.fromJSON(data)](#Node.fromJSON) ⇒ [<code>Node</code>](#Node)
+        * [.fromJSON(json)](#Node.fromJSON) ⇒ [<code>Node</code>](#Node)
         * [.createFragment()](#Node.createFragment) ⇒ [<code>Node</code>](#Node)
         * [.validNode(node)](#Node.validNode)
         * [.validParent(node)](#Node.validParent)
@@ -186,6 +193,12 @@ AST node class
     - [.attributes] <code>Object.&lt;string, any&gt;</code>
     - [.parent] [<code>Node</code>](#Node)
 
+<a name="Node+states"></a>
+
+### node.states : <code>Object.&lt;string, any&gt;</code>
+Parser states
+
+**Kind**: instance property of [<code>Node</code>](#Node)  
 <a name="Node+type"></a>
 
 ### node.type : [<code>NodeType</code>](#NodeType)
@@ -384,8 +397,8 @@ Check node match the expression
 
 **Example**  
 ```js
-`block`: tag
-`@loc`: entity
+`BLOCK`: tag
+`@LOC`: entity
 ```
 <a name="Node+contains"></a>
 
@@ -532,6 +545,16 @@ Get attribute value
 
 - key <code>string</code>
 
+<a name="Node+hasAttribute"></a>
+
+### node.hasAttribute(key) ⇒ <code>boolean</code>
+Check if a specified attribute key exists
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code>
+
 <a name="Node+removeAttribute"></a>
 
 ### node.removeAttribute(key)
@@ -585,10 +608,30 @@ Remove a metadata
 Remove all metadata
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
+<a name="Node+hasMetadata"></a>
+
+### node.hasMetadata(key) ⇒ <code>boolean</code>
+Check if a specified metadata key exists
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- key <code>string</code>
+
 <a name="Node+addLabel"></a>
 
 ### node.addLabel(label)
-Add label
+Add label to node
+
+**Kind**: instance method of [<code>Node</code>](#Node)  
+**Params**
+
+- label <code>string</code>
+
+<a name="Node+hasLabel"></a>
+
+### node.hasLabel(label) ⇒ <code>boolean</code>
+Check if the node has specified label
 
 **Kind**: instance method of [<code>Node</code>](#Node)  
 **Params**
@@ -775,13 +818,13 @@ Create node instance from ZAML source
 
 <a name="Node.fromJSON"></a>
 
-### Node.fromJSON(data) ⇒ [<code>Node</code>](#Node)
+### Node.fromJSON(json) ⇒ [<code>Node</code>](#Node)
 Create node from json serializable data
 
 **Kind**: static method of [<code>Node</code>](#Node)  
 **Params**
 
-- data <code>object</code>
+- json <code>object</code>
 
 <a name="Node.createFragment"></a>
 
@@ -1291,6 +1334,7 @@ Process a text and parse to AST
 | TAG | [<code>NodeType</code>](#NodeType) | <code>tag</code> | 
 | ENTITY | [<code>NodeType</code>](#NodeType) | <code>entity</code> | 
 | TEXT | [<code>NodeType</code>](#NodeType) | <code>text</code> | 
+| COMMENT | [<code>NodeType</code>](#NodeType) | <code>comment</code> | 
 
 <a name="STATE"></a>
 
@@ -1300,8 +1344,10 @@ Process a text and parse to AST
 
 | Name | Type | Default |
 | --- | --- | --- |
-| FRONT_MATTER | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
+| METADATA | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
 | NORMAL | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
+| SINGLE_COMMENT | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
+| MULTIPLE_COMMENT | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
 | START | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
 | TAG_START | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
 | TAG_NAME | [<code>TokenizingState</code>](#TokenizingState) | <code></code> | 
@@ -1341,6 +1387,16 @@ Recursive node finder
 - node [<code>Node</code>](#Node)
 - tester <code>function</code>
 
+<a name="toJsonMap"></a>
+
+## toJsonMap(map)
+Map metadata & attributes to JSON
+
+**Kind**: global function  
+**Params**
+
+- map <code>Object.&lt;string, any&gt;</code>
+
 <a name="formatValue"></a>
 
 ## formatValue(value)
@@ -1374,16 +1430,18 @@ Generate indent spaces
 
 <a name="stringify"></a>
 
-## stringify(node, options, [indent])
+## stringify(node, [options], [indent], Initial)
 Stringify node
 
 **Kind**: global function  
 **Params**
 
 - node [<code>Node</code>](#Node)
-- options <code>object</code>
-    - [.space] <code>number</code>
+- [options] <code>object</code>
+    - [.space] <code>number</code> - White spaces each indent
+    - [.toSource] <code>boolean</code> - To ZAML source code
 - [indent] <code>number</code> - Initial indent, increases 1 each block
+- Initial <code>number</code> - position
 
 <a name="TextPattern"></a>
 
