@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import {
   DEFAULT_INDENT_SPACES,
@@ -20,9 +20,9 @@ const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/;
 
 /**
  * Stringify attribute value
- * @param {any} value 
+ * @param value 
  */
-export function formatValue(value) {
+export function formatValue(value: any) {
   if (_.isDate(value)) {
     return value.toISOString().replace(/T00:00:00\.000Z$/, '');
   } else if (_.isString) {
@@ -38,9 +38,9 @@ export function formatValue(value) {
 
 /**
  * Parse attribute value
- * @param {any} value 
+ * @param value 
  */
-export function parseValue(value) {
+export function parseValue(value: any) {
   if (P_DATE_FORMAT.test(value)) {
     return new Date(value);
   }
@@ -49,32 +49,38 @@ export function parseValue(value) {
 
 /**
  * Generate indent spaces
- * @param {number} space 
- * @param {number} indent 
+ * @param space 
+ * @param indent 
  */
-export function spacer(space, indent) {
+export function spacer(space: number, indent: number) {
   if (indent <= 0) return '';
   return _.repeat(T_SPACE, space * indent);
 }
 
+export interface StringifyOptions {
+  space?: number;
+  simple?: boolean;
+  toSource?: boolean;
+}
+
 /**
  * Stringify node
- * @param {Node} node 
- * @param {object} [options]
- * @param {number} [options.space] White spaces each indent
- * @param {boolean} [options.simple] Enable simple block when suitable
- * @param {boolean} [options.toSource] To ZAML source code
- * @param {number} [indent] Initial indent, increases 1 each block
- * @param {number} Initial position
+ * @param node 
+ * @param [options]
+ * @param [options.space] White spaces each indent
+ * @param [options.simple] Enable simple block when suitable
+ * @param [options.toSource] To ZAML source code
+ * @param [indent] Initial indent, increases 1 each block
+ * @param Initial position
  */
-export function stringify(node, options, indent = -1, pos = 0) {
+export function stringify(node: Node, options?: StringifyOptions | number, indent = -1, pos = 0) {
   let text = '';
-  if (_.isString(options)) {
-    options = {
+  if (_.isNumber(options)) {
+    options = <StringifyOptions> {
       space: options,
     };
   }
-  options = _.defaults(options, {
+  options = <StringifyOptions> _.defaults(options, {
     space: DEFAULT_INDENT_SPACES,
     simple: false,
     toSource: false,
@@ -103,6 +109,9 @@ export function stringify(node, options, indent = -1, pos = 0) {
     }
     if (node.type === NodeType.ENTITY) {
       const child = _.first(node.children);
+      if (!child) {
+        throw new Error('missing text node of entity');
+      }
       if (options.toSource) {
         text += T_ENTITY_START;
       }
@@ -113,7 +122,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
     }
     if (options.toSource && (node.type === NodeType.TAG || node.type === NodeType.ENTITY)) {
       if (node.isBlock) {
-        text += spacer(options.space, indent);
+        text += spacer(<number> options.space, indent);
       }
       if (!(simpleTag && node.children.length === 1)) {
         text += T_TAG_START;
@@ -149,7 +158,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
       }
     }
     if (options.toSource && node.type === NodeType.PARAGRAPH) {
-      text += spacer(options.space, indent);
+      text += spacer(<number> options.space, indent);
     }
     if (node.isBlock || node.isWrappingTag && !_.isEmpty(node.children)) {
       node.children.forEach(child => {
@@ -169,7 +178,7 @@ export function stringify(node, options, indent = -1, pos = 0) {
     }
     if (options.toSource && node.isWrappingTag) {
       if (node.isBlockTag) {
-        text += spacer(options.space, indent);
+        text += spacer(<number> options.space, indent);
       }
       if (simpleTag) {
         if (node.children.length > 1) {

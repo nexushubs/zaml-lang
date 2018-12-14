@@ -5,10 +5,10 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha",
-    "clean": "rm -rf lib",
+    "clean": "rm -rf lib/*",
     "coverage": "nyc node_modules/.bin/mocha",
-    "build": "babel src --out-dir lib --source-maps",
-    "watch": "babel src --out-dir lib --source-maps --watch --verbose",
+    "build": "babel src --out-dir lib --source-maps --extensions .ts",
+    "watch": "babel src --out-dir lib --source-maps --extensions .ts --watch --verbose",
     "docs": "jsdoc2md --param-list-format list src/*.js > docs/API.md",
     "prepublishOnly": "npm run build && npm run docs"
   },
@@ -26,11 +26,15 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.15",
     "babel-plugin-istanbul": "^5.1.0",
     "chai": "^4.2.0",
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
-    "nyc": "^12.0.2"
+    "nyc": "^12.0.2",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",

@@ -1,5 +1,6 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 import chalk from 'chalk';
+import TextLine from './TextLine';
 import {
   P_FULL_WIDTH_CHARACTER
 } from './constants';
@@ -8,97 +9,49 @@ import {
 const NOT_FOUND = -1;
 const LINE_BREAKS = /\r?\n/g;
 
-/**
- * @typedef {string|RegExp} TextPattern
- */
+export type TextTester = (text: string) => boolean;
+export type TextPattern = string | RegExp | TextTester;
 
-/**
- * Class holding text line data
- * @typicalname line
- */
-class TextLine {
-  /**
-   * @constructor
-   * @param {TextLine[]} lines
-   * @param {string} text
-   * @param {number} ln
-   * @param {number} offset
-   * @param {number} length
-   */
-  constructor(lines, text, ln, offset, length) {
-    /**
-     * @type {TextLine[]}
-     */
-    this.lines = lines;
+export interface SearchOptions {
+  /** Case insensitive for string pattern */
+  caseInsensitive?: boolean;
+}
 
-    /**
-     * @type {string}
-     */
-    this.text = text;
+export interface ReadOptions {
+  /** If no matched text is found, read to the end */
+  toEOL?: boolean;
+  /** If read to matched text or to the end of line */
+  toEOF?: boolean;
+  /** Read to end of the matched text */
+  consume?: boolean;
+  /** Read to the matched text, move cursor to the end */
+  skipMatched?: boolean;
+}
 
-    /**
-     * @type {number}
-     */
-    this.ln = ln;
+export interface MatchOptions {
+  /** Read to end of the matched text */
+  consume?: boolean;
+  /** Read to the matched text, move cursor to the end */
+  skipMatched?: boolean;
+  /** Case insensitive for string pattern */
+  caseInsensitive?: boolean;
+}
 
-    /**
-     * @type {number}
-     */
-    this.offset = offset;
-  }
+export type MarkerData = {[key: string]: any};
 
-  /**
-   * Get the previous line
-   * @returns {TextLine}
-   */
-  prev() {
-    return this.lines[this.ln - 2];
-  }
+export interface MarkerInfo {
+  text: string;
+  position: {
+    start?: number;
+    end?: number;
+  };
+  data: MarkerData;
+}
 
-  /**
-   * Get the next line
-   * @returns {TextLine}
-   */
-  next() {
-    return this.lines[this.ln];
-  }
-
-  /**
-   * Get text length of the line
-   * @returns {number}
-   */
-  get length() {
-    return this.text.length;
-  }
-
-  /**
-   * Start position of the line, alias of `offset`
-   * @returns {number}
-   */
-  get start() {
-    return this.offset;
-  }
-
-  /**
-   * End position of the line
-   * @returns {number}
-   */
-  get end() {
-    return this.offset + this.length;
-  }
-
-  /**
-   * Convert to JSON serializable object
-   * @returns {{ln:number,start:number,end:number,text:number}}
-   */
-  toJSON() {
-    return {
-      ln: this.ln,
-      start: this.start,
-      end: this.end,
-      text: this.text,
-    };
-  }
+export interface Marker {
+  start?: number;
+  end?: number;
+  data?: any;
 }
 
 /**
@@ -107,13 +60,32 @@ class TextLine {
  */
 class TextStream {
 
-  constructor(text, tabSize) {
+  /** Current cursor position */
+  public pos: number;
 
-    /**
-     * @type {number}
-     * @description Current cursor position
-     */
-    this.pos = this.start = 0;
+  /** Original text */
+  public text: string;
+
+  /** Tab size */
+  public tabSize: number;
+
+  /** Text lines */
+  public lines: TextLine[];
+
+  /** Start position of each line */
+  public lineOffsetIndexes: number[] = [];
+
+  /** Markers */
+  public markers: Marker[];
+
+  /** Cursor stack positions */
+  public cursorStack: number[];
+
+  /** Last matched string of methods like eat() match() */
+  public lastMatch: string = '';
+
+  constructor(text: string, tabSize: number = 2) {
+    this.pos = 0;
 
     /**
      * @readonly
@@ -123,27 +95,21 @@ class TextStream {
     this.text = text;
 
     /**
-     * @type {number}
      * @description Tab size
      */
-    this.tabSize = tabSize || 8;
+    this.tabSize = tabSize;
 
     /**
-     * @type {TextLine[]}
      * @description Lines, separated by line breaks
      */
     this.lines = [];
 
     /**
-     * @inner
-     * @type {{start:number,data:any}}
      * @description Stream markers, used by `pushMarker()`, `popMarker()`, `setMarkerData()`
      */
     this.markers = [];
 
     /**
-     * @inner
-     * @type {number[]}
      * @description Cursor stack, used by `pushCursor()` and `popCursor`
      */
     this.cursorStack = [];
@@ -155,7 +121,7 @@ class TextStream {
    * Prepare line indexes
    */
   init() {
-    const lines = [];
+    const lines: TextLine[] = [];
     let matched;
     let offset = 0;
     let ln = 1;
@@ -183,10 +149,9 @@ class TextStream {
 
   /**
    * Get line and column position of the cursor
-   * @param {number} pos Cursor position of the text
-   * @returns {{ln:number,col:number,pos:number,line:TextLine}}
+   * @param pos Cursor position of the text
    */
-  getPosition(pos) {
+  getPosition(pos?: number) {
     if (_.isUndefined(pos)) {
       pos = this.pos;
     }
@@ -207,8 +172,7 @@ class TextStream {
 
   /**
    * Check if cursor is at the start of a line
-   * @param {boolean} [trimSpaces] Trim starting spaces
-   * @returns {boolean}
+   * @param [trimSpaces] Whether to trim starting spaces
    */
   sol(trimSpaces = false) {
     const { col, line } = this.getPosition();
@@ -224,10 +188,9 @@ class TextStream {
 
   /**
    * Check if cursor is at the end of a line
-   * @param {boolean} [trimSpaces] Trim ending spaces
-   * @returns {boolean}
+   * @param [trimSpaces] Whether to trim ending spaces
    */
-  eol(trimSpaces = false) {
+  eol(trimSpaces = false): boolean {
     const { col, line } = this.getPosition();
     if (col - 1 === line.length) {
       return true;
@@ -242,9 +205,8 @@ class TextStream {
   /**
    * Check if cursor is at the end of whole text
    * @param {number} [pos] 
-   * @returns {boolean}
    */
-  eof(pos) {
+  eof(pos?: number): boolean {
     if (_.isUndefined(pos)) {
       pos = this.pos;
     }
@@ -253,30 +215,30 @@ class TextStream {
 
   /**
    * Get one next char, but keep the cursor position (if available)
-   * @returns {string} The next char
+   * @returns The next char
    */
-  peek() {
-    return this.text.charAt(this.pos) || undefined;
+  peek(): string {
+    return this.text.charAt(this.pos);
   }
 
   /**
    * Get one next char, and move cursor forward (if available)
-   * @returns {string} The next char
+   * @returns The next char
    */
-  next() {
+  next(): string {
     if (this.pos < this.text.length) {
       return this.text.charAt(this.pos++);
     }
-    return undefined;
+    return '';
   }
 
   /**
    * Consumes one char if the next char fitting the pattern
-   * @param {TextPattern} pattern 
-   * @returns {string} The char been eaten
+   * @param pattern 
+   * @returns The char been eaten
    */
-  eat(pattern) {
-    const ch = this.text.charAt(this.pos) || undefined;
+  eat(pattern: TextPattern): string {
+    const ch = this.text.charAt(this.pos) || '';
     let ok;
     if (_.isUndefined(ch)) {
       ok = false;
@@ -293,15 +255,15 @@ class TextStream {
       ++this.pos;
       return ch;
     }
-    return undefined;
+    return '';
   }
 
   /**
    * Consumes chars while fitting the pattern
-   * @param {TextPattern} match 
-   * @returns {string} eaten characters
+   * @param match 
+   * @returns Eaten characters
    */
-  eatWhile(pattern) {
+  eatWhile(pattern: TextPattern): string {
     const start = this.pos;
     let chr;
     let string = '';
@@ -316,10 +278,10 @@ class TextStream {
 
   /**
    * Consumes chars until the first char not fitting the pattern
-   * @param {TextPattern} pattern char or pattern
-   * @returns {string} eaten characters
+   * @param pattern char or pattern
+   * @returns eaten characters
    */
-  eatUntil(pattern) {
+  eatUntil(pattern: TextPattern): string {
     const start = this.pos;
     let ch;
     let string = '';
@@ -349,11 +311,10 @@ class TextStream {
 
   /**
    * Find position of matched text to the pattern
-   * @param {TextPattern} pattern 
-   * @param {object} [options]
-   * @param {boolean} [options.caseInsensitive=false] Case insensitive for string pattern
+   * @param pattern 
+   * @param options
    */
-  search(pattern, options = {}) {
+  search(pattern: TextPattern, options: SearchOptions = {}) {
     const { caseInsensitive } = options;
     let index = NOT_FOUND;
     let length = 0;
@@ -388,9 +349,9 @@ class TextStream {
 
   /**
    * Read n chars after current cursor
-   * @param {number} [n=1] Number of chars to read
+   * @param [n] Number of chars to read
    */
-  read(n = 1) {
+  read(n = 1): string {
     const left = this.text.length - this.pos;
     if (left <= 0) {
       return '';
@@ -404,15 +365,11 @@ class TextStream {
 
   /**
    * Read to text or pattern
-   * @param {TextPattern} pattern 
-   * @param {object} [options]
-   * @param {boolean} [options.toEOL=false] If no matched text is found, read to the end
-   * @param {boolean} [options.toEOF=false] If read to matched text or to the end of line
-   * @param {boolean} [options.consume=false] Read to end of the matched text
-   * @param {boolean} [options.skipMatched=false] Read to the matched text, move cursor to the end
-   * @returns {string} Sub-text after current cursor and before (or contains) matched text
+   * @param pattern 
+   * @param [options]
+   * @returns Sub-text after current cursor and before (or contains) matched text
    */
-  readTo(pattern, options = {}) {
+  readTo(pattern: TextPattern, options: ReadOptions = {}): string {
     const {
       toEOL = false,
       toEOF = false,
@@ -421,8 +378,8 @@ class TextStream {
     } = options;
     const start = this.pos;
     let { index, length } = this.search(pattern);
-    let match = null;
-    let end = null;
+    let match = '';
+    let end = -1;
     if (toEOL) {
       const { line } = this.getPosition();
       end = line.offset + line.length;
@@ -440,7 +397,7 @@ class TextStream {
         end = index;
       }
     }
-    if (end !== null) {
+    if (end !== -1) {
       this.pos = end;
       if (consume) {
         end += length;
@@ -456,11 +413,11 @@ class TextStream {
 
   /**
    * Read to pattern (contains the matched text)
-   * @param {TextPattern} pattern Text to find or pattern
+   * @param {} pattern Text to find or pattern
    * @param {object} options Match options
    * @returns {string} Sub-text after current cursor and until the end of matched text
    */
-  readOver(pattern, options = {}) {
+  readOver(pattern: TextPattern, options: ReadOptions = {}) {
     return this.readTo(pattern, {...options, consume: true });
   }
 
@@ -468,11 +425,11 @@ class TextStream {
    * Read one line
    * @returns {string} Text containing one line (not including line break)
    */
-  readLine() {
+  readLine(): string {
     const { line } = this.getPosition();
     const nextLine = line.next();
     if (this.eof()) {
-      return null;
+      return '';
     }
     if (nextLine) {
       this.pos = nextLine.offset;
@@ -492,11 +449,10 @@ class TextStream {
 
   /**
    * Skip to the beginning of matched text
-   * @param {TextPattern} pattern
-   * @param {object} options
-   * @returns {boolean}
+   * @param pattern
+   * @param options
    */
-  skipTo(pattern, options) {
+  skipTo(pattern: TextPattern, options?: ReadOptions): boolean {
     const start = this.pos;
     this.readTo(pattern, options);
     return start !== this.pos;
@@ -504,10 +460,9 @@ class TextStream {
 
   /**
    * Skip to the end of matched text
-   * @param {TextPattern} pattern
-   * @returns {boolean}
+   * @param pattern
    */
-  skipOver(pattern, options = {}) {
+  skipOver(pattern: TextPattern, options?: ReadOptions) {
     const start = this.pos;
     this.readTo(pattern, { ...options, skipMatched: true });
     return start !== this.pos;
@@ -515,24 +470,22 @@ class TextStream {
 
   /**
    * Move cursor back
-   * @param {number} n Steps
+   * @param n Steps
    */
-  backUp(n) {
+  backUp(n: number = 1) {
     this.pos -= n;
   }
 
   /**
    * Check if rest text begins with pattern
-   * @param {TextPattern} pattern 
-   * @param {object} [options] 
-   * @param {boolean} [options.consume=false]
-   * @param {boolean} [options.caseInsensitive=false]
+   * @param pattern 
+   * @param [options] 
    */
-  match(pattern, options = {}) {
+  match(pattern: TextPattern, options: MatchOptions = {}): string {
     const { consume = true, caseInsensitive } = options;
     const { index, length, matched } = this.search(pattern, { caseInsensitive });
     if (index !== this.pos) {
-      return null;
+      return '';
     }
     if (consume) {
       this.pos += length;
@@ -550,10 +503,10 @@ class TextStream {
 
   /**
    * Add a marker to stack
-   * @param {any} data
-   * @param {number} [pos]
+   * @param data
+   * @param start
    */
-  pushMarker(data, start) {
+  pushMarker(data: MarkerData, start: number) {
     if (_.isUndefined(start)) {
       start = this.pos;
     }
@@ -562,9 +515,9 @@ class TextStream {
 
   /**
    * Set data for current marker
-   * @param {Object.<string,any>} data
+   * @param data
    */
-  setMarkerData(data) {
+  setMarkerData(data: MarkerData) {
     const marker = _.last(this.markers);
     if (!marker) return;
     _.extend(marker.data, data);
@@ -572,22 +525,20 @@ class TextStream {
 
   /**
    * Get data of current markder
-   * @returns {any}
    */
-  getMarkerData() {
+  getMarkerData(): MarkerData {
     const marker = _.last(this.markers);
-    if (!marker) return;
+    if (!marker) return {};
     return marker.data;
   }
 
   /**
    * Return a combined structure of text and it's position according to the previously set start
    * marker
-   * @param {object} [data] Additional data
-   * @param {number} [end] End marker, if not set, previous set value will be used
-   * @returns {{text:string,start:number,end:number}}
+   * @param [data] Additional data
+   * @param [end] End marker, if not set, previous set value will be used
    */
-  popMarker(_data = {}, end) {
+  popMarker(_data: MarkerData = {}, end: number): MarkerInfo | undefined {
     if (!_.isPlainObject(_data)) {
       throw new TypeError('invalid data parameter');
     }
@@ -600,7 +551,7 @@ class TextStream {
     }
     const { data, start } = marker;
     return {
-      text: this.text.substring(marker.start, end),
+      text: this.text.substring(marker.start || 0, end),
       position: {
         start,
         end,
@@ -612,15 +563,15 @@ class TextStream {
     };
   }
 
-  findLine(text) {
+  findLine(text: string) {
     return _.find(this.lines, line => _.trim(line.text) === text);
   }
 
   /**
    * Push current cursor to cursor stack, if new position provided, set current cursor to it
-   * @param {number} [pos] 
+   * @param [pos] 
    */
-  pushCursor(pos) {
+  pushCursor(pos: number) {
     if (_.isUndefined(pos)) {
       pos = this.pos;
     }
@@ -632,20 +583,20 @@ class TextStream {
    * Pop last from cursor stack and set it to current cursor
    */
   popCursor() {
-    this.pos = this.cursorStack.pop();
-    if (_.isUndefined(this.pos)) {
+    if (this.cursorStack.length === 0) {
       throw new Error('out of cursor stack!');
     }
+    this.pos = <number>this.cursorStack.pop();
     return this.pos;
   }
 
   /**
-   * 
-   * @param {TextLine} line 
-   * @param {number} numWidth 
-   * @param {number} col 
+   * Debug a single line
+   * @param line 
+   * @param numWidth 
+   * @param col 
    */
-  debugLine(line, numWidth, col) {
+  debugLine(line: TextLine, numWidth: number, col: number) {
     let { ln, text } = line;
     if (_.isUndefined(numWidth)) {
       numWidth = (ln + '').length;
@@ -653,19 +604,29 @@ class TextStream {
     if (col) {
       text = text.substring(0, col - 1) + chalk.bgBlue(text.charAt(col - 1)) + text.substring(col);
     }
-    console.log(`${chalk.blueBright(`${col ? '>' : ' '} ${_.padStart(ln, numWidth)} |`)} ${text}`);
+    console.log(`${chalk.blueBright(`${col ? '>' : ' '} ${_.padStart(ln + '', numWidth)} |`)} ${text}`);
   }
 
-  debugCursor(text, col, numWidth) {
+  /**
+   * Debug cursor column position
+   * @param text Text of the line
+   * @param col Cursor position
+   * @param numWidth fixed line number width
+   */
+  debugCursor(text: string, col: number, numWidth: number) {
     const pos = text.substr(0, col - 1).replace(P_FULL_WIDTH_CHARACTER, 'XX').length;
     console.log(chalk.blueBright(`  ${_.repeat(' ', numWidth)} | ${_.repeat(' ', pos)}^ ${col}`));
   }
 
+  /**
+   * Debug current position state, with previous and following lines set by range
+   * @param range 
+   */
   debugState(range = 0) {
     const { ln, col } = this.getPosition();
     const lineIndex = ln - 1;
     const lines = _.slice(this.lines, _.max([lineIndex - range, 0]), _.min([lineIndex + range + 1, this.lines.length]));
-    const numWidth = _.max(lines.map(l => (l.ln + '').length));
+    const numWidth = <number>_.max(lines.map(l => (l.ln + '').length));
     lines.forEach((line) => {
       const isCurrent = line.ln === ln;
       this.debugLine(line, numWidth, isCurrent ? col : 0);

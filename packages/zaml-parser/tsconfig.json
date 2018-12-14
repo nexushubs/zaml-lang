@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "lib": [
+      "dom",
+      "es7",
+      "esnext"
+    ],
+    "types": [
+      "node"
+    ],
+    "sourceMap": true,
+    "allowJs": false,
+    "noEmit": false,
+    "strict": true,
+  },
+  "include": [
+    "src"
+  ]
+}

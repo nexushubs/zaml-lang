@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 
-export const combinePatterns = (list) => {
+export const combinePatterns = (list: (RegExp | string)[]) => {
   return list.map(p => _.isRegExp(p) ? p.source : _.escapeRegExp(p)).join('|');
 };
 
-export const createPattern = (source, flags = 'g') => new RegExp(source, flags);
+export const createPattern = (source: string, flags = 'g') => new RegExp(source, flags);
 
 export const DEFAULT_INDENT_SPACES = 2;
 
@@ -23,7 +23,7 @@ export const T_ASSIGN_YAML = ':：';
 export const T_LINE_BREAK = '\n';
 export const T_LINE_BREAKS = '\r\n';
 export const T_PARAGRAPH_BREAK = '\n\n';
-export const T_METADATA_FAVORED_ASSIGN = P_ASSIGN_YAML;
+export const T_METADATA_FAVORED_ASSIGN = T_ASSIGN_YAML;
 export const T_TAG_ATTRIBUTE_FAVORED_ASSIGN = T_ASSIGN_XML;
 
 export const P_ASSIGN_YAML = /[:：]/;

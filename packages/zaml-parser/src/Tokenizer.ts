@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 import chalk from 'chalk';
 import TextStream from './TextStream';
 import ParseError from './ParseError';
@@ -45,47 +45,42 @@ import {
   T_LINE_BREAK,
 } from './constants';
 
-let stateValue = 0;
-
-/**
- * @typedef {number} TokenizingState
- **/
-
-/**
- * @enum {TokenizingState}
- */
-const STATE = {
-  METADATA: stateValue++,
-  NORMAL: stateValue++,
-  SINGLE_COMMENT: stateValue++,
-  MULTIPLE_COMMENT: stateValue++,
-  START: stateValue++,
-  TAG_START: stateValue++,
-  TAG_NAME: stateValue++,
-  ATTRIBUTE_LIST: stateValue++,
-  ATTRIBUTE_NAME: stateValue++,
-  ATTRIBUTE_ASSIGN: stateValue++,
-  ATTRIBUTE_VALUE: stateValue++,
-  ATTRIBUTE_FINISH: stateValue++,
-  TAG_END: stateValue++,
-  LABEL_START: stateValue++,
-  ENTITY_START: stateValue++,
-  ENTITY_BODY: stateValue++,
-  ENTITY_END: stateValue++,
-  END: stateValue++,
-  FINISH: stateValue++,
+enum State {
+  METADATA = 0,
+  NORMAL,
+  SINGLE_COMMENT,
+  MULTIPLE_COMMENT,
+  START,
+  TAG_START,
+  TAG_NAME,
+  ATTRIBUTE_LIST,
+  ATTRIBUTE_NAME,
+  ATTRIBUTE_ASSIGN,
+  ATTRIBUTE_VALUE,
+  ATTRIBUTE_FINISH,
+  TAG_END,
+  LABEL_START,
+  ENTITY_START,
+  ENTITY_BODY,
+  ENTITY_END,
+  END,
+  FINISH,
 };
 
-const stateNames = _.keys(STATE);
+const stateNames = _.keys(State);
 
-const getStateName = (state) => {
+const getStateName = (state: State) => {
   return stateNames[state];
 }
 
-const countLineBreaks = (text) => {
+const countLineBreaks = (text: string) => {
   const result = text.match(P_LINE_BREAK);
   return result ? result.length : 0;
 }
+
+export interface ParsingOptions {
+  verbose?: boolean;
+};
 
 /**
  * Tokenizer class
@@ -93,28 +88,30 @@ const countLineBreaks = (text) => {
  */
 class Tokenizer {
 
-  static from(...params) {
-    return new Tokenizer(...params);
+  static from(text: string, options: ParsingOptions) {
+    return new Tokenizer(text, options);
   }
 
+  public text: string;
+  public stream: TextStream;
+  public options: ParsingOptions;
+  public parsed: boolean;
+
   /**
-   * @constructor
-   * @param {TextStream} stream 
-   * @param {object} [options] Constructor options
-   * @param {boolean} [options.verbose=false] Debug verbose process of tokenizing
+   * @param text 
+   * @param options Constructor options
    */
-  constructor(text, options) {
+  constructor(text: string, options?: ParsingOptions) {
     this.text = text;
     this.stream = new TextStream(text);
     const defaultOptions = {
-      verbose: process.env.DEBUG === 'verbose',
+      verbose: process && process.env.DEBUG === 'verbose',
     };
     this.options = _.defaults(options, defaultOptions);
     this.parsed = false;
-    this.tokens = [];
   }
 
-  debug(...params) {
+  debug(...params: any[]) {
     if (this.options.verbose) {
       console.log(...params);
     }
@@ -122,28 +119,37 @@ class Tokenizer {
 
   /**
    * Process a text and parse to AST
-   * @returns {Node} Root node of parsed AST
+   * @returns Root node of parsed AST
    */
-  process() {
+  process(): Node {
     const { text, stream } = this;
     const timeStart = Date.now();
-    let state = STATE.METADATA;
+    let state: State = State.METADATA;
     let start = 0;
-    const states = {
+    let lastState: State = 0;
+    let lastPos = -1;
+    const states: {
+      unwrapped: boolean,
+      inline: boolean,
+      embedded: boolean,
+      isClosing: boolean,
+      key?: string,
+      value?: any,
+    } = {
       unwrapped: false,
       inline: false,
       embedded: false,
       isClosing: false,
-      key: null,
-      value: null,
+      key: undefined,
+      value: undefined,
     };
-    const root = Node.create(NodeType.ROOT, null, { source: text });
-    const nodeStack = [];
-    let node = root;
+    const root = Node.create(NodeType.ROOT, undefined, { source: text });
+    const nodeStack: Node[] = [];
+    let node: Node = root;
 
-    const getNodeString = (node) => `${node.type}${node.name ? `:${node.name}` : ''}`;
+    const getNodeString = (node: Node): string => `${node.type}${node.name ? `:${node.name}` : ''}`;
 
-    const debugStack = (lastNode) => {
+    const debugStack = (lastNode?: Node) => {
       if (!this.options.verbose) {
         return;
       }
@@ -165,7 +171,7 @@ class Tokenizer {
       return result;
     }
 
-    const pushNode = n => {
+    const pushNode = (n: Node) => {
       if (node.start === -1) {
         node.start = stream.pos;
       }
@@ -174,13 +180,13 @@ class Tokenizer {
       this.debug(`push: ${debugStack()}\n`);
     }
 
-    const popNode = error => {
+    const popNode = (error?: string) => {
       const lastNode = node;
       node.end = stream.pos;
-      if (node.start === node.end || (node.type === NodeType.PARAGRAPH && !node.hasChild())) {
-        node.parentNode.removeChild(node);
+      if (node.start === node.end || (node.type === NodeType.PARAGRAPH && !node.hasChild()) && node.parent) {
+        (<Node> node.parent).removeChild(node);
       }
-      node = nodeStack.pop();
+      node = <Node> nodeStack.pop();
       this.debug(`pop : ${debugStack(lastNode)}\n`);
       if (!node) {
         throw createError(error || 'unexpected closing node');
@@ -189,7 +195,7 @@ class Tokenizer {
 
     // replace wrapping paragraph with current block tag
     const levelUpBlock = () => {
-      if (node.parentNode.type === NodeType.PARAGRAPH) {
+      if (node.parent && node.parent.type === NodeType.PARAGRAPH) {
         const blockNode = node;
         popNode();
         node.removeChild(blockNode);
@@ -199,7 +205,7 @@ class Tokenizer {
       }
     }
 
-    const createError = message => {
+    const createError = (message: string) => {
       this.debug(`error: '${message}'`);
       this.debug('current node:');
       this.debug(node.toJSON());
@@ -207,40 +213,37 @@ class Tokenizer {
       this.debug(JSON.stringify(root, null, 2));
       return new ParseError(message, text, stream.pos);
     };
-    
-    let lastState = null;
-    let lastPos = -1;
 
-    while (state !== STATE.FINISH) {
+    while (state !== State.FINISH) {
       // parse failure watcher
       if (Date.now() - timeStart >= PROCESSING_TIMEOUT) {
         this.debug('parsing timeout!');
-        state = STATE.FINISH;
+        state = State.FINISH;
       }
       if (state === lastState && lastPos === stream.pos) {
         throw new Error('Parser fall into infinite loop!');
       }
       lastState = state;
       lastPos = stream.pos;
-      this.debug(chalk.magenta('#', getStateName(state), 'pos:', stream.pos));
+      this.debug(chalk.magenta(`# ${getStateName(state)}, pos:', ${stream.pos}`));
       if (this.options.verbose) {
         stream.debugState();
       }
       
       switch (state) {
 
-        case STATE.METADATA: {
+        case State.METADATA: {
           stream.eatWhile(P_WHITE_SPACES_EXT);
           if (stream.match(T_METADATA_MARKER) || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
             node.states.metadata = true;
-            state = STATE.ATTRIBUTE_LIST;
+            state = State.ATTRIBUTE_LIST;
           } else {
-            state = STATE.NORMAL;
+            state = State.NORMAL;
           }
           break;
         }
 
-        case STATE.NORMAL: {
+        case State.NORMAL: {
           let lineBreaks = 0;
           if (stream.sol(true) || stream.eol(true)) {
             const spaces = stream.eatWhile(P_WHITE_SPACES_EXT);
@@ -248,7 +251,7 @@ class Tokenizer {
           }
           start = stream.pos;
           if (node.type !== NodeType.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
-            const child = node.createChild(NodeType.PARAGRAPH, null, { start });
+            const child = node.createChild(NodeType.PARAGRAPH, undefined, { start });
             pushNode(child);
           }
           const originalText = stream.readTo(P_MARKER, { toEOF: true });
@@ -269,74 +272,74 @@ class Tokenizer {
               popNode();
             }
           } else {
-            state = STATE.START;
+            state = State.START;
           }
           break;
         }
         
-        case STATE.START: {
+        case State.START: {
           start = stream.pos;
-          const ch = stream.eat(P_MARKER);
+          const ch: string = stream.eat(P_MARKER);
           P_LABEL_START.lastIndex = 0;
           if (ch === T_SINGLE_LINE_COMMENT) {
             const rest = stream.eatWhile(T_SINGLE_LINE_COMMENT);
             if (rest.length === 0) {
-              state = STATE.SINGLE_COMMENT;
+              state = State.SINGLE_COMMENT;
             } else {
-              state = STATE.MULTIPLE_COMMENT;
+              state = State.MULTIPLE_COMMENT;
             }
           } else if (ch === T_TAG_START) {
-            state = STATE.TAG_START;
+            state = State.TAG_START;
           } else if (P_LABEL_START.test(ch)) {
             states.unwrapped = true;
-            state = STATE.TAG_START;
+            state = State.TAG_START;
           } else if (ch === T_TAG_END) {
             states.isClosing = true;
-            state = STATE.TAG_END;
+            state = State.TAG_END;
           } else if (ch === T_ENTITY_START) {
-            state = STATE.ENTITY_START;
+            state = State.ENTITY_START;
           } else if (stream.eof()) {
-            state = STATE.END;
+            state = State.END;
           } else {
             throw createError('empty start')
           }
           break;
         }
 
-        case STATE.SINGLE_COMMENT:
-        case STATE.MULTIPLE_COMMENT: {
+        case State.SINGLE_COMMENT:
+        case State.MULTIPLE_COMMENT: {
           start = stream.pos;
-          let content;
-          if (state === STATE.SINGLE_COMMENT) {
+          let content: string;
+          if (state === State.SINGLE_COMMENT) {
             content = stream.readTo(P_LINE_BREAK);
           } else {
             content = stream.readTo(P_MULTIPLE_LINE_COMMENT, { skipMatched: true });
           }
           if (content) {
-            if (state === STATE.MULTIPLE_COMMENT) {
+            if (state === State.MULTIPLE_COMMENT) {
               content = content.replace(P_SPACE_WRAPPED_LINE_BREAK, '\n');
             }
             content = _.trim(content);
           }
           if (content) {
-            node.createChild(NodeType.COMMENT, null, {
+            node.createChild(NodeType.COMMENT, undefined, {
               start,
               end: stream.pos,
               content,
             });
           }
-          state = STATE.NORMAL;
+          state = State.NORMAL;
           break;
         }
         
-        case STATE.TAG_START: {
+        case State.TAG_START: {
           if (stream.eat(T_TAG_CLOSING)) {
             states.isClosing = true;
-            state = STATE.TAG_NAME;
+            state = State.TAG_NAME;
           } else if (stream.match(P_LINE_BREAK)) {
-            state = STATE.NORMAL;
+            state = State.NORMAL;
           } else if (node.type !== NodeType.ENTITY && (states.unwrapped || stream.eat(P_LABEL_START))) {
-            state = STATE.LABEL_START;
+            state = State.LABEL_START;
           } else {
             const child = Node.create(NodeType.TAG, '', { start });
             if (states.embedded) {
@@ -347,9 +350,9 @@ class Tokenizer {
               node.appendChild(child);
             }
             pushNode(child);
-            state = STATE.TAG_NAME;
+            state = State.TAG_NAME;
           }
-          if (state === STATE.NORMAL || state === STATE.LABEL_START) {
+          if (state === State.NORMAL || state === State.LABEL_START) {
             stream.pushCursor(start);
             const tagName = stream.sol(true) ? 'BLOCK' : 'INLINE';
             stream.popCursor();
@@ -369,7 +372,7 @@ class Tokenizer {
           break;
         }
         
-        case STATE.TAG_NAME: {
+        case State.TAG_NAME: {
           const name = stream.match(P_TAG_NAME);
           if (!name) {
             throw createError('expected tag name');
@@ -391,11 +394,11 @@ class Tokenizer {
             if (!states.inline && !stream.eol()) {
               throw createError('closing block tag must take the whole line');
             }
-            state = STATE.TAG_END;
+            state = State.TAG_END;
           } else {
             node.name = name;
             if (node.isWrappingTag) {
-              stream.pushCursor(node.start);
+              stream.pushCursor(node.start || 0);
               if (node.name === 'BLOCK' && !stream.sol(true)) {
                 throw createError('unexpected start of block inline');
               }
@@ -404,15 +407,15 @@ class Tokenizer {
                 levelUpBlock();
               }
             }
-            state = STATE.ATTRIBUTE_LIST;
+            state = State.ATTRIBUTE_LIST;
           }
           break;
         }
         
-        case STATE.ATTRIBUTE_LIST: {
+        case State.ATTRIBUTE_LIST: {
           const spacePattern = (node.states.simpleBlock || node.states.unwrapped) ? P_WHITE_SPACE : P_WHITE_SPACES_EXT;
           const spaces = stream.eatWhile(spacePattern);
-          const isParsingMetadata = node.states.metadata;
+          const isParsingMetadata: boolean = node.states.metadata;
           if (isParsingMetadata) {
             let endOfFrontMatter = false;
             if (stream.match(T_METADATA_MARKER)) {
@@ -426,7 +429,7 @@ class Tokenizer {
               endOfFrontMatter = true;
             }
             if (endOfFrontMatter) {
-              state = STATE.NORMAL;
+              state = State.NORMAL;
               node.states.metadata = false;
               break;
             }
@@ -442,16 +445,16 @@ class Tokenizer {
               node.clearLabels();
               node.clearMetadata();
               pushNode(child);
-              state = STATE.NORMAL;
+              state = State.NORMAL;
               break;
             }
           }
           if (stream.match(P_LINE_BREAK)) {
-            state = STATE.NORMAL;
+            state = State.NORMAL;
           } else if (stream.eat(T_TAG_END)) {
-            state = STATE.TAG_END;
+            state = State.TAG_END;
           } else if (stream.match(P_LABEL_START)) {
-            state = STATE.LABEL_START;
+            state = State.LABEL_START;
           } else {
             if (!(spaces || isParsingMetadata) && this.stream.pos > 1) {
               if (_.isEmpty(node.attributes) && P_ATTRIBUTE_ASSIGN.test(stream.peek())) {
@@ -459,36 +462,36 @@ class Tokenizer {
                 node.name = 'BLOCK';
                 node.states.simpleBlock = true;
                 levelUpBlock();
-                state = STATE.ATTRIBUTE_ASSIGN;
+                state = State.ATTRIBUTE_ASSIGN;
                 break;
               } else {
                 throw createError('expecting end of tag "}" or attribute list');
               }
             }
-            state = STATE.ATTRIBUTE_NAME;
+            state = State.ATTRIBUTE_NAME;
             if (stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
-              state = STATE.ATTRIBUTE_NAME;
+              state = State.ATTRIBUTE_NAME;
             } else {
-              state = STATE.NORMAL;
+              state = State.NORMAL;
             }
           }
           break;
         }
         
-        case STATE.ATTRIBUTE_NAME: {
+        case State.ATTRIBUTE_NAME: {
           const key = stream.match(P_ATTRIBUTE_NAME);
           if (!key) {
             throw createError('expecting attribute name');
           }
           states.key = key;
-          state = STATE.ATTRIBUTE_ASSIGN;
+          state = State.ATTRIBUTE_ASSIGN;
           break;
         }
         
-        case STATE.ATTRIBUTE_ASSIGN: {
+        case State.ATTRIBUTE_ASSIGN: {
           let ch = stream.peek();
           if (ch === T_TAG_END) {
-            state = STATE.ATTRIBUTE_FINISH;
+            state = State.ATTRIBUTE_FINISH;
           } else {
             ch = stream.eat(P_ATTRIBUTE_ASSIGN);
             if (!ch) {
@@ -497,17 +500,17 @@ class Tokenizer {
             if (P_ASSIGN_YAML.test(ch)) {
               stream.eatSpaces();
             }
-            state = STATE.ATTRIBUTE_VALUE;
+            state = State.ATTRIBUTE_VALUE;
           }
           break;
         }
 
-        case STATE.ATTRIBUTE_VALUE: {
+        case State.ATTRIBUTE_VALUE: {
           const ch = stream.peek();
           let value;
           if (ch === T_TAG_START || ch === T_ENTITY_START) {
             states.embedded = true;
-            state = STATE.START;
+            state = State.START;
             break;
           } else if (ch === T_STRING_START) {
             value = stream.match(P_STRING_LITERAL_QUOTED);
@@ -532,29 +535,29 @@ class Tokenizer {
             throw createError('invalid attribute value');
           }
           states.value = value;
-          state = STATE.ATTRIBUTE_FINISH;
+          state = State.ATTRIBUTE_FINISH;
           break;
         }
 
-        case STATE.ATTRIBUTE_FINISH: {
+        case State.ATTRIBUTE_FINISH: {
           let { key, value } = states;
-          states.key = null;
-          states.value = null;
+          states.key = undefined;
+          states.value = undefined;
           if (_.isUndefined(value)) {
             value = true;
           }
           if (node.states.metadata) {
-            node.setMetadata(key, value);
+            node.setMetadata(<string>key, value);
           } else {
-            node.setAttribute(key, value);
+            node.setAttribute(<string>key, value);
           }
           this.debug(`# ${node.states.metadata ? 'metadata' : 'attribute'} ${key}=${JSON.stringify(value)}`);
           this.debug();
-          state = STATE.ATTRIBUTE_LIST;
+          state = State.ATTRIBUTE_LIST;
           break;
         }
 
-        case STATE.TAG_END: {
+        case State.TAG_END: {
           const parseMetadata = node.isBlockTag && !states.isClosing;
           let tagNode = node;
           states.inline = tagNode.isInlineBlock;
@@ -568,7 +571,7 @@ class Tokenizer {
               node.setAttributes(tagNode.attributes);
               node.name = tagNode.name;
               node.removeChild(tagNode);
-              state = STATE.ENTITY_END;
+              state = State.ENTITY_END;
               tagNode = node;
               popNode();
             }
@@ -586,26 +589,26 @@ class Tokenizer {
           states.isClosing = false;
           states.inline = false;
           if (parseMetadata) {
-            state = STATE.METADATA;
+            state = State.METADATA;
           } else if (tagNode.states.embedded && (!tagNode.isWrappingTag || states.isClosing)) {
-            state = STATE.ATTRIBUTE_LIST;
+            state = State.ATTRIBUTE_LIST;
           } else {
-            state = STATE.NORMAL;
+            state = State.NORMAL;
           }
           break;
         }
         
-        case STATE.LABEL_START: {
+        case State.LABEL_START: {
           const label = stream.match(P_LABEL_NAME);
           if (!label) {
             throw createError('expected label name');
           }
           node.addLabel(label);
-          state = STATE.ATTRIBUTE_LIST;
+          state = State.ATTRIBUTE_LIST;
           break;
         }
 
-        case STATE.ENTITY_START: {
+        case State.ENTITY_START: {
           const child = Node.create(NodeType.ENTITY, '', { start });
           if (states.embedded) {
             child.states.embedded = true;
@@ -615,11 +618,11 @@ class Tokenizer {
             node.appendChild(child);
           }
           pushNode(child);
-          state = STATE.ENTITY_BODY;
+          state = State.ENTITY_BODY;
           break;
         }
         
-        case STATE.ENTITY_BODY: {
+        case State.ENTITY_BODY: {
           start = stream.pos;
           const text = stream.readTo(T_ENTITY_END, { skipMatched: true });
           if (!text) {
@@ -630,28 +633,28 @@ class Tokenizer {
           node.appendText(text, { start, end: start + text.length });
           const ch = stream.eat(T_TAG_START);
           if (ch) {
-            state = STATE.TAG_START;
+            state = State.TAG_START;
           } else {
-            state = STATE.ENTITY_END;
+            state = State.ENTITY_END;
           }
           break;
         }
         
-        case STATE.ENTITY_END: {
+        case State.ENTITY_END: {
           popNode();
-          state = STATE.NORMAL;
+          state = State.NORMAL;
           break;
         }
         
-        case STATE.END: {
+        case State.END: {
           if (node.type !== NodeType.ROOT) {
             popNode();
           }
-          state = STATE.FINISH;
+          state = State.FINISH;
           break;
         }
 
-        case STATE.FINISH: {
+        case State.FINISH: {
           break;
         }
       }

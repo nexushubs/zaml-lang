@@ -1,28 +1,25 @@
-import _ from 'lodash';
-import { stringify, parseValue } from './util';
+import * as _ from 'lodash';
+import { stringify, parseValue, StringifyOptions } from './util';
 import { parse } from '.';
 
-/**
- * @enum {NodeType}
- */
-const NodeType = {
-  FRAGMENT: 'fragment',
-  ROOT: 'root',
-  PARAGRAPH: 'paragraph',
-  TAG: 'tag',
-  ENTITY: 'entity',
-  TEXT: 'text',
-  COMMENT: 'comment',
+export enum NodeType {
+  FRAGMENT = 'fragment',
+  ROOT = 'root',
+  PARAGRAPH = 'paragraph',
+  TAG=  'tag',
+  ENTITY = 'entity',
+  TEXT = 'text',
+  COMMENT = 'comment',
 }
 
-const NodeTypes = _.values(NodeType);
+export const NodeTypes = _.values(NodeType);
 
-const BlockNodeTypes = [
+export const BlockNodeTypes = [
   NodeType.ROOT,
   NodeType.PARAGRAPH,
 ];
 
-const BlockTags = [
+export const BlockTags = [
   'BLOCK',
   'QUOTE',
   'SECTION',
@@ -30,33 +27,50 @@ const BlockTags = [
   'FOOTER',
 ];
 
-const WrappingTags = [
+export const WrappingTags = [
   ...BlockTags,
   'INLINE',
   'NUM',
   'HEADING',
 ];
 
-export {
-  NodeType,
-  BlockNodeTypes,
-  BlockTags,
+export type ExtractorFunction = (text: string) => EntityItem[];
+
+export interface ExtractorInstance {
+  extract: (text: string[]) => EntityItem[][];
+}
+
+export type Extractor = ExtractorFunction | ExtractorInstance;
+
+type FinderCallback = (node: Node) => boolean;
+
+type FinderPattern = FinderCallback | string;
+
+const defaultFinderCallback: FinderCallback = (node: Node) => true;
+
+function testNode(pattern: FinderPattern, node: Node): boolean {
+  if (_.isFunction(pattern)) {
+    return (<FinderCallback> pattern)(node);
+  } else if (_.isString(pattern)) {
+    return node.is(pattern);
+  } else {
+    throw new TypeError('invalid finding pattern');
+  }
 }
 
 /**
  * Recursive node finder
- * @param {Node} node 
- * @param {function(Node):boolean|string} tester 
- * @param {Node[]} [result=[]] Node list
- * @returns {Node[]}
+ * @param node Node to find 
+ * @param pattern Searching pattern
+ * @param Node List
  */
-function find(node, tester = () => true, result = []) {
-  if (_.isString(tester) ? node.is(tester) : tester(node)) {
+function find(node: Node, pattern: FinderPattern = defaultFinderCallback, result: Node[] = []): Node[] {
+  if (testNode(pattern, node)) {
     result.push(node);
   }
   if (!_.isEmpty(node.children)) {
     for (const childNode of node.children) {
-      find(childNode, tester, result);
+      find(childNode, pattern, result);
     }
   }
   return result;
@@ -64,26 +78,25 @@ function find(node, tester = () => true, result = []) {
 
 /**
  * Recursive node finder
- * @param {Node} node 
- * @param {function(Node):boolean|string} tester 
- * @returns {Node}
+ * @param node 
+ * @param pattern 
  */
-function findOne(node, tester = () => true) {
-  if (tester(node)) {
+function findOne(node: Node, pattern: FinderPattern = defaultFinderCallback): Node | undefined {
+  if (testNode(pattern, node)) {
     return node;
   }
   if (!_.isEmpty(node.children)) {
     for (const childNode of node.children) {
-      const result = findOne(childNode, tester);
+      const result = findOne(childNode, pattern);
       if (result) {
         return result;
       }
     };
   }
-  return null;
+  return undefined;
 }
 
-function parseJson(json) {
+function parseJson(json: JsonNode) {
   const node = Node.create(json.type, json.name, {
     attributes: parseJsonMap(json.attributes),
     metadata: parseJsonMap(json.metadata),
@@ -100,9 +113,9 @@ function parseJson(json) {
 
 /**
  * Map metadata & attributes to JSON
- * @param {Object<string,any>} map 
+ * @param  map 
  */
-function toJsonMap(map) {
+function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined{
   if (_.isEmpty(map)) {
     return undefined;
   }
@@ -114,7 +127,7 @@ function toJsonMap(map) {
   })
 }
 
-function parseJsonMap(json) {
+function parseJsonMap(json?: KeyValueMap): KeyValueMap | undefined {
   if (_.isEmpty(json)) {
     return undefined;
   }
@@ -128,6 +141,58 @@ function parseJsonMap(json) {
 
 export { find };
 
+export type KeyValueMap = {[key: string]: any};
+
+export interface NodeProps {
+  source?: string;
+  start?: number;
+  end?: number;
+  states?: KeyValueMap;
+  attributes?: KeyValueMap;
+  metadata?: KeyValueMap;
+  labels?: string[];
+  parent?: Node;
+  content?: string;
+  text?: string;
+}
+
+export interface NodeSelector {
+  type?: NodeType;
+  name?: string;
+  text?: string;
+  source?: string;
+  label?: string;
+}
+
+export interface EntityItem {
+  type: string;
+  start: number;
+  end: number;
+  data?: any;
+}
+
+export interface JsonOptions {
+  position?: boolean;
+  textPosition?: boolean;
+}
+
+export interface SourceMapRange {
+  start: string;
+  end: string;
+}
+
+export interface JsonNode {
+  type: NodeType;
+  name?: string;
+  content?: string;
+  attributes?: KeyValueMap;
+  metadata?: KeyValueMap;
+  labels?: string[];
+  position?: SourceMapRange;
+  textPosition?: SourceMapRange;
+  children?: JsonNode[];
+}
+
 /**
  * AST node class
  * @class
@@ -137,20 +202,19 @@ class Node {
   static Types = NodeType;
 
   /**
-   * @param {NodeType} type 
-   * @param {string} [name]
-   * @param {object} [options]
+   * @param type 
+   * @param [name]
+   * @param [options]
    */
-  static create(type, name, options) {
+  static create(type: NodeType, name?: string, options?: NodeProps) {
     return new Node(type, name, options);
   }
 
   /**
    * Create node instance from ZAML source
-   * @param {string} source 
-   * @returns {Node}
+   * @param source 
    */
-  static fromSource(source) {
+  static fromSource(source: string): Node {
     return parse(source);
   }
 
@@ -159,7 +223,7 @@ class Node {
    * @param {object} json 
    * @returns {Node}
    */
-  static fromJSON(json) {
+  static fromJSON(json: JsonNode) {
     return parseJson(json)
   }
 
@@ -173,9 +237,9 @@ class Node {
 
   /**
    * Check if a node is valid
-   * @param {any} node 
+   * @param node 
    */
-  static validNode(node) {
+  static validNode(node: any) {
     if (!(node instanceof Node)) {
       throw new TypeError('invalid node');
     }
@@ -183,9 +247,9 @@ class Node {
 
   /**
    * Check if a node could be parent
-   * @param {any} node 
+   * @param node 
    */
-  static validParent(node) {
+  static validParent(node: any) {
     if (!_.isArray(node.children)) {
       throw new Error('node is not a valid parent');
     }
@@ -193,26 +257,37 @@ class Node {
 
   /**
    * Check if a node could be parent
-   * @param {any} node 
+   * @param node 
    */
-  static validChild(node) {
+  static validChild(node: any) {
     if (!node.parent) {
       throw new Error('node is not a valid child');
     }
   }
 
+  private _source?: string;
+  public type: NodeType;
+  public name?: string;
+  public start: number = -1;
+  public end: number = -1;
+  public textStart: number = -1;
+  public textEnd: number = -1;
+  public states: KeyValueMap;
+  public attributes: KeyValueMap;
+  public metadata: KeyValueMap;
+  public labels: string[];
+  public parent?: Node;
+  public content?: string;
+  public text?: string = '';
+  public children: Node[];
+
   /**
    * @constructor
-   * @param {NodeType} type 
-   * @param {string} [name]
-   * @param {object} [options]
-   * @param {string} [options.source]
-   * @param {number} [options.start]
-   * @param {number} [options.end]
-   * @param {Object.<string,any>} [options.attributes]
-   * @param {Node} [options.parent]
+   * @param type 
+   * @param [name]
+   * @param [options]
    */
-  constructor(type, name = null, options = {}) {
+  constructor(type: NodeType, name?: string, options: NodeProps = {}) {
     let {
       source = '',
       start = -1,
@@ -221,7 +296,7 @@ class Node {
       attributes = {},
       metadata = {},
       labels = [],
-      parent = null,
+      parent,
       content = '',
       text = '',
     } = options;
@@ -355,31 +430,27 @@ class Node {
 
   /**
    * Check if the node is wrapping tag
-   * @returns {boolean}
    */
   get isWrappingTag() {
-    return this.isTag && WrappingTags.includes(this.name);
+    return this.isTag && WrappingTags.includes(<string> this.name);
   }
 
   /**
    * Check if the node is block tag
-   * @returns {boolean}
    */
   get isBlockTag() {
-    return this.isTag && BlockTags.includes(this.name);
+    return this.isTag && BlockTags.includes(<string> this.name);
   }
 
   /**
    * Check if the node is simple block or inline block
-   * @returns {boolean}
    */
   get isSimpleTag() {
-    return this.isTag && ['BLOCK', 'INLINE'].includes(this.name);
+    return this.isTag && ['BLOCK', 'INLINE'].includes(<string> this.name);
   }
 
   /**
    * Property indicates if the node is a block (wrapping other nodes)
-   * @returns {boolean}
    */
   get isBlock() {
     const { type, name } = this;
@@ -410,30 +481,27 @@ class Node {
 
   /**
    * If the node is root
-   * @returns {boolean}
    */
-  get isRoot() {
+  get isRoot(): boolean {
     return this.type === NodeType.ROOT;
   }
 
   /**
    * Get source code of the node
-   * @returns {string}
    */
-  get source() {
+  get source(): string {
     if (this.type === NodeType.ROOT) {
-      return this._source;
+      return this._source || '';
     }
     const rootNode = this.getRootNode();
     if (!rootNode) {
       throw new Error('ROOT node not found');
     }
-    return rootNode.source.substring(this.start, this.end);
+    return rootNode.source.substring(this.start || 0, this.end);
   }
 
   /**
    * Get node inner text
-   * @returns {string}
    */
   get innerText() {
     if (this.type === NodeType.TEXT) {
@@ -448,7 +516,6 @@ class Node {
 
   /**
    * Check if the node is the first child of its parent
-   * @returns {boolean}
    */
   get isFirstChild() {
     const { parent } = this;
@@ -516,7 +583,7 @@ class Node {
    * @returns {boolean}
    */
   getRootNode() {
-    let node = this;
+    let node: Node = this;
     while (node.parent) {
       node = node.parent;
     }
@@ -531,10 +598,10 @@ class Node {
    * @example
    * `BLOCK`: tag
    * `@LOC`: entity
-   * @param {string} expression 
+   * @param expression 
    * @returns {boolean}
    */
-  is(expression) {
+  is(expression: string) {
     if (!_.isString(expression)) {
       return false;
     }
@@ -551,14 +618,16 @@ class Node {
 
   /**
    * whether a node is a descendant of a given node
-   * @param {Node} node 
-   * @returns {boolean}
+   * @param node 
    */
-  contains(node) {
+  contains(node: Node) {
     Node.validNode(node);
     while (node) {
       if (node === this) {
         return true;
+      }
+      if (!node.parent) {
+        return false;
       }
       node = node.parent;
     }
@@ -567,7 +636,6 @@ class Node {
 
   /**
    * Get the first child of current node
-   * @returns {Node}
    */
   get firstChild() {
     Node.validParent(this);
@@ -576,7 +644,6 @@ class Node {
 
   /**
    * Get the last child of current node
-   * @returns {Node}
    */
   get lastChild() {
     Node.validParent(this);
@@ -585,19 +652,18 @@ class Node {
 
   /**
    * Check if this node has any children
-   * @returns {boolean}
    */
   hasChild() {
     return !_.isEmpty(this.children);
   }
 
   /**
-   * @param {NodeType} type 
-   * @param {string} [name]
-   * @param {object} [options]
-   * @returns {Node}
+   * Create a child node
+   * @param type 
+   * @param [name]
+   * @param [options]
    */
-  createChild(type, name, options) {
+  createChild(type: NodeType, name?: string, options?: NodeProps) {
     const node = new Node(type, name, options);
     this.appendChild(node);
     return node;
@@ -605,40 +671,37 @@ class Node {
 
   /**
    * Append a node to children list
-   * @param {Node} node 
+   * @param node 
    */
-  appendChild(node) {
+  appendChild(node: Node) {
     return this.insertAt(node, Infinity);
   }
 
   /**
    * Append text node child
-   * @param {string} text 
-   * @param {object} options 
-   * @returns {Node}
+   * @param text 
+   * @param [options] 
    */
-  appendText(text, options) {
-    return this.createChild(NodeType.TEXT, null, { ...options, content: text });
+  appendText(text: string, options?: NodeProps) {
+    return this.createChild(NodeType.TEXT, undefined, { ...options, content: text });
   }
 
   /**
    * Remove 1 or more children
-   * @param {Node} node
-   * @returns {Node}
+   * @param node
    */
-  removeChild(node) {
+  removeChild(node: Node) {
     _.pull(this.children, node);
-    node.parent = null;
+    node.parent = undefined;
     return node;
   }
 
   /**
    * Insert a node at specified position
-   * @param {Node} node 
-   * @param {number} index 
-   * @returns {Node}
+   * @param node 
+   * @param index 
    */
-  insertAt(node, index) {
+  insertAt(node: Node, index: number) {
     if (node.type === NodeType.FRAGMENT) {
       this.children.splice(index, 0, ...node.children);
       node.children.forEach(child => child.parent = this);
@@ -653,11 +716,10 @@ class Node {
   /**
    * Insert a node before another
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore
-   * @param {Node} node 
-   * @param {Node} ref 
-   * @returns {Node}
+   * @param node Node to be inserted
+   * @param ref A child node to be referenced
    */
-  insertBefore(node, ref) {
+  insertBefore(node: Node, ref: Node) {
     Node.validParent(this);
     const refIndex = this.children.indexOf(ref);
     this.insertAt(node, refIndex);
@@ -667,11 +729,10 @@ class Node {
   /**
    * Insert a node after another
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/insertAfter
-   * @param {Node} node 
-   * @param {Node} ref 
-   * @returns {Node}
+   * @param node Node to be inserted
+   * @param ref A child node to be referenced
    */
-  insertAfter(node, ref) {
+  insertAfter(node: Node, ref: Node) {
     Node.validParent(this);
     const refIndex = this.children.indexOf(ref);
     this.insertAt(node, refIndex + 1);
@@ -680,11 +741,11 @@ class Node {
 
   /**
    * Replace a child with another node, assuming current node is a parent
-   * @param {Node} newChild 
-   * @param {Node} oldChild 
-   * @returns {Node} the replaced child
+   * @param newChild 
+   * @param oldChild 
+   * @returns The replaced child
    */
-  replaceChild(newChild, oldChild) {
+  replaceChild(newChild: Node, oldChild: Node) {
     Node.validParent(this);
     if (newChild.contains(this)) {
       throw new TypeError('the new child contains the parent');
@@ -699,46 +760,47 @@ class Node {
 
   /**
    * Replace current child node with another node, assuming current node is child
-   * @param {Node} node 
-   * @returns {Node}
+   * @param node Node to be replaced with
    */
-  replaceWith(node) {
+  replaceWith(node: Node) {
     Node.validChild(this);
+    if (!this.parent) {
+      throw new Error('can not replace isolated node');
+    }
     this.parent.replaceChild(node, this);
     return node;
   }
 
   /**
-   * Set attribute
+   * Set single attribute value
    * @param {string} key Attribute key
    * @param {any} value Attribute value
    */
-  setAttribute(key, value) {
+  setAttribute(key: string, value: any) {
     _.set(this.attributes, key, value);
   }
 
   /**
    * Set multiple attributes
-   * @param {Object.<string,any>} data Key - value pair
+   * @param data Key-value pair
    */
-  setAttributes(data) {
+  setAttributes(data: KeyValueMap) {
     _.merge(this.attributes, data);
   }
 
   /**
    * Get attribute value
-   * @param {string} key 
+   * @param key 
    */
-  getAttribute(key) {
+  getAttribute(key: string) {
     return _.get(this.attributes, key);
   }
 
   /**
    * Check if a specified attribute key exists
-   * @param {string} key 
-   * @returns {boolean}
+   * @param key 
    */
-  hasAttribute(key) {
+  hasAttribute(key: string) {
     return _.has(this.attributes, key)
   }
 
@@ -746,7 +808,7 @@ class Node {
    * Remove an attribute
    * @param {string} key 
    */
-  removeAttribute(key) {
+  removeAttribute(key: string) {
     _.unset(this.attributes, key);
   }
 
@@ -758,11 +820,11 @@ class Node {
   }
 
   /**
-   * Set metadata
-   * @param {string|object} key Attribute key
-   * @param {any} value Attribute value
+   * Set single metadata value
+   * @param key Metadata key
+   * @param value Metadata value
    */
-  setMetadata(key, value) {
+  setMetadata(key: string, value: any) {
     if (_.isObject(key)) {
       _.merge(this.metadata, key);
     } else {
@@ -772,17 +834,17 @@ class Node {
 
   /**
    * Get metadata value
-   * @param {string} key 
+   * @param key 
    */
-  getMetadata(key) {
+  getMetadata(key: string) {
     return _.get(this.metadata, key);
   }
 
   /**
    * Remove a metadata
-   * @param {string} key 
+   * @param key 
    */
-  removeMetadata(key) {
+  removeMetadata(key: string) {
     _.unset(this.metadata, key);
   }
 
@@ -795,18 +857,17 @@ class Node {
 
   /**
    * Check if a specified metadata key exists
-   * @param {string} key 
-   * @returns {boolean}
+   * @param key 
    */
-  hasMetadata(key) {
+  hasMetadata(key: string) {
     return _.has(this.metadata, key)
   }
 
   /**
    * Add label to node
-   * @param {string} label 
+   * @param label 
    */
-  addLabel(label) {
+  addLabel(label: string) {
     if (!_.isString(label)) {
       throw new TypeError('label must be string');
     }
@@ -817,18 +878,17 @@ class Node {
 
   /**
    * Check if the node has specified label
-   * @param {string} label 
-   * @returns {boolean}
+   * @param label 
    */
-  hasLabel(label) {
+  hasLabel(label: string) {
     return this.labels.includes(label);
   }
 
   /**
    * Remove label
-   * @param {string} label 
+   * @param label 
    */
-  removeLabel(label) {
+  removeLabel(label: string) {
     _.pull(this.labels, label);
   }
 
@@ -852,19 +912,13 @@ class Node {
 
   /**
    * Find matched descendants recursively
-   * @param {object} selector 
-   * @param {NodeType} [selector.type] Node type
-   * @param {string} [selector.name] Node name
-   * @param {RegExp|string} [selector.text] Including text or pattern
-   * @param {string|string[]} [selector.label] Label names
-   * @param {RegExp|string} [selector.source] Pattern to match source
-   * @param {boolean} [one]
-   * @returns {Node|Node[]}
+   * @param selector Node selector object
+   * @param [one] Find the first matched node or a list of node
    */
-  findBy(selector = {}, one = false) {
+  findBy(selector: NodeSelector = {}, one = false): Node | Node[] | undefined {
     const { type, name, text, source, label } = selector;
     const finder = one ? findOne : find;
-    return finder(this, node => {
+    return finder(this, (node: Node) => {
       let match = true;
       if (type) {
         match = match && type === node.type;
@@ -872,17 +926,30 @@ class Node {
       if (name) {
         match = match && name === node.name;
       }
-      if (text && node.type === NodeType.TEXT) {
-        match = match && (_.isRegExp(text) ? text.match(node.content) : node.content.includes(text));
+      if (text && node.type === NodeType.TEXT && node.content) {
+        if (_.isRegExp(text)) {
+          match = match && !!text.match(node.content);
+        } else if (_.isString(text)) {
+          match = match && node.content.includes(text);
+        } else {
+          throw new TypeError('text filter should be RegExp or string');
+        }
+      }
+      if (source && node._source) {
+        if (_.isRegExp(source)) {
+          match = match && !!source.match(node._source);
+        } else if (_.isString(source)) {
+          match = match && node._source.includes(source);
+        } else {
+          throw new TypeError('source filter should be RegExp or string');
+        }
       }
       if (label) {
-        if (!_.isArray(label)) {
-          label = [label];
+        if (_.isArray(label)) {
+          match = match && (_.intersection(this.labels, label).length > 0); 
+        } else {
+          match = match && this.labels.includes(label);
         }
-        match = match && (_.intersection(this.labels, label).length > 0);
-      }
-      if (source) {
-        match = match && (_.isRegExp(source) ? source.match(node.source) : node.source.includes(source));
       }
       return match;
     });;
@@ -890,19 +957,21 @@ class Node {
 
   /**
    * Find nodes by selector recursively and return the first one
-   * @param {any} selector 
+   * @param selector 
    */
-  findOneBy(selector = {}) {
+  findOneBy(selector: NodeSelector = {}) {
     return this.findBy(selector, true);
   }
 
   /**
    * Find matched text node by text source range
-   * @param {number} start 
-   * @param {number} end 
-   * @returns {Node}
+   * @param start 
+   * @param end 
    */
-  findTextByRange(start, end) {
+  findTextByRange(start: number, end: number): Node | undefined {
+    if (this.textStart === undefined || this.textEnd === undefined) {
+      return undefined;
+    }
     if (this.textStart <= start && this.textEnd >= end) {
       if (this.type === NodeType.TEXT) {
         return this;
@@ -916,59 +985,54 @@ class Node {
         };
       }
     }
-    return null;
+    return undefined;
   }
 
   /**
    * Find matched children recursively by callback
-   * @param {NodeTester} callback
-   * @returns {Node[]}
+   * @param callback
    */
-  find(callback) {
+  find(callback: FinderCallback) {
     return find(this, callback);
   }
 
   /**
    * Find matched children recursively and return the first one
-   * @param {NodeTester} callback
-   * @returns {Node}
+   * @param callback
    */
-  findOne(callback) {
+  findOne(callback: FinderCallback) {
     return findOne(this, callback);
   }
 
   /**
    * Find all nodes by selector, compared by is()
-   * @param {string} selector 
-   * @returns {Node}
+   * @param selector 
    */
-  querySelectorAll(selector) {
+  querySelectorAll(selector: string) {
     return find(this, selector);
   }
   
   /**
    * Find nodes by selector and return the first one, compared by is()
-   * @param {string} selector 
-   * @returns {Node}
+   * @param selector 
    */
-  querySelector(selector) {
+  querySelector(selector: string) {
     return findOne(this, selector);
   }
 
   /**
    * Process text node in current node and parse entities
-   * @param {Array.<{start:number,end:number,type:string,attributes:any}>} items 
    */
-  createEntities(items) {
-    if (!this.type === NodeType.TEXT) {
+  createEntities(items: EntityItem[]) {
+    if (this.type !== NodeType.TEXT) {
       console.warn('extractEntity() should exec only on text node');
     }
-    if (_.isEmpty(items)) {
+    if (!this.content || _.isEmpty(items)) {
       return;
     }
+    const text = this.content;
     items = _.sortBy(items, ['start']);
     const fragment = Node.createFragment();
-    const text = this.content;
     let lastPos = 0;
     items.forEach(item => {
       if (item.start >= item.end || item.start < lastPos) {
@@ -991,16 +1055,18 @@ class Node {
 
   /**
    * Create entity nodes based on text source position
-   * @param {Array.<{start:number,end:number,type:string,attributes:any}>} entities 
+   * @param {Array.<{start:number,end:number,type:string,data:any}>} entities 
    */
-  createEntitiesFromText(entities) {
+  createEntitiesFromText(entities: EntityItem[]) {
     this.toString();
-    const cache = new Map();
-    _.each(entities, item => {
+    const cache: Map<Node, EntityItem[]> = new Map();
+    _.each(entities, (item: EntityItem) => {
       const textNode = this.findTextByRange(item.start, item.end);
-      if (!textNode) return;
+      if (textNode === undefined) {
+        return;
+      }
       if (cache.has(textNode)) {
-        cache.get(textNode).push(item);
+        (<EntityItem[]> cache.get(textNode)).push(item);
       } else {
         cache.set(textNode, [item]);
       }
@@ -1008,26 +1074,25 @@ class Node {
     cache.forEach((items, textNode) => {
       textNode.createEntities(items.map(item => ({
         ...item,
-        start: item.start - textNode.textStart,
-        end: item.end - textNode.textStart,
+        start: item.start - (textNode.textStart || 0),
+        end: item.end - (textNode.textStart || 0),
       })));
     });
   }
 
   /**
    * Extract entities from text node
-   * @param {function|{extract:function}} extractor 
    */
-  async extractEntities(extractor) {
-    const nodeList = this.find(node => {
-      return node.type === NodeType.TEXT && node.parent && node.parent.type !== NodeType.ENTITY;
+  async extractEntities(extractor: Extractor) {
+    const nodeList = this.find((node: Node) => {
+      return node.type === NodeType.TEXT && !!node.parent && node.parent.type !== NodeType.ENTITY && !!node.content;
     });
     const textList = nodeList.map(node => node.content);
-    let result;
+    let result: EntityItem[][];
     if (_.isFunction(extractor)) {
-      result = textList.map(text => extractor(text));
-    } else if (_.isFunction(extractor.extract)) {
-      result = await extractor.extract(textList);
+      result = textList.map(text => extractor(<string> text));
+    } else if (_.isFunction((<ExtractorInstance> extractor).extract)) {
+      result = await (<ExtractorInstance> extractor).extract(<string[]>textList);
     } else {
       throw new TypeError('invalid extractor');
     }
@@ -1042,35 +1107,30 @@ class Node {
 
   /**
    * Build plain text of the node (stripping tags & entities)
-   * @returns {string}
+   * @param [options]
    */
-  toString() {
-    return stringify(this);
+  toString(options?: StringifyOptions) {
+    return stringify(this, options);
   }
 
   /**
    * Build source code of the node
-   * @param {object} options
-   * @param {number} [options.space] Source indenting space
-   * @returns {string}
+   * @param [options]
    */
-  toSource(options = {}) {
+  toSource(options: StringifyOptions = {}) {
     return stringify(this, { ...options, toSource: true });
   }
 
   /**
    * Convert node to JSON serializable object
-   * @param {object} options 
-   * @param {boolean} [options.position=false]
-   * @param {boolean} [options.textPosition=false]
-   * @returns {object}
+   * @param options 
    */
-  toJSON(options = {}) {
+  toJSON(options: JsonOptions = {}): JsonNode {
     const {
       position = false,
       textPosition = false,
-    } = options; 
-    return _.omitBy({
+    } = options;
+    return <any> _.omitBy({
       type: this.type,
       name: this.name,
       content: this.content,
