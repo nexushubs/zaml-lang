@@ -67,7 +67,27 @@ enum State {
   FINISH,
 };
 
-const stateNames = _.keys(State);
+const stateNames = [
+  'METADATA',
+  'NORMAL',
+  'SINGLE_COMMENT',
+  'MULTIPLE_COMMENT',
+  'START',
+  'TAG_START',
+  'TAG_NAME',
+  'ATTRIBUTE_LIST',
+  'ATTRIBUTE_NAME',
+  'ATTRIBUTE_ASSIGN',
+  'ATTRIBUTE_VALUE',
+  'ATTRIBUTE_FINISH',
+  'TAG_END',
+  'LABEL_START',
+  'ENTITY_START',
+  'ENTITY_BODY',
+  'ENTITY_END',
+  'END',
+  'FINISH',
+];
 
 const getStateName = (state: State) => {
   return stateNames[state];
@@ -225,7 +245,7 @@ class Tokenizer {
       }
       lastState = state;
       lastPos = stream.pos;
-      this.debug(chalk.magenta(`# ${getStateName(state)}, pos:', ${stream.pos}`));
+      this.debug(chalk.magenta(`# ${getStateName(state)}, pos = ${stream.pos}`));
       if (this.options.verbose) {
         stream.debugState();
       }
@@ -244,10 +264,15 @@ class Tokenizer {
         }
 
         case State.NORMAL: {
-          let lineBreaks = 0;
           if (stream.sol(true) || stream.eol(true)) {
-            const spaces = stream.eatWhile(P_WHITE_SPACES_EXT);
-            lineBreaks = countLineBreaks(spaces);
+            stream.eatWhile(P_WHITE_SPACE);
+          }
+          if (stream.match(P_PARAGRAPH_BREAK)) {
+            popNode();
+            if (node.states.unwrapped) {
+              popNode();
+            }
+            break;
           }
           start = stream.pos;
           if (node.type !== NodeType.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
@@ -266,11 +291,8 @@ class Tokenizer {
               node.appendText(text, { start, end: stream.pos });
             }
           }
-          if (stream.match(P_PARAGRAPH_BREAK) || (!text && lineBreaks === 2) || countLineBreaks(originalText) > 0) {
-            popNode();
-            if (node.states.unwrapped) {
-              popNode();
-            }
+          if (stream.match(P_PARAGRAPH_BREAK, { consume: false })) {
+            state = State.NORMAL;
           } else {
             state = State.START;
           }
@@ -662,7 +684,7 @@ class Tokenizer {
     root.toString();
     this.parsed = true;
     this.debug('parsed result:');
-    this.debug(JSON.stringify(root.toJSON({ position: true }), null, 2));
+    this.debug(JSON.stringify(root.toJSON(), null, 2));
     return root;
   }
 
