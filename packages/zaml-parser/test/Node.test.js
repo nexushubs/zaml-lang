@@ -1,10 +1,10 @@
 const chai = require('chai');
 const fs = require('fs');
-const ZAML = require('../lib');
+const zaml = require('..');
 const { readFile, readJSON } = require('./util');
 
 const { expect } = chai;
-const { Node, NodeType } = ZAML;
+const { Node, NodeType } = zaml;
 
 describe('class Node', () => {
 

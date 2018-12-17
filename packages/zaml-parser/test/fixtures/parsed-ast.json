@@ -1,6 +1,5 @@
 {
   "type": "root",
-  "name": null,
   "metadata": {
     "dateCreated": "2018-07-24T00:00:00.000Z",
     "author": "Peter"
@@ -14,7 +13,7 @@
       "type": "paragraph",
       "position": {
         "start": 46,
-        "end": 84
+        "end": 90
       },
       "children": [
         {
@@ -42,7 +41,7 @@
           "type": "paragraph",
           "position": {
             "start": 114,
-            "end": 155
+            "end": 161
           },
           "children": [
             {

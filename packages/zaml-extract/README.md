@@ -21,14 +21,14 @@ interface EntityInfo {
   end: number;
   text: string;
   type: string;
-  item: {};
+  data: {};
 }
 
 // function plugin
 type SingleExtractor = (text: string) => Promise<EntityInfo[]>;
 
 // instance plugin
-interface ClassExtractor {
+interface ExtractorInterface {
   extract(text: string): Promise<EntityInfo[]>;
   extractArray(textList: string[]): Promise<EntityInfo[][]>;
 }
@@ -46,7 +46,7 @@ Build-in plugin
 ### Extractor
 
 ```ts
-type PluginOptions = string | {name: string, options: any} | SingleExtractor | ClassExtractor;
+type PluginOptions = string | {name: string, options: any} | SingleExtractor | ExtractorInterface;
 
 interface {
   constructor(options: {plugins: ExtractorOptions[]}});
@@ -61,7 +61,7 @@ It takes a option with `plugins` as an array of plugin options, each of options 
 * A single string indicates build-in plugin name.
 * A object with `name` of build-in plugin name and a `options` for plugin options.
 * A simple function of type `SingleExtractor`.
-* A object of type `ClassExtractor`.
+* A object of type `ExtractorInterface`.
 
 You can specify one plugin multi-times with different options, like `rest` plugin for different API.
 
@@ -87,9 +87,9 @@ output:
 
 [example.json](./docs/example.json)
 
-## API
+## API Documentation
 
-[API Documentation](./docs/API.md)
+Checkout [API Documentation](./docs/README.md)
 
 ## Test
 

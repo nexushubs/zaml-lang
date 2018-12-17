@@ -1,9 +1,9 @@
 const chai = require('chai');
 const fs = require('fs');
-const ZAML = require('../lib');
+const zaml = require('..');
 
 const { expect } = chai;
-const { TextStream } = ZAML;
+const { TextStream } = zaml;
 
 describe('class TextStream', () => {
 
@@ -74,7 +74,7 @@ describe('class TextStream', () => {
 
   it('peek() while EOF', () => {
     stream.pos = 1000;
-    expect(stream.peek()).to.be.undefined;
+    expect(stream.peek()).to.equal('');
   });
 
   it('next() next char, cursor moves 1 step forward', () => {
@@ -85,7 +85,7 @@ describe('class TextStream', () => {
 
   it('next() while EOF', () => {
     stream.pos = 1000;
-    expect(stream.next()).to.be.undefined;
+    expect(stream.next()).to.equal('');
   });
 
   it('eat() correct char, cursor moves 1 step forward', () => {
@@ -100,15 +100,15 @@ describe('class TextStream', () => {
   it('eat() incorrect char, cursor stays', () => {
     const char1 = stream.eat('S');
     expect(stream.pos).to.equal(0);
-    expect(char1).to.be.undefined;
+    expect(char1).to.equal('');
     const char2 = stream.eat(/\d/);
     expect(stream.pos).to.equal(0);
-    expect(char2).to.be.undefined;
+    expect(char2).to.equal('');
   });
 
   it('eat() while EOF', () => {
     stream.pos = 1000;
-    expect(stream.eat('')).to.be.undefined;
+    expect(stream.eat('')).to.equal('');
   });
 
   it('eatWhile() char', () => {
@@ -170,7 +170,7 @@ describe('class TextStream', () => {
   });
 
   it('readTo() read to none-exists char', () => {
-    expect(stream.readTo('?')).to.equal(null);
+    expect(stream.readTo('?')).to.equal('');
     expect(stream.pos).to.equal(0);
   });
 
@@ -221,7 +221,7 @@ describe('class TextStream', () => {
     expect(stream.readLine()).to.equal('Line 1');
     expect(stream.readLine()).to.equal('Line 2');
     expect(stream.readLine()).to.equal('Line 3');
-    expect(stream.readLine()).to.be.null;
+    expect(stream.readLine()).to.equal('');
   })
 
   it('skipTo() skip to pattern', () => {
@@ -240,11 +240,11 @@ describe('class TextStream', () => {
   });
 
   it('match() match incorrect string', () => {
-    expect(stream.match('World')).to.be.null;
+    expect(stream.match('World')).be.equal('');
   });
 
   it('match() match incorrect regexp', () => {
-    expect(stream.match(/\d+/)).to.be.null;
+    expect(stream.match(/\d+/)).to.equal('');
   });
 
   it('match() match string', () => {

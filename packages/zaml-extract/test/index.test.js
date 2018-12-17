@@ -19,12 +19,12 @@ describe('extractor', () => {
     expect(extractor).to.be.instanceOf(Extractor);
   });
 
-  it('test extracting text', async () => {
+  it('test extracting text array', async () => {
     extractor = new Extractor({
       plugins: [
         'link',
         'mention',
-        { name: 'rest', options: { url: 'http://127.0.0.1:4040/parse' } },
+        { name: 'rest', options: { url: 'http://127.0.0.1:4500/api/parse' } },
       ],
     });
     const result = await extractor.extract([sample, sample]);
@@ -37,7 +37,7 @@ describe('extractor', () => {
         'link',
         { name: 'mention', options: { users: ['someone', 'someone_else']}},
         // TODO replace to mock http server
-        { name: 'rest', options: { url: 'http://127.0.0.1:4040/parse' } },
+        { name: 'rest', options: { url: 'http://127.0.0.1:4500/api/parse' } },
       ],
     });
     const node = zaml.parse(sample);

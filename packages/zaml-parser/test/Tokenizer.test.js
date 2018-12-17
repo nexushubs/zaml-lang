@@ -1,6 +1,6 @@
 const chai = require('chai');
 const fs = require('fs');
-const zaml = require('../lib');
+const zaml = require('..');
 const { readFile, readJSON } = require('./util');
 const { ParseError } = require('../lib/ParseError.js');
 const { expect, assert } = chai;
@@ -33,6 +33,29 @@ describe('class Tokenizer', () => {
     // TODO: found out why second parse go wrong
     assert.throws(() => zaml.parse(sample), ParseError);
     assert.throws(() => zaml.parse(sample), ParseError);
+  });
+
+  it('entity sample', () => {
+    const sample = `
+      This is a link without schema: [www.google.com]{LINK url=http://www.google.com}
+
+      This is a link with schema: [https://www.example.com/hello/world]{LINK url=https://www.example.com/hello/world}
+
+      This line contains multiple links: [http://example.com/dir1]{LINK url=http://example.com/dir1} [http://example.com/dir1]{LINK url=http://example.com/dir1}
+
+      This is a email address: [someone@example.com]{EMAIL url=mailto:someone@example.com}
+
+      This is a mention: [@someone]{MENTION username=someone}
+
+      This is a mention followed by a link: [@someone]{MENTION username=someone} [www.example.com]{LINK url=http://www.example.com}
+
+      This is a link followed by mention: [www.example.com]{LINK url=http://www.example.com} [@someone]{MENTION username=someone}
+
+      这是一个法条: [劳动法第13条]{LAW_ARTICLE}，[《未成年人保护]{LAW}法》第134条
+
+      End of the sample file
+    `;
+    zaml.parse(sample);
   });
 
   it('robot Q&A sample', () => {
