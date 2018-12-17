@@ -8,10 +8,11 @@
     "test": "mocha",
     "clean": "rm -rf lib/*",
     "coverage": "nyc node_modules/.bin/mocha",
-    "build": "babel src --out-dir lib --source-maps --extensions .ts",
+    "typings": "tsc --emitDeclarationOnly",
+    "build": "babel src --out-dir lib --source-maps --extensions .ts && yarn typings",
     "watch": "babel src --out-dir lib --source-maps --extensions .ts --watch --verbose",
-    "docs": "jsdoc2md --param-list-format list src/*.js > docs/API.md",
-    "prepublishOnly": "npm run build && npm run docs"
+    "docs": "typedoc --out docs --theme markdown --readme none",
+    "prepublishOnly": "yarn build && yarn docs"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,8 @@
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
+    "typedoc": "^0.13.0",
+    "typedoc-plugin-markdown": "^1.1.19",
     "typescript": "^3.2.2"
   },
   "dependencies": {
