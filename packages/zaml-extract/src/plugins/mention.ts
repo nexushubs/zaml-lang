@@ -1,16 +1,21 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
+import { EntityInfo } from '../types';
 
 export const STOP_CHARS = '\n ~`!#$%^&*()-=_+[]\\{}|;\':",./<>?。？！，、；：“”‘（）《》〈〉【】『』「」﹃﹄〔〕…—～﹏￥';
 export const MENTION_CHARS = '@＠';
 export const P_MENTION = new RegExp(`[${_.escapeRegExp(MENTION_CHARS)}]([^${_.escapeRegExp(STOP_CHARS)}]+)`, 'g');
 
+export interface ExtractMentionOptions {
+  users?: string[];
+  pattern?: RegExp;
+}
+
 /**
  * Parse mentioned usernames from text
- * @param {string} text text to be parsed
- * @param {{users:string[],pattern:RegExp}} [options]
- * @returns {{start:number,end:number,type:'USER',item:{user:string}}[]}
+ * @param text text to be parsed
+ * @param [options]
  */
-function extractMention(text, options = {}) {
+function extractMention(text: string, options: ExtractMentionOptions = {}): EntityInfo[] {
   const {
     users,
     pattern = P_MENTION,
@@ -26,7 +31,7 @@ function extractMention(text, options = {}) {
     const [found, username] = match;
     const start = match.index;
     const end = start + found.length;
-    const entity = {
+    const entity: EntityInfo = {
       start,
       end,
       type: 'MENTION',
@@ -38,7 +43,7 @@ function extractMention(text, options = {}) {
     }
     items.push(entity);
   } while (match);
-  return Promise.resolve(items);
+  return items;
 }
 
 export default extractMention;

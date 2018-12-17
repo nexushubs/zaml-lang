@@ -1,47 +1,30 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 import './constants';
-import * as pluginFactory from './plugins';
+import pluginFactory from './plugins';
 import ExtractorBase from './plugins/base';
-
-/**
- * @typedef {{start:number,end:number,text:string,type:string,item:{}}} EntityInfo
- */
-
-/**
- * @typedef {function(string): Promise<EntityInfo[]>} SingleExtractor
- */
-
-/**
- * @typedef {function(string[]): Promise<EntityInfo[][]>} ArrayExtractor
- */
-
-/**
- * @typedef {SingleExtractor | {extract: SingleExtractor, extractArray: ArrayExtractor}} ExtractorType
- */
-
-/**
- * @typedef {string|{name:string,options:any}|ExtractorType} ExtractorOptions
- */
-
-/**
- * @typedef {{plugins:ExtractorOptions[]}} ExtractorConstructorOptions
- */
+import {
+  EntityInfo,
+  ExtractorType,
+  ExtractorConstructorOptions,
+  ExtractorOptions,
+  ExtractorInterface,
+  ExtendedExtractorOptions,
+} from './types';
 
 /**
  * Check if a extractor is a class
- * @param {any} target
+ * @param target
  */
-const isExtractorClass = target => (
+const isExtractorClass = (target: any) => (
   target.prototype instanceof ExtractorBase
 );
 
 /**
  * Is entity ranges overlapped with existing items
- * @param {EntityInfo[]} items 
- * @param {EntityInfo} target 
- * @returns {boolean}
+ * @param items 
+ * @param target 
  */
-const isOverlapping = (items, target) => items.some(item => (
+const isOverlapping = (items: EntityInfo[], target: EntityInfo) => items.some(item => (
   (item.start <= target.start && item.end >= target.start) ||
   (item.start <= target.end && item.end >= target.end)
 ));
@@ -51,34 +34,36 @@ const isOverlapping = (items, target) => items.some(item => (
  */
 class Extractor {
 
+  public plugins: ExtractorType[];
   /**
-   * @param {object} options 
-   * @param {ExtractorConstructorOptions} options.plugins
+   * 
    */
-  constructor(options = {}) {
+  constructor(options: ExtractorConstructorOptions = {}) {
     const { plugins } = options;
     this.plugins = [];
     _.forEach(plugins, options => this.addPlugin(options));
   }
 
   /**
-   * 
-   * @param {ExtractorOptions} options 
+   * Add plugin
+   * @param options 
    */
-  addPlugin(options) {
-    let extractor;
-    if (_.isFunction(options) || _.isFunction(options.extract)) {
-      extractor = options;
+  addPlugin(options: ExtractorOptions) {
+    let extractor: ExtractorType;
+    if (_.isFunction(options) || _.isFunction((<ExtractorInterface> options).extract)) {
+      extractor = <ExtractorType> options;
     } else {
-      let name;
+      let name: string;
       let opt = {};
       if (_.isString(options)) {
         name = options;
       } else {
-        ({ name, options: opt } = options);
+        ({ name, options: opt } = <ExtendedExtractorOptions> options);
       }
-      const plugin = pluginFactory[name];
-      if (isExtractorClass(plugin)) {
+      const plugin = (<any> pluginFactory)[name];
+      if (!plugin) {
+        throw new Error('invalid plugin name');
+      } else if (isExtractorClass(plugin)) {
         extractor = new plugin(opt);
       } else if (_.isFunction(plugin)) {
         extractor = (text) => plugin(text, opt);
@@ -94,25 +79,25 @@ class Extractor {
 
   /**
    * Execute single plugin to the text (array)
-   * @param {string} text 
-   * @param {ExtractorType} extractor 
+   * @param {} text 
+   * @param {} extractor 
    */
-  async execSingleExtractor(text, extractor) {
+  async execSingleExtractor(text: string | string[], extractor: ExtractorType) {
     if (_.isFunction(extractor)) {
       if (_.isArray(text)) {
         return Promise.all(text.map(t => extractor(t)));
       } else {
         return extractor(text);
       }
-    } else if (_.isFunction(extractor.extract)) {
+    } else if (_.isFunction((<ExtractorInterface> extractor).extract)) {
       if (_.isArray(text)) {
-        if (_.isFunction(extractor.extractArray)) {
-          return extractor.extractArray(text);
+        if (_.isFunction((<ExtractorInterface> extractor).extractArray)) {
+          return (<ExtractorInterface> extractor).extractArray(text);
         } else {
-          return Promise.all(text.map(t => extractor.extract(t)));
+          return Promise.all(text.map(t => (<ExtractorInterface> extractor).extract(t)));
         }
       } else {
-        return extractor.extract(text);
+        return (<ExtractorInterface> extractor).extract(text);
       }
     } else {
       throw new TypeError('invalid extractor');
@@ -121,20 +106,22 @@ class Extractor {
 
   /**
    * Extract all entities from text by plugins
-   * @param {string[]} list 
-   * @returns Promise<EntityInfo>
+   * @param list 
+   * @returns 
    */
-  async extract(text) {
-    let list = text;
-    if (_.isString(text)) {
+  async extract(text: string | string[]) {
+    let list: string[];
+    if (_.isArray(text)) {
+      list = text;
+    } else {
       list = [text];
     }
     if (!_.isArray(list)) {
       throw new TypeError('invalid text parameter');
     }
-    const results = [...list.map(t => [])];
+    const results: EntityInfo[][] = [...list.map(t => [])];
     for (const extractor of this.plugins) {
-      let result;
+      let result: EntityInfo[][];
       try {
         result = await this.execSingleExtractor(list, extractor);
       } catch (e) {
@@ -142,7 +129,7 @@ class Extractor {
         console.error(e);
         result = [];
       }
-      result.forEach((items, i) => {
+      result.forEach((items: EntityInfo[], i: number) => {
         const extracted = results[i];
         items.forEach(item => {
           if (!isOverlapping(extracted, item)) {
@@ -154,13 +141,6 @@ class Extractor {
     return _.isString(text) ? results[0] : results;
   }
 
-  /**
-   * 
-   * @param {any} node 
-   */
-  async extractNode(node) {
-    
-  }
 }
 
 export default Extractor;

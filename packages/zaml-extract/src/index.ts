@@ -1,13 +1,13 @@
 import Extractor from './Extractor';
+import { ExtractorConstructorOptions } from './types';
 
 const extract = {
 
   /**
    * Extract entities from a text
-   * @param {string|string[]} text Source string
-   * @returns {Node}
+   * @param text Source string
    */
-  extract(text, options) {
+  extract(text: string | string[], options: ExtractorConstructorOptions) {
     const extractor = new Extractor(options);
     return extractor.extract(text);
   },
@@ -16,7 +16,7 @@ const extract = {
    * 
    * @param {any} options 
    */
-  create(options) {
+  create(options: ExtractorConstructorOptions) {
     return new Extractor(options);
   },
 

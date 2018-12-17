@@ -173,6 +173,11 @@
   version "7.0.0-rc.1"
   resolved "http://registry.npm.taobao.org/@babel/helper-plugin-utils/download/@babel/helper-plugin-utils-7.0.0-rc.1.tgz#3e277eae59818e7d4caf4174f58a7a00d441336e"
 
+"@babel/helper-plugin-utils@^7.0.0":
+  version "7.0.0"
+  resolved "http://registry.npm.taobao.org/@babel/helper-plugin-utils/download/@babel/helper-plugin-utils-7.0.0.tgz#bbb3fbee98661c569034237cc03967ba99b4f250"
+  integrity sha1-u7P77phmHFaQNCN8wDlnupm08lA=
+
 "@babel/helper-regex@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "http://registry.npm.taobao.org/@babel/helper-regex/download/@babel/helper-regex-7.0.0-rc.1.tgz#591bf828846d91fea8c93d1bf3030bd99dbd94ce"
@@ -323,6 +328,13 @@
   resolved "http://registry.npm.taobao.org/@babel/plugin-syntax-optional-catch-binding/download/@babel/plugin-syntax-optional-catch-binding-7.0.0-rc.1.tgz#c125fedf2fe59e4b510c202b1a912634d896fbb8"
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-rc.1"
+
+"@babel/plugin-syntax-typescript@^7.2.0":
+  version "7.2.0"
+  resolved "http://registry.npm.taobao.org/@babel/plugin-syntax-typescript/download/@babel/plugin-syntax-typescript-7.2.0.tgz#55d240536bd314dcbbec70fd949c5cabaed1de29"
+  integrity sha1-VdJAU2vTFNy77HD9lJxcq67R3ik=
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
 
 "@babel/plugin-transform-arrow-functions@7.0.0-rc.1":
   version "7.0.0-rc.1"
@@ -511,6 +523,14 @@
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-rc.1"
 
+"@babel/plugin-transform-typescript@^7.1.0":
+  version "7.2.0"
+  resolved "http://registry.npm.taobao.org/@babel/plugin-transform-typescript/download/@babel/plugin-transform-typescript-7.2.0.tgz#bce7c06300434de6a860ae8acf6a442ef74a99d1"
+  integrity sha1-vOfAYwBDTeaoYK6Kz2pELvdKmdE=
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@babel/plugin-syntax-typescript" "^7.2.0"
+
 "@babel/plugin-transform-unicode-regex@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "http://registry.npm.taobao.org/@babel/plugin-transform-unicode-regex/download/@babel/plugin-transform-unicode-regex-7.0.0-rc.1.tgz#b6c77bdb9a2823108210a174318ddd3c1ab6f3ce"
@@ -570,6 +590,14 @@
     invariant "^2.2.2"
     js-levenshtein "^1.1.3"
     semver "^5.3.0"
+
+"@babel/preset-typescript@^7.1.0":
+  version "7.1.0"
+  resolved "http://registry.npm.taobao.org/@babel/preset-typescript/download/@babel/preset-typescript-7.1.0.tgz#49ad6e2084ff0bfb5f1f7fb3b5e76c434d442c7f"
+  integrity sha1-Sa1uIIT/C/tfH3+ztedsQ01ELH8=
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@babel/plugin-transform-typescript" "^7.1.0"
 
 "@babel/runtime@^7.0.0-rc.1":
   version "7.0.0-rc.1"
@@ -647,12 +675,33 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@zaml/parser@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/@zaml/parser/-/parser-0.4.0.tgz#41151444159690fbcbdd6c8ef1d9b975b9965a3c"
-  integrity sha512-uDgf1W7ueaboVl6rAI1HOHP8OaS4fb/ZKFqyI9XZZdF9nPW5Y4pyoLqLyap/uoKsGRFVjYmsjANrbc5PdRqWvQ==
+"@types/isomorphic-fetch@^0.0.34":
+  version "0.0.34"
+  resolved "http://registry.npm.taobao.org/@types/isomorphic-fetch/download/@types/isomorphic-fetch-0.0.34.tgz#3c3483e606c041378438e951464f00e4e60706d6"
+  integrity sha1-PDSD5gbAQTeEOOlRRk8A5OYHBtY=
+
+"@types/linkify-it@^2.0.4":
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/@types/linkify-it/download/@types/linkify-it-2.0.4.tgz#80a7f9aec4c9283e8333debda5a88511d4a529a7"
+  integrity sha1-gKf5rsTJKD6DM969paiFEdSlKac=
+
+"@types/lodash@^4.14.119":
+  version "4.14.119"
+  resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.119.tgz#be847e5f4bc3e35e46d041c394ead8b603ad8b39"
+  integrity sha1-voR+X0vD415G0EHDlOrYtgOtizk=
+
+"@types/node@^10.12.15":
+  version "10.12.15"
+  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.15.tgz#20e85651b62fd86656e57c9c9bc771ab1570bc59"
+  integrity sha1-IOhWUbYv2GZW5Xycm8dxqxVwvFk=
+
+"@zaml/parser@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.npmjs.org/@zaml/parser/-/parser-0.5.2.tgz#96d5cfa444fec6514a383eec7ce9100eec86e49b"
+  integrity sha512-eAQTESF4+RgL53AJnHkLygTd89XI3qFTVNCD5Ii7VIo7Yy14xo3TqLSlPPSIYow67q7qKIGakqg+UBUaYew//A==
   dependencies:
     "@babel/runtime" "^7.1.2"
+    chalk "^2.4.1"
     lodash "^4.17.11"
 
 abbrev@1:
@@ -1007,7 +1056,7 @@ chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^2.0.0:
+chalk@^2.0.0, chalk@^2.4.1:
   version "2.4.1"
   resolved "http://registry.npm.taobao.org/chalk/download/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
   dependencies:
@@ -1956,9 +2005,10 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-linkify-it@^2.0.3:
-  version "2.0.3"
-  resolved "http://registry.npm.taobao.org/linkify-it/download/linkify-it-2.0.3.tgz#d94a4648f9b1c179d64fa97291268bdb6ce9434f"
+linkify-it@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npm.taobao.org/linkify-it/download/linkify-it-2.1.0.tgz#c4caf38a6cd7ac2212ef3c7d2bde30a91561f9db"
+  integrity sha1-xMrzimzXrCIS7zx9K94wqRVh+ds=
   dependencies:
     uc.micro "^1.0.1"
 
@@ -2994,6 +3044,11 @@ trim-right@^1.0.1:
 type-detect@^4.0.0:
   version "4.0.8"
   resolved "http://registry.npm.taobao.org/type-detect/download/type-detect-4.0.8.tgz#7646fb5f18871cfbb7749e69bd39a6388eb7450c"
+
+typescript@^3.2.2:
+  version "3.2.2"
+  resolved "http://registry.npm.taobao.org/typescript/download/typescript-3.2.2.tgz#fe8101c46aa123f8353523ebdcf5730c2ae493e5"
+  integrity sha1-/oEBxGqhI/g1NSPr3PVzDCrkk+U=
 
 typical@^2.4.2, typical@^2.6.0, typical@^2.6.1:
   version "2.6.1"

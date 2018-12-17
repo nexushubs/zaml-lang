@@ -1,9 +1,10 @@
-import createLinkify from 'linkify-it';
+import * as linkifyIt from 'linkify-it';
+import { EntityInfo } from '../types';
 
-const linkify = createLinkify();
+const linkify = linkifyIt();
 const P_EMAIL = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-function extractLink(text) {
+function extractLink(text: string): EntityInfo[] {
   const tokens = linkify.match(text);
   if (!tokens) {
     return [];
@@ -17,7 +18,7 @@ function extractLink(text) {
       url: token.url,
     },
   }));
-  return Promise.resolve(items);
+  return items;
 }
 
 export default extractLink;
