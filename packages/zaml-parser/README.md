@@ -10,9 +10,9 @@ npm install @zaml/parser
 yarn add @zaml/parser
 ```
 
-## Documentation
+## API Documentation
 
-Checkout [API Documentation](./docs)
+Checkout [API Documentation](./docs/README.md)
 
 ## Usage
 
