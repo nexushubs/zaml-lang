@@ -3,6 +3,7 @@
   "version": "0.5.2",
   "description": "Entity extracting helper for ZAML",
   "main": "lib/index.js",
+  "types": "typings/index.d.ts",
   "scripts": {
     "test": "mocha",
     "clean": "rm -rf lib/*",
@@ -37,6 +38,8 @@
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
+    "typedoc": "^0.13.0",
+    "typedoc-plugin-markdown": "^1.1.19",
     "typescript": "^3.2.2"
   },
   "dependencies": {
