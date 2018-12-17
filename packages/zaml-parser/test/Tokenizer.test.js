@@ -1,6 +1,6 @@
 const chai = require('chai');
 const fs = require('fs');
-const zaml = require('../lib');
+const zaml = require('..');
 const { readFile, readJSON } = require('./util');
 const { ParseError } = require('../lib/ParseError.js');
 const { expect, assert } = chai;

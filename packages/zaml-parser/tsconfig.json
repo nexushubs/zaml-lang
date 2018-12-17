@@ -4,8 +4,10 @@
     "moduleResolution": "node",
     "target": "es6",
     "resolveJsonModule": true,
-    "rootDir": "./src",
-    "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "typings",
+    "rootDir": "src",
+    "outDir": "lib",
     "lib": [
       "dom",
       "es7",
@@ -19,7 +21,4 @@
     "noEmit": false,
     "strict": true,
   },
-  "include": [
-    "src"
-  ]
 }

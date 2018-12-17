@@ -18,7 +18,7 @@ function parse(text: string, options?: ParsingOptions) {
 
 /**
  * Parse ZAML source into node
- * @deprecated
+ * @deprecated Please use zaml.parse() instead
  * @param {string} text Source string
  */
 function tokenize(text: string, options: ParsingOptions) {
