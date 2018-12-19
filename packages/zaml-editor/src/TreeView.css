@@ -1,0 +1,37 @@
+.zaml-tree-view {
+  padding: 10px 20px;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'Source Code Pro', system, "Helvetica Neue", Helvetica, Arial;
+  cursor: default;
+  user-select: none;
+  overflow: hidden;
+}
+
+.zaml-tree-path {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 22px;
+  line-height: 22px;
+  overflow: hidden;
+  border-top: 1px solid #d0d0d0;
+  font-family: 'Noto Sans', system, "Helvetica Neue", Helvetica, Arial;
+}
+
+.zaml-tree-path-item {
+  display: inline-block;
+  padding: 0 6px;
+  color: #333;
+}
+
+.zaml-tree-path-item.selected,
+.zaml-tree-path-item:hover {
+  background: #f3f3f3;
+}
+
+.zaml-tree-path-item.tag,
+.zaml-tree-path-item.entity {
+  color: #708;
+}

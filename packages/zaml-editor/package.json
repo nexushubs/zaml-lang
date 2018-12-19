@@ -1,0 +1,43 @@
+{
+  "name": "@zaml/editor",
+  "version": "0.5.2",
+  "description": "React rich editor for ZAML",
+  "dependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.15",
+    "@types/react": "^16.7.17",
+    "@types/react-dom": "^16.0.11",
+    "@zaml/parser": "^0.5.2",
+    "classnames": "^2.2.6",
+    "codemirror": "^5.42.0",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-codemirror2": "^5.1.0",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1",
+    "react-split-pane": "^0.1.85",
+    "typescript": "^3.2.2"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/codemirror": "^0.0.70",
+    "@types/lodash": "^4.14.119"
+  }
+}

@@ -1,0 +1,49 @@
+.zaml-tag {
+  position: relative;
+}
+
+.zaml-tag[node-name=inline] {
+  border-bottom: 2px solid #ccc;
+}
+
+.zaml-tag[node-name=block] {
+  padding-left: 10px;
+  border-left: 2px solid #ccc;
+}
+
+.zaml-tag[node-name=block]::before,
+.zaml-tag[node-name=block]::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 0;
+  height: 0;
+  width: 2px;
+}
+
+.zaml-tag[node-name=block]::before {
+  top: 0;
+  border-top: 2px solid #ccc;
+}
+
+.zaml-tag[node-name=block]::after {
+  bottom: 0;
+  border-bottom: 2px solid #ccc;
+}
+
+.zaml-tag .attributes {
+  position: absolute;
+  display: block;
+  top: -10px;
+  left: -2px;
+  font-size: 10px;
+  padding: 0 6px;
+  line-height: 12px;
+  color: #fff;
+  background: #085;
+}
+
+.zaml-entity {
+  color: #a11;
+  border-bottom: 2px solid #a11;
+}
