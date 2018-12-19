@@ -27,6 +27,7 @@ My name is [Jack]{PER}
 | -- | -- | -- |
 | [@zaml/parser](./packages/zaml-parser) | [![npm](https://img.shields.io/npm/v/@zaml/parser.svg?style=flat-square)](https://www.npmjs.com/package/@zaml/parser) | Javascript tokenizer & lexer for ZAML |
 | [@zaml/extract](./packages/zaml-extract) | [![npm](https://img.shields.io/npm/v/@zaml/extract.svg?style=flat-square)](https://www.npmjs.com/package/@zaml/extract) | Entity extracting helper for ZAML |
+| [@zaml/editor](./packages/zaml-editor) | [![npm](https://img.shields.io/npm/v/@zaml/editor.svg?style=flat-square)](https://www.npmjs.com/package/@zaml/editor) | Entity extracting helper for ZAML |
 
 ## FAQ
 
