@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.6.0] - 2018-12-17
 
+### Added
+
+* Generate unique id for each node when created, this is useful for React rendering etc.
+
 ### Fixed
 
 * Fix paragraph parsing when end with entity in entity sample.

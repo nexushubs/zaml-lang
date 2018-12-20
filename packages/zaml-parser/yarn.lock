@@ -722,6 +722,13 @@
   resolved "http://registry.npm.taobao.org/@types/minimatch/download/@types/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha1-PcoOPzOyAPx9ETnAzZbBJoyt/Z0=
 
+"@types/nanoid@^1.2.0":
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/@types/nanoid/download/@types/nanoid-1.2.0.tgz#c0141cfec5b4818016355389b0bd539097d872ff"
+  integrity sha1-wBQc/sW0gYAWNVOJsL1TkJfYcv8=
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*", "@types/node@^10.12.15":
   version "10.12.15"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.15.tgz#20e85651b62fd86656e57c9c9bc771ab1570bc59"
@@ -2410,6 +2417,11 @@ ms@^2.1.1:
 nan@^2.9.2:
   version "2.11.1"
   resolved "http://registry.npm.taobao.org/nan/download/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
+
+nanoid@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/nanoid/download/nanoid-2.0.0.tgz#e1ab4a4b024a38d15531ba34a712a201540de639"
+  integrity sha1-4atKSwJKONFVMbo0pxKiAVQN5jk=
 
 nanomatch@^1.2.9:
   version "1.2.13"

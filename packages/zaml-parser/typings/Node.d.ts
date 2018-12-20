@@ -118,6 +118,7 @@ declare class Node {
      */
     static validChild(node: any): void;
     private _source?;
+    id: string;
     type: NodeType;
     name?: string;
     start: number;
@@ -141,7 +142,6 @@ declare class Node {
     constructor(type: NodeType, name?: string, options?: NodeProps);
     /**
      * Check if the node is tag
-     * @returns {boolean}
      */
     readonly isTag: boolean;
     /**
@@ -162,7 +162,6 @@ declare class Node {
     readonly isBlock: boolean;
     /**
      * If node is inline block
-     * @returns {boolean}
      */
     readonly isInlineBlock: boolean;
     /**
@@ -191,41 +190,34 @@ declare class Node {
     readonly isFirstChild: boolean;
     /**
      * Check if the node is the last child of its parent
-     * @returns {boolean}
      */
     readonly isLastChild: boolean;
     /**
      * Siblings from same parent
-     * @returns {Node[]}
      */
     readonly siblings: Node[];
     /**
      * Get index of parent children
-     * @returns {number}
      */
     readonly childIndex: number;
     /**
      * Next sibling node
-     * @returns {Node}
      */
-    readonly nextSibling: Node | null;
+    readonly nextSibling: Node | undefined;
     /**
      * Previous sibling node
-     * @returns {Node}
      */
-    readonly previousSibling: Node | null;
+    readonly previousSibling: Node | undefined;
     /**
      * Property indicates if the root is root (which has no children)
-     * @returns {boolean}
      */
-    getRootNode(): Node | null;
+    getRootNode(): Node | undefined;
     /**
      * Check node match the expression
      * @example
      * `BLOCK`: tag
      * `@LOC`: entity
      * @param expression
-     * @returns {boolean}
      */
     is(expression: string): boolean;
     /**
@@ -233,6 +225,10 @@ declare class Node {
      * @param node
      */
     contains(node: Node): boolean;
+    /**
+     * Get a list of ancestors
+     */
+    readonly path: Node[];
     /**
      * Get the first child of current node
      */

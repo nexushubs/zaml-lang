@@ -41,8 +41,10 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
+    "@types/nanoid": "^1.2.0",
     "chalk": "^2.4.1",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "nanoid": "^2.0.0"
   },
   "gitHead": "be8ebbe2a12eca887a5d9696186bb42bc40beb29"
 }

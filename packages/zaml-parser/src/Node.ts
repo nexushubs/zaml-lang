@@ -2,6 +2,8 @@ import * as _ from 'lodash';
 import { stringify, parseValue, StringifyOptions } from './util';
 import { parse } from '.';
 
+const nanoid = require('nanoid');
+
 export enum NodeType {
   FRAGMENT = 'fragment',
   ROOT = 'root',
@@ -266,6 +268,7 @@ class Node {
   }
 
   private _source?: string;
+  public id: string = '';
   public type: NodeType;
   public name?: string;
   public start: number = -1;
@@ -304,6 +307,8 @@ class Node {
     if (type && !NodeTypes.includes(type)) {
       throw new TypeError(`invalid node type ${type}`);
     }
+
+    this.id = nanoid();
 
     /**
      * Parser states
@@ -422,7 +427,6 @@ class Node {
 
   /**
    * Check if the node is tag
-   * @returns {boolean}
    */
   get isTag() {
     return this.type === NodeType.TAG;
@@ -459,7 +463,6 @@ class Node {
 
   /**
    * If node is inline block
-   * @returns {boolean}
    */
   get isInlineBlock() {
     return this.isTag && !this.isBlockTag;
@@ -527,7 +530,6 @@ class Node {
 
   /**
    * Check if the node is the last child of its parent
-   * @returns {boolean}
    */
   get isLastChild() {
     const { parent } = this;
@@ -539,7 +541,6 @@ class Node {
 
   /**
    * Siblings from same parent
-   * @returns {Node[]}
    */
   get siblings() {
     const { parent } = this;
@@ -551,7 +552,6 @@ class Node {
 
   /**
    * Get index of parent children
-   * @returns {number}
    */
   get childIndex() {
     const { siblings } = this;
@@ -560,27 +560,24 @@ class Node {
 
   /**
    * Next sibling node
-   * @returns {Node}
    */
   get nextSibling() {
-    if (!this.parent) return null;
+    if (!this.parent) return undefined;
     const { childIndex, siblings } = this;
-    return siblings[childIndex + 1] || null;
+    return siblings[childIndex + 1] || undefined;
   }
 
   /**
    * Previous sibling node
-   * @returns {Node}
    */
   get previousSibling() {
-    if (!this.parent) return null;
+    if (!this.parent) return undefined;
     const { childIndex, siblings } = this;
-    return siblings[childIndex - 1] || null;
+    return siblings[childIndex - 1] || undefined;
   }
 
   /**
    * Property indicates if the root is root (which has no children)
-   * @returns {boolean}
    */
   getRootNode() {
     let node: Node = this;
@@ -588,7 +585,7 @@ class Node {
       node = node.parent;
     }
     if (node === this) {
-      return null;
+      return undefined;
     }
     return node;
   }
@@ -599,7 +596,6 @@ class Node {
    * `BLOCK`: tag
    * `@LOC`: entity
    * @param expression 
-   * @returns {boolean}
    */
   is(expression: string) {
     if (!_.isString(expression)) {
@@ -632,6 +628,19 @@ class Node {
       node = node.parent;
     }
     return false;
+  }
+
+  /**
+   * Get a list of ancestors
+   */
+  get path() {
+    const list: Node[] = [];
+    let node: Node | undefined = this;
+    while (node) {
+      list.unshift(node);
+      node = node.parent;
+    }
+    return list;
   }
 
   /**
