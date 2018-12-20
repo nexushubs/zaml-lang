@@ -22,7 +22,7 @@
 
 **● extract**: *`function`*
 
-*Defined in [Node.ts:40](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L40)*
+*Defined in [Node.ts:42](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L42)*
 
 #### Type declaration
 ▸(text: *`string`[]*): [EntityItem](_node_.entityitem.md)[][]

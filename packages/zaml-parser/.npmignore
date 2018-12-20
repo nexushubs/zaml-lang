@@ -45,3 +45,5 @@ yarn-error.*
 
 # istambul output
 .nyc_output
+
+docs

@@ -27,7 +27,7 @@
 **● label**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:164](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L164)*
+*Defined in [Node.ts:166](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L166)*
 
 ___
 <a id="name"></a>
@@ -37,7 +37,7 @@ ___
 **● name**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:161](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L161)*
+*Defined in [Node.ts:163](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L163)*
 
 ___
 <a id="source"></a>
@@ -47,7 +47,7 @@ ___
 **● source**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:163](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L163)*
+*Defined in [Node.ts:165](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L165)*
 
 ___
 <a id="text"></a>
@@ -57,7 +57,7 @@ ___
 **● text**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:162](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L162)*
+*Defined in [Node.ts:164](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L164)*
 
 ___
 <a id="type"></a>
@@ -66,7 +66,7 @@ ___
 
 **● type**: *[NodeType](../enums/_node_.nodetype.md)*
 
-*Defined in [Node.ts:160](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L160)*
+*Defined in [Node.ts:162](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L162)*
 
 ___
 

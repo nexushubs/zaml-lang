@@ -33,7 +33,7 @@
 
 ⊕ **new ParseError**(message: *`string`*, text: *`string`*, pos: *`number`*): [ParseError](_parseerror_.parseerror.md)
 
-*Defined in [ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/ParseError.ts#L5)*
+*Defined in [ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/ParseError.ts#L5)*
 
 **Parameters:**
 
@@ -57,7 +57,7 @@ ___
 
 *Overrides Error.message*
 
-*Defined in [ParseError.ts:3](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/ParseError.ts#L3)*
+*Defined in [ParseError.ts:3](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/ParseError.ts#L3)*
 
 ___
 <a id="name"></a>
@@ -77,7 +77,7 @@ ___
 
 **● pos**: *`number`*
 
-*Defined in [ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/ParseError.ts#L5)*
+*Defined in [ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/ParseError.ts#L5)*
 
 ___
 <a id="stack"></a>
@@ -100,7 +100,7 @@ ___
 
 **● text**: *`string`*
 
-*Defined in [ParseError.ts:4](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/ParseError.ts#L4)*
+*Defined in [ParseError.ts:4](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/ParseError.ts#L4)*
 
 ___
 <a id="error"></a>

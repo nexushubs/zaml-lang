@@ -23,7 +23,7 @@
 
 **● P_EMAIL**: *`RegExp`* =  /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
 
-*Defined in [plugins/link.ts:5](https://github.com/nexushubs/zaml-lang/blob/42220f0/packages/zaml-extract/src/plugins/link.ts#L5)*
+*Defined in [plugins/link.ts:5](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/plugins/link.ts#L5)*
 
 ___
 <a id="linkify"></a>
@@ -32,7 +32,7 @@ ___
 
 **● linkify**: *`LinkifyIt`* =  linkifyIt()
 
-*Defined in [plugins/link.ts:4](https://github.com/nexushubs/zaml-lang/blob/42220f0/packages/zaml-extract/src/plugins/link.ts#L4)*
+*Defined in [plugins/link.ts:4](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/plugins/link.ts#L4)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 ▸ **extractLink**(text: *`string`*): [EntityInfo](../interfaces/_types_.entityinfo.md)[]
 
-*Defined in [plugins/link.ts:7](https://github.com/nexushubs/zaml-lang/blob/42220f0/packages/zaml-extract/src/plugins/link.ts#L7)*
+*Defined in [plugins/link.ts:7](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/plugins/link.ts#L7)*
 
 **Parameters:**
 

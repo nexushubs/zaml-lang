@@ -23,7 +23,7 @@
 
 **● entities**: *[EntityInfo](_types_.entityinfo.md)[]*
 
-*Defined in [plugins/rest.ts:13](https://github.com/nexushubs/zaml-lang/blob/42220f0/packages/zaml-extract/src/plugins/rest.ts#L13)*
+*Defined in [plugins/rest.ts:13](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/plugins/rest.ts#L13)*
 
 ___
 <a id="text"></a>
@@ -33,7 +33,7 @@ ___
 **● text**: * `undefined` &#124; `string`
 *
 
-*Defined in [plugins/rest.ts:12](https://github.com/nexushubs/zaml-lang/blob/42220f0/packages/zaml-extract/src/plugins/rest.ts#L12)*
+*Defined in [plugins/rest.ts:12](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/plugins/rest.ts#L12)*
 
 ___
 

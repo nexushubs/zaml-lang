@@ -25,7 +25,7 @@
 
 **● data**: *`any`*
 
-*Defined in [Node.ts:171](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L171)*
+*Defined in [Node.ts:173](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L173)*
 
 ___
 <a id="end"></a>
@@ -34,7 +34,7 @@ ___
 
 **● end**: *`number`*
 
-*Defined in [Node.ts:170](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L170)*
+*Defined in [Node.ts:172](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L172)*
 
 ___
 <a id="start"></a>
@@ -43,7 +43,7 @@ ___
 
 **● start**: *`number`*
 
-*Defined in [Node.ts:169](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L169)*
+*Defined in [Node.ts:171](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L171)*
 
 ___
 <a id="type"></a>
@@ -52,7 +52,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in [Node.ts:168](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Node.ts#L168)*
+*Defined in [Node.ts:170](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Node.ts#L170)*
 
 ___
 

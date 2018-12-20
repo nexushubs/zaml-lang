@@ -33,9 +33,29 @@
 
 ### `<Const>` stateNames
 
-**● stateNames**: *`string`[]* =  _.keys(State)
+**● stateNames**: *`string`[]* =  [
+  'METADATA',
+  'NORMAL',
+  'SINGLE_COMMENT',
+  'MULTIPLE_COMMENT',
+  'START',
+  'TAG_START',
+  'TAG_NAME',
+  'ATTRIBUTE_LIST',
+  'ATTRIBUTE_NAME',
+  'ATTRIBUTE_ASSIGN',
+  'ATTRIBUTE_VALUE',
+  'ATTRIBUTE_FINISH',
+  'TAG_END',
+  'LABEL_START',
+  'ENTITY_START',
+  'ENTITY_BODY',
+  'ENTITY_END',
+  'END',
+  'FINISH',
+]
 
-*Defined in [Tokenizer.ts:70](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Tokenizer.ts#L70)*
+*Defined in [Tokenizer.ts:70](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Tokenizer.ts#L70)*
 
 ___
 
@@ -47,7 +67,7 @@ ___
 
 ▸ **countLineBreaks**(text: *`string`*): `number`
 
-*Defined in [Tokenizer.ts:76](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Tokenizer.ts#L76)*
+*Defined in [Tokenizer.ts:96](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Tokenizer.ts#L96)*
 
 **Parameters:**
 
@@ -64,7 +84,7 @@ ___
 
 ▸ **getStateName**(state: *[State](../enums/_tokenizer_.state.md)*): `string`
 
-*Defined in [Tokenizer.ts:72](https://github.com/nexushubs/zaml-lang/blob/660834a/packages/zaml-parser/src/Tokenizer.ts#L72)*
+*Defined in [Tokenizer.ts:92](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Tokenizer.ts#L92)*
 
 **Parameters:**
 
