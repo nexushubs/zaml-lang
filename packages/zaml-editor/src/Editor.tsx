@@ -21,7 +21,8 @@ interface Props {
 interface State {
   node: zaml.Node;
   sourcePaneHeight: number;
-  selectedNode: zaml.Node;
+  selectedNode?: zaml.Node;
+  hoveredNode?: zaml.Node;
 }
 
 const parse = (source: string) => {
@@ -53,7 +54,6 @@ export default class Editor extends React.Component<Props, State> {
     this.state = {
       node,
       sourcePaneHeight: -1,
-      selectedNode: node,
     };
     this.onResize = _.throttle(this.onResize.bind(this), 500);
   }
@@ -84,7 +84,7 @@ export default class Editor extends React.Component<Props, State> {
 
   render() {
     const { value, onChange } = this.props;
-    const { node, sourcePaneHeight, selectedNode } = this.state;
+    const { node, sourcePaneHeight, selectedNode, hoveredNode } = this.state;
     return (
       <div className="zaml-editor">
         <header>
@@ -105,13 +105,18 @@ export default class Editor extends React.Component<Props, State> {
             </Pane>
             <SplitPane split="vertical" defaultSize="50%">
               <Pane title="Visual">
-                <VisualEditor node={node} />
+                <VisualEditor
+                  node={node}
+                  selectedNode={hoveredNode || selectedNode}
+                  onSelect={n => this.setState({ selectedNode: n })}
+                />
               </Pane>
               <Pane title="AST">
                 <TreeView
                   node={node}
                   selectedNode={selectedNode}
                   onSelect={n => this.setState({ selectedNode: n })}
+                  onHover={n => this.setState({ hoveredNode: n })}
                 />
               </Pane>
             </SplitPane>

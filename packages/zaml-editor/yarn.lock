@@ -7756,6 +7756,14 @@ react-codemirror2@^5.1.0:
   resolved "http://registry.npm.taobao.org/react-codemirror2/download/react-codemirror2-5.1.0.tgz#62de4460178adea40eb52eabf7491669bf3794b8"
   integrity sha1-Yt5EYBeK3qQOtS6r90kWab83lLg=
 
+react-contexify@^4.0.0:
+  version "4.0.0"
+  resolved "http://registry.npm.taobao.org/react-contexify/download/react-contexify-4.0.0.tgz#d9325c18cf431d9d5fae35dbf7c24af59d79e65b"
+  integrity sha1-2TJcGM9DHZ1frjXb98JK9Z155ls=
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.6.2"
+
 react-dev-utils@^6.1.1:
   version "6.1.1"
   resolved "http://registry.npm.taobao.org/react-dev-utils/download/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"

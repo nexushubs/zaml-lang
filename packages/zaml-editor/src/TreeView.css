@@ -1,23 +1,43 @@
 .zaml-tree-view {
+  position: relative;
   padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   font-size: 12px;
   line-height: 18px;
   font-family: 'Source Code Pro', system, "Helvetica Neue", Helvetica, Arial;
   cursor: default;
   user-select: none;
-  overflow: hidden;
 }
 
+
+.zaml-tree-view .tree {
+  position: absolute;
+  top: 23px;
+  bottom: 23px;
+  overflow: auto;
+  padding: 4px 0;
+}
+
+.zaml-tree-toolbar,
 .zaml-tree-path {
   position: absolute;
-  bottom: 0;
   left: 0;
   width: 100%;
   height: 22px;
   line-height: 22px;
   overflow: hidden;
-  border-top: 1px solid #d0d0d0;
+  background: #fff;
   font-family: 'Noto Sans', system, "Helvetica Neue", Helvetica, Arial;
+}
+.zaml-tree-toolbar {
+  top: 0;
+  border-bottom: 1px solid #d0d0d0;
+}
+.zaml-tree-path {
+  bottom: 0;
+  border-top: 1px solid #d0d0d0;
 }
 
 .zaml-tree-path-item {

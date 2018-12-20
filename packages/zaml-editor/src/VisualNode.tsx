@@ -7,28 +7,45 @@ import './VisualNode.css';
 
 const { NodeType } = zaml;
 
+const nil = () => {};
+
 interface Props {
-  node: zaml.Node | null;
+  node?: zaml.Node;
+  selectedNode?: zaml.Node;
+  onContextMenu: (event: React.MouseEvent, node: zaml.Node) => void;
 }
 
 export default class VisualNode extends React.Component<Props> {
 
   static propTypes = {
-    node: PropTypes.shape({})
   }
 
   static defaultProps: Props = {
-    node: null,
+    onContextMenu: nil,
   }
 
   constructor(props: Props) {
     super(props);
   }
 
+  handleContextMenu = (event: React.MouseEvent) => {
+    const { node, onContextMenu } = this.props;
+    event.preventDefault();
+    event.stopPropagation();
+    let n = node;
+    if (n && n.type === NodeType.TEXT) {
+      n = n.parent;
+    }
+    if (n) {
+      onContextMenu(event, n);
+    }
+  }
+
   render() {
-    const { node } = this.props;
+    const { node, selectedNode } = this.props;
     let element: string | null;
     if (!node) return null;
+    const selected = node === selectedNode;
     let children: any = [];
     if (node.type === NodeType.ROOT) {
       element = 'div';
@@ -44,7 +61,7 @@ export default class VisualNode extends React.Component<Props> {
             node-name="link"
             href={node.attributes.url}
           >
-            <VisualNode node={node.children[0]} />
+            <VisualNode {...this.props} node={node.children[0]} />
           </a>
         );
       } else {
@@ -68,7 +85,9 @@ export default class VisualNode extends React.Component<Props> {
     if (!_.isEmpty(node.children)) {
       children.push(
         <span key="children" className="children">
-          {_.map(node.children, (child, i) => <VisualNode key={i} node={child} />)}
+          {_.map(node.children, (child, i) => (
+            <VisualNode {...this.props} key={i} node={child} />
+          ))}
         </span>
       );
     } else if (node.type === 'text') {
@@ -77,8 +96,10 @@ export default class VisualNode extends React.Component<Props> {
       );
     }
     return React.createElement(element, {
-      className: classNames(`zaml-${node.type}`, { block: node.isBlock }),
+      id: `vn${node.id}`,
+      className: classNames('zaml-node', `${node.type}`, { block: node.isBlock, selected }),
       'node-name': node.name && node.name.toLowerCase(),
+      onContextMenu: this.handleContextMenu,
     }, children);
   }
 }

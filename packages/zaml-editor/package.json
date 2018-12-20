@@ -14,6 +14,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-codemirror2": "^5.1.0",
+    "react-contexify": "^4.0.0",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
     "react-split-pane": "^0.1.85",
@@ -26,6 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "http://nexushubs.github.io/zaml",
   "eslintConfig": {
     "extends": "react-app"
   },

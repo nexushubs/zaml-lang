@@ -1,18 +1,22 @@
-.zaml-tag {
+.zaml-node.selected {
+  background: #d6d4ef
+}
+
+.zaml-node.tag {
   position: relative;
 }
 
-.zaml-tag[node-name=inline] {
-  border-bottom: 2px solid #ccc;
+.zaml-node.tag[node-name=inline] {
+  border-bottom: 2px dotted #999;
 }
 
-.zaml-tag[node-name=block] {
+.zaml-node.tag[node-name=block] {
   padding-left: 10px;
   border-left: 2px solid #ccc;
 }
 
-.zaml-tag[node-name=block]::before,
-.zaml-tag[node-name=block]::after {
+.zaml-node.tag[node-name=block]::before,
+.zaml-node.tag[node-name=block]::after {
   position: absolute;
   content: '';
   display: block;
@@ -21,17 +25,17 @@
   width: 2px;
 }
 
-.zaml-tag[node-name=block]::before {
+.zaml-node.tag[node-name=block]::before {
   top: 0;
   border-top: 2px solid #ccc;
 }
 
-.zaml-tag[node-name=block]::after {
+.zaml-node.tag[node-name=block]::after {
   bottom: 0;
   border-bottom: 2px solid #ccc;
 }
 
-.zaml-tag .attributes {
+.zaml-node.tag .attributes {
   position: absolute;
   display: block;
   top: -10px;
@@ -43,7 +47,7 @@
   background: #085;
 }
 
-.zaml-entity {
+.zaml-node.entity {
   color: #a11;
   border-bottom: 2px solid #a11;
 }

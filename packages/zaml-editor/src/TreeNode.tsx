@@ -13,17 +13,21 @@ export enum NodePart {
   Whole = 'whole',
 }
 
+const nil = () => {};
+
 interface Props {
   node?: zaml.Node;
-  defaultExpended: boolean;
+  expandedNodes: string[];
   selectedNode?: zaml.Node;
   selectedPart?: NodePart;
   onSelect: (node: zaml.Node) => void;
   onSelectPart: (selectedPart: NodePart) => void;
+  onExpansionChange: (node: zaml.Node, expanded: boolean) => void;
+  onMouseEnter: (node:zaml.Node) => void;
+  onMouseOut: (node:zaml.Node) => void;
 }
 
 interface State {
-  expanded: boolean;
 }
 
 export default class TreeNode extends React.Component<Props, State> {
@@ -34,26 +38,35 @@ export default class TreeNode extends React.Component<Props, State> {
 
   static defaultProps: Props = {
     node: undefined,
-    defaultExpended: false,
+    expandedNodes: [],
     selectedNode: undefined,
     selectedPart: NodePart.Whole,
-    onSelect: () => {},
-    onSelectPart: () => {},
+    onSelect: nil,
+    onSelectPart: nil,
+    onExpansionChange: nil,
+    onMouseEnter: nil,
+    onMouseOut: nil,
   }
 
   constructor(props: Props) {
     super(props);
-    const { node } = props;
-    this.state = {
-      expanded: node ? node.type === NodeType.ROOT : props.defaultExpended,
-    }
   }
 
   render() {
-    const { node, selectedNode, selectedPart: _selectedPart, onSelect, onSelectPart } = this.props;
-    const { expanded } = this.state;
+    const {
+      node,
+      selectedNode,
+      selectedPart: _selectedPart,
+      expandedNodes,
+      onSelect,
+      onSelectPart,
+      onExpansionChange,
+      onMouseEnter,
+      onMouseOut,
+    } = this.props;
     if (!node) return null;
     let selectedPart = _selectedPart;
+    const expanded = expandedNodes.indexOf(node.id) > -1 || node.isRoot;
     if (expanded && selectedPart === NodePart.Whole) {
       selectedPart = NodePart.Header;
     }
@@ -64,8 +77,14 @@ export default class TreeNode extends React.Component<Props, State> {
       onSelectPart(selectedPart);
     };
     const commonProps = {
-      onMouseEnter: () => this.setState({}),
-      onMouseOut: () => this.setState({}),
+      onMouseEnter: (event: React.MouseEvent) => {
+        event.stopPropagation();
+        onMouseEnter(node);
+      },
+      onMouseOut: (event: React.MouseEvent) => {
+        event.stopPropagation();
+        onMouseOut(node);
+      },
     }
     let children: any = null;
     if (!_.isEmpty(node.children)) {
@@ -88,17 +107,15 @@ export default class TreeNode extends React.Component<Props, State> {
         </div>
       )
     } else if (node.type === NodeType.ENTITY || node.isBlock || node.isWrappingTag) {
-      const isTag = [NodeType.TAG, NodeType.ENTITY].indexOf(node.type) > -1;
+      const isEntity = node.type === NodeType.ENTITY;
+      const isTag = node.type === NodeType.TAG;
       let onlyText: string | undefined;
       if (node.children.length === 1 && (node.firstChild as zaml.Node).type === NodeType.TEXT) {
         onlyText = (node.firstChild as zaml.Node).content;
       }
-      const nameStart = isTag ? '{' : '<';
-      const nameEnd = isTag ? '}' : '>';
-      let name = isTag ? node.name : node.type;
-      if (node.type === NodeType.ENTITY) {
-        name = `@${name}`;
-      }
+      const nameStart = isEntity ? '[' : isTag ? '{' : '<';
+      const nameEnd = isEntity ? ']' : isTag ? '}' : '>';
+      let name = (isTag || isEntity) ? node.name : node.type;
       return (
         <div
           className={classNames('block', {
@@ -114,12 +131,7 @@ export default class TreeNode extends React.Component<Props, State> {
               className="indicator"
               onClick={(event) => {
                 event.stopPropagation();
-                const state = !expanded;
-                this.setState({ expanded: state }, () => {
-                  if (selected) {
-                    onSelectPart(state ? NodePart.Header : NodePart.Whole);
-                  }
-                });
+                onExpansionChange(node, !expanded);
               }}
             >▾</span>
           )}
@@ -144,8 +156,9 @@ export default class TreeNode extends React.Component<Props, State> {
             })}
             {nameEnd}
           </span>
-          <span className="ellipsis">{_.truncate(onlyText, { length: 10 }) || '...'}</span>
-          {children}
+          {expanded ? children : (
+            <span className="ellipsis">{_.truncate(onlyText, { length: 10 }) || '...'}</span>
+          )}
           <span
             className={classNames('footer', { selected: selected && selectedPart === NodePart.Footer })}
             onClick={expanded ? onClick(NodePart.Footer) : undefined}

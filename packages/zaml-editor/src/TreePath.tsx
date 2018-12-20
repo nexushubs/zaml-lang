@@ -11,7 +11,11 @@ interface Props {
   onSelect: (node: zaml.Node) => void;
 }
 
-export default class TreePath extends React.Component<Props> {
+interface State {
+  nodeList: zaml.Node[];
+}
+
+export default class TreePath extends React.Component<Props, State> {
 
   static propTypes = {
     node: PropTypes.shape({})
@@ -22,25 +26,44 @@ export default class TreePath extends React.Component<Props> {
     onSelect: () => {},
   }
 
-  state = {
-    selectedPart: NodePart.Whole,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      nodeList: this.buildNodeList(props.selectedNode),
+    };
+  }
 
-  render() {
-    const { selectedNode, onSelect } = this.props;
-    if (!selectedNode) {
-      return null;
+  componentWillReceiveProps(nextProps: Props) {
+    const { nodeList } = this.state;
+    const node = nextProps.selectedNode;
+    if (!node) {
+      this.setState({
+        nodeList: [],
+      });
+    } else if (!_.includes(nodeList, node)) {
+      this.setState({
+        nodeList: this.buildNodeList(node),
+      });
     }
-    const list: zaml.Node[] = [];
-    let node: zaml.Node | undefined = selectedNode;
+  }
+
+  buildNodeList(node: zaml.Node | undefined) {
+    let list: zaml.Node[] = [];
     while (node) {
       list.unshift(node);
       node = node.parent;
     }
+    return list;
+  }
+
+  render() {
+    const { selectedNode, onSelect } = this.props;
+    const { nodeList } = this.state;
     return (
       <div className="zaml-tree-path">
-        {list.map(n => (
+        {nodeList.map(n => (
           <TreePathItem
+            key={n.id}
             selected={n === selectedNode}
             node={n}
             onClick={() => onSelect(n)}
