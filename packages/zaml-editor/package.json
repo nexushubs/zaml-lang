@@ -1,6 +1,6 @@
 {
   "name": "@zaml/editor",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "React rich editor for ZAML",
   "dependencies": {
     "@types/jest": "^23.3.10",
