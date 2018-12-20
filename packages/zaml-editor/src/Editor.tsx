@@ -88,7 +88,8 @@ export default class Editor extends React.Component<Props, State> {
     return (
       <div className="zaml-editor">
         <header>
-          <Logo className="logo" /> Editor
+          <a className="project-link" href="https://github.com/nexushubs/zaml-lang/tree/master/packages/zaml-editor"><Logo className="logo" /> Editor</a>
+          <a className="github-link" href="https://github.com/nexushubs/zaml-lang">View on Github</a>
         </header>
         <section className="editor-panes">
           <SplitPane

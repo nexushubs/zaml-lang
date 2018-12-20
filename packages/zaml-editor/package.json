@@ -25,9 +25,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
-  "homepage": "http://nexushubs.github.io/zaml",
+  "homepage": "https://nexushubs.github.io/zaml-lang",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.6",
     "@types/codemirror": "^0.0.70",
-    "@types/lodash": "^4.14.119"
+    "@types/lodash": "^4.14.119",
+    "gh-pages": "^2.0.1"
   }
 }
