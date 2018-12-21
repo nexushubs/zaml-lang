@@ -37,7 +37,7 @@
 
 **Ƭ MarkerData**: *`object`*
 
-*Defined in [TextStream.ts:40](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L40)*
+*Defined in [TextStream.ts:40](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L40)*
 
 #### Type declaration
 
@@ -51,7 +51,7 @@ ___
 **Ƭ TextPattern**: * `string` &#124; `RegExp` &#124; [TextTester](_textstream_.md#texttester)
 *
 
-*Defined in [TextStream.ts:13](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L13)*
+*Defined in [TextStream.ts:13](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L13)*
 
 ___
 <a id="texttester"></a>
@@ -60,7 +60,7 @@ ___
 
 **Ƭ TextTester**: *`function`*
 
-*Defined in [TextStream.ts:12](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L12)*
+*Defined in [TextStream.ts:12](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L12)*
 
 #### Type declaration
 ▸(text: *`string`*): `boolean`
@@ -83,7 +83,7 @@ ___
 
 **● LINE_BREAKS**: *`RegExp`* =  /\r?\n/g
 
-*Defined in [TextStream.ts:10](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L10)*
+*Defined in [TextStream.ts:10](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L10)*
 
 ___
 <a id="not_found"></a>
@@ -92,7 +92,7 @@ ___
 
 **● NOT_FOUND**: *`-1`* =  -1
 
-*Defined in [TextStream.ts:9](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L9)*
+*Defined in [TextStream.ts:9](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L9)*
 
 ___
 

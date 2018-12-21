@@ -23,7 +23,7 @@
 **● verbose**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Tokenizer.ts:102](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/Tokenizer.ts#L102)*
+*Defined in [Tokenizer.ts:102](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/Tokenizer.ts#L102)*
 
 ___
 

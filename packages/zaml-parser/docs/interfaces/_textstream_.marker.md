@@ -24,7 +24,7 @@
 
 **● data**: *`any`*
 
-*Defined in [TextStream.ts:54](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L54)*
+*Defined in [TextStream.ts:54](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L54)*
 
 ___
 <a id="end"></a>
@@ -34,7 +34,7 @@ ___
 **● end**: * `undefined` &#124; `number`
 *
 
-*Defined in [TextStream.ts:53](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L53)*
+*Defined in [TextStream.ts:53](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L53)*
 
 ___
 <a id="start"></a>
@@ -44,7 +44,7 @@ ___
 **● start**: * `undefined` &#124; `number`
 *
 
-*Defined in [TextStream.ts:52](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-parser/src/TextStream.ts#L52)*
+*Defined in [TextStream.ts:52](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L52)*
 
 ___
 
