@@ -31,22 +31,12 @@ export default class TreePathItem extends React.Component<Props> {
     if (!node) {
       return null;
     }
-    let name: string = '';
-    if (node.type === NodeType.TEXT) {
-      name = '(text)'
-    } else if (node.type === NodeType.TAG) {
-      name = `{${node.name}}`;
-    } else if (node.type === NodeType.ENTITY) {
-      name = `[${node.name}]`;
-    } else {
-      name = node.type;
-    }
     return (
       <span
         className={classNames('zaml-tree-path-item', node.type, { selected })}
         onClick={onClick}
       >
-        {name}
+        {node.descriptor}
       </span>
     )
   }

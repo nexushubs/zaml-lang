@@ -6,6 +6,7 @@ import SplitPane from 'react-split-pane';
 import Pane from './Pane';
 import SourceEditor from './SourceEditor';
 import VisualEditor from './VisualEditor';
+import '@blueprintjs/core/lib/css/blueprint.css';
 import './Editor.css';
 import { ReactComponent as Logo } from './logo.svg';
 import TreeView from './TreeView';

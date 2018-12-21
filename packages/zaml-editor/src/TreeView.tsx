@@ -59,6 +59,7 @@ export default class TreeView extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     const { selectedNode } = nextProps;
+    console.log(selectedNode);
     if (selectedNode && selectedNode !== this.props.selectedNode) {
       const { expandedNodes } = this.state;
       const nodeIds = selectedNode.path.map(n => n.id);

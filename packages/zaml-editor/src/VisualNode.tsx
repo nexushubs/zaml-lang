@@ -59,9 +59,14 @@ export default class VisualNode extends React.Component<Props> {
           <a
             className="zaml-entity"
             node-name="link"
+            node-id={node.id}
             href={node.attributes.url}
           >
-            <VisualNode {...this.props} node={node.children[0]} />
+            <VisualNode
+              node-id={node.children[0].id}
+              {...this.props}
+              node={node.children[0]}
+            />
           </a>
         );
       } else {
@@ -96,10 +101,10 @@ export default class VisualNode extends React.Component<Props> {
       );
     }
     return React.createElement(element, {
-      id: `vn${node.id}`,
       className: classNames('zaml-node', `${node.type}`, { block: node.isBlock, selected }),
       'node-name': node.name && node.name.toLowerCase(),
-      onContextMenu: this.handleContextMenu,
+      'node-id': node.id,
+      // onContextMenu: this.handleContextMenu,
     }, children);
   }
 }
