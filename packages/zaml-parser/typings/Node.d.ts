@@ -74,6 +74,12 @@ export interface JsonNode {
     textPosition?: SourceMapRange;
     children?: JsonNode[];
 }
+export interface NodeRange {
+    startNode: Node;
+    startOffset: number;
+    endNode: Node;
+    endOffset: number;
+}
 /**
  * AST node class
  * @class
@@ -117,6 +123,13 @@ declare class Node {
      * @param node
      */
     static validChild(node: any): void;
+    static findCommonAncestor(n1: Node, n2: Node): Node | undefined;
+    /**
+     * Create a block and move nodes or text within the range into it
+     * @param start
+     * @param end
+     */
+    static createBlockByRange(range: NodeRange, props: NodeProps): Node | undefined;
     private _source?;
     id: string;
     type: NodeType;
@@ -140,6 +153,10 @@ declare class Node {
      * @param [options]
      */
     constructor(type: NodeType, name?: string, options?: NodeProps);
+    /**
+     * Get a short descriptor to identify node's type and basic information
+     */
+    readonly descriptor: string;
     /**
      * Check if the node is tag
      */
@@ -375,6 +392,11 @@ declare class Node {
      */
     normalize(): void;
     /**
+     * Get node by id
+     * @param id
+     */
+    getNodeById(id: string): Node | undefined;
+    /**
      * Find matched descendants recursively
      * @param selector Node selector object
      * @param [one] Find the first matched node or a list of node
@@ -411,10 +433,11 @@ declare class Node {
      * @param selector
      */
     querySelector(selector: string): Node | undefined;
+    createBlockByTextRange(start: number, end: number, props?: NodeProps): Node;
     /**
      * Process text node in current node and parse entities
      */
-    createEntities(items: EntityItem[]): void;
+    createEntities(items: EntityItem[]): Node[];
     /**
      * Create entity nodes based on text source position
      * @param {Array.<{start:number,end:number,type:string,data:any}>} entities
@@ -424,6 +447,10 @@ declare class Node {
      * Extract entities from text node
      */
     extractEntities(extractor: Extractor): Promise<void>;
+    /**
+     * Remove wrapping entity and put text back
+     */
+    removeEntity(): Node;
     /**
      * Build plain text of the node (stripping tags & entities)
      * @param [options]

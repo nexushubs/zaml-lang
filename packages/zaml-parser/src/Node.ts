@@ -195,6 +195,13 @@ export interface JsonNode {
   children?: JsonNode[];
 }
 
+export interface NodeRange {
+  startNode: Node,
+  startOffset: number,
+  endNode: Node,
+  endOffset: number,
+}
+
 /**
  * AST node class
  * @class
@@ -264,6 +271,54 @@ class Node {
   static validChild(node: any) {
     if (!node.parent) {
       throw new Error('node is not a valid child');
+    }
+  }
+
+  static findCommonAncestor(n1: Node, n2: Node): Node | undefined {
+    const path1 = n1.path;
+    const path2 = n2.path;
+    if (!path1.length || !path2.length) {
+      return undefined;
+    }
+    let parent: Node | undefined;
+    for (let i = 0; i < path1.length && i < path2.length; i++) {
+      if (path1[i] !== path2[i]) {
+        break;
+      }
+      parent = path1[i];
+    }
+    return parent;
+  }
+
+  /**
+   * Create a block and move nodes or text within the range into it
+   * @param start 
+   * @param end 
+   */
+  static createBlockByRange(range: NodeRange, props: NodeProps) {
+    const { startNode, startOffset, endNode, endOffset } = range;
+    if (!_.isNumber(startOffset) || !_.isNumber(endOffset)) {
+      throw new TypeError('range offset must be number');
+    }
+    if (startNode.type !== NodeType.TEXT || endNode.type !== NodeType.TEXT) {
+      throw new TypeError('range node must be text');
+    }
+    if (startNode === endNode) {
+      if (startNode.type === NodeType.TEXT) {
+        return startNode.createBlockByTextRange(startOffset, endOffset, props);
+      } else {
+        return undefined;
+      }
+    } else {
+      const commonNode = Node.findCommonAncestor(startNode, endNode);
+      if (!commonNode) return undefined;
+      const startIndex = commonNode.children.indexOf(startNode);
+      const endIndex = commonNode.children.indexOf(endNode);
+      if (startIndex >= 0 && endIndex >= 0) {
+        
+      } else {
+        return undefined
+      }
     }
   }
 
@@ -426,6 +481,22 @@ class Node {
   }
 
   /**
+   * Get a short descriptor to identify node's type and basic information
+   */
+  get descriptor() {
+    switch (this.type) {
+      case NodeType.ENTITY:
+        return `[${this.name}]`;
+      case NodeType.TAG:
+        return `{${this.name}}`;
+      case NodeType.TEXT:
+        return `(text)`;
+      default:
+        return this.type;
+    }
+  }
+
+  /**
    * Check if the node is tag
    */
   get isTag() {
@@ -544,8 +615,8 @@ class Node {
    */
   get siblings() {
     const { parent } = this;
-    if (!parent || !parent.isBlock) {
-      return [];
+    if (!parent) {
+      return [this];
     }
     return parent.children;
   }
@@ -692,7 +763,13 @@ class Node {
    * @param [options] 
    */
   appendText(text: string, options?: NodeProps) {
-    return this.createChild(NodeType.TEXT, undefined, { ...options, content: text });
+    if (this.type === NodeType.TEXT) {
+      this.content = this.content || '';
+      this.content += text;
+      return this;
+    } else {
+      return this.createChild(NodeType.TEXT, undefined, { ...options, content: text });
+    }
   }
 
   /**
@@ -713,10 +790,15 @@ class Node {
   insertAt(node: Node, index: number) {
     if (node.type === NodeType.FRAGMENT) {
       this.children.splice(index, 0, ...node.children);
-      node.children.forEach(child => child.parent = this);
+      node.children.forEach(child => {
+        child.parent = this;
+      });
       node.children = [];
     } else {
       this.children.splice(index, 0, node);
+      if (node.parent) {
+        node.parent.removeChild(node);
+      }
       node.parent = this;
     }
     return node;
@@ -920,6 +1002,14 @@ class Node {
   }
 
   /**
+   * Get node by id
+   * @param id 
+   */
+  getNodeById(id: string) {
+    return findOne(this, node => node.id === id);
+  }
+
+  /**
    * Find matched descendants recursively
    * @param selector Node selector object
    * @param [one] Find the first matched node or a list of node
@@ -1029,15 +1119,44 @@ class Node {
     return findOne(this, selector);
   }
 
+  createBlockByTextRange(start: number, end: number, props?: NodeProps) {
+    if (!this.content) {
+      throw new Error('invalid text node');
+    }
+    if (start < 0 || end > this.content.length) {
+      throw new Error('sub text out of range');
+    }
+    if (!this.parent) {
+      throw new Error('can not create block on isolated text node');
+    }
+    const { parent } = this;
+    const fragment = Node.createFragment();
+    const block = Node.create(NodeType.TAG, 'INLINE', {
+      ...props,
+      text: this.content.substring(start, end),
+    });
+    if (start > 0) {
+      fragment.appendText(this.content.substring(0, start));
+    }
+    fragment.appendChild(block)
+    if (end < this.content.length) {
+      fragment.appendText(this.content.substring(end));
+    }
+    parent.insertBefore(fragment, this);
+    parent.removeChild(this);
+    return block;
+  }
+
   /**
    * Process text node in current node and parse entities
    */
   createEntities(items: EntityItem[]) {
+    const entityNodes: Node[] = [];
     if (this.type !== NodeType.TEXT) {
       console.warn('extractEntity() should exec only on text node');
     }
     if (!this.content || _.isEmpty(items)) {
-      return;
+      return entityNodes;
     }
     const text = this.content;
     items = _.sortBy(items, ['start']);
@@ -1054,12 +1173,14 @@ class Node {
         attributes: item.data,
       });
       entityNode.appendText(text.substring(item.start, item.end));
+      entityNodes.push(entityNode);
       lastPos = item.end;
     });
     if (lastPos < text.length) {
       fragment.appendText(text.substr(lastPos));
     }
     this.replaceWith(fragment);
+    return entityNodes;
   }
 
   /**
@@ -1112,6 +1233,31 @@ class Node {
       }
       node.createEntities(items);
     });
+  }
+
+  /**
+   * Remove wrapping entity and put text back
+   */
+  removeEntity() {
+    if (this.type !== NodeType.ENTITY || !this.firstChild || this.firstChild.type !== NodeType.TEXT) {
+      throw new Error('invalid entity');
+    };
+    if (!this.parent) {
+      throw new Error('can not remove isolated entity');
+    }
+    let text = this.firstChild.content || '';
+    const prevNode = this.previousSibling;
+    const nextNode = this.nextSibling;
+    if (prevNode && prevNode.type === NodeType.TEXT) {
+      text = prevNode.content + text;
+      this.parent.removeChild(prevNode);
+    }
+    if (nextNode && nextNode.type === NodeType.TEXT) {
+      text = text + nextNode.content;
+      this.parent.removeChild(nextNode);
+    }
+    const textNode = Node.create(NodeType.TEXT, undefined, { content: text });
+    return this.replaceWith(textNode);
   }
 
   /**
