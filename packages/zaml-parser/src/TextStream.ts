@@ -37,6 +37,13 @@ export interface MatchOptions {
   caseInsensitive?: boolean;
 }
 
+export interface SourcePosition {
+  ln: number,
+  col: number,
+  pos: number,
+  line: TextLine,
+}
+
 export type MarkerData = {[key: string]: any};
 
 export interface MarkerInfo {
@@ -151,7 +158,7 @@ class TextStream {
    * Get line and column position of the cursor
    * @param pos Cursor position of the text
    */
-  getPosition(pos?: number) {
+  getPosition(pos?: number): SourcePosition {
     if (_.isUndefined(pos)) {
       pos = this.pos;
     }

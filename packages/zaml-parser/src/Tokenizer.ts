@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import chalk from 'chalk';
-import TextStream from './TextStream';
+import TextStream, { SourcePosition } from './TextStream';
 import ParseError from './ParseError';
 import Node, { NodeType } from './Node';
 import {
@@ -226,12 +226,16 @@ class Tokenizer {
     }
 
     const createError = (message: string) => {
-      this.debug(`error: '${message}'`);
+      let from: SourcePosition;
+      let to: SourcePosition;
+      from = stream.getPosition(lastPos);
+      to = stream.pos === lastPos ? stream.getPosition(lastPos + 1) : stream.getPosition();
+      this.debug(`error: '${message}' at ${from.ln}:${from.col}`);
       this.debug('current node:');
       this.debug(node.toJSON());
       this.debug('current parsing state:');
       this.debug(JSON.stringify(root, null, 2));
-      return new ParseError(message, text, stream.pos);
+      return new ParseError(message, text, from, to);
     };
 
     while (state !== State.FINISH) {
@@ -536,7 +540,11 @@ class Tokenizer {
             break;
           } else if (ch === T_STRING_START) {
             value = stream.match(P_STRING_LITERAL_QUOTED);
-            value = JSON.parse(value);
+            try {
+              value = JSON.parse(value);
+            } catch (e) {
+              throw createError('invalid string literal');
+            }
           } else if (stream.match(P_DATE_LITERAL)) {
             value = stream.lastMatch;
             value = new Date(value);

@@ -1,6 +1,7 @@
 import Tokenizer, { ParsingOptions } from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
 import Node, { NodeType } from './Node';
+import ParseError from './ParseError';
 /**
  * @module @zaml/parser
  * @typicalname parser
@@ -16,8 +17,9 @@ declare function parse(text: string, options?: ParsingOptions): Node;
  * @param {string} text Source string
  */
 declare function tokenize(text: string, options: ParsingOptions): Node;
-export { Tokenizer, TextStream, TextLine, Node, NodeType, tokenize, parse, };
+export { ParseError, Tokenizer, TextStream, TextLine, Node, NodeType, tokenize, parse, };
 declare const _default: {
+    ParseError: typeof ParseError;
     Tokenizer: typeof Tokenizer;
     TextStream: typeof TextStream;
     TextLine: typeof TextLine;

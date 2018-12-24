@@ -1,6 +1,7 @@
 import Tokenizer, { ParsingOptions } from './Tokenizer';
 import TextStream, { TextLine } from './TextStream';
 import Node, { NodeType } from './Node';
+import ParseError from './ParseError';
 
 /**
  * @module @zaml/parser
@@ -27,6 +28,7 @@ function tokenize(text: string, options: ParsingOptions) {
 }
 
 export {
+  ParseError,
   Tokenizer,
   TextStream,
   TextLine,
@@ -37,6 +39,7 @@ export {
 };
 
 export default {
+  ParseError,
   Tokenizer,
   TextStream,
   TextLine,

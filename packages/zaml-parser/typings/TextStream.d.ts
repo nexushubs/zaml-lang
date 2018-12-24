@@ -23,6 +23,12 @@ export interface MatchOptions {
     /** Case insensitive for string pattern */
     caseInsensitive?: boolean;
 }
+export interface SourcePosition {
+    ln: number;
+    col: number;
+    pos: number;
+    line: TextLine;
+}
 export declare type MarkerData = {
     [key: string]: any;
 };
@@ -69,12 +75,7 @@ declare class TextStream {
      * Get line and column position of the cursor
      * @param pos Cursor position of the text
      */
-    getPosition(pos?: number): {
-        ln: number;
-        col: number;
-        pos: number;
-        line: TextLine;
-    };
+    getPosition(pos?: number): SourcePosition;
     /**
      * Check if cursor is at the start of a line
      * @param [trimSpaces] Whether to trim starting spaces

@@ -211,12 +211,37 @@ class Node {
   static Types = NodeType;
 
   /**
+   * Create node, shortcut for constructor 
    * @param type 
    * @param [name]
-   * @param [options]
+   * @param [props]
    */
-  static create(type: NodeType, name?: string, options?: NodeProps) {
-    return new Node(type, name, options);
+  static create(type: NodeType, name?: string, props?: NodeProps) {
+    return new Node(type, name, props);
+  }
+
+  /**
+   * Create text tag
+   * @param [props]
+   */
+  static createText(content: string, props?: NodeProps) {
+    return new Node(NodeType.TEXT, undefined, { ...props, content });
+  }
+
+  /**
+   * Create block tag
+   * @param [props]
+   */
+  static createBlock(props?: NodeProps) {
+    return new Node(NodeType.TAG, 'BLOCK', props);
+  }
+
+  /**
+   * Create inline block tag
+   * @param [props]
+   */
+  static createInlineBlock(props?: NodeProps) {
+    return new Node(NodeType.TAG, 'INLINE', props);
   }
 
   /**
@@ -274,50 +299,108 @@ class Node {
     }
   }
 
-  static findCommonAncestor(n1: Node, n2: Node): Node | undefined {
+  static findCommonAncestor(n1: Node, n2: Node): { ancestor?: Node, paths: [Node[], Node[]]} | undefined {
     const path1 = n1.path;
     const path2 = n2.path;
-    if (!path1.length || !path2.length) {
-      return undefined;
-    }
-    let parent: Node | undefined;
-    for (let i = 0; i < path1.length && i < path2.length; i++) {
-      if (path1[i] !== path2[i]) {
+    let ancestor: Node | undefined;
+    while (path1.length > 0 && path2.length > 0) {
+      if (_.first(path1) !== _.first(path2)) {
         break;
       }
-      parent = path1[i];
+      ancestor = path1.shift();
+      path2.shift();
     }
-    return parent;
+    if (!ancestor) {
+      return undefined;
+    }
+    return {
+      ancestor,
+      paths: [path1, path2],
+    };
   }
 
   /**
    * Create a block and move nodes or text within the range into it
-   * @param start 
-   * @param end 
+   * @param range 
+   * @param props 
    */
-  static createBlockByRange(range: NodeRange, props: NodeProps) {
+  static createBlockByRange(range: NodeRange, props?: NodeProps) {
     const { startNode, startOffset, endNode, endOffset } = range;
     if (!_.isNumber(startOffset) || !_.isNumber(endOffset)) {
       throw new TypeError('range offset must be number');
     }
-    if (startNode.type !== NodeType.TEXT || endNode.type !== NodeType.TEXT) {
+    if (!startNode.isText || !endNode.isText) {
       throw new TypeError('range node must be text');
     }
+    if (!startNode.content || !endNode.content) {
+      throw new Error('invalid text node');
+    }
     if (startNode === endNode) {
-      if (startNode.type === NodeType.TEXT) {
-        return startNode.createBlockByTextRange(startOffset, endOffset, props);
-      } else {
-        return undefined;
+      if (startOffset < 0 || startOffset > startNode.content.length ||
+        endOffset < 0 || endOffset > startNode.content.length) {
+        throw new RangeError('sub text out of range');
       }
+      if (!startNode.parent) {
+        throw new Error('can not create block on isolated text node');
+      }
+      const { parent } = startNode;
+      const fragment = Node.createFragment();
+      const block = Node.createInlineBlock({
+        ...props,
+        text: startNode.content.substring(startOffset, endOffset),
+      });
+      if (startOffset > 0) {
+        fragment.appendText(startNode.content.substring(0, startOffset));
+      }
+      fragment.appendChild(block)
+      if (endOffset < startNode.content.length) {
+        fragment.appendText(startNode.content.substring(endOffset));
+      }
+      parent.insertBefore(fragment, startNode);
+      parent.removeChild(startNode);
+      return block;
     } else {
-      const commonNode = Node.findCommonAncestor(startNode, endNode);
-      if (!commonNode) return undefined;
-      const startIndex = commonNode.children.indexOf(startNode);
-      const endIndex = commonNode.children.indexOf(endNode);
-      if (startIndex >= 0 && endIndex >= 0) {
-        
+      const result = Node.findCommonAncestor(startNode, endNode);
+      if (!result || !result.ancestor) return undefined;
+      const { ancestor, paths } = result;
+      let baseStartNode = paths[0][0];
+      let baseEndNode = paths[1][0];
+      const _startIndex = ancestor.children.indexOf(baseStartNode);
+      const _endIndex = ancestor.children.indexOf(baseEndNode);
+      const [startIndex, endIndex] = [_startIndex, _endIndex].sort();
+      if (_startIndex !== startIndex) {
+        [baseStartNode, baseEndNode] = [baseEndNode, baseStartNode];
+      }
+      const fragment = ancestor.extractNodes(startIndex, endIndex + 1);
+      const isStartSided = startNode.isSidedDescendantOf(baseStartNode, 'start') && startOffset === 0;
+      const isEndSided = endNode.isSidedDescendantOf(baseEndNode, 'end') && endOffset === endNode.content.length;
+      const foundBlock = ancestor.findOne(n => n.isBlock);
+      const hasBlock = foundBlock && foundBlock !== ancestor;
+      if (!hasBlock && (
+        (paths[0].length === 1 || isStartSided) ||
+        (paths[1].length === 1 || isEndSided)
+      )) {
+        const inserting = Node.createFragment();
+        const startText = startNode.content;
+        if (startOffset > 0) {
+          baseStartNode.content = startText.substring(startOffset);
+          inserting.appendText(startText.substring(0, startOffset));
+        }
+        const block = Node.createInlineBlock(props);
+        block.appendChild(fragment);
+        inserting.appendChild(block);
+        const endText = endNode.content;
+        if (endOffset < endNode.content.length) {
+          baseEndNode.content = endText.substring(0, endOffset);
+          inserting.appendText(startText.substring(endOffset));
+        }
+        ancestor.insertAt(inserting, startIndex);
+        return block;
       } else {
-        return undefined
+        const block = Node.createBlock(props);
+        ancestor.insertAt(block, startIndex);
+        block.appendChild(fragment);
+        return block;
       }
     }
   }
@@ -343,9 +426,9 @@ class Node {
    * @constructor
    * @param type 
    * @param [name]
-   * @param [options]
+   * @param [props]
    */
-  constructor(type: NodeType, name?: string, options: NodeProps = {}) {
+  constructor(type: NodeType, name?: string, props: NodeProps = {}) {
     let {
       source = '',
       start = -1,
@@ -357,7 +440,7 @@ class Node {
       parent,
       content = '',
       text = '',
-    } = options;
+    } = props;
 
     if (type && !NodeTypes.includes(type)) {
       throw new TypeError(`invalid node type ${type}`);
@@ -497,10 +580,38 @@ class Node {
   }
 
   /**
+   * Check if the node is root
+   */
+  get isRoot(): boolean {
+    return this.type === NodeType.ROOT;
+  }
+
+  /**
    * Check if the node is tag
    */
   get isTag() {
     return this.type === NodeType.TAG;
+  }
+
+  /**
+   * Check if the node is entity
+   */
+  get isEntity() {
+    return this.type === NodeType.ENTITY;
+  }
+
+  /**
+   * Check if the node is text
+   */
+  get isText() {
+    return this.type === NodeType.TEXT;
+  }
+
+  /**
+   * Check if the node is text and not wrapping by entity
+   */
+  get isPlainText() {
+    return this.type === NodeType.TEXT && (!this.parent || this.parent.type !== NodeType.ENTITY);
   }
 
   /**
@@ -551,13 +662,6 @@ class Node {
    */
   get childNodes() {
     return this.children;
-  }
-
-  /**
-   * If the node is root
-   */
-  get isRoot(): boolean {
-    return this.type === NodeType.ROOT;
   }
 
   /**
@@ -734,19 +838,91 @@ class Node {
    * Check if this node has any children
    */
   hasChild() {
-    return !_.isEmpty(this.children);
+    return this.children.length > 0;
+  }
+
+  /**
+   * Check if this node is the only child of its parent
+   */
+  get isOnlyChild(): boolean {
+    if (!this.parent) {
+      return false;
+    }
+    return this.parent.children.length === 1;
+  }
+
+  /**
+   * Check if the node is only descendant of another node;
+   * @param ancestor 
+   */
+  isOnlyDescendantOf(ancestor: Node): boolean {
+    let node: Node = ancestor;
+    while (node) {
+      if (node.children.length !== 1) {
+        return false;
+      }
+      node = node.children[0];
+      if (node === this) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Check if the node is only descendant of another node;
+   * @param ancestor 
+   */
+  isSidedDescendantOf(ancestor: Node, side: 'start' | 'end'): boolean {
+    let node: Node | undefined = ancestor;
+    while (node) {
+      if (node.children.length === 0) {
+        return false;
+      }
+      node = side === 'start' ? node.firstChild : node.lastChild;
+      if (node === this) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Check if the node is only descendant of another node;
+   * @param ancestor 
+   */
+  isRightAlignedDescendantOf(ancestor: Node): boolean {
+    let node: Node | undefined = ancestor;
+    while (node) {
+      if (node.children.length === 0) {
+        return false;
+      }
+      node = node.lastChild;
+      if (node === this) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
    * Create a child node
    * @param type 
    * @param [name]
-   * @param [options]
+   * @param [props]
    */
-  createChild(type: NodeType, name?: string, options?: NodeProps) {
-    const node = new Node(type, name, options);
+  createChild(type: NodeType, name?: string, props?: NodeProps) {
+    const node = new Node(type, name, props);
     this.appendChild(node);
     return node;
+  }
+
+  /**
+   * Insert a node at the beginning of the children
+   * @param node 
+   */
+  prependChild(node: Node) {
+    return this.insertAt(node, 0);
   }
 
   /**
@@ -760,26 +936,57 @@ class Node {
   /**
    * Append text node child
    * @param text 
-   * @param [options] 
+   * @param [props] 
    */
-  appendText(text: string, options?: NodeProps) {
+  appendText(text: string, props?: NodeProps) {
     if (this.type === NodeType.TEXT) {
       this.content = this.content || '';
       this.content += text;
       return this;
     } else {
-      return this.createChild(NodeType.TEXT, undefined, { ...options, content: text });
+      if (this.lastChild && this.lastChild.isText) {
+        this.lastChild.content += text;
+      } else {
+        const child = Node.create(NodeType.TEXT, undefined, { ...props, content: text });
+        this.appendChild(child);
+      }
     }
   }
 
   /**
-   * Remove 1 or more children
+   * Add text node child at the beginning
+   * @param text 
+   * @param [props] 
+   */
+  prependText(text: string, props?: NodeProps) {
+    if (this.type === NodeType.TEXT) {
+      this.content = `${text}${this.content || ''}`;
+      return this;
+    } else {
+      const child = Node.create(NodeType.TEXT, undefined, { ...props, content: text });
+      this.prependChild(child);
+    }
+  }
+
+  /**
+   * Remove one child
    * @param node
    */
-  removeChild(node: Node) {
-    _.pull(this.children, node);
-    node.parent = undefined;
-    return node;
+  removeChild(child: Node) {
+    _.pull(this.children, child);
+    child.parent = undefined;
+    return child;
+  }
+
+  /**
+   * Remove one child by index
+   * @param index
+   */
+  removeChildAt(index: number) {
+    const child = this.children[index];
+    _.pullAt(this.children, index);
+    child.parent = undefined;
+    return child;
   }
 
   /**
@@ -1058,8 +1265,8 @@ class Node {
    * Find nodes by selector recursively and return the first one
    * @param selector 
    */
-  findOneBy(selector: NodeSelector = {}) {
-    return this.findBy(selector, true);
+  findOneBy(selector: NodeSelector = {}): Node {
+    return <Node> this.findBy(selector, true);
   }
 
   /**
@@ -1119,32 +1326,59 @@ class Node {
     return findOne(this, selector);
   }
 
-  createBlockByTextRange(start: number, end: number, props?: NodeProps) {
-    if (!this.content) {
-      throw new Error('invalid text node');
+  /**
+   * Merge neighbor text nodes
+   */
+  mergeText() {
+    let stack: Node[] = [];
+    const childLength = this.children.length;
+    this.children.forEach((child, i) => {
+      if (child.isText) {
+        stack.push(child);
+      }
+      if (!child.isText || i === childLength - 1) {
+        if (stack.length > 1) {
+          const merged = stack.map(child => child.content).join('');
+          const textNode = Node.createText(merged);
+          this.insertBefore(textNode, stack[0]);
+          let n: Node | undefined;
+          while (n = stack.shift()) {
+            this.removeChild(n);
+          }
+        }
+        stack = [];
+      }
+    });
+  }
+
+  extractNodes(startIndex: number, endIndex: number) {
+    const fragment = Node.createFragment();
+    if (
+      startIndex < 0 || startIndex >= this.children.length ||
+      endIndex < 0 || endIndex > this.children.length
+    ) {
+      throw new RangeError('invalid range of children');
     }
-    if (start < 0 || end > this.content.length) {
-      throw new Error('sub text out of range');
-    }
+    const nodes = this.children.slice(startIndex, endIndex);
+    nodes.forEach(child => {
+      fragment.appendChild(child);
+    })
+    return fragment;
+  }
+
+  /**
+   * Remove a element and move its children to its parent
+   */
+  flatten() {
     if (!this.parent) {
-      throw new Error('can not create block on isolated text node');
+      return;
     }
     const { parent } = this;
-    const fragment = Node.createFragment();
-    const block = Node.create(NodeType.TAG, 'INLINE', {
-      ...props,
-      text: this.content.substring(start, end),
-    });
-    if (start > 0) {
-      fragment.appendText(this.content.substring(0, start));
-    }
-    fragment.appendChild(block)
-    if (end < this.content.length) {
-      fragment.appendText(this.content.substring(end));
-    }
+    const fragment = this.extractNodes(0, this.children.length);
     parent.insertBefore(fragment, this);
     parent.removeChild(this);
-    return block;
+    parent.mergeText();
+    return parent;
   }
 
   /**
@@ -1246,18 +1480,23 @@ class Node {
       throw new Error('can not remove isolated entity');
     }
     let text = this.firstChild.content || '';
-    const prevNode = this.previousSibling;
-    const nextNode = this.nextSibling;
-    if (prevNode && prevNode.type === NodeType.TEXT) {
-      text = prevNode.content + text;
-      this.parent.removeChild(prevNode);
+    let textNode: Node | undefined;
+    const { parent, previousSibling, nextSibling } = this;
+    if (previousSibling && previousSibling.isText) {
+      textNode = previousSibling;
     }
-    if (nextNode && nextNode.type === NodeType.TEXT) {
-      text = text + nextNode.content;
-      this.parent.removeChild(nextNode);
+    if (textNode) {
+      textNode.appendText(text);
+    } else {
+      textNode = Node.create(NodeType.TEXT, undefined, { content: text });
+      parent.insertBefore(textNode, this);
     }
-    const textNode = Node.create(NodeType.TEXT, undefined, { content: text });
-    return this.replaceWith(textNode);
+    if (nextSibling && nextSibling.isText) {
+      textNode.appendText(nextSibling.content || '');
+      parent.removeChild(nextSibling);
+    }
+    parent.removeChild(this);
+    return textNode;
   }
 
   /**

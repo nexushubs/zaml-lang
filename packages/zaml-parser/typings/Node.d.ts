@@ -87,11 +87,27 @@ export interface NodeRange {
 declare class Node {
     static Types: typeof NodeType;
     /**
+     * Create node, shortcut for constructor
      * @param type
      * @param [name]
-     * @param [options]
+     * @param [props]
      */
-    static create(type: NodeType, name?: string, options?: NodeProps): Node;
+    static create(type: NodeType, name?: string, props?: NodeProps): Node;
+    /**
+     * Create text tag
+     * @param [props]
+     */
+    static createText(content: string, props?: NodeProps): Node;
+    /**
+     * Create block tag
+     * @param [props]
+     */
+    static createBlock(props?: NodeProps): Node;
+    /**
+     * Create inline block tag
+     * @param [props]
+     */
+    static createInlineBlock(props?: NodeProps): Node;
     /**
      * Create node instance from ZAML source
      * @param source
@@ -123,13 +139,16 @@ declare class Node {
      * @param node
      */
     static validChild(node: any): void;
-    static findCommonAncestor(n1: Node, n2: Node): Node | undefined;
+    static findCommonAncestor(n1: Node, n2: Node): {
+        ancestor?: Node;
+        paths: [Node[], Node[]];
+    } | undefined;
     /**
      * Create a block and move nodes or text within the range into it
-     * @param start
-     * @param end
+     * @param range
+     * @param props
      */
-    static createBlockByRange(range: NodeRange, props: NodeProps): Node | undefined;
+    static createBlockByRange(range: NodeRange, props?: NodeProps): Node | undefined;
     private _source?;
     id: string;
     type: NodeType;
@@ -150,17 +169,33 @@ declare class Node {
      * @constructor
      * @param type
      * @param [name]
-     * @param [options]
+     * @param [props]
      */
-    constructor(type: NodeType, name?: string, options?: NodeProps);
+    constructor(type: NodeType, name?: string, props?: NodeProps);
     /**
      * Get a short descriptor to identify node's type and basic information
      */
     readonly descriptor: string;
     /**
+     * Check if the node is root
+     */
+    readonly isRoot: boolean;
+    /**
      * Check if the node is tag
      */
     readonly isTag: boolean;
+    /**
+     * Check if the node is entity
+     */
+    readonly isEntity: boolean;
+    /**
+     * Check if the node is text
+     */
+    readonly isText: boolean;
+    /**
+     * Check if the node is text and not wrapping by entity
+     */
+    readonly isPlainText: boolean;
     /**
      * Check if the node is wrapping tag
      */
@@ -189,10 +224,6 @@ declare class Node {
      * Get child nodes, alias for node.children
      */
     readonly childNodes: Node[];
-    /**
-     * If the node is root
-     */
-    readonly isRoot: boolean;
     /**
      * Get source code of the node
      */
@@ -259,12 +290,36 @@ declare class Node {
      */
     hasChild(): boolean;
     /**
+     * Check if this node is the only child of its parent
+     */
+    readonly isOnlyChild: boolean;
+    /**
+     * Check if the node is only descendant of another node;
+     * @param ancestor
+     */
+    isOnlyDescendantOf(ancestor: Node): boolean;
+    /**
+     * Check if the node is only descendant of another node;
+     * @param ancestor
+     */
+    isSidedDescendantOf(ancestor: Node, side: 'start' | 'end'): boolean;
+    /**
+     * Check if the node is only descendant of another node;
+     * @param ancestor
+     */
+    isRightAlignedDescendantOf(ancestor: Node): boolean;
+    /**
      * Create a child node
      * @param type
      * @param [name]
-     * @param [options]
+     * @param [props]
      */
-    createChild(type: NodeType, name?: string, options?: NodeProps): Node;
+    createChild(type: NodeType, name?: string, props?: NodeProps): Node;
+    /**
+     * Insert a node at the beginning of the children
+     * @param node
+     */
+    prependChild(node: Node): Node;
     /**
      * Append a node to children list
      * @param node
@@ -273,14 +328,25 @@ declare class Node {
     /**
      * Append text node child
      * @param text
-     * @param [options]
+     * @param [props]
      */
-    appendText(text: string, options?: NodeProps): Node;
+    appendText(text: string, props?: NodeProps): this | undefined;
     /**
-     * Remove 1 or more children
+     * Add text node child at the beginning
+     * @param text
+     * @param [props]
+     */
+    prependText(text: string, props?: NodeProps): this | undefined;
+    /**
+     * Remove one child
      * @param node
      */
-    removeChild(node: Node): Node;
+    removeChild(child: Node): Node;
+    /**
+     * Remove one child by index
+     * @param index
+     */
+    removeChildAt(index: number): Node;
     /**
      * Insert a node at specified position
      * @param node
@@ -406,7 +472,7 @@ declare class Node {
      * Find nodes by selector recursively and return the first one
      * @param selector
      */
-    findOneBy(selector?: NodeSelector): Node | Node[] | undefined;
+    findOneBy(selector?: NodeSelector): Node;
     /**
      * Find matched text node by text source range
      * @param start
@@ -433,7 +499,15 @@ declare class Node {
      * @param selector
      */
     querySelector(selector: string): Node | undefined;
-    createBlockByTextRange(start: number, end: number, props?: NodeProps): Node;
+    /**
+     * Merge neighbor text nodes
+     */
+    mergeText(): void;
+    extractNodes(startIndex: number, endIndex: number): Node;
+    /**
+     * Remove a element and move its children to its parent
+     */
+    flatten(): Node | undefined;
     /**
      * Process text node in current node and parse entities
      */
