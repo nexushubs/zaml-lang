@@ -47,8 +47,13 @@ export default class SourceEditor extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (this.props.height !== nextProps.height && this.editor) {
-      this.editor.setSize(null, nextProps.height);
+    if (this.editor) {
+      if (nextProps.height !== this.props.height && this.editor) {
+        this.editor.setSize(null, nextProps.height);
+      }
+      if (nextProps.value !== this.props.value) {
+        this.editor.setValue(nextProps.value);
+      }
     }
   }
 

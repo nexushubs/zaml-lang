@@ -14,13 +14,14 @@ import TreeView from './TreeView';
 const { Node, NodeType } = zaml;
 
 interface Props {
+  defaultSource: string;
   className: string;
-  value: string;
   onChange: (value: string) => void;
 }
 
 interface State {
-  node: zaml.Node;
+  source: string
+  root: zaml.Node;
   sourcePaneHeight: number;
   selectedNode?: zaml.Node;
   hoveredNode?: zaml.Node;
@@ -31,7 +32,32 @@ const parse = (source: string) => {
   try {
     node = zaml.parse(source);
   } catch(err) {
-    node.createChild(NodeType.PARAGRAPH, undefined, { text: `Error: ${err.message}` });
+    if (err instanceof zaml.ParseError) {
+      const message = `
+        [ParseError]{ERROR.TYPE}: {#MESSAGE ${err.message}}
+
+        #SOURCE
+        content
+
+        from {#POS.START ${err.from.ln}:${err.from.col}} to {#POS.END ${err.to.ln}:${err.to.col}}
+      `;
+      node = zaml.parse(message);
+      const sourceBlock = node.querySelector('#SOURCE');
+      console.dir(err);
+      const { text } = err.from.line;
+      if (!sourceBlock) return node;
+      const sourceText = sourceBlock.findOneBy({type: NodeType.TEXT});
+      if (!sourceText) return node;
+      sourceText.content = `${text} `;
+      sourceText.createEntitiesFromText([{
+        type: 'ERROR',
+        start: err.from.col - 1,
+        end: err.to.col - 1,
+      }]);
+    } else {
+      node = zaml.parse(`Error: [${err.message}]{MESSAGE}`);
+      console.error(err);
+    }
   }
   return node;
 }
@@ -39,24 +65,27 @@ const parse = (source: string) => {
 export default class Editor extends React.Component<Props, State> {
 
   static propTypes = {
-    value: PropTypes.string,
+    defaultSource: PropTypes.string,
     onChange: PropTypes.func,
   }
 
   static defaultProps: Props = {
-    value: '',
+    defaultSource: '',
     className: '',
     onChange: () => {},
   }
 
+  public preventSourceChange: boolean;
+
   constructor(props: Props) {
     super(props);
-    const node = parse(props.value);
     this.state = {
-      node,
+      source: props.defaultSource,
+      root: parse(props.defaultSource),
       sourcePaneHeight: -1,
     };
     this.onResize = _.throttle(this.onResize.bind(this), 500);
+    this.preventSourceChange = false;
   }
 
   componentDidMount() {
@@ -69,10 +98,14 @@ export default class Editor extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (this.props.value !== nextProps.value) {
-      this.setState({
-        node: parse(nextProps.value),
-      });
+  }
+
+  componentWillUpdate(nextProps: Props, nextState: State) {
+    if (nextState.selectedNode !== this.state.selectedNode) {
+      console.log('selected node:', nextState.selectedNode);
+    }
+    if (nextState.root !== this.state.root) {
+      console.log('new node:', nextState.root);
     }
   }
 
@@ -83,9 +116,27 @@ export default class Editor extends React.Component<Props, State> {
     });
   }
 
+  handleSourceChange(source: string) {
+    if (this.preventSourceChange) return;
+    this.setState({
+      root: parse(source),
+    });
+  }
+
+  handleNodeChange(root?: zaml.Node, selected?: zaml.Node) {
+    if (!root) return;
+    this.preventSourceChange = true;
+    this.setState({
+      source: root.toSource({ simple: true }),
+      selectedNode: selected,
+    }, () => {
+      this.preventSourceChange = false;
+    });
+  }
+
   render() {
-    const { value, onChange } = this.props;
-    const { node, sourcePaneHeight, selectedNode, hoveredNode } = this.state;
+    const { source } = this.state;
+    const { root, sourcePaneHeight, selectedNode, hoveredNode } = this.state;
     return (
       <div className="zaml-editor">
         <header>
@@ -100,22 +151,23 @@ export default class Editor extends React.Component<Props, State> {
           >
             <Pane title="Source">
               <SourceEditor
-                value={value}
+                value={source}
                 height={sourcePaneHeight - 40}
-                onChange={onChange}
+                onChange={(value: string) => this.handleSourceChange(value)}
               />
             </Pane>
             <SplitPane split="vertical" defaultSize="50%">
               <Pane title="Visual">
                 <VisualEditor
-                  node={node}
+                  root={root}
                   selectedNode={hoveredNode || selectedNode}
                   onSelect={n => this.setState({ selectedNode: n })}
+                  onChange={(r?: zaml.Node, n?: zaml.Node) => this.handleNodeChange(r, n)}
                 />
               </Pane>
               <Pane title="AST">
                 <TreeView
-                  node={node}
+                  root={root}
                   selectedNode={selectedNode}
                   onSelect={n => this.setState({ selectedNode: n })}
                   onHover={n => this.setState({ hoveredNode: n })}

@@ -11,9 +11,10 @@ const { NodeType } = zaml;
 
 interface Props {
   commonEntityNames?: string[];
-  node?: zaml.Node;
+  root?: zaml.Node;
   selectedNode?: zaml.Node;
   onSelect: (node?: zaml.Node) => void;
+  onChange: (node?: zaml.Node, selected?: zaml.Node) => void;
 }
 
 interface State {
@@ -24,7 +25,7 @@ export default class VisualEditor extends React.Component<Props, State> {
 
   static propTypes = {
     commonEntityNames: PropTypes.arrayOf(PropTypes.string),
-    node: PropTypes.shape({}),
+    root: PropTypes.shape({}),
     selectedNode: PropTypes.shape({}),
     onSelect: PropTypes.func,
   }
@@ -32,6 +33,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   static defaultProps: Props = {
     commonEntityNames: ['PER', 'ORG', 'LOC', 'DATE'],
     onSelect: () => {},
+    onChange: () => {},
   }
 
   public currentNode?: zaml.Node;
@@ -48,7 +50,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   }
 
   handleCreateBlock() {
-    const { onSelect } = this.props;
+    const { root, onChange } = this.props;
     const selection = window.getSelection();
     if (selection.rangeCount === 0) return;
     const range = selection.getRangeAt(0);
@@ -58,28 +60,27 @@ export default class VisualEditor extends React.Component<Props, State> {
     if (!commonNode || !startNode || !endNode) {
       return;
     }
-    let block = commonNode;
-    if (startNode === endNode) {
+    const block = zaml.Node.createBlockByRange({
+      startNode,
+      startOffset: range.startOffset,
+      endNode,
+      endOffset: range.endOffset,
+    });
+    selection.removeAllRanges();
+    onChange(root, block);
+  }
 
-    } else {
-      const startPath = startNode.path;
-      startNode = startPath[startPath.indexOf(commonNode) + 1];
-      const endPath = endNode.path;
-      endNode = endPath[endPath.indexOf(commonNode) + 1];
-      const blockName = (commonNode.isRoot || commonNode.isBlockTag) ? 'BLOCK' : 'INLINE';
-      block = zaml.Node.create(NodeType.TAG, blockName);
-      const [startIndex, endIndex] = [startNode.childIndex, endNode.childIndex].sort();
-      for (let index = startIndex; index <= endIndex; index += startIndex < endIndex ? 1 : -1) {
-        const childNode = commonNode.children[index];
-        block.appendChild(childNode);
-      }
-      commonNode.insertAt(block, startIndex);
+  handleRemoveBlock(node?: zaml.Node) {
+    if (!node) {
+      return;
     }
-    onSelect(block);
+    const { root, onChange } = this.props;
+    const parent = node.flatten();
+    onChange(root, parent);
   }
 
   handleCreateEntity(target: zaml.Node, name: string | null) {
-    const { onSelect } = this.props;
+    const { root, onChange } = this.props;
     if (!name) return;
     const selection = window.getSelection();
     if (selection.anchorNode !== selection.focusNode) {
@@ -93,14 +94,14 @@ export default class VisualEditor extends React.Component<Props, State> {
       start: range.startOffset,
       end: range.endOffset,
     }]);
-    onSelect(entityNodes[0]);
+    onChange(root, entityNodes[0]);
   }
 
   handleRemoveEntity(node?: zaml.Node) {
-    const { onSelect } = this.props;
+    const { root, onChange } = this.props;
     if (!node) return;
     const textNode = node.removeEntity();
-    onSelect(textNode);
+    onChange(root, textNode);
   }
 
   handleInspect(node: zaml.Node) {
@@ -109,7 +110,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   }
 
   render() {
-    const { node, selectedNode, onSelect } = this.props;
+    const { root: node, selectedNode, onSelect } = this.props;
     return (
       <div className="zaml-visual-editor">
         <VisualNode
@@ -122,7 +123,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   }
 
   getNodeByElement(element: HTMLElement) {
-    const { node: root } = this.props;
+    const { root: root } = this.props;
     if (!root) return undefined;
     if (element.nodeType === element.TEXT_NODE || element.classList.contains('children')) {
       if (!element.parentElement) {
@@ -153,6 +154,12 @@ export default class VisualEditor extends React.Component<Props, State> {
           text="Create Block"
           onClick={() => this.handleCreateBlock()}
         />
+        {node.isWrappingTag &&
+          <MenuItem
+            text="Remove Block"
+            onClick={() => this.handleRemoveBlock(node)}
+          />
+        }
         {target.type === NodeType.TEXT && target.parent && target.parent.type !== NodeType.ENTITY &&
           <MenuItem text="Create Entity">
             {commonEntityNames && commonEntityNames.map(name => (

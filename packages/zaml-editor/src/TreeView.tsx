@@ -9,7 +9,7 @@ import { nodeEquals } from './utils';
 import TreeToolbar from './TreeToolbar';
 
 interface Props {
-  node?: zaml.Node;
+  root?: zaml.Node;
   selectedNode?: zaml.Node;
   onSelect: (node: zaml.Node) => void;
   onHover: (node?: zaml.Node) => void;
@@ -59,7 +59,6 @@ export default class TreeView extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     const { selectedNode } = nextProps;
-    console.log(selectedNode);
     if (selectedNode && selectedNode !== this.props.selectedNode) {
       const { expandedNodes } = this.state;
       const nodeIds = selectedNode.path.map(n => n.id);
@@ -70,7 +69,7 @@ export default class TreeView extends React.Component<Props, State> {
   }
 
   render() {
-    const { node, selectedNode, onSelect, onHover } = this.props;
+    const { root: node, selectedNode, onSelect, onHover } = this.props;
     const { expandedNodes, selectedPart } = this.state;
     return (
       <div className="zaml-tree-view">
