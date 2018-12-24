@@ -19,7 +19,7 @@
 
 ▸ **parse**(text: *`string`*, options?: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*): [Node](../classes/_node_.node.md)
 
-*Defined in [index.ts:14](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/index.ts#L14)*
+*Defined in [index.ts:15](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/index.ts#L15)*
 
 Parse ZAML source into node
 
@@ -39,7 +39,7 @@ ___
 
 ▸ **tokenize**(text: *`string`*, options: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*): [Node](../classes/_node_.node.md)
 
-*Defined in [index.ts:24](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/index.ts#L24)*
+*Defined in [index.ts:25](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/index.ts#L25)*
 
 Parse ZAML source into node
 *__deprecated__*: Please use zaml.parse() instead

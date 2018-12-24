@@ -23,7 +23,7 @@
 **● caseInsensitive**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [TextStream.ts:17](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/TextStream.ts#L17)*
+*Defined in [TextStream.ts:17](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/TextStream.ts#L17)*
 
 Case insensitive for string pattern
 

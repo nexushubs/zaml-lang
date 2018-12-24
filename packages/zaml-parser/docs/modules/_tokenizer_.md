@@ -55,7 +55,7 @@
   'FINISH',
 ]
 
-*Defined in [Tokenizer.ts:70](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/Tokenizer.ts#L70)*
+*Defined in [Tokenizer.ts:70](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Tokenizer.ts#L70)*
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 ▸ **countLineBreaks**(text: *`string`*): `number`
 
-*Defined in [Tokenizer.ts:96](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/Tokenizer.ts#L96)*
+*Defined in [Tokenizer.ts:96](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Tokenizer.ts#L96)*
 
 **Parameters:**
 
@@ -84,7 +84,7 @@ ___
 
 ▸ **getStateName**(state: *[State](../enums/_tokenizer_.state.md)*): `string`
 
-*Defined in [Tokenizer.ts:92](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/Tokenizer.ts#L92)*
+*Defined in [Tokenizer.ts:92](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Tokenizer.ts#L92)*
 
 **Parameters:**
 

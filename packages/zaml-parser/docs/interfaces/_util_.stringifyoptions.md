@@ -25,7 +25,7 @@
 **● simple**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:62](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/util.ts#L62)*
+*Defined in [util.ts:62](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/util.ts#L62)*
 
 ___
 <a id="space"></a>
@@ -35,7 +35,7 @@ ___
 **● space**: * `undefined` &#124; `number`
 *
 
-*Defined in [util.ts:61](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/util.ts#L61)*
+*Defined in [util.ts:61](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/util.ts#L61)*
 
 ___
 <a id="tosource"></a>
@@ -45,7 +45,7 @@ ___
 **● toSource**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:63](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/util.ts#L63)*
+*Defined in [util.ts:63](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/util.ts#L63)*
 
 ___
 

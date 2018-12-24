@@ -24,7 +24,7 @@
 **● position**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Node.ts:177](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/Node.ts#L177)*
+*Defined in [Node.ts:177](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L177)*
 
 ___
 <a id="textposition"></a>
@@ -34,7 +34,7 @@ ___
 **● textPosition**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Node.ts:178](https://github.com/nexushubs/zaml-lang/blob/820ece7/packages/zaml-parser/src/Node.ts#L178)*
+*Defined in [Node.ts:178](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L178)*
 
 ___
 
