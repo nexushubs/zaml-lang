@@ -12,7 +12,6 @@ const nil = () => {};
 interface Props {
   node?: zaml.Node;
   selectedNode?: zaml.Node;
-  onContextMenu: (event: React.MouseEvent, node: zaml.Node) => void;
 }
 
 export default class VisualNode extends React.Component<Props> {
@@ -20,25 +19,8 @@ export default class VisualNode extends React.Component<Props> {
   static propTypes = {
   }
 
-  static defaultProps: Props = {
-    onContextMenu: nil,
-  }
-
   constructor(props: Props) {
     super(props);
-  }
-
-  handleContextMenu = (event: React.MouseEvent) => {
-    const { node, onContextMenu } = this.props;
-    event.preventDefault();
-    event.stopPropagation();
-    let n = node;
-    if (n && n.type === NodeType.TEXT) {
-      n = n.parent;
-    }
-    if (n) {
-      onContextMenu(event, n);
-    }
   }
 
   render() {
@@ -104,7 +86,6 @@ export default class VisualNode extends React.Component<Props> {
       className: classNames('zaml-node', `${node.type}`, { block: node.isBlock, selected }),
       'node-name': node.name && node.name.toLowerCase(),
       'node-id': node.id,
-      // onContextMenu: this.handleContextMenu,
     }, children);
   }
 }

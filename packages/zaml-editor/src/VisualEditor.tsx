@@ -49,6 +49,32 @@ export default class VisualEditor extends React.Component<Props, State> {
     this.setState({ node });
   }
 
+  handleDoubleClick(event: React.MouseEvent) {
+    const selection = window.getSelection();
+    if (selection.rangeCount === 0) return;
+    const range = selection.getRangeAt(0);
+    const domNode = range.startContainer;
+    const text = domNode.textContent;
+    if (!text) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const punctuationPattern = /[!?:;。！？：；]/g;
+    let startPos = 0;
+    let endPos = text.length;
+    let pos = 0;
+    while (punctuationPattern.exec(text)) {
+      startPos = pos;
+      pos = punctuationPattern.lastIndex;
+      punctuationPattern.lastIndex++;
+      if (pos > range.startOffset) {
+        endPos = pos;
+        break;
+      }
+    }
+    range.setStart(domNode, startPos);
+    range.setEnd(domNode, endPos);
+  }
+
   handleCreateBlock() {
     const { root, onChange } = this.props;
     const selection = window.getSelection();
@@ -109,19 +135,6 @@ export default class VisualEditor extends React.Component<Props, State> {
     onSelect(node);
   }
 
-  render() {
-    const { root: node, selectedNode, onSelect } = this.props;
-    return (
-      <div className="zaml-visual-editor">
-        <VisualNode
-          node={node}
-          selectedNode={selectedNode}
-          // onContextMenu={this.handleContextMenu}
-        />
-      </div>
-    )
-  }
-
   getNodeByElement(element: HTMLElement) {
     const { root: root } = this.props;
     if (!root) return undefined;
@@ -134,6 +147,21 @@ export default class VisualEditor extends React.Component<Props, State> {
     const id = element.getAttribute('node-id');
     if (!id) return undefined;
     return root.getNodeById(id);
+  }
+
+  render() {
+    const { root: node, selectedNode } = this.props;
+    return (
+      <div
+        className="zaml-visual-editor"
+        onDoubleClick={(event: React.MouseEvent) => this.handleDoubleClick(event)}
+      >
+        <VisualNode
+          node={node}
+          selectedNode={selectedNode}
+        />
+      </div>
+    )
   }
 
   renderContextMenu(e: React.MouseEvent<HTMLElement>) {
