@@ -8,7 +8,9 @@ This repo contains the [Language Specification](./docs/spec.md) and a couple of 
 
 > Inspired by [YAML](http://yaml.org/spec/1.2/spec.html), [Markdown](https://www.markdownguide.org/cheat-sheet), [AIML](https://en.wikipedia.org/wiki/AIML) and PHP template syntax [Smarty](https://www.smarty.net/), ZAML is a human readable marked up language which could be easily transformed into computer data structure.
 
-Quick Look:
+## Quick Look
+
+This is a simple sample of ZAML
 
 ```zaml
 ---
@@ -21,7 +23,11 @@ What is your name?
 My name is [Jack]{PER}
 ```
 
-Try it yourself:
+For more examples, please checkout [test cases](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/test/Tokenizer.test.js)
+
+### Try It Yourself
+
+Please try ZAML online editor:
 
 https://nexushubs.github.io/zaml-lang/
 
