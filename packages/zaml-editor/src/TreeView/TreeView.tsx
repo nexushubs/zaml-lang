@@ -2,11 +2,12 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
+import SplitPane from 'react-split-pane';
 import TreeNode, { NodePart } from './TreeNode';
-import './TreeView.css';
 import TreePath from './TreePath';
-import { nodeEquals } from './utils';
 import TreeToolbar from './TreeToolbar';
+import TreePropEditor from './TreePropEditor';
+import './TreeView.scss';
 
 interface Props {
   root?: zaml.Node;
@@ -73,24 +74,35 @@ export default class TreeView extends React.Component<Props, State> {
     const { expandedNodes, selectedPart } = this.state;
     return (
       <div className="zaml-tree-view">
-        <TreeToolbar />
-        <div className="tree">
-          <TreeNode
-            node={node}
-            selectedNode={selectedNode}
-            selectedPart={selectedPart}
-            expandedNodes={expandedNodes}
-            onSelect={onSelect}
-            onSelectPart={p => this.setState({ selectedPart: p })}
-            onMouseEnter={onHover}
-            onMouseOut={() => onHover()}
-            onExpansionChange={(n: zaml.Node, expanded: boolean) => this.handleExpansionChange(n, expanded)}
+        <SplitPane
+          split="horizontal"
+          defaultSize="60%"
+          minSize={200}
+        >
+          <div className="tree-container">
+            <TreeToolbar />
+            <div className="tree">
+              <TreeNode
+                node={node}
+                selectedNode={selectedNode}
+                selectedPart={selectedPart}
+                expandedNodes={expandedNodes}
+                onSelect={onSelect}
+                onSelectPart={p => this.setState({ selectedPart: p })}
+                onMouseEnter={onHover}
+                onMouseOut={() => onHover()}
+                onExpansionChange={(n: zaml.Node, expanded: boolean) => this.handleExpansionChange(n, expanded)}
+              />
+            </div>
+            <TreePath
+              selectedNode={selectedNode}
+              onSelect={onSelect}
+            />
+          </div>
+          <TreePropEditor
+            node={selectedNode}
           />
-        </div>
-        <TreePath
-          selectedNode={selectedNode}
-          onSelect={onSelect}
-        />
+        </SplitPane>
       </div>
     )
   }

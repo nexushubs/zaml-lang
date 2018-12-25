@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
 import classNames from 'classnames';
-import './VisualNode.css';
+import './VisualNode.scss';
 
 const { NodeType } = zaml;
 

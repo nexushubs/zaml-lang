@@ -3,7 +3,7 @@ import * as React from 'react';
 import PropTypes, { node } from 'prop-types';
 import * as zaml from '@zaml/parser';
 import classNames from 'classnames';
-import './TreeNode.css';
+import './TreeNode.scss';
 
 const { NodeType } = zaml;
 

@@ -4,7 +4,7 @@ import PropTypes, { node } from 'prop-types';
 import * as zaml from '@zaml/parser';
 import { ContextMenuTarget, Menu, MenuItem, MenuDivider } from "@blueprintjs/core"
 import VisualNode from './VisualNode';
-import './VisualEditor.css';
+import './VisualEditor.scss';
 import 'react-contexify/dist/ReactContexify.min.css';
 
 const { NodeType } = zaml;

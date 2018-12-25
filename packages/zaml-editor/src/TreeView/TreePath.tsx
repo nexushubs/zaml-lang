@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
 import TreeNode, { NodePart } from './TreeNode';
-import './TreeView.css';
 import TreePathItem from './TreePathItem';
 
 interface Props {

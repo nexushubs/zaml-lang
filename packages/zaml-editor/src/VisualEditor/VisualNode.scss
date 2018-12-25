@@ -1,0 +1,57 @@
+@import "../common.scss";
+
+.zaml-node {
+  &.selected {
+    background: #d6d4ef;
+  }
+
+  &.tag {
+    position: relative;
+  }
+
+  &.tag[node-name="inline"] {
+    border-bottom: 2px dotted #999;
+  }
+
+  &.tag[node-name="block"] {
+    padding-left: 10px;
+    border-left: 2px solid #ccc;
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+      left: 0;
+      height: 0;
+      width: 2px;
+    }
+
+    &::before {
+      top: 0;
+      border-top: 2px solid #ccc;
+    }
+
+    &::after {
+      bottom: 0;
+      border-bottom: 2px solid #ccc;
+    }
+  }
+
+  &.tag .attributes {
+    position: absolute;
+    display: block;
+    top: -10px;
+    left: -2px;
+    font-size: 10px;
+    padding: 0 6px;
+    line-height: 12px;
+    color: #fff;
+    background: $label-color;
+  }
+
+  &.entity {
+    color: $entity-color;
+    border-bottom: 2px solid $entity-color;
+  }
+}

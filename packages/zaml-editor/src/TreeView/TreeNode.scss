@@ -1,0 +1,106 @@
+@import '../common.scss';
+
+.zaml-tree-view {
+  .tree {
+    .block {
+      position: relative;
+      .indicator {
+        position: absolute;
+        top: 2px;
+        left: -12px;
+        display: block;
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        text-align: center;
+        transform: rotate(-90deg);
+        color: #727272;
+        font-size: 16px;
+      }
+      .header,
+      .footer {
+        color: #708;
+      }
+      .header {
+        .prop::before {
+          content: " ";
+        }
+        .label {
+          color: $label-color;
+        }
+        .key {
+          color: $prop-color;
+        }
+        .value {
+          color: $entity-color;
+        }
+      }
+      .children {
+        display: none;
+        padding-left: 14px;
+      }
+      .ellipsis {
+        display: inline-block;
+        vertical-align: middle;
+        font-family: "Noto Sans", system, "Helvetica Neue", Helvetica, Arial;
+      }
+      &.expanded {
+        height: auto;
+        .indicator {
+          transform: rotate(0);
+        }
+        & > .header,
+        & > .footer {
+          display: block;
+        }
+        & > .header:hover::before,
+        &.node-selected > .header::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 16px;
+          bottom: 2px;
+          left: -5px;
+          border-left: 1px solid #e5e5e5;
+        }
+        &.node-selected > .header:hover::before,
+        &.node-selected > .header::before {
+          border-left: 1px solid #b2c4ee;
+        }
+        & > .children {
+          display: block;
+        }
+        & > .ellipsis {
+          display: none;
+        }
+      }
+    }
+
+    // Selected style
+    .text.selected,
+    .block.selected,
+    .header.selected,
+    .footer.selected {
+      background: #dadada;
+      background: #5b94f0;
+    }
+
+    .text.selected,
+    .block.selected,
+    .block.selected .header,
+    .block.selected .footer,
+    .block > .header.selected,
+    .block > .footer.selected {
+      color: #fff;
+    }
+
+    .block.selected > .header .label,
+    .block.selected > .header .key,
+    .block.selected > .header .value,
+    .block > .header.selected .label,
+    .block > .header.selected .key,
+    .block > .header.selected .value {
+      color: #eee;
+    }
+  }
+}

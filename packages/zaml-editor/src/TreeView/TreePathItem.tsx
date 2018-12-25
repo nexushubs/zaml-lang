@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import * as zaml from '@zaml/parser';
 import { NodePart } from './TreeNode';
-import './TreeView.css';
 
 const { NodeType } = zaml;
 

@@ -4,12 +4,13 @@ import PropTypes, { node } from 'prop-types';
 import * as zaml from '@zaml/parser';
 import SplitPane from 'react-split-pane';
 import Pane from './Pane';
-import SourceEditor from './SourceEditor';
-import VisualEditor from './VisualEditor';
+import SourceEditor from '../SourceEditor/SourceEditor';
+import VisualEditor from '../VisualEditor/VisualEditor';
 import '@blueprintjs/core/lib/css/blueprint.css';
-import './Editor.css';
+import 'normalize.css/normalize.css';
+import './Editor.scss';
 import { ReactComponent as Logo } from './logo.svg';
-import TreeView from './TreeView';
+import TreeView from '../TreeView/TreeView';
 
 const { Node, NodeType } = zaml;
 

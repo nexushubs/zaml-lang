@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import codemirror from 'codemirror';
 import { Controlled as CodeMirror } from 'react-codemirror2'
-import './codemirror-mode';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
+import './SourceEditor.scss';
+import './codemirror-mode';
 
 interface Props {
   value: string;

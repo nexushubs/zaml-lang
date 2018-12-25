@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
-import Editor from './Editor';
+import './App.scss';
+import Editor from './Editor/Editor';
 import contract from './sample/contract';
 
 class App extends Component {
