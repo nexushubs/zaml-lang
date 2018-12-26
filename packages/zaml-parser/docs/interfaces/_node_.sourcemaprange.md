@@ -23,7 +23,7 @@
 
 **● end**: *`string`*
 
-*Defined in [Node.ts:183](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L183)*
+*Defined in [Node.ts:183](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L183)*
 
 ___
 <a id="start"></a>
@@ -32,7 +32,7 @@ ___
 
 **● start**: *`string`*
 
-*Defined in [Node.ts:182](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L182)*
+*Defined in [Node.ts:182](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L182)*
 
 ___
 

@@ -141,7 +141,7 @@ AST node class
 
 ⊕ **new Node**(type: *[NodeType](../enums/_node_.nodetype.md)*, name?: * `undefined` &#124; `string`*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:423](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L423)*
+*Defined in [Node.ts:423](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L423)*
 
 *__constructor__*: 
 
@@ -166,7 +166,7 @@ ___
 **● _source**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:408](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L408)*
+*Defined in [Node.ts:408](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L408)*
 
 ___
 <a id="attributes"></a>
@@ -175,7 +175,7 @@ ___
 
 **● attributes**: *[KeyValueMap](../modules/_node_.md#keyvaluemap)*
 
-*Defined in [Node.ts:417](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L417)*
+*Defined in [Node.ts:417](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L417)*
 
 ___
 <a id="children"></a>
@@ -184,7 +184,7 @@ ___
 
 **● children**: *[Node](_node_.node.md)[]*
 
-*Defined in [Node.ts:423](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L423)*
+*Defined in [Node.ts:423](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L423)*
 
 ___
 <a id="content"></a>
@@ -194,7 +194,7 @@ ___
 **● content**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:421](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L421)*
+*Defined in [Node.ts:421](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L421)*
 
 ___
 <a id="end"></a>
@@ -203,7 +203,7 @@ ___
 
 **● end**: *`number`* =  -1
 
-*Defined in [Node.ts:413](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L413)*
+*Defined in [Node.ts:413](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L413)*
 
 ___
 <a id="id"></a>
@@ -212,7 +212,7 @@ ___
 
 **● id**: *`string`* = ""
 
-*Defined in [Node.ts:409](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L409)*
+*Defined in [Node.ts:409](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L409)*
 
 ___
 <a id="labels"></a>
@@ -221,7 +221,7 @@ ___
 
 **● labels**: *`string`[]*
 
-*Defined in [Node.ts:419](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L419)*
+*Defined in [Node.ts:419](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L419)*
 
 ___
 <a id="metadata"></a>
@@ -230,7 +230,7 @@ ___
 
 **● metadata**: *[KeyValueMap](../modules/_node_.md#keyvaluemap)*
 
-*Defined in [Node.ts:418](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L418)*
+*Defined in [Node.ts:418](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L418)*
 
 ___
 <a id="name"></a>
@@ -240,7 +240,7 @@ ___
 **● name**: * `undefined` &#124; `string`
 *
 
-*Defined in [Node.ts:411](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L411)*
+*Defined in [Node.ts:411](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L411)*
 
 ___
 <a id="parent"></a>
@@ -249,7 +249,7 @@ ___
 
 **● parent**: *[Node](_node_.node.md)*
 
-*Defined in [Node.ts:420](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L420)*
+*Defined in [Node.ts:420](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L420)*
 
 ___
 <a id="start"></a>
@@ -258,7 +258,7 @@ ___
 
 **● start**: *`number`* =  -1
 
-*Defined in [Node.ts:412](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L412)*
+*Defined in [Node.ts:412](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L412)*
 
 ___
 <a id="states"></a>
@@ -267,7 +267,7 @@ ___
 
 **● states**: *[KeyValueMap](../modules/_node_.md#keyvaluemap)*
 
-*Defined in [Node.ts:416](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L416)*
+*Defined in [Node.ts:416](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L416)*
 
 ___
 <a id="text"></a>
@@ -277,7 +277,7 @@ ___
 **● text**: * `undefined` &#124; `string`
 * = ""
 
-*Defined in [Node.ts:422](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L422)*
+*Defined in [Node.ts:422](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L422)*
 
 ___
 <a id="textend"></a>
@@ -286,7 +286,7 @@ ___
 
 **● textEnd**: *`number`* =  -1
 
-*Defined in [Node.ts:415](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L415)*
+*Defined in [Node.ts:415](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L415)*
 
 ___
 <a id="textstart"></a>
@@ -295,7 +295,7 @@ ___
 
 **● textStart**: *`number`* =  -1
 
-*Defined in [Node.ts:414](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L414)*
+*Defined in [Node.ts:414](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L414)*
 
 ___
 <a id="type"></a>
@@ -304,7 +304,7 @@ ___
 
 **● type**: *[NodeType](../enums/_node_.nodetype.md)*
 
-*Defined in [Node.ts:410](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L410)*
+*Defined in [Node.ts:410](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L410)*
 
 ___
 <a id="types"></a>
@@ -313,7 +313,7 @@ ___
 
 **● Types**: *[NodeType](../enums/_node_.nodetype.md)* =  NodeType
 
-*Defined in [Node.ts:211](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L211)*
+*Defined in [Node.ts:211](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L211)*
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 getchildIndex(): `number`
 
-*Defined in [Node.ts:731](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L731)*
+*Defined in [Node.ts:731](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L731)*
 
 Get index of parent children
 
@@ -338,7 +338,7 @@ ___
 
 getchildNodes(): [Node](_node_.node.md)[]
 
-*Defined in [Node.ts:663](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L663)*
+*Defined in [Node.ts:663](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L663)*
 
 Get child nodes, alias for node.children
 
@@ -351,7 +351,7 @@ ___
 
 getdescriptor(): `string`
 
-*Defined in [Node.ts:569](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L569)*
+*Defined in [Node.ts:569](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L569)*
 
 Get a short descriptor to identify node's type and basic information
 
@@ -364,7 +364,7 @@ ___
 
 getfirstChild():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:824](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L824)*
+*Defined in [Node.ts:824](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L824)*
 
 Get the first child of current node
 
@@ -377,7 +377,7 @@ ___
 
 getinnerText():  `undefined` &#124; `string`
 
-*Defined in [Node.ts:684](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L684)*
+*Defined in [Node.ts:684](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L684)*
 
 Get node inner text
 
@@ -390,7 +390,7 @@ ___
 
 getisBlock(): `boolean`
 
-*Defined in [Node.ts:641](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L641)*
+*Defined in [Node.ts:641](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L641)*
 
 Property indicates if the node is a block (wrapping other nodes)
 
@@ -403,7 +403,7 @@ ___
 
 getisBlockTag(): `boolean`
 
-*Defined in [Node.ts:627](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L627)*
+*Defined in [Node.ts:627](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L627)*
 
 Check if the node is block tag
 
@@ -416,7 +416,7 @@ ___
 
 getisEntity(): `boolean`
 
-*Defined in [Node.ts:599](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L599)*
+*Defined in [Node.ts:599](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L599)*
 
 Check if the node is entity
 
@@ -429,7 +429,7 @@ ___
 
 getisFirstChild(): `boolean`
 
-*Defined in [Node.ts:698](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L698)*
+*Defined in [Node.ts:698](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L698)*
 
 Check if the node is the first child of its parent
 
@@ -442,7 +442,7 @@ ___
 
 getisInlineBlock(): `boolean`
 
-*Defined in [Node.ts:649](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L649)*
+*Defined in [Node.ts:649](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L649)*
 
 If node is inline block
 
@@ -455,7 +455,7 @@ ___
 
 getisLastChild(): `boolean`
 
-*Defined in [Node.ts:709](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L709)*
+*Defined in [Node.ts:709](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L709)*
 
 Check if the node is the last child of its parent
 
@@ -468,7 +468,7 @@ ___
 
 getisOnlyChild(): `boolean`
 
-*Defined in [Node.ts:847](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L847)*
+*Defined in [Node.ts:847](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L847)*
 
 Check if this node is the only child of its parent
 
@@ -481,7 +481,7 @@ ___
 
 getisPlainText(): `boolean`
 
-*Defined in [Node.ts:613](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L613)*
+*Defined in [Node.ts:613](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L613)*
 
 Check if the node is text and not wrapping by entity
 
@@ -494,7 +494,7 @@ ___
 
 getisRoot(): `boolean`
 
-*Defined in [Node.ts:585](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L585)*
+*Defined in [Node.ts:585](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L585)*
 
 Check if the node is root
 
@@ -507,7 +507,7 @@ ___
 
 getisSimpleTag(): `boolean`
 
-*Defined in [Node.ts:634](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L634)*
+*Defined in [Node.ts:634](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L634)*
 
 Check if the node is simple block or inline block
 
@@ -520,7 +520,7 @@ ___
 
 getisTag(): `boolean`
 
-*Defined in [Node.ts:592](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L592)*
+*Defined in [Node.ts:592](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L592)*
 
 Check if the node is tag
 
@@ -533,7 +533,7 @@ ___
 
 getisText(): `boolean`
 
-*Defined in [Node.ts:606](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L606)*
+*Defined in [Node.ts:606](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L606)*
 
 Check if the node is text
 
@@ -546,7 +546,7 @@ ___
 
 getisWrappingTag(): `boolean`
 
-*Defined in [Node.ts:620](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L620)*
+*Defined in [Node.ts:620](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L620)*
 
 Check if the node is wrapping tag
 
@@ -559,7 +559,7 @@ ___
 
 getlastChild():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:832](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L832)*
+*Defined in [Node.ts:832](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L832)*
 
 Get the last child of current node
 
@@ -572,7 +572,7 @@ ___
 
 getnextSibling():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:739](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L739)*
+*Defined in [Node.ts:739](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L739)*
 
 Next sibling node
 
@@ -585,7 +585,7 @@ ___
 
 getparentNode():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:656](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L656)*
+*Defined in [Node.ts:656](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L656)*
 
 Get parent node, alias for node.parent
 
@@ -598,7 +598,7 @@ ___
 
 getpath(): [Node](_node_.node.md)[]
 
-*Defined in [Node.ts:811](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L811)*
+*Defined in [Node.ts:811](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L811)*
 
 Get a list of ancestors
 
@@ -611,7 +611,7 @@ ___
 
 getpreviousSibling():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:748](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L748)*
+*Defined in [Node.ts:748](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L748)*
 
 Previous sibling node
 
@@ -624,7 +624,7 @@ ___
 
 getsiblings(): [Node](_node_.node.md)[]
 
-*Defined in [Node.ts:720](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L720)*
+*Defined in [Node.ts:720](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L720)*
 
 Siblings from same parent
 
@@ -637,7 +637,7 @@ ___
 
 getsource(): `string`
 
-*Defined in [Node.ts:670](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L670)*
+*Defined in [Node.ts:670](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L670)*
 
 Get source code of the node
 
@@ -653,7 +653,7 @@ ___
 
 ▸ **addLabel**(label: *`string`*): `void`
 
-*Defined in [Node.ts:1168](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1168)*
+*Defined in [Node.ts:1168](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1168)*
 
 Add label to node
 
@@ -672,7 +672,7 @@ ___
 
 ▸ **appendChild**(node: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:932](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L932)*
+*Defined in [Node.ts:932](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L932)*
 
 Append a node to children list
 
@@ -691,7 +691,7 @@ ___
 
 ▸ **appendText**(text: *`string`*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*):  `undefined` &#124; `this`
 
-*Defined in [Node.ts:941](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L941)*
+*Defined in [Node.ts:941](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L941)*
 
 Append text node child
 
@@ -711,7 +711,7 @@ ___
 
 ▸ **clearAttributes**(): `void`
 
-*Defined in [Node.ts:1116](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1116)*
+*Defined in [Node.ts:1116](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1116)*
 
 Remove all attributes
 
@@ -724,7 +724,7 @@ ___
 
 ▸ **clearLabels**(): `void`
 
-*Defined in [Node.ts:1196](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1196)*
+*Defined in [Node.ts:1196](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1196)*
 
 Remove all labels
 
@@ -737,7 +737,7 @@ ___
 
 ▸ **clearMetadata**(): `void`
 
-*Defined in [Node.ts:1152](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1152)*
+*Defined in [Node.ts:1152](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1152)*
 
 Remove all metadata
 
@@ -750,7 +750,7 @@ ___
 
 ▸ **contains**(node: *[Node](_node_.node.md)*): `boolean`
 
-*Defined in [Node.ts:794](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L794)*
+*Defined in [Node.ts:794](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L794)*
 
 whether a node is a descendant of a given node
 
@@ -769,7 +769,7 @@ ___
 
 ▸ **createChild**(type: *[NodeType](../enums/_node_.nodetype.md)*, name?: * `undefined` &#124; `string`*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:914](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L914)*
+*Defined in [Node.ts:914](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L914)*
 
 Create a child node
 
@@ -790,7 +790,7 @@ ___
 
 ▸ **createEntities**(items: *[EntityItem](../interfaces/_node_.entityitem.md)[]*): [Node](_node_.node.md)[]
 
-*Defined in [Node.ts:1387](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1387)*
+*Defined in [Node.ts:1387](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1387)*
 
 Process text node in current node and parse entities
 
@@ -809,7 +809,7 @@ ___
 
 ▸ **createEntitiesFromText**(entities: *[EntityItem](../interfaces/_node_.entityitem.md)[]*): `void`
 
-*Defined in [Node.ts:1424](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1424)*
+*Defined in [Node.ts:1424](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1424)*
 
 Create entity nodes based on text source position
 
@@ -828,7 +828,7 @@ ___
 
 ▸ **extractEntities**(extractor: *[Extractor](../modules/_node_.md#extractor)*): `Promise`<`void`>
 
-*Defined in [Node.ts:1450](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1450)*
+*Defined in [Node.ts:1450](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1450)*
 
 Extract entities from text node
 
@@ -847,7 +847,7 @@ ___
 
 ▸ **extractNodes**(startIndex: *`number`*, endIndex: *`number`*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1354](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1354)*
+*Defined in [Node.ts:1354](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1354)*
 
 **Parameters:**
 
@@ -865,7 +865,7 @@ ___
 
 ▸ **find**(callback: *[FinderCallback](../modules/_node_.md#findercallback)*): [Node](_node_.node.md)[]
 
-*Defined in [Node.ts:1301](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1301)*
+*Defined in [Node.ts:1301](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1301)*
 
 Find matched children recursively by callback
 
@@ -884,7 +884,7 @@ ___
 
 ▸ **findBy**(selector?: *[NodeSelector](../interfaces/_node_.nodeselector.md)*, one?: *`boolean`*):  [Node](_node_.node.md) &#124; [Node](_node_.node.md)[] &#124; `undefined`
 
-*Defined in [Node.ts:1224](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1224)*
+*Defined in [Node.ts:1224](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1224)*
 
 Find matched descendants recursively
 
@@ -904,7 +904,7 @@ ___
 
 ▸ **findOne**(callback: *[FinderCallback](../modules/_node_.md#findercallback)*):  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:1309](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1309)*
+*Defined in [Node.ts:1309](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1309)*
 
 Find matched children recursively and return the first one
 
@@ -923,7 +923,7 @@ ___
 
 ▸ **findOneBy**(selector?: *[NodeSelector](../interfaces/_node_.nodeselector.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1268](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1268)*
+*Defined in [Node.ts:1268](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1268)*
 
 Find nodes by selector recursively and return the first one
 
@@ -942,7 +942,7 @@ ___
 
 ▸ **findTextByRange**(start: *`number`*, end: *`number`*):  [Node](_node_.node.md) &#124; `undefined`
 
-*Defined in [Node.ts:1277](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1277)*
+*Defined in [Node.ts:1277](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1277)*
 
 Find matched text node by text source range
 
@@ -962,7 +962,7 @@ ___
 
 ▸ **flatten**():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:1372](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1372)*
+*Defined in [Node.ts:1372](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1372)*
 
 Remove a element and move its children to its parent
 
@@ -975,7 +975,7 @@ ___
 
 ▸ **getAttribute**(key: *`string`*): `any`
 
-*Defined in [Node.ts:1093](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1093)*
+*Defined in [Node.ts:1093](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1093)*
 
 Get attribute value
 
@@ -994,7 +994,7 @@ ___
 
 ▸ **getMetadata**(key: *`string`*): `any`
 
-*Defined in [Node.ts:1137](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1137)*
+*Defined in [Node.ts:1137](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1137)*
 
 Get metadata value
 
@@ -1013,7 +1013,7 @@ ___
 
 ▸ **getNodeById**(id: *`string`*):  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:1215](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1215)*
+*Defined in [Node.ts:1215](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1215)*
 
 Get node by id
 
@@ -1032,7 +1032,7 @@ ___
 
 ▸ **getRootNode**():  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:757](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L757)*
+*Defined in [Node.ts:757](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L757)*
 
 Property indicates if the root is root (which has no children)
 
@@ -1045,7 +1045,7 @@ ___
 
 ▸ **hasAttribute**(key: *`string`*): `boolean`
 
-*Defined in [Node.ts:1101](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1101)*
+*Defined in [Node.ts:1101](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1101)*
 
 Check if a specified attribute key exists
 
@@ -1064,7 +1064,7 @@ ___
 
 ▸ **hasChild**(): `boolean`
 
-*Defined in [Node.ts:840](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L840)*
+*Defined in [Node.ts:840](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L840)*
 
 Check if this node has any children
 
@@ -1077,7 +1077,7 @@ ___
 
 ▸ **hasLabel**(label: *`string`*): `boolean`
 
-*Defined in [Node.ts:1181](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1181)*
+*Defined in [Node.ts:1181](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1181)*
 
 Check if the node has specified label
 
@@ -1096,7 +1096,7 @@ ___
 
 ▸ **hasMetadata**(key: *`string`*): `boolean`
 
-*Defined in [Node.ts:1160](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1160)*
+*Defined in [Node.ts:1160](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1160)*
 
 Check if a specified metadata key exists
 
@@ -1115,7 +1115,7 @@ ___
 
 ▸ **insertAfter**(node: *[Node](_node_.node.md)*, ref: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1033](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1033)*
+*Defined in [Node.ts:1033](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1033)*
 
 Insert a node after another
 *__see__*: [https://developer.mozilla.org/en-US/docs/Web/API/Node/insertAfter](https://developer.mozilla.org/en-US/docs/Web/API/Node/insertAfter)
@@ -1136,7 +1136,7 @@ ___
 
 ▸ **insertAt**(node: *[Node](_node_.node.md)*, index: *`number`*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:997](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L997)*
+*Defined in [Node.ts:997](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L997)*
 
 Insert a node at specified position
 
@@ -1156,7 +1156,7 @@ ___
 
 ▸ **insertBefore**(node: *[Node](_node_.node.md)*, ref: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1020](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1020)*
+*Defined in [Node.ts:1020](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1020)*
 
 Insert a node before another
 *__see__*: [https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore](https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore)
@@ -1177,7 +1177,7 @@ ___
 
 ▸ **is**(expression: *`string`*): `boolean`
 
-*Defined in [Node.ts:775](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L775)*
+*Defined in [Node.ts:775](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L775)*
 
 Check node match the expression
 *__example__*: `BLOCK`: tag `@LOC`: entity
@@ -1197,7 +1197,7 @@ ___
 
 ▸ **isOnlyDescendantOf**(ancestor: *[Node](_node_.node.md)*): `boolean`
 
-*Defined in [Node.ts:858](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L858)*
+*Defined in [Node.ts:858](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L858)*
 
 Check if the node is only descendant of another node;
 
@@ -1216,7 +1216,7 @@ ___
 
 ▸ **isRightAlignedDescendantOf**(ancestor: *[Node](_node_.node.md)*): `boolean`
 
-*Defined in [Node.ts:894](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L894)*
+*Defined in [Node.ts:894](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L894)*
 
 Check if the node is only descendant of another node;
 
@@ -1235,7 +1235,7 @@ ___
 
 ▸ **isSidedDescendantOf**(ancestor: *[Node](_node_.node.md)*, side: * "start" &#124; "end"*): `boolean`
 
-*Defined in [Node.ts:876](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L876)*
+*Defined in [Node.ts:876](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L876)*
 
 Check if the node is only descendant of another node;
 
@@ -1255,7 +1255,7 @@ ___
 
 ▸ **mergeText**(): `void`
 
-*Defined in [Node.ts:1332](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1332)*
+*Defined in [Node.ts:1332](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1332)*
 
 Merge neighbor text nodes
 
@@ -1268,7 +1268,7 @@ ___
 
 ▸ **normalize**(): `void`
 
-*Defined in [Node.ts:1203](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1203)*
+*Defined in [Node.ts:1203](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1203)*
 
 Rebuild text and source position, in case modification has been applied to node
 
@@ -1281,7 +1281,7 @@ ___
 
 ▸ **prependChild**(node: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:924](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L924)*
+*Defined in [Node.ts:924](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L924)*
 
 Insert a node at the beginning of the children
 
@@ -1300,7 +1300,7 @@ ___
 
 ▸ **prependText**(text: *`string`*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*):  `undefined` &#124; `this`
 
-*Defined in [Node.ts:961](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L961)*
+*Defined in [Node.ts:961](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L961)*
 
 Add text node child at the beginning
 
@@ -1320,7 +1320,7 @@ ___
 
 ▸ **querySelector**(selector: *`string`*):  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:1325](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1325)*
+*Defined in [Node.ts:1325](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1325)*
 
 Find nodes by selector and return the first one, compared by is()
 
@@ -1339,7 +1339,7 @@ ___
 
 ▸ **querySelectorAll**(selector: *`string`*): [Node](_node_.node.md)[]
 
-*Defined in [Node.ts:1317](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1317)*
+*Defined in [Node.ts:1317](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1317)*
 
 Find all nodes by selector, compared by is()
 
@@ -1358,7 +1358,7 @@ ___
 
 ▸ **removeAttribute**(key: *`string`*): `void`
 
-*Defined in [Node.ts:1109](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1109)*
+*Defined in [Node.ts:1109](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1109)*
 
 Remove an attribute
 
@@ -1377,7 +1377,7 @@ ___
 
 ▸ **removeChild**(child: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:975](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L975)*
+*Defined in [Node.ts:975](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L975)*
 
 Remove one child
 
@@ -1396,7 +1396,7 @@ ___
 
 ▸ **removeChildAt**(index: *`number`*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:985](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L985)*
+*Defined in [Node.ts:985](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L985)*
 
 Remove one child by index
 
@@ -1415,7 +1415,7 @@ ___
 
 ▸ **removeEntity**(): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1475](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1475)*
+*Defined in [Node.ts:1475](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1475)*
 
 Remove wrapping entity and put text back
 
@@ -1428,7 +1428,7 @@ ___
 
 ▸ **removeLabel**(label: *`string`*): `void`
 
-*Defined in [Node.ts:1189](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1189)*
+*Defined in [Node.ts:1189](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1189)*
 
 Remove label
 
@@ -1447,7 +1447,7 @@ ___
 
 ▸ **removeMetadata**(key: *`string`*): `void`
 
-*Defined in [Node.ts:1145](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1145)*
+*Defined in [Node.ts:1145](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1145)*
 
 Remove a metadata
 
@@ -1466,7 +1466,7 @@ ___
 
 ▸ **replaceChild**(newChild: *[Node](_node_.node.md)*, oldChild: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1046](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1046)*
+*Defined in [Node.ts:1046](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1046)*
 
 Replace a child with another node, assuming current node is a parent
 
@@ -1487,7 +1487,7 @@ ___
 
 ▸ **replaceWith**(node: *[Node](_node_.node.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:1063](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1063)*
+*Defined in [Node.ts:1063](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1063)*
 
 Replace current child node with another node, assuming current node is child
 
@@ -1506,7 +1506,7 @@ ___
 
 ▸ **setAttribute**(key: *`string`*, value: *`any`*): `void`
 
-*Defined in [Node.ts:1077](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1077)*
+*Defined in [Node.ts:1077](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1077)*
 
 Set single attribute value
 
@@ -1526,7 +1526,7 @@ ___
 
 ▸ **setAttributes**(data: *[KeyValueMap](../modules/_node_.md#keyvaluemap)*): `void`
 
-*Defined in [Node.ts:1085](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1085)*
+*Defined in [Node.ts:1085](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1085)*
 
 Set multiple attributes
 
@@ -1545,7 +1545,7 @@ ___
 
 ▸ **setMetadata**(key: *`string`*, value: *`any`*): `void`
 
-*Defined in [Node.ts:1125](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1125)*
+*Defined in [Node.ts:1125](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1125)*
 
 Set single metadata value
 
@@ -1565,7 +1565,7 @@ ___
 
 ▸ **toJSON**(options?: *[JsonOptions](../interfaces/_node_.jsonoptions.md)*): [JsonNode](../interfaces/_node_.jsonnode.md)
 
-*Defined in [Node.ts:1522](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1522)*
+*Defined in [Node.ts:1522](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1522)*
 
 Convert node to JSON serializable object
 
@@ -1584,7 +1584,7 @@ ___
 
 ▸ **toSource**(options?: *[StringifyOptions](../interfaces/_util_.stringifyoptions.md)*): `string`
 
-*Defined in [Node.ts:1514](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1514)*
+*Defined in [Node.ts:1514](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1514)*
 
 Build source code of the node
 
@@ -1603,7 +1603,7 @@ ___
 
 ▸ **toString**(options?: *[StringifyOptions](../interfaces/_util_.stringifyoptions.md)*): `string`
 
-*Defined in [Node.ts:1506](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L1506)*
+*Defined in [Node.ts:1506](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L1506)*
 
 Build plain text of the node (stripping tags & entities)
 
@@ -1622,7 +1622,7 @@ ___
 
 ▸ **create**(type: *[NodeType](../enums/_node_.nodetype.md)*, name?: * `undefined` &#124; `string`*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:219](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L219)*
+*Defined in [Node.ts:219](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L219)*
 
 Create node, shortcut for constructor
 
@@ -1643,7 +1643,7 @@ ___
 
 ▸ **createBlock**(props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:235](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L235)*
+*Defined in [Node.ts:235](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L235)*
 
 Create block tag
 
@@ -1662,7 +1662,7 @@ ___
 
 ▸ **createBlockByRange**(range: *[NodeRange](../interfaces/_node_.noderange.md)*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*):  `undefined` &#124; [Node](_node_.node.md)
 
-*Defined in [Node.ts:327](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L327)*
+*Defined in [Node.ts:327](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L327)*
 
 Create a block and move nodes or text within the range into it
 
@@ -1682,7 +1682,7 @@ ___
 
 ▸ **createFragment**(): [Node](_node_.node.md)
 
-*Defined in [Node.ts:268](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L268)*
+*Defined in [Node.ts:268](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L268)*
 
 Creating fragment node
 
@@ -1695,7 +1695,7 @@ ___
 
 ▸ **createInlineBlock**(props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:243](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L243)*
+*Defined in [Node.ts:243](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L243)*
 
 Create inline block tag
 
@@ -1714,7 +1714,7 @@ ___
 
 ▸ **createText**(content: *`string`*, props?: *[NodeProps](../interfaces/_node_.nodeprops.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:227](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L227)*
+*Defined in [Node.ts:227](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L227)*
 
 Create text tag
 
@@ -1734,7 +1734,7 @@ ___
 
 ▸ **findCommonAncestor**(n1: *[Node](_node_.node.md)*, n2: *[Node](_node_.node.md)*):  `object` &#124; `undefined`
 
-*Defined in [Node.ts:302](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L302)*
+*Defined in [Node.ts:302](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L302)*
 
 **Parameters:**
 
@@ -1752,7 +1752,7 @@ ___
 
 ▸ **fromJSON**(json: *[JsonNode](../interfaces/_node_.jsonnode.md)*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:260](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L260)*
+*Defined in [Node.ts:260](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L260)*
 
 Create node from json serializable data
 
@@ -1771,7 +1771,7 @@ ___
 
 ▸ **fromSource**(source: *`string`*): [Node](_node_.node.md)
 
-*Defined in [Node.ts:251](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L251)*
+*Defined in [Node.ts:251](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L251)*
 
 Create node instance from ZAML source
 
@@ -1790,7 +1790,7 @@ ___
 
 ▸ **validChild**(node: *`any`*): `void`
 
-*Defined in [Node.ts:296](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L296)*
+*Defined in [Node.ts:296](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L296)*
 
 Check if a node could be parent
 
@@ -1809,7 +1809,7 @@ ___
 
 ▸ **validNode**(node: *`any`*): `void`
 
-*Defined in [Node.ts:276](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L276)*
+*Defined in [Node.ts:276](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L276)*
 
 Check if a node is valid
 
@@ -1828,7 +1828,7 @@ ___
 
 ▸ **validParent**(node: *`any`*): `void`
 
-*Defined in [Node.ts:286](https://github.com/nexushubs/zaml-lang/blob/dc16477/packages/zaml-parser/src/Node.ts#L286)*
+*Defined in [Node.ts:286](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L286)*
 
 Check if a node could be parent
 

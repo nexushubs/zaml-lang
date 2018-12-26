@@ -18,7 +18,7 @@
 
 ▸ **formatEntityData**(data: *`any`*): `any`
 
-*Defined in [util.ts:3](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/util.ts#L3)*
+*Defined in [util.ts:3](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/util.ts#L3)*
 
 **Parameters:**
 

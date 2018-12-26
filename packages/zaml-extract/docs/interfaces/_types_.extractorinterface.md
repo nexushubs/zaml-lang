@@ -27,7 +27,7 @@
 
 **● extract**: *[SingleExtractor](../modules/_types_.md#singleextractor)*
 
-*Defined in [types.ts:14](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/types.ts#L14)*
+*Defined in [types.ts:14](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/types.ts#L14)*
 
 ___
 <a id="extractarray"></a>
@@ -36,7 +36,7 @@ ___
 
 **● extractArray**: *[ArrayExtractor](../modules/_types_.md#arrayextractor)*
 
-*Defined in [types.ts:15](https://github.com/nexushubs/zaml-lang/blob/5afa52e/packages/zaml-extract/src/types.ts#L15)*
+*Defined in [types.ts:15](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/types.ts#L15)*
 
 ___
 
