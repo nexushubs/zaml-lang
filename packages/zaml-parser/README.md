@@ -12,7 +12,7 @@ yarn add @zaml/parser
 
 ## API Documentation
 
-Checkout [API Documentation](https://github.com/nexushubs/zaml-lang/tree/master/packages/zaml-extract/docs)
+Checkout [API Documentation](https://github.com/nexushubs/zaml-lang/tree/master/packages/zaml-parser/docs)
 
 ## Usage
 
