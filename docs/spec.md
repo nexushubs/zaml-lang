@@ -64,7 +64,7 @@ Expression is a syntax used to demonstrate ZAML language format
 
 ### 3.3 Metadata
 
-Metadata is used for defining value for the whole YAML document, also for `BLOCK` tag, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
+Metadata is used for defining value for the whole ZAML document, also for `BLOCK` tag, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
 
 Examples:
 
@@ -75,7 +75,7 @@ author: Peter
 ---
 ```
 
-Metadata is parsed into `.metadata` of the AST node.
+Metadata is parsed into `node.metadata` of the AST node.
 
 ### 3.4 Sections
 
