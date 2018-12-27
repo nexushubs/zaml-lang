@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { stringify, parseValue, StringifyOptions } from './util';
-import { parse } from '.';
+import { parse, TextStream } from '.';
 
 const nanoid = require('nanoid');
 
@@ -32,6 +32,7 @@ export const BlockTags = [
 export const WrappingTags = [
   ...BlockTags,
   'INLINE',
+  'SENTENCE',
   'NUM',
   'HEADING',
 ];
@@ -44,13 +45,13 @@ export interface ExtractorInstance {
 
 export type Extractor = ExtractorFunction | ExtractorInstance;
 
-type FinderCallback = (node: Node) => boolean;
+export type FinderCallback = (node: Node) => boolean;
 
-type FinderPattern = FinderCallback | string;
+export type FinderPattern = FinderCallback | string;
 
 const defaultFinderCallback: FinderCallback = (node: Node) => true;
 
-function testNode(pattern: FinderPattern, node: Node): boolean {
+export function testNode(pattern: FinderPattern, node: Node): boolean {
   if (_.isFunction(pattern)) {
     return (<FinderCallback> pattern)(node);
   } else if (_.isString(pattern)) {
@@ -66,7 +67,7 @@ function testNode(pattern: FinderPattern, node: Node): boolean {
  * @param pattern Searching pattern
  * @param Node List
  */
-function find(node: Node, pattern: FinderPattern = defaultFinderCallback, result: Node[] = []): Node[] {
+export function find(node: Node, pattern: FinderPattern = defaultFinderCallback, result: Node[] = []): Node[] {
   if (testNode(pattern, node)) {
     result.push(node);
   }
@@ -83,7 +84,7 @@ function find(node: Node, pattern: FinderPattern = defaultFinderCallback, result
  * @param node 
  * @param pattern 
  */
-function findOne(node: Node, pattern: FinderPattern = defaultFinderCallback): Node | undefined {
+export function findOne(node: Node, pattern: FinderPattern = defaultFinderCallback): Node | undefined {
   if (testNode(pattern, node)) {
     return node;
   }
@@ -98,8 +99,9 @@ function findOne(node: Node, pattern: FinderPattern = defaultFinderCallback): No
   return undefined;
 }
 
-function parseJson(json: JsonNode) {
+export function parseJson(json: JsonNode) {
   const node = Node.create(json.type, json.name, {
+    id: json.id,
     attributes: parseJsonMap(json.attributes),
     metadata: parseJsonMap(json.metadata),
     content: json.content,
@@ -117,7 +119,7 @@ function parseJson(json: JsonNode) {
  * Map metadata & attributes to JSON
  * @param  map 
  */
-function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined{
+export function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined{
   if (_.isEmpty(map)) {
     return undefined;
   }
@@ -129,7 +131,7 @@ function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined{
   })
 }
 
-function parseJsonMap(json?: KeyValueMap): KeyValueMap | undefined {
+export function parseJsonMap(json?: KeyValueMap): KeyValueMap | undefined {
   if (_.isEmpty(json)) {
     return undefined;
   }
@@ -141,11 +143,10 @@ function parseJsonMap(json?: KeyValueMap): KeyValueMap | undefined {
   });
 }
 
-export { find };
-
 export type KeyValueMap = {[key: string]: any};
 
 export interface NodeProps {
+  id?: string;
   source?: string;
   start?: number;
   end?: number;
@@ -176,6 +177,7 @@ export interface EntityItem {
 export interface JsonOptions {
   position?: boolean;
   textPosition?: boolean;
+  internalId?: boolean;
 }
 
 export interface SourceMapRange {
@@ -184,6 +186,7 @@ export interface SourceMapRange {
 }
 
 export interface JsonNode {
+  id?: string;
   type: NodeType;
   name?: string;
   content?: string;
@@ -221,13 +224,38 @@ class Node {
   }
 
   /**
-   * Create text tag
+   * Create paragraph node
+   * @param [props]
+   */
+  static createParagraph(props?: NodeProps) {
+    return new Node(NodeType.PARAGRAPH, undefined, props);
+  }
+
+  /**
+   * Create root node
+   * @param [props]
+   */
+  static createRoot(props?: NodeProps) {
+    return new Node(NodeType.ROOT, undefined, props);
+  }
+
+  /**
+   * Create text node
    * @param [props]
    */
   static createText(content: string, props?: NodeProps) {
     return new Node(NodeType.TEXT, undefined, { ...props, content });
   }
-
+  
+  /**
+   * Create a common tag
+   * @param tagName Tag name, e.g. `'BLOCK'`, `'INLINE'`, `'SENTENCE'`
+   * @param [props]
+   */
+  static createTag(tagName: string, props?: NodeProps) {
+    return new Node(NodeType.TAG, tagName, props);
+  }
+  
   /**
    * Create block tag
    * @param [props]
@@ -254,8 +282,7 @@ class Node {
 
   /**
    * Create node from json serializable data
-   * @param {object} json 
-   * @returns {Node}
+   * @param json 
    */
   static fromJSON(json: JsonNode) {
     return parseJson(json)
@@ -263,7 +290,6 @@ class Node {
 
   /**
    * Creating fragment node
-   * @returns {Node}
    */
   static createFragment() {
     return Node.create(NodeType.FRAGMENT);
@@ -320,11 +346,23 @@ class Node {
   }
 
   /**
-   * Create a block and move nodes or text within the range into it
-   * @param range 
-   * @param props 
+   * Find the common ancestor of the range, and creates a wrapping block (or tag) with the nodes
+   * within the range in it.
+   * 
+   * If the range is within a block (BLOCK tag or paragraph), a inline tag is created, otherwise
+   * a BLOCK tag is created.
+   * 
+   * If a BLOCK tag is used, `startOffset` and `endOffset` will be ignored, to avoid block overlap.
+   * 
+   * If either `startNode` or `endNode` is not direct child of common ancestor nor the node is not
+   * sided aligned with the direct child of the ancestor, text offset will be ignored to avoid
+   * split of tags or entity.
+   * 
+   * @param range A range object which contains start and end node, alone with their text offset
+   * @param props Custom tag props
+   * @param tagName If inline tag is needed, specify the tag name instead of default `'INLINE'`
    */
-  static createBlockByRange(range: NodeRange, props?: NodeProps) {
+  static createBlockByRange(range: NodeRange, tagName: string = 'INLINE', props?: NodeProps) {
     const { startNode, startOffset, endNode, endOffset } = range;
     if (!_.isNumber(startOffset) || !_.isNumber(endOffset)) {
       throw new TypeError('range offset must be number');
@@ -345,7 +383,7 @@ class Node {
       }
       const { parent } = startNode;
       const fragment = Node.createFragment();
-      const block = Node.createInlineBlock({
+      const block = Node.createTag(tagName, {
         ...props,
         text: startNode.content.substring(startOffset, endOffset),
       });
@@ -386,13 +424,13 @@ class Node {
           baseStartNode.content = startText.substring(startOffset);
           inserting.appendText(startText.substring(0, startOffset));
         }
-        const block = Node.createInlineBlock(props);
+        const block = Node.createTag(tagName, props);
         block.appendChild(fragment);
         inserting.appendChild(block);
         const endText = endNode.content;
         if (endOffset < endNode.content.length) {
           baseEndNode.content = endText.substring(0, endOffset);
-          inserting.appendText(startText.substring(endOffset));
+          inserting.appendText(endText.substring(endOffset));
         }
         ancestor.insertAt(inserting, startIndex);
         return block;
@@ -430,6 +468,7 @@ class Node {
    */
   constructor(type: NodeType, name?: string, props: NodeProps = {}) {
     let {
+      id,
       source = '',
       start = -1,
       end = -1,
@@ -446,99 +485,21 @@ class Node {
       throw new TypeError(`invalid node type ${type}`);
     }
 
-    this.id = nanoid();
-
-    /**
-     * Parser states
-     * @type {Object<string,any>}
-     */
+    this.id = id || nanoid();
     this.states = states || {};
-
-    /**
-     * @type {NodeType}
-     * @description Node type
-     */
     this.type = type;
-
-    /**
-     * @type {string}
-     * @description Node name, for tag, entity
-     */
     this.name = undefined;
-
-    /**
-     * @type {number}
-     * @description Start source position to root node
-     */
     this.start = start;
-
-    /**
-     * @type {number}
-     * @description End source position to root node
-     */
     this.end = end;
-
-    /**
-     * @type {number}
-     * @description Start text source position to root node
-     */
     this.textStart = -1;
-    
-
-    /**
-     * @type {number}
-     * @description End text source position to root node
-     */
     this.textEnd = -1;
-  
-    /**
-     * @private
-     * @type {Node}
-     * @description Parent node
-     */
     this.parent = parent;
-
-    /**
-     * @private
-     * @type {string}
-     * @description Source code string, only for root node
-     */
     this._source = undefined;
-
-    /**
-     * @type {string}
-     * @description Text content, only for text node
-     */
     this.content = undefined;
-
-    /**
-     * @type {Node[]}
-     * @description Child nodes, only for block node
-     */
     this.children = [];
-
-    /**
-     * @type {string[]}
-     * @description node labels
-     */
     this.labels = [];
-
-    /**
-     * @type {Object.<string,any>}
-     * @description Attributes, for root, tag, entity node
-     */
     this.attributes = {};
-
-    /**
-     * @type {Object.<string,any>}
-     * @description Block metadata
-     */
     this.metadata = {};
-
-    /**
-     * @type {string[]}
-     * @description Node labels
-     */
     this.labels = [];
 
     if (type === NodeType.ROOT) {
@@ -567,16 +528,66 @@ class Node {
    * Get a short descriptor to identify node's type and basic information
    */
   get descriptor() {
+    if (this.isEntity || this.isTag || this.isText) {
+      return `${this.openDescriptorStart}${this.openDescriptorEnd}`;
+    } else {
+      return this.type;
+    }
+  }
+
+  get openDescriptorStart() {
     switch (this.type) {
       case NodeType.ENTITY:
-        return `[${this.name}]`;
+        return `[${this.name}`;
+      case NodeType.TAG:
+        return `{${this.name}`;
+      case NodeType.TEXT:
+        return '(text';
+      default:
+        return `<${this.type}`;
+    }
+  }
+
+  get openDescriptorEnd() {
+    switch (this.type) {
+      case NodeType.ENTITY:
+        return `]`;
+      case NodeType.TAG:
+        return `}`;
+      case NodeType.TEXT:
+        return '';
+      default:
+        return '>';
+    }
+  }
+
+  get closingDescriptor() {
+    switch (this.type) {
+      case NodeType.ENTITY:
+        return `[/${this.name}]`;
       case NodeType.TAG:
         return `{${this.name}}`;
       case NodeType.TEXT:
-        return `(text)`;
+        return ')';
       default:
-        return this.type;
+        return `</${this.type}>`;
     }
+  }
+
+  get selector() {
+    let selector = this.descriptor;
+    if (this.parent) {
+      selector = `${this.descriptor}[${this.childIndex}]`;
+    }
+    return selector;
+  }
+
+  get rootSelector() {
+    if (!this.parent) {
+      return this.selector;
+    }
+    const selectors = this.path.map(node => node.selector);
+    return selectors.join(' > ');
   }
 
   /**
@@ -584,6 +595,13 @@ class Node {
    */
   get isRoot(): boolean {
     return this.type === NodeType.ROOT;
+  }
+
+  /**
+   * Check if the node is paragraph
+   */
+  get isParagraph() : boolean {
+    return this.type === NodeType.PARAGRAPH;
   }
 
   /**
@@ -880,24 +898,6 @@ class Node {
         return false;
       }
       node = side === 'start' ? node.firstChild : node.lastChild;
-      if (node === this) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Check if the node is only descendant of another node;
-   * @param ancestor 
-   */
-  isRightAlignedDescendantOf(ancestor: Node): boolean {
-    let node: Node | undefined = ancestor;
-    while (node) {
-      if (node.children.length === 0) {
-        return false;
-      }
-      node = node.lastChild;
       if (node === this) {
         return true;
       }
@@ -1314,7 +1314,7 @@ class Node {
    * Find all nodes by selector, compared by is()
    * @param selector 
    */
-  querySelectorAll(selector: string) {
+  querySelectorAll(selector: string): Node[] {
     return find(this, selector);
   }
   
@@ -1322,8 +1322,47 @@ class Node {
    * Find nodes by selector and return the first one, compared by is()
    * @param selector 
    */
-  querySelector(selector: string) {
+  querySelector(selector: string): Node | undefined {
     return findOne(this, selector);
+  }
+
+  /**
+   * Split node text into tag wrapped sections, e.g. splitting sentences
+   * 
+   * @example 
+   * node.splitText('!?.');
+   * @param separator RegExp or character list in string, to split
+   * @param tagName Custom tag name, like `'SENTENCE'`
+   */
+  splitText(separator: RegExp | string, tagName = 'INLINE', props?: NodeProps) {
+    const pattern = separator instanceof RegExp ? separator : new RegExp(`[${_.escapeRegExp(separator)}]`, 'g');
+    console.log(pattern);
+    const list = this.find(node => node.isParagraph || node.isInlineBlock);
+    list.forEach(node => {
+      const text = node.toString();
+      let pos = 0;
+      let lastPos = 0;
+      pattern.lastIndex = 0;
+      while (pattern.exec(text)) {
+        // recreate text offset for each node
+        node.toString();
+        pos = pattern.lastIndex;
+        const textNodes = node.children.filter(n => n.isText);
+        const startNode = textNodes.find(tn => tn.textStart <= lastPos && tn.textEnd > lastPos);
+        const endNode = textNodes.find(tn => tn.textStart < pos && tn.textEnd >= pos);
+        if (!startNode || !endNode) {
+          break;
+        }
+        const range = {
+          startNode,
+          startOffset: lastPos - startNode.textStart,
+          endNode,
+          endOffset: pos - endNode.textStart,
+        }
+        Node.createBlockByRange(range, tagName, props);
+        lastPos = pos;
+      }
+    });
   }
 
   /**
@@ -1523,8 +1562,10 @@ class Node {
     const {
       position = false,
       textPosition = false,
+      internalId = false,
     } = options;
     return <any> _.omitBy({
+      id: internalId ? this.id : undefined,
       type: this.type,
       name: this.name,
       content: this.content,

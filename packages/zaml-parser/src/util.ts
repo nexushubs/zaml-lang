@@ -85,7 +85,8 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
     simple: false,
     toSource: false,
   });
-  const simpleTag = options.simple && node.isSimpleTag;
+  const simpleTag = options.simple && node.isSimpleTag &&
+    (node.labels.length > 0 || Object.keys(node.attributes).length > 0);
   if (options.toSource) {
     node.start = pos;
   } else {

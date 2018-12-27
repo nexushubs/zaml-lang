@@ -17,20 +17,54 @@ export interface ExtractorInstance {
     extract: (text: string[]) => EntityItem[][];
 }
 export declare type Extractor = ExtractorFunction | ExtractorInstance;
-declare type FinderCallback = (node: Node) => boolean;
-declare type FinderPattern = FinderCallback | string;
+export declare type FinderCallback = (node: Node) => boolean;
+export declare type FinderPattern = FinderCallback | string;
+export declare const selectorPattern: {
+    childCombinator: string;
+    adjacentSiblingCombinator: string;
+    generalSiblingCombinator: string;
+    any: string;
+    node: RegExp;
+    tag: RegExp;
+    entity: RegExp;
+    nthChild: RegExp;
+};
+export declare class Selector {
+    type?: string;
+    name?: string;
+    isSibling?: boolean;
+    isAdjacentSibling?: boolean;
+    isChild?: boolean;
+    childIndex: number;
+    constructor(type?: string, name?: string);
+}
+export declare function parseSelector(value: string): Selector[];
+export declare function testNode(pattern: FinderPattern, node: Node): boolean;
 /**
  * Recursive node finder
  * @param node Node to find
  * @param pattern Searching pattern
  * @param Node List
  */
-declare function find(node: Node, pattern?: FinderPattern, result?: Node[]): Node[];
-export { find };
+export declare function find(node: Node, pattern?: FinderPattern, result?: Node[]): Node[];
+/**
+ * Recursive node finder
+ * @param node
+ * @param pattern
+ */
+export declare function findOne(node: Node, pattern?: FinderPattern): Node | undefined;
+export declare function parseJson(json: JsonNode): Node;
+/**
+ * Map metadata & attributes to JSON
+ * @param  map
+ */
+export declare function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined;
+export declare function parseJsonMap(json?: KeyValueMap): KeyValueMap | undefined;
 export declare type KeyValueMap = {
     [key: string]: any;
 };
 export interface NodeProps {
+    id?: string;
     source?: string;
     start?: number;
     end?: number;
@@ -58,12 +92,14 @@ export interface EntityItem {
 export interface JsonOptions {
     position?: boolean;
     textPosition?: boolean;
+    internalId?: boolean;
 }
 export interface SourceMapRange {
     start: string;
     end: string;
 }
 export interface JsonNode {
+    id?: string;
     type: NodeType;
     name?: string;
     content?: string;
@@ -94,10 +130,26 @@ declare class Node {
      */
     static create(type: NodeType, name?: string, props?: NodeProps): Node;
     /**
-     * Create text tag
+     * Create paragraph node
+     * @param [props]
+     */
+    static createParagraph(props?: NodeProps): Node;
+    /**
+     * Create root node
+     * @param [props]
+     */
+    static createRoot(props?: NodeProps): Node;
+    /**
+     * Create text node
      * @param [props]
      */
     static createText(content: string, props?: NodeProps): Node;
+    /**
+     * Create a common tag
+     * @param tagName Tag name, e.g. `'BLOCK'`, `'INLINE'`, `'SENTENCE'`
+     * @param [props]
+     */
+    static createTag(tagName: string, props?: NodeProps): Node;
     /**
      * Create block tag
      * @param [props]
@@ -115,13 +167,11 @@ declare class Node {
     static fromSource(source: string): Node;
     /**
      * Create node from json serializable data
-     * @param {object} json
-     * @returns {Node}
+     * @param json
      */
     static fromJSON(json: JsonNode): Node;
     /**
      * Creating fragment node
-     * @returns {Node}
      */
     static createFragment(): Node;
     /**
@@ -144,11 +194,23 @@ declare class Node {
         paths: [Node[], Node[]];
     } | undefined;
     /**
-     * Create a block and move nodes or text within the range into it
-     * @param range
-     * @param props
+     * Find the common ancestor of the range, and creates a wrapping block (or tag) with the nodes
+     * within the range in it.
+     *
+     * If the range is within a block (BLOCK tag or paragraph), a inline tag is created, otherwise
+     * a BLOCK tag is created.
+     *
+     * If a BLOCK tag is used, `startOffset` and `endOffset` will be ignored, to avoid block overlap.
+     *
+     * If either `startNode` or `endNode` is not direct child of common ancestor nor the node is not
+     * sided aligned with the direct child of the ancestor, text offset will be ignored to avoid
+     * split of tags or entity.
+     *
+     * @param range A range object which contains start and end node, alone with their text offset
+     * @param props Custom tag props
+     * @param tagName If inline tag is needed, specify the tag name instead of default `'INLINE'`
      */
-    static createBlockByRange(range: NodeRange, props?: NodeProps): Node | undefined;
+    static createBlockByRange(range: NodeRange, tagName?: string, props?: NodeProps): Node | undefined;
     private _source?;
     id: string;
     type: NodeType;
@@ -176,10 +238,19 @@ declare class Node {
      * Get a short descriptor to identify node's type and basic information
      */
     readonly descriptor: string;
+    readonly openDescriptorStart: string;
+    readonly openDescriptorEnd: "" | "]" | "}" | ">";
+    readonly closingDescriptor: string;
+    readonly selector: string;
+    readonly rootSelector: string;
     /**
      * Check if the node is root
      */
     readonly isRoot: boolean;
+    /**
+     * Check if the node is paragraph
+     */
+    readonly isParagraph: boolean;
     /**
      * Check if the node is tag
      */
@@ -303,11 +374,6 @@ declare class Node {
      * @param ancestor
      */
     isSidedDescendantOf(ancestor: Node, side: 'start' | 'end'): boolean;
-    /**
-     * Check if the node is only descendant of another node;
-     * @param ancestor
-     */
-    isRightAlignedDescendantOf(ancestor: Node): boolean;
     /**
      * Create a child node
      * @param type
@@ -489,6 +555,9 @@ declare class Node {
      * @param callback
      */
     findOne(callback: FinderCallback): Node | undefined;
+    private matchSelector;
+    private findOneBySelector;
+    private findBySelector;
     /**
      * Find all nodes by selector, compared by is()
      * @param selector
@@ -499,6 +568,15 @@ declare class Node {
      * @param selector
      */
     querySelector(selector: string): Node | undefined;
+    /**
+     * Split node text into tag wrapped sections, e.g. splitting sentences
+     *
+     * @example
+     * node.splitText('!?.');
+     * @param separator RegExp or character list in string, to split
+     * @param tagName Custom tag name, like `'SENTENCE'`
+     */
+    splitText(separator: RegExp | string, tagName?: string, props?: NodeProps): void;
     /**
      * Merge neighbor text nodes
      */

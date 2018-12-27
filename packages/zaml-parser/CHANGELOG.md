@@ -5,6 +5,52 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2018-12-27
+
+### Added
+
+* `Node` static helpers
+  * [`Node.createRoot()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createparagraph)
+  * [`Node.createParagraph()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createparagraph)
+  * [`Node.createTag()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createtag)
+* `Node` instance helpers
+
+### Changed
+
+* Export and import `node.id` for json, see [`node.toJSON()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#tojson), [`Node.fromJSON()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#fromjson)
+
+### Fixed
+
+* `Node.createBlockByRange()` bug
+
+## [0.6.1] - 2018-12-24
+
+### Added
+
+* `Node` static helpers:
+  * [`Node.createText()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createtext)
+  * [`Node.createBlock()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createblock)
+  * [`Node.createInlineBlock()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createinlineblock)
+  * [`Node.findCommonAncestor()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#findcommonancestor)
+  * [`Node.createBlockByRange()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createblockbyrange)
+* `Node` instance helpers:
+  * [`node.isEntity`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#isentity)
+  * [`node.isText`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#istext)
+  * [`node.isPlainText`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#isonlychild)
+  * [`node.isOnlyChild`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#isonlydescendantof)
+  * [`node.isOnlyDescendantOf()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#isonlydescendantof)
+  * [`node.isSidedDescendantOf()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#issideddescendantof)
+  * [`node.prependChild()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#prependchild)
+  * [`node.prependText()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#prependtext)
+  * [`node.removeChildAt()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#removechildat)
+  * [`node.mergeText()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#mergetext) Merge sibling text nodes
+  * [`node.extractNodes()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#extractnodes) Extract nodes by range of child index
+  * [`node.flatten()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#flatten) Remove wrapping node
+
+### Changed
+
+* Add error range in `ParseError` instance, to provide more detailed information.
+
 ## [0.6.0] - 2018-12-17
 
 ### Added
