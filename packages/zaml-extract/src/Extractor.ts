@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import './constants';
 import pluginFactory from './plugins';
 import ExtractorBase from './plugins/base';
 import {

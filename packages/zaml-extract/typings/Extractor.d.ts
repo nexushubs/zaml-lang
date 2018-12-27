@@ -1,4 +1,3 @@
-import './constants';
 import { EntityInfo, ExtractorType, ExtractorConstructorOptions, ExtractorOptions } from './types';
 /**
  * Extractor class

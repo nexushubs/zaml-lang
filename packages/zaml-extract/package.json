@@ -22,13 +22,6 @@
   "author": "alphakevin <get.so.smart@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.0.0-rc.1",
-    "@babel/core": "^7.0.0-rc.1",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
-    "@babel/plugin-transform-runtime": "^7.0.0-rc.1",
-    "@babel/polyfill": "^7.0.0-rc.1",
-    "@babel/preset-env": "^7.0.0-rc.1",
-    "@babel/preset-typescript": "^7.1.0",
     "@types/isomorphic-fetch": "^0.0.34",
     "@types/linkify-it": "^2.0.4",
     "@types/lodash": "^4.14.119",
@@ -44,9 +37,9 @@
     "typescript": "^3.2.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-rc.1",
     "isomorphic-fetch": "^2.2.1",
     "linkify-it": "^2.1.0",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "tslib": "^1.9.3"
   }
 }
