@@ -417,7 +417,7 @@ class Tokenizer {
             if (!ch) {
               throw createError('invalid closing tag');
             }
-            if (!states.inline && !stream.eol()) {
+            if (!(states.inline || node.isInlineBlock) && !stream.eol()) {
               throw createError('closing block tag must take the whole line');
             }
             state = State.TAG_END;
