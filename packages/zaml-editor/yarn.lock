@@ -1072,10 +1072,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
   integrity sha512-FZdkNBDqBRHKQ2MEbSC17xnPFOhZxeJ2YGSfr2BKf3sujG49Qe3bB+rGCwQfIaA7WHnGeGkSijX4FuBCdrzW/g==
 
-"@zaml/parser@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.npmjs.org/@zaml/parser/-/parser-0.6.0.tgz#f57fbb5722fc15b89b17a1c656dd20037215037a"
-  integrity sha512-+BxAFV+ss38ykZPzyLZ48lE25y7R/cgMU71ugmB8LNlhVvAd/PznpcWxyJTth2VmuOwC5X4Lfq9vzt/Zq4UaXg==
+"@zaml/parser@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.npmjs.org/@zaml/parser/-/parser-0.6.2.tgz#7e65332b062b38d8e685d480ee8c85d4365e36d2"
+  integrity sha512-GEgy3AUBcvrrswV6zlKvagErQNtIO521OM+FJ4tA3t8btTDlC0AI4CtUrksFhc1kFY21xab2BO17McCw+gfsmw==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@types/nanoid" "^1.2.0"
