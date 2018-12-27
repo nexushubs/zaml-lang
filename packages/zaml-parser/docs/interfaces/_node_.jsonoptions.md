@@ -25,7 +25,7 @@
 **● internalId**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Node.ts:180](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L180)*
+*Defined in [Node.ts:180](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-parser/src/Node.ts#L180)*
 
 ___
 <a id="position"></a>
@@ -35,7 +35,7 @@ ___
 **● position**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Node.ts:178](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L178)*
+*Defined in [Node.ts:178](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-parser/src/Node.ts#L178)*
 
 ___
 <a id="textposition"></a>
@@ -45,7 +45,7 @@ ___
 **● textPosition**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Node.ts:179](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L179)*
+*Defined in [Node.ts:179](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-parser/src/Node.ts#L179)*
 
 ___
 

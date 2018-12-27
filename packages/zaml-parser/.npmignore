@@ -47,3 +47,5 @@ yarn-error.*
 .nyc_output
 
 docs
+
+*.tgz

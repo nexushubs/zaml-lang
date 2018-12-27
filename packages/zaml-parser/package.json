@@ -46,5 +46,6 @@
     "chalk": "^2.4.1",
     "lodash": "^4.17.11",
     "nanoid": "^2.0.0"
-  }
+  },
+  "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562"
 }

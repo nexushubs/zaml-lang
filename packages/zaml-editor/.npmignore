@@ -49,3 +49,5 @@ yarn-error.*
 docs
 
 build
+
+*.tgz

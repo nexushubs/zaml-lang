@@ -56,3 +56,5 @@ yarn-error.*
 
 # npm lock
 package-lock.json
+
+*.tgz

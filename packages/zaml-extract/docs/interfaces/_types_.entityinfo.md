@@ -26,7 +26,7 @@
 
 **● data**: *`object`*
 
-*Defined in [types.ts:6](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L6)*
+*Defined in [types.ts:6](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L6)*
 
 #### Type declaration
 
@@ -39,7 +39,7 @@ ___
 
 **● end**: *`number`*
 
-*Defined in [types.ts:3](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L3)*
+*Defined in [types.ts:3](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L3)*
 
 ___
 <a id="start"></a>
@@ -48,7 +48,7 @@ ___
 
 **● start**: *`number`*
 
-*Defined in [types.ts:2](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L2)*
+*Defined in [types.ts:2](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L2)*
 
 ___
 <a id="text"></a>
@@ -57,7 +57,7 @@ ___
 
 **● text**: *`string`*
 
-*Defined in [types.ts:4](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L4)*
 
 ___
 <a id="type"></a>
@@ -66,7 +66,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in [types.ts:5](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L5)*
+*Defined in [types.ts:5](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L5)*
 
 ___
 

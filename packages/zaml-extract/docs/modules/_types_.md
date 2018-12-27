@@ -28,7 +28,7 @@
 
 **Ƭ ArrayExtractor**: *`function`*
 
-*Defined in [types.ts:11](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L11)*
+*Defined in [types.ts:11](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L11)*
 
 #### Type declaration
 ▸(textArr: *`string`[]*):  [EntityInfo](../interfaces/_types_.entityinfo.md)[][] &#124; `Promise`<[EntityInfo](../interfaces/_types_.entityinfo.md)[][]>
@@ -48,7 +48,7 @@ ___
 
 **Ƭ ExtendedExtractorOptions**: *`object`*
 
-*Defined in [types.ts:20](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L20)*
+*Defined in [types.ts:20](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L20)*
 
 #### Type declaration
 
@@ -63,7 +63,7 @@ ___
 
 **Ƭ ExtractorConstructorOptions**: *`object`*
 
-*Defined in [types.ts:24](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L24)*
+*Defined in [types.ts:24](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L24)*
 
 #### Type declaration
 
@@ -77,7 +77,7 @@ ___
 **Ƭ ExtractorOptions**: * `string` &#124; [ExtendedExtractorOptions](_types_.md#extendedextractoroptions) &#124; [ExtractorType](_types_.md#extractortype)
 *
 
-*Defined in [types.ts:22](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L22)*
+*Defined in [types.ts:22](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L22)*
 
 ___
 <a id="extractortype"></a>
@@ -87,7 +87,7 @@ ___
 **Ƭ ExtractorType**: * [SingleExtractor](_types_.md#singleextractor) &#124; [ExtractorInterface](../interfaces/_types_.extractorinterface.md)
 *
 
-*Defined in [types.ts:18](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L18)*
+*Defined in [types.ts:18](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L18)*
 
 ___
 <a id="singleextractor"></a>
@@ -96,7 +96,7 @@ ___
 
 **Ƭ SingleExtractor**: *`function`*
 
-*Defined in [types.ts:9](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/types.ts#L9)*
+*Defined in [types.ts:9](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/types.ts#L9)*
 
 #### Type declaration
 ▸(text: *`string`*):  [EntityInfo](../interfaces/_types_.entityinfo.md)[] &#124; `Promise`<[EntityInfo](../interfaces/_types_.entityinfo.md)[]>

@@ -23,7 +23,7 @@
 
 **● pattern**: *`RegExp`*
 
-*Defined in [plugins/mention.ts:10](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/plugins/mention.ts#L10)*
+*Defined in [plugins/mention.ts:10](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/plugins/mention.ts#L10)*
 
 ___
 <a id="users"></a>
@@ -32,7 +32,7 @@ ___
 
 **● users**: *`string`[]*
 
-*Defined in [plugins/mention.ts:9](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/plugins/mention.ts#L9)*
+*Defined in [plugins/mention.ts:9](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/plugins/mention.ts#L9)*
 
 ___
 

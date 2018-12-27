@@ -41,5 +41,6 @@
     "linkify-it": "^2.1.0",
     "lodash": "^4.17.10",
     "tslib": "^1.9.3"
-  }
+  },
+  "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562"
 }
