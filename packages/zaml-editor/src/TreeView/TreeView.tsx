@@ -14,25 +14,26 @@ interface Props {
   selectedNode?: zaml.Node;
   onSelect: (node: zaml.Node) => void;
   onHover: (node?: zaml.Node) => void;
+  onChange: (node?: zaml.Node) => void;
 }
 
 interface State {
-  selectedPart: NodePart,
+  selectedPart: NodePart;
   expandedNodes: string[];
 }
 
-const nil = () => {}
+const nil = () => {};
 
 export default class TreeView extends React.Component<Props, State> {
-
   static propTypes = {
-    node: PropTypes.shape({})
-  }
+    node: PropTypes.shape({}),
+  };
 
   static defaultProps: Props = {
     onSelect: nil,
     onHover: nil,
-  }
+    onChange: nil,
+  };
 
   state = {
     selectedPart: NodePart.Header,
@@ -64,26 +65,28 @@ export default class TreeView extends React.Component<Props, State> {
       const { expandedNodes } = this.state;
       const nodeIds = selectedNode.path.map(n => n.id);
       this.setState({
-        expandedNodes: _.union(expandedNodes, nodeIds),
+        expandedNodes: _.union(expandedNodes, nodeIds)
       });
     }
   }
 
   render() {
-    const { root: node, selectedNode, onSelect, onHover } = this.props;
+    const {
+      root,
+      selectedNode,
+      onSelect,
+      onHover,
+      onChange,
+    } = this.props;
     const { expandedNodes, selectedPart } = this.state;
     return (
       <div className="zaml-tree-view">
-        <SplitPane
-          split="horizontal"
-          defaultSize="60%"
-          minSize={200}
-        >
+        <SplitPane split="horizontal" defaultSize="60%" minSize={200}>
           <div className="tree-container">
             <TreeToolbar />
             <div className="tree">
               <TreeNode
-                node={node}
+                node={root}
                 selectedNode={selectedNode}
                 selectedPart={selectedPart}
                 expandedNodes={expandedNodes}
@@ -91,19 +94,16 @@ export default class TreeView extends React.Component<Props, State> {
                 onSelectPart={p => this.setState({ selectedPart: p })}
                 onMouseEnter={onHover}
                 onMouseOut={() => onHover()}
-                onExpansionChange={(n: zaml.Node, expanded: boolean) => this.handleExpansionChange(n, expanded)}
+                onExpansionChange={(n: zaml.Node, expanded: boolean) =>
+                  this.handleExpansionChange(n, expanded)
+                }
               />
             </div>
-            <TreePath
-              selectedNode={selectedNode}
-              onSelect={onSelect}
-            />
+            <TreePath selectedNode={selectedNode} onSelect={onSelect} />
           </div>
-          <TreePropEditor
-            node={selectedNode}
-          />
+          <TreePropEditor node={selectedNode} onChange={onChange} />
         </SplitPane>
       </div>
-    )
+    );
   }
 }

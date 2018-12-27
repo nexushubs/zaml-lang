@@ -7,7 +7,7 @@
       .indicator {
         position: absolute;
         top: 2px;
-        left: -12px;
+        left: -16px;
         display: block;
         width: 15px;
         height: 15px;
@@ -60,7 +60,7 @@
           position: absolute;
           top: 16px;
           bottom: 2px;
-          left: -5px;
+          left: -9px;
           border-left: 1px solid #e5e5e5;
         }
         &.node-selected > .header:hover::before,

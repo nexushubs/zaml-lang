@@ -32,6 +32,8 @@ const parse = (source: string) => {
   let node = Node.create(NodeType.ROOT);
   try {
     node = zaml.parse(source);
+    (global as any).node = node;
+    console.info('Root node exported as global variable "node"', node);
   } catch(err) {
     if (err instanceof zaml.ParseError) {
       const message = `
@@ -44,7 +46,6 @@ const parse = (source: string) => {
       `;
       node = zaml.parse(message);
       const sourceBlock = node.querySelector('#SOURCE');
-      console.dir(err);
       const { text } = err.from.line;
       if (!sourceBlock) return node;
       const sourceText = sourceBlock.findOneBy({type: NodeType.TEXT});
@@ -121,6 +122,7 @@ export default class Editor extends React.Component<Props, State> {
     if (this.preventSourceChange) return;
     this.setState({
       root: parse(source),
+      selectedNode: undefined,
     });
   }
 
@@ -172,6 +174,7 @@ export default class Editor extends React.Component<Props, State> {
                   selectedNode={selectedNode}
                   onSelect={n => this.setState({ selectedNode: n })}
                   onHover={n => this.setState({ hoveredNode: n })}
+                  onChange={n => this.handleNodeChange(root, n)}
                 />
               </Pane>
             </SplitPane>

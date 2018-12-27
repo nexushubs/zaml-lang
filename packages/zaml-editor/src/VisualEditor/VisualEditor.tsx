@@ -97,17 +97,15 @@ export default class VisualEditor extends React.Component<Props, State> {
   }
 
   handleRemoveBlock(node?: zaml.Node) {
-    if (!node) {
-      return;
-    }
+    if (!node) return;
     const { root, onChange } = this.props;
     const parent = node.flatten();
     onChange(root, parent);
   }
 
   handleCreateEntity(target: zaml.Node, name: string | null) {
-    const { root, onChange } = this.props;
     if (!name) return;
+    const { root, onChange } = this.props;
     const selection = window.getSelection();
     if (selection.anchorNode !== selection.focusNode) {
       alert('Entity is only allowed in pure text!');
@@ -124,8 +122,8 @@ export default class VisualEditor extends React.Component<Props, State> {
   }
 
   handleRemoveEntity(node?: zaml.Node) {
-    const { root, onChange } = this.props;
     if (!node) return;
+    const { root, onChange } = this.props;
     const textNode = node.removeEntity();
     onChange(root, textNode);
   }
@@ -133,6 +131,13 @@ export default class VisualEditor extends React.Component<Props, State> {
   handleInspect(node: zaml.Node) {
     const { onSelect } = this.props;
     onSelect(node);
+  }
+
+  handleSplitSentences(node?: zaml.Node) {
+    if (!node) return;
+    const { root, onChange } = this.props;
+    node.splitText('。！？.!?', 'SENTENCE');
+    onChange(root);
   }
 
   getNodeByElement(element: HTMLElement) {
@@ -186,6 +191,12 @@ export default class VisualEditor extends React.Component<Props, State> {
           <MenuItem
             text="Remove Block"
             onClick={() => this.handleRemoveBlock(node)}
+          />
+        }
+        {node.isBlock &&
+          <MenuItem
+            text="Split Sentences"
+            onClick={() => this.handleSplitSentences(node)}
           />
         }
         {target.type === NodeType.TEXT && target.parent && target.parent.type !== NodeType.ENTITY &&

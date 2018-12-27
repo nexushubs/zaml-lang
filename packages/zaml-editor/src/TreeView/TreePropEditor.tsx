@@ -9,6 +9,7 @@ import { KeyValueMap } from '@zaml/parser/typings/Node';
 
 interface Props {
   node?: zaml.Node;
+  onChange: (node: zaml.Node) => void;
 }
 
 interface State {
@@ -31,10 +32,11 @@ export default class TreePropEditor extends React.Component<Props, State> {
 
   static propTypes = {
     node: PropTypes.instanceOf(zaml.Node),
-  }
+  };
 
   static defaultProps: Props = {
-  }
+    onChange: () => {},
+  };
 
   state = {
     selectedTab: defaultTab,
@@ -97,7 +99,7 @@ export default class TreePropEditor extends React.Component<Props, State> {
   }
 
   handleLabelUpdate(label: string) {
-    const { node } = this.props;
+    const { node, onChange } = this.props;
     const { editingIndex } = this.state;
     if (!node) return;
     const originalLabel = node.labels[editingIndex] || '';
@@ -119,6 +121,7 @@ export default class TreePropEditor extends React.Component<Props, State> {
       }
     }
     this.cancelLabelEditing();
+    onChange(node);
   }
 
   cancelLabelEditing() {
@@ -127,6 +130,7 @@ export default class TreePropEditor extends React.Component<Props, State> {
       inlineError: '',
     });
   }
+  
   renderLabelEditor(node: zaml.Node) {
     const { editingIndex, inlineError } = this.state;
     const labels = [...node.labels, ''];
@@ -174,7 +178,7 @@ export default class TreePropEditor extends React.Component<Props, State> {
   }
 
   renderAttributeEditor(node: zaml.Node, props: KeyValueMap) {
-    const keys = Object.keys(props).sort();
+    const keys = Object.keys(props);
     return (
       <div className="attribute-editor">
         <table>

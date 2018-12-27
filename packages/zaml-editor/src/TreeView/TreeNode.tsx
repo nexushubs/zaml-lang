@@ -113,8 +113,6 @@ export default class TreeNode extends React.Component<Props, State> {
       if (node.children.length === 1 && (node.firstChild as zaml.Node).type === NodeType.TEXT) {
         onlyText = (node.firstChild as zaml.Node).content;
       }
-      const nameStart = isEntity ? '[' : isTag ? '{' : '<';
-      const nameEnd = isEntity ? ']' : isTag ? '}' : '>';
       let name = (isTag || isEntity) ? node.name : node.type;
       return (
         <div
@@ -139,8 +137,7 @@ export default class TreeNode extends React.Component<Props, State> {
             className={classNames('header', { selected: selected && selectedPart === NodePart.Header })}
             onClick={expanded ? onClick(NodePart.Header) : undefined}
           >
-            {nameStart}
-            {name}
+            {node.openDescriptorStart}
             {node.labels.map(label => (
               <span key={label} className="prop label">#{label}</span>
             ))}
@@ -154,7 +151,7 @@ export default class TreeNode extends React.Component<Props, State> {
                 </span>
               );
             })}
-            {nameEnd}
+            {node.openDescriptorEnd}
           </span>
           {expanded ? children : (
             <span className="ellipsis">{_.truncate(onlyText, { length: 10 }) || '...'}</span>
@@ -163,10 +160,7 @@ export default class TreeNode extends React.Component<Props, State> {
             className={classNames('footer', { selected: selected && selectedPart === NodePart.Footer })}
             onClick={expanded ? onClick(NodePart.Footer) : undefined}
           >
-            {nameStart}
-            /
-            {name}
-            {nameEnd}
+            {node.closingDescriptor}
           </span>
         </div>
       );
