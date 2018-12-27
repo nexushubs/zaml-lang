@@ -1339,6 +1339,16 @@ class Node {
     console.log(pattern);
     const list = this.find(node => node.isParagraph || node.isInlineBlock);
     list.forEach(node => {
+      if (node.firstChild && node.firstChild.isOnlyChild && node.firstChild.isText) {
+        if (node.isParagraph) {
+          const block = Node.createTag(tagName, props);
+          block.appendChild(node.firstChild);
+          node.appendChild(block);
+          return;
+        } else if (node.name === tagName) {
+          return;
+        }
+      }
       const text = node.toString();
       let pos = 0;
       let lastPos = 0;
