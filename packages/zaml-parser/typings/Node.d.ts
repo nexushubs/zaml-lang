@@ -19,26 +19,6 @@ export interface ExtractorInstance {
 export declare type Extractor = ExtractorFunction | ExtractorInstance;
 export declare type FinderCallback = (node: Node) => boolean;
 export declare type FinderPattern = FinderCallback | string;
-export declare const selectorPattern: {
-    childCombinator: string;
-    adjacentSiblingCombinator: string;
-    generalSiblingCombinator: string;
-    any: string;
-    node: RegExp;
-    tag: RegExp;
-    entity: RegExp;
-    nthChild: RegExp;
-};
-export declare class Selector {
-    type?: string;
-    name?: string;
-    isSibling?: boolean;
-    isAdjacentSibling?: boolean;
-    isChild?: boolean;
-    childIndex: number;
-    constructor(type?: string, name?: string);
-}
-export declare function parseSelector(value: string): Selector[];
 export declare function testNode(pattern: FinderPattern, node: Node): boolean;
 /**
  * Recursive node finder
@@ -555,9 +535,6 @@ declare class Node {
      * @param callback
      */
     findOne(callback: FinderCallback): Node | undefined;
-    private matchSelector;
-    private findOneBySelector;
-    private findBySelector;
     /**
      * Find all nodes by selector, compared by is()
      * @param selector

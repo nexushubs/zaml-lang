@@ -25,7 +25,7 @@
 
 **● endNode**: *[Node](../classes/_node_.node.md)*
 
-*Defined in [Node.ts:201](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L201)*
+*Defined in [Node.ts:204](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L204)*
 
 ___
 <a id="endoffset"></a>
@@ -34,7 +34,7 @@ ___
 
 **● endOffset**: *`number`*
 
-*Defined in [Node.ts:202](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L202)*
+*Defined in [Node.ts:205](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L205)*
 
 ___
 <a id="startnode"></a>
@@ -43,7 +43,7 @@ ___
 
 **● startNode**: *[Node](../classes/_node_.node.md)*
 
-*Defined in [Node.ts:199](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L199)*
+*Defined in [Node.ts:202](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L202)*
 
 ___
 <a id="startoffset"></a>
@@ -52,7 +52,7 @@ ___
 
 **● startOffset**: *`number`*
 
-*Defined in [Node.ts:200](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/Node.ts#L200)*
+*Defined in [Node.ts:203](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L203)*
 
 ___
 

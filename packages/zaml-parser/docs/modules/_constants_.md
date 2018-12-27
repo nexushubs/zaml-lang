@@ -67,7 +67,7 @@
 
 **● DEFAULT_INDENT_SPACES**: *`2`* = 2
 
-*Defined in [constants.ts:9](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L9)*
+*Defined in [constants.ts:9](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L9)*
 
 ___
 <a id="end_markers"></a>
@@ -76,7 +76,7 @@ ___
 
 **● END_MARKERS**: *`string`[]* =  [T_TAG_END, T_ENTITY_END]
 
-*Defined in [constants.ts:54](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L54)*
+*Defined in [constants.ts:54](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L54)*
 
 ___
 <a id="processing_timeout"></a>
@@ -85,7 +85,7 @@ ___
 
 **● PROCESSING_TIMEOUT**: *`number`* =  Infinity
 
-*Defined in [constants.ts:57](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L57)*
+*Defined in [constants.ts:57](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L57)*
 
 ___
 <a id="p_assign_yaml"></a>
@@ -94,7 +94,7 @@ ___
 
 **● P_ASSIGN_YAML**: *`RegExp`* =  /[:：]/
 
-*Defined in [constants.ts:29](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L29)*
+*Defined in [constants.ts:29](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L29)*
 
 ___
 <a id="p_attribute_assign"></a>
@@ -103,7 +103,7 @@ ___
 
 **● P_ATTRIBUTE_ASSIGN**: *`RegExp`* =  createPattern(`[${[T_ASSIGN_XML, T_ASSIGN_YAML].join('')}]`, '')
 
-*Defined in [constants.ts:38](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L38)*
+*Defined in [constants.ts:38](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L38)*
 
 ___
 <a id="p_attribute_list"></a>
@@ -112,7 +112,7 @@ ___
 
 **● P_ATTRIBUTE_LIST**: *`RegExp`* =  createPattern(`(${P_LABEL_NAME.source}${P_ATTRIBUTE_ASSIGN.source}|${P_LABEL_START.source}${P_LABEL_NAME.source})`)
 
-*Defined in [constants.ts:40](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L40)*
+*Defined in [constants.ts:40](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L40)*
 
 ___
 <a id="p_attribute_name"></a>
@@ -121,7 +121,7 @@ ___
 
 **● P_ATTRIBUTE_NAME**: *`RegExp`* =  createPattern(`(?:${P_LABEL_NAME.source})(?=${combinePatterns([P_WHITE_SPACE, P_ATTRIBUTE_ASSIGN, T_TAG_END])})`, 'gu')
 
-*Defined in [constants.ts:39](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L39)*
+*Defined in [constants.ts:39](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L39)*
 
 ___
 <a id="p_boolean_false"></a>
@@ -130,7 +130,7 @@ ___
 
 **● P_BOOLEAN_FALSE**: *`RegExp`* =  /(FALSE|False|false)/g
 
-*Defined in [constants.ts:50](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L50)*
+*Defined in [constants.ts:50](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L50)*
 
 ___
 <a id="p_boolean_true"></a>
@@ -139,7 +139,7 @@ ___
 
 **● P_BOOLEAN_TRUE**: *`RegExp`* =  /(TRUE|True|true)/g
 
-*Defined in [constants.ts:49](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L49)*
+*Defined in [constants.ts:49](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L49)*
 
 ___
 <a id="p_date_literal"></a>
@@ -148,7 +148,7 @@ ___
 
 **● P_DATE_LITERAL**: *`RegExp`* =  /\d{4}-[01]\d-[0-3]\d(?:T[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))?/g
 
-*Defined in [constants.ts:43](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L43)*
+*Defined in [constants.ts:43](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L43)*
 
 ___
 <a id="p_full_width_character"></a>
@@ -157,7 +157,7 @@ ___
 
 **● P_FULL_WIDTH_CHARACTER**: *`RegExp`* =  /[\p{Script=Hani}！＠＃￥％…＆×－＝—＋（）「」【】《》；：，。、？]/gu
 
-*Defined in [constants.ts:51](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L51)*
+*Defined in [constants.ts:51](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L51)*
 
 ___
 <a id="p_label_name"></a>
@@ -166,7 +166,7 @@ ___
 
 **● P_LABEL_NAME**: *`RegExp`* =  /[\p{Script=Hani}A-Za-z][\p{Script=Hani}\w.]*/gu
 
-*Defined in [constants.ts:37](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L37)*
+*Defined in [constants.ts:37](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L37)*
 
 ___
 <a id="p_label_start"></a>
@@ -175,7 +175,7 @@ ___
 
 **● P_LABEL_START**: *`RegExp`* =  /[#＃]/g
 
-*Defined in [constants.ts:36](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L36)*
+*Defined in [constants.ts:36](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L36)*
 
 ___
 <a id="p_line_break"></a>
@@ -184,7 +184,7 @@ ___
 
 **● P_LINE_BREAK**: *`RegExp`* =  /\r?\n/g
 
-*Defined in [constants.ts:30](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L30)*
+*Defined in [constants.ts:30](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L30)*
 
 ___
 <a id="p_list_separator"></a>
@@ -193,7 +193,7 @@ ___
 
 **● P_LIST_SEPARATOR**: *`RegExp`* =  /[,，]/g
 
-*Defined in [constants.ts:35](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L35)*
+*Defined in [constants.ts:35](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L35)*
 
 ___
 <a id="p_marker"></a>
@@ -202,7 +202,7 @@ ___
 
 **● P_MARKER**: *`RegExp`* =  createPattern(`(${combinePatterns([P_PARAGRAPH_BREAK, ...START_MARKERS, T_TAG_END, P_MULTIPLE_LINE_COMMENT, T_SINGLE_LINE_COMMENT])})`)
 
-*Defined in [constants.ts:55](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L55)*
+*Defined in [constants.ts:55](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L55)*
 
 ___
 <a id="p_multiple_line_comment"></a>
@@ -211,7 +211,7 @@ ___
 
 **● P_MULTIPLE_LINE_COMMENT**: *"~{3,}"* = "~{3,}"
 
-*Defined in [constants.ts:15](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L15)*
+*Defined in [constants.ts:15](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L15)*
 
 ___
 <a id="p_number_literal"></a>
@@ -220,7 +220,7 @@ ___
 
 **● P_NUMBER_LITERAL**: *`RegExp`* =  /(\d+|\d*\.\d+|\d+\.\d*)(e\d+)?/g
 
-*Defined in [constants.ts:45](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L45)*
+*Defined in [constants.ts:45](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L45)*
 
 ___
 <a id="p_number_start"></a>
@@ -229,7 +229,7 @@ ___
 
 **● P_NUMBER_START**: *`RegExp`* =  /[\d\.]/
 
-*Defined in [constants.ts:44](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L44)*
+*Defined in [constants.ts:44](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L44)*
 
 ___
 <a id="p_paragraph_break"></a>
@@ -238,7 +238,7 @@ ___
 
 **● P_PARAGRAPH_BREAK**: *`RegExp`* =  createPattern(`${P_LINE_BREAK.source}\\s*${P_LINE_BREAK.source}`)
 
-*Defined in [constants.ts:32](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L32)*
+*Defined in [constants.ts:32](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L32)*
 
 ___
 <a id="p_space_wrapped_line_break"></a>
@@ -247,7 +247,7 @@ ___
 
 **● P_SPACE_WRAPPED_LINE_BREAK**: *`RegExp`* =  /\s*\n\s*/g
 
-*Defined in [constants.ts:31](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L31)*
+*Defined in [constants.ts:31](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L31)*
 
 ___
 <a id="p_string_literal_quoted"></a>
@@ -256,7 +256,7 @@ ___
 
 **● P_STRING_LITERAL_QUOTED**: *`RegExp`* =  /"([^"\\]|\\")*"/g
 
-*Defined in [constants.ts:46](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L46)*
+*Defined in [constants.ts:46](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L46)*
 
 ___
 <a id="p_string_literal_unquoted"></a>
@@ -265,7 +265,7 @@ ___
 
 **● P_STRING_LITERAL_UNQUOTED**: *`RegExp`* =  /[^\s}"'\\\n]+/g
 
-*Defined in [constants.ts:47](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L47)*
+*Defined in [constants.ts:47](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L47)*
 
 ___
 <a id="p_string_literal_unquoted_tester"></a>
@@ -274,7 +274,7 @@ ___
 
 **● P_STRING_LITERAL_UNQUOTED_TESTER**: *`RegExp`* =  new RegExp(`^${P_STRING_LITERAL_UNQUOTED.source}$`)
 
-*Defined in [constants.ts:48](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L48)*
+*Defined in [constants.ts:48](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L48)*
 
 ___
 <a id="p_tag_name"></a>
@@ -283,7 +283,7 @@ ___
 
 **● P_TAG_NAME**: *`RegExp`* =  P_ATTRIBUTE_NAME
 
-*Defined in [constants.ts:41](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L41)*
+*Defined in [constants.ts:41](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L41)*
 
 ___
 <a id="p_white_space"></a>
@@ -292,7 +292,7 @@ ___
 
 **● P_WHITE_SPACE**: *`RegExp`* =  /[ \t]/g
 
-*Defined in [constants.ts:33](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L33)*
+*Defined in [constants.ts:33](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L33)*
 
 ___
 <a id="p_white_spaces_ext"></a>
@@ -301,7 +301,7 @@ ___
 
 **● P_WHITE_SPACES_EXT**: *`RegExp`* =  /[\s\r\n]/g
 
-*Defined in [constants.ts:34](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L34)*
+*Defined in [constants.ts:34](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L34)*
 
 ___
 <a id="start_markers"></a>
@@ -310,7 +310,7 @@ ___
 
 **● START_MARKERS**: *( `string` &#124; `RegExp`)[]* =  [T_TAG_START, T_ENTITY_START, P_LABEL_START]
 
-*Defined in [constants.ts:53](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L53)*
+*Defined in [constants.ts:53](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L53)*
 
 ___
 <a id="t_assign_xml"></a>
@@ -319,7 +319,7 @@ ___
 
 **● T_ASSIGN_XML**: *"&#x3D;"* = "="
 
-*Defined in [constants.ts:21](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L21)*
+*Defined in [constants.ts:21](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L21)*
 
 ___
 <a id="t_assign_yaml"></a>
@@ -328,7 +328,7 @@ ___
 
 **● T_ASSIGN_YAML**: *":："* = ":："
 
-*Defined in [constants.ts:22](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L22)*
+*Defined in [constants.ts:22](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L22)*
 
 ___
 <a id="t_entity_end"></a>
@@ -337,7 +337,7 @@ ___
 
 **● T_ENTITY_END**: *"]"* = "]"
 
-*Defined in [constants.ts:17](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L17)*
+*Defined in [constants.ts:17](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L17)*
 
 ___
 <a id="t_entity_start"></a>
@@ -346,7 +346,7 @@ ___
 
 **● T_ENTITY_START**: *"["* = "["
 
-*Defined in [constants.ts:16](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L16)*
+*Defined in [constants.ts:16](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L16)*
 
 ___
 <a id="t_line_break"></a>
@@ -356,7 +356,7 @@ ___
 **● T_LINE_BREAK**: *""* = "
 "
 
-*Defined in [constants.ts:23](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L23)*
+*Defined in [constants.ts:23](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L23)*
 
 ___
 <a id="t_line_breaks"></a>
@@ -366,7 +366,7 @@ ___
 **● T_LINE_BREAKS**: *""* = "
 "
 
-*Defined in [constants.ts:24](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L24)*
+*Defined in [constants.ts:24](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L24)*
 
 ___
 <a id="t_metadata_favored_assign"></a>
@@ -375,7 +375,7 @@ ___
 
 **● T_METADATA_FAVORED_ASSIGN**: *":："* =  T_ASSIGN_YAML
 
-*Defined in [constants.ts:26](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L26)*
+*Defined in [constants.ts:26](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L26)*
 
 ___
 <a id="t_metadata_marker"></a>
@@ -384,7 +384,7 @@ ___
 
 **● T_METADATA_MARKER**: *"---"* =  `---`
 
-*Defined in [constants.ts:13](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L13)*
+*Defined in [constants.ts:13](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L13)*
 
 ___
 <a id="t_paragraph_break"></a>
@@ -395,7 +395,7 @@ ___
 
 "
 
-*Defined in [constants.ts:25](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L25)*
+*Defined in [constants.ts:25](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L25)*
 
 ___
 <a id="t_single_line_comment"></a>
@@ -404,7 +404,7 @@ ___
 
 **● T_SINGLE_LINE_COMMENT**: *"~"* = "~"
 
-*Defined in [constants.ts:14](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L14)*
+*Defined in [constants.ts:14](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L14)*
 
 ___
 <a id="t_space"></a>
@@ -413,7 +413,7 @@ ___
 
 **● T_SPACE**: *" "* = " "
 
-*Defined in [constants.ts:11](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L11)*
+*Defined in [constants.ts:11](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L11)*
 
 ___
 <a id="t_string_start"></a>
@@ -422,7 +422,7 @@ ___
 
 **● T_STRING_START**: *"&quot;"* = """
 
-*Defined in [constants.ts:42](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L42)*
+*Defined in [constants.ts:42](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L42)*
 
 ___
 <a id="t_tab"></a>
@@ -431,7 +431,7 @@ ___
 
 **● T_TAB**: *"	"* = "	"
 
-*Defined in [constants.ts:12](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L12)*
+*Defined in [constants.ts:12](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L12)*
 
 ___
 <a id="t_tag_attribute_favored_assign"></a>
@@ -440,7 +440,7 @@ ___
 
 **● T_TAG_ATTRIBUTE_FAVORED_ASSIGN**: *"&#x3D;"* =  T_ASSIGN_XML
 
-*Defined in [constants.ts:27](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L27)*
+*Defined in [constants.ts:27](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L27)*
 
 ___
 <a id="t_tag_closing"></a>
@@ -449,7 +449,7 @@ ___
 
 **● T_TAG_CLOSING**: *"/"* = "/"
 
-*Defined in [constants.ts:19](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L19)*
+*Defined in [constants.ts:19](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L19)*
 
 ___
 <a id="t_tag_end"></a>
@@ -458,7 +458,7 @@ ___
 
 **● T_TAG_END**: *"}"* = "}"
 
-*Defined in [constants.ts:20](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L20)*
+*Defined in [constants.ts:20](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L20)*
 
 ___
 <a id="t_tag_start"></a>
@@ -467,7 +467,7 @@ ___
 
 **● T_TAG_START**: *"{"* = "{"
 
-*Defined in [constants.ts:18](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L18)*
+*Defined in [constants.ts:18](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L18)*
 
 ___
 
@@ -479,7 +479,7 @@ ___
 
 ▸ **combinePatterns**(list: *( `string` &#124; `RegExp`)[]*): `string`
 
-*Defined in [constants.ts:3](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L3)*
+*Defined in [constants.ts:3](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L3)*
 
 **Parameters:**
 
@@ -496,7 +496,7 @@ ___
 
 ▸ **createPattern**(source: *`string`*, flags?: *`string`*): `RegExp`
 
-*Defined in [constants.ts:7](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-parser/src/constants.ts#L7)*
+*Defined in [constants.ts:7](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/constants.ts#L7)*
 
 **Parameters:**
 
