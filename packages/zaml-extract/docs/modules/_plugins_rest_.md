@@ -30,7 +30,7 @@
 **Ƭ PredictionResult**: * [SinglePredictionResult](../interfaces/_plugins_rest_.singlepredictionresult.md) &#124; [ArrayPredictionResult](../interfaces/_plugins_rest_.arraypredictionresult.md)
 *
 
-*Defined in [plugins/rest.ts:24](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/plugins/rest.ts#L24)*
+*Defined in [plugins/rest.ts:24](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/plugins/rest.ts#L24)*
 
 ___
 

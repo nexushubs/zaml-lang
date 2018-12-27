@@ -2,6 +2,7 @@
   "name": "@zaml/editor",
   "version": "0.6.2",
   "description": "React rich editor for ZAML",
+  "private": false,
   "dependencies": {
     "@blueprintjs/core": "^3.10.0",
     "@types/jest": "^23.3.10",
@@ -47,5 +48,6 @@
     "@types/lodash": "^4.14.119",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0"
-  }
+  },
+  "gitHead": "dba599e58710da89c8011f0ea36cd5a534e22c4d"
 }

@@ -4,6 +4,7 @@
   "description": "ZAML tokenizer & lexer",
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
+  "private": false,
   "scripts": {
     "test": "mocha",
     "clean": "rm -rf lib/*",
@@ -45,6 +46,5 @@
     "chalk": "^2.4.1",
     "lodash": "^4.17.11",
     "nanoid": "^2.0.0"
-  },
-  "gitHead": "91fabd901be4b5a4a42c9248503406fdff7e44ef"
+  }
 }

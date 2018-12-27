@@ -30,7 +30,7 @@ Extractor base class
 
 ⊕ **new ExtractorBase**(options: *`any`*): [ExtractorBase](_plugins_base_.extractorbase.md)
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/plugins/base.ts#L7)*
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/plugins/base.ts#L7)*
 
 **Parameters:**
 
@@ -50,7 +50,7 @@ ___
 
 **● options**: *`any`*
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/plugins/base.ts#L7)*
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/plugins/base.ts#L7)*
 
 ___
 

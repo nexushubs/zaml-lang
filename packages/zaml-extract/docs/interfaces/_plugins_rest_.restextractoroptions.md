@@ -23,7 +23,7 @@
 **● url**: * `undefined` &#124; `string`
 *
 
-*Defined in [plugins/rest.ts:8](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/plugins/rest.ts#L8)*
+*Defined in [plugins/rest.ts:8](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/plugins/rest.ts#L8)*
 
 ___
 

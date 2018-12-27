@@ -34,7 +34,7 @@ Extractor class
 
 ⊕ **new Extractor**(options?: *[ExtractorConstructorOptions](../modules/_types_.md#extractorconstructoroptions)*): [Extractor](_extractor_.extractor.md)
 
-*Defined in [Extractor.ts:37](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/Extractor.ts#L37)*
+*Defined in [Extractor.ts:37](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/Extractor.ts#L37)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ ___
 
 **● plugins**: *[ExtractorType](../modules/_types_.md#extractortype)[]*
 
-*Defined in [Extractor.ts:37](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/Extractor.ts#L37)*
+*Defined in [Extractor.ts:37](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/Extractor.ts#L37)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 ▸ **addPlugin**(options: *[ExtractorOptions](../modules/_types_.md#extractoroptions)*): `void`
 
-*Defined in [Extractor.ts:51](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/Extractor.ts#L51)*
+*Defined in [Extractor.ts:51](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/Extractor.ts#L51)*
 
 Add plugin
 
@@ -85,7 +85,7 @@ ___
 
 ▸ **execSingleExtractor**(text: * `string` &#124; `string`[]*, extractor: *[ExtractorType](../modules/_types_.md#extractortype)*): `Promise`<`any`>
 
-*Defined in [Extractor.ts:85](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/Extractor.ts#L85)*
+*Defined in [Extractor.ts:85](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/Extractor.ts#L85)*
 
 Execute single plugin to the text (array)
 
@@ -105,7 +105,7 @@ ___
 
 ▸ **extract**(text: * `string` &#124; `string`[]*): `Promise`< [EntityInfo](../interfaces/_types_.entityinfo.md)[] &#124; [EntityInfo](../interfaces/_types_.entityinfo.md)[][]>
 
-*Defined in [Extractor.ts:112](https://github.com/nexushubs/zaml-lang/blob/91fabd9/packages/zaml-extract/src/Extractor.ts#L112)*
+*Defined in [Extractor.ts:112](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-extract/src/Extractor.ts#L112)*
 
 Extract all entities from text by plugins
 

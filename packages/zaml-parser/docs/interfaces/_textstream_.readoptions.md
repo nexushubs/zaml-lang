@@ -26,7 +26,7 @@
 **● consume**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [TextStream.ts:26](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/TextStream.ts#L26)*
+*Defined in [TextStream.ts:26](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/TextStream.ts#L26)*
 
 Read to end of the matched text
 
@@ -38,7 +38,7 @@ ___
 **● skipMatched**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [TextStream.ts:28](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/TextStream.ts#L28)*
+*Defined in [TextStream.ts:28](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/TextStream.ts#L28)*
 
 Read to the matched text, move cursor to the end
 
@@ -50,7 +50,7 @@ ___
 **● toEOF**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [TextStream.ts:24](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/TextStream.ts#L24)*
+*Defined in [TextStream.ts:24](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/TextStream.ts#L24)*
 
 If read to matched text or to the end of line
 
@@ -62,7 +62,7 @@ ___
 **● toEOL**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [TextStream.ts:22](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/TextStream.ts#L22)*
+*Defined in [TextStream.ts:22](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/TextStream.ts#L22)*
 
 If no matched text is found, read to the end
 

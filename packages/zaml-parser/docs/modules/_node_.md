@@ -60,7 +60,7 @@
 **Ƭ Extractor**: * [ExtractorFunction](_node_.md#extractorfunction) &#124; [ExtractorInstance](../interfaces/_node_.extractorinstance.md)
 *
 
-*Defined in [Node.ts:46](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L46)*
+*Defined in [Node.ts:46](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L46)*
 
 ___
 <a id="extractorfunction"></a>
@@ -69,7 +69,7 @@ ___
 
 **Ƭ ExtractorFunction**: *`function`*
 
-*Defined in [Node.ts:40](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L40)*
+*Defined in [Node.ts:40](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L40)*
 
 #### Type declaration
 ▸(text: *`string`*): [EntityItem](../interfaces/_node_.entityitem.md)[]
@@ -89,7 +89,7 @@ ___
 
 **Ƭ FinderCallback**: *`function`*
 
-*Defined in [Node.ts:48](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L48)*
+*Defined in [Node.ts:48](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L48)*
 
 #### Type declaration
 ▸(node: *[Node](../classes/_node_.node.md)*): `boolean`
@@ -110,7 +110,7 @@ ___
 **Ƭ FinderPattern**: * [FinderCallback](_node_.md#findercallback) &#124; `string`
 *
 
-*Defined in [Node.ts:50](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L50)*
+*Defined in [Node.ts:50](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L50)*
 
 ___
 <a id="keyvaluemap"></a>
@@ -119,7 +119,7 @@ ___
 
 **Ƭ KeyValueMap**: *`object`*
 
-*Defined in [Node.ts:146](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L146)*
+*Defined in [Node.ts:146](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L146)*
 
 #### Type declaration
 
@@ -138,7 +138,7 @@ ___
   NodeType.PARAGRAPH,
 ]
 
-*Defined in [Node.ts:19](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L19)*
+*Defined in [Node.ts:19](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L19)*
 
 ___
 <a id="blocktags"></a>
@@ -153,7 +153,7 @@ ___
   'FOOTER',
 ]
 
-*Defined in [Node.ts:24](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L24)*
+*Defined in [Node.ts:24](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L24)*
 
 ___
 <a id="nodetypes"></a>
@@ -162,7 +162,7 @@ ___
 
 **● NodeTypes**: *`string`[]* =  _.values(NodeType)
 
-*Defined in [Node.ts:17](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L17)*
+*Defined in [Node.ts:17](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L17)*
 
 ___
 <a id="wrappingtags"></a>
@@ -177,7 +177,7 @@ ___
   'HEADING',
 ]
 
-*Defined in [Node.ts:32](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L32)*
+*Defined in [Node.ts:32](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L32)*
 
 ___
 <a id="nanoid"></a>
@@ -186,7 +186,7 @@ ___
 
 **● nanoid**: *`any`* =  require('nanoid')
 
-*Defined in [Node.ts:5](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L5)*
+*Defined in [Node.ts:5](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L5)*
 
 ___
 
@@ -198,7 +198,7 @@ ___
 
 ▸ **defaultFinderCallback**(node: *[Node](../classes/_node_.node.md)*): `true`
 
-*Defined in [Node.ts:52](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L52)*
+*Defined in [Node.ts:52](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L52)*
 
 **Parameters:**
 
@@ -215,7 +215,7 @@ ___
 
 ▸ **find**(node: *[Node](../classes/_node_.node.md)*, pattern?: *[FinderPattern](_node_.md#finderpattern)*, result?: *[Node](../classes/_node_.node.md)[]*): [Node](../classes/_node_.node.md)[]
 
-*Defined in [Node.ts:70](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L70)*
+*Defined in [Node.ts:70](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L70)*
 
 Recursive node finder
 
@@ -236,7 +236,7 @@ ___
 
 ▸ **findOne**(node: *[Node](../classes/_node_.node.md)*, pattern?: *[FinderPattern](_node_.md#finderpattern)*):  [Node](../classes/_node_.node.md) &#124; `undefined`
 
-*Defined in [Node.ts:87](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L87)*
+*Defined in [Node.ts:87](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L87)*
 
 Recursive node finder
 
@@ -256,7 +256,7 @@ ___
 
 ▸ **parseJson**(json: *[JsonNode](../interfaces/_node_.jsonnode.md)*): [Node](../classes/_node_.node.md)
 
-*Defined in [Node.ts:102](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L102)*
+*Defined in [Node.ts:102](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L102)*
 
 **Parameters:**
 
@@ -273,7 +273,7 @@ ___
 
 ▸ **parseJsonMap**(json?: *[KeyValueMap](_node_.md#keyvaluemap)*):  [KeyValueMap](_node_.md#keyvaluemap) &#124; `undefined`
 
-*Defined in [Node.ts:134](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L134)*
+*Defined in [Node.ts:134](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L134)*
 
 **Parameters:**
 
@@ -290,7 +290,7 @@ ___
 
 ▸ **testNode**(pattern: *[FinderPattern](_node_.md#finderpattern)*, node: *[Node](../classes/_node_.node.md)*): `boolean`
 
-*Defined in [Node.ts:54](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L54)*
+*Defined in [Node.ts:54](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L54)*
 
 **Parameters:**
 
@@ -308,7 +308,7 @@ ___
 
 ▸ **toJsonMap**(map?: *[KeyValueMap](_node_.md#keyvaluemap)*):  [KeyValueMap](_node_.md#keyvaluemap) &#124; `undefined`
 
-*Defined in [Node.ts:122](https://github.com/nexushubs/zaml-lang/blob/1a52cac/packages/zaml-parser/src/Node.ts#L122)*
+*Defined in [Node.ts:122](https://github.com/nexushubs/zaml-lang/blob/dba599e/packages/zaml-parser/src/Node.ts#L122)*
 
 Map metadata & attributes to JSON
 
