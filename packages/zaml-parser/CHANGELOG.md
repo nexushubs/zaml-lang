@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   * [`Node.createRoot()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createparagraph)
   * [`Node.createParagraph()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createparagraph)
   * [`Node.createTag()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#createtag)
-* `Node` instance helpers
+* `Node` instance
+  * [`node.splitText()`](https://github.com/nexushubs/zaml-lang/blob/master/packages/zaml-parser/docs/classes/_node_.node.md#splittext)
 
 ### Changed
 
