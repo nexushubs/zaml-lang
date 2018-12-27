@@ -136,7 +136,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   handleSplitSentences(node?: zaml.Node) {
     if (!node) return;
     const { root, onChange } = this.props;
-    node.splitText('。！？.!?', 'SENTENCE');
+    node.splitText('：。！？', 'SENTENCE');
     onChange(root);
   }
 
