@@ -87,12 +87,13 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
   });
   const simpleTag = options.simple && node.isSimpleTag &&
     (node.labels.length > 0 || Object.keys(node.attributes).length > 0);
+  const unwrapped = simpleTag && node.isBlockTag && node.children.length === 1;
   if (options.toSource) {
     node.start = pos;
   } else {
     node.textStart = pos;
   }
-  if (node.type === NodeType.TEXT) {
+  if (node.isText) {
     text += node.content;
   } else {
     if (options.toSource && !_.isEmpty(node.metadata)) {
@@ -108,7 +109,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
       });
       text += T_METADATA_MARKER + T_LINE_BREAK;
     }
-    if (node.type === NodeType.ENTITY) {
+    if (node.isEntity) {
       const child = _.first(node.children);
       if (!child) {
         throw new Error('missing text node of entity');
@@ -121,11 +122,11 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         text += T_ENTITY_END;
       }
     }
-    if (options.toSource && (node.type === NodeType.TAG || node.type === NodeType.ENTITY)) {
+    if (options.toSource && (node.isTag || node.isEntity)) {
       if (node.isBlock) {
         text += spacer(<number> options.space, indent);
       }
-      if (!(simpleTag && node.children.length === 1)) {
+      if (!unwrapped) {
         text += T_TAG_START;
       }
       if (!simpleTag) {
@@ -153,12 +154,14 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         }
         text += `#${label}`;
       });
-      text += simpleTag ? T_SPACE : T_TAG_END;
+      if (!unwrapped) {
+        text += simpleTag ? T_SPACE : T_TAG_END;
+      }
       if (node.isBlock) {
         text += T_LINE_BREAK;
       }
     }
-    if (options.toSource && node.type === NodeType.PARAGRAPH) {
+    if (options.toSource && node.isParagraph) {
       text += spacer(<number> options.space, indent);
     }
     if (node.isBlock || node.isWrappingTag && !_.isEmpty(node.children)) {
@@ -173,7 +176,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         text = _.trimEnd(text, T_LINE_BREAK);
       }
       text += T_LINE_BREAK;
-      if (node.type === NodeType.PARAGRAPH && !node.isLastChild) {
+      if (node.isParagraph && !node.isLastChild) {
         text += T_LINE_BREAK;
       }
     }
@@ -182,7 +185,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         text += spacer(<number> options.space, indent);
       }
       if (simpleTag) {
-        if (node.children.length > 1) {
+        if (!unwrapped) {
           text += T_TAG_END;
         }
       } else {

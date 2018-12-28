@@ -2,6 +2,7 @@ import TextStream from './TextStream';
 import Node from './Node';
 export interface ParsingOptions {
     verbose?: boolean;
+    needMetadataMarker?: boolean;
 }
 /**
  * Tokenizer class

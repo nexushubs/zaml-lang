@@ -100,6 +100,7 @@ const countLineBreaks = (text: string) => {
 
 export interface ParsingOptions {
   verbose?: boolean;
+  needMetadataMarker?: boolean;
 };
 
 /**
@@ -143,6 +144,7 @@ class Tokenizer {
    */
   process(): Node {
     const { text, stream } = this;
+    const { needMetadataMarker: metadataMarkerRequired } = this.options;
     const timeStart = Date.now();
     let state: State = State.METADATA;
     let start = 0;
@@ -258,7 +260,12 @@ class Tokenizer {
 
         case State.METADATA: {
           stream.eatWhile(P_WHITE_SPACES_EXT);
-          if (stream.match(T_METADATA_MARKER) || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
+          const metadataMatched = stream.match(T_METADATA_MARKER);
+          if (metadataMarkerRequired && !metadataMatched) {
+            state = State.NORMAL;
+            break;
+          }
+          if (metadataMatched || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
             node.states.metadata = true;
             state = State.ATTRIBUTE_LIST;
           } else {
@@ -524,7 +531,10 @@ class Tokenizer {
               throw createError('expecting assignment "=" or ":"');
             }
             if (P_ASSIGN_YAML.test(ch)) {
-              stream.eatSpaces();
+              stream.eatWhile(P_WHITE_SPACE);
+              if (stream.match(P_LINE_BREAK)) {
+                throw createError('unexpected end of line');
+              }
             }
             state = State.ATTRIBUTE_VALUE;
           }
