@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.6.3] - 2018-12-27
+## [0.6.7] - 2018-12-29
+
+### Fixed
+
+* Remove `u` flag of RegExp to support older browser.
+
+## [0.6.6] - 2018-12-29
+
+### Fixed
+
+* Remove chalk for old browsers, use a lite version instead.
+
+## [0.6.4] - 2018-12-27
+
+### Added
+
+* Add a `needMetadataMarker` option to `parse()` to avoid parsing normal text as metadata.
+
+## [0.6.3] - 2018-12-28
 
 ### Fixed
 
