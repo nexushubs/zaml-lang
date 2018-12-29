@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import chalk from 'chalk';
+import { chalk } from './util';
 import TextStream, { SourcePosition } from './TextStream';
 import ParseError from './ParseError';
 import Node, { NodeType } from './Node';

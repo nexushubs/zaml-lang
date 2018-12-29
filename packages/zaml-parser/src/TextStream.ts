@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import chalk from 'chalk';
+import { chalk } from './util';
 import TextLine from './TextLine';
 import {
   P_FULL_WIDTH_CHARACTER
