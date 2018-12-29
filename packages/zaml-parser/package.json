@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
-    "chalk": "^2.4.1",
     "lodash": "^4.17.11",
     "nanoid": "^2.0.0"
   },
