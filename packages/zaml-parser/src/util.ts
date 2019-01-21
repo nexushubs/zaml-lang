@@ -74,21 +74,26 @@ export interface StringifyOptions {
  * @param Initial position
  */
 export function stringify(node: Node, options?: StringifyOptions | number, indent = -1, pos = 0) {
-  let text = '';
-  if (_.isNumber(options)) {
-    options = <StringifyOptions> {
-      space: options,
-    };
-  }
-  options = <StringifyOptions> _.defaults(options, {
+  const defaultOptions = {
     space: DEFAULT_INDENT_SPACES,
     simple: false,
     toSource: false,
-  });
-  const simpleTag = options.simple && node.isSimpleTag &&
+  };
+  let opt: StringifyOptions;
+  if (_.isUndefined(options)) {
+    opt = defaultOptions
+  } else if (_.isNumber(options)) {
+    opt = {
+      space: options,
+    };
+  } else {
+    opt = _.defaults(options, defaultOptions);
+  }
+  let text = '';
+  const simpleTag = opt.simple && node.isSimpleTag &&
     (node.labels.length > 0 || Object.keys(node.attributes).length > 0);
   const unwrapped = simpleTag && node.isBlockTag && node.children.length === 1;
-  if (options.toSource) {
+  if (opt.toSource) {
     node.start = pos;
   } else {
     node.textStart = pos;
@@ -96,35 +101,22 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
   if (node.isText) {
     text += node.content;
   } else {
-    if (options.toSource && !_.isEmpty(node.metadata)) {
-      text += T_METADATA_MARKER + T_LINE_BREAK;
-      _.each(node.metadata, (value, key) => {
-        text += `${key}: `;
-        if (value instanceof Node) {
-          text += stringify(value, options, 0, pos + text.length);
-        } else {
-          text += formatValue(value);
-        }
-        text += T_LINE_BREAK;
-      });
-      text += T_METADATA_MARKER + T_LINE_BREAK;
-    }
     if (node.isEntity) {
       const child = _.first(node.children);
       if (!child) {
         throw new Error('missing text node of entity');
       }
-      if (options.toSource) {
+      if (opt.toSource) {
         text += T_ENTITY_START;
       }
-      text += stringify(child, options, indent, pos + text.length);
-      if (options.toSource) {
+      text += stringify(child, opt, indent, pos + text.length);
+      if (opt.toSource) {
         text += T_ENTITY_END;
       }
     }
-    if (options.toSource && (node.isTag || node.isEntity)) {
+    if (opt.toSource && (node.isTag || node.isEntity)) {
       if (node.isBlock) {
-        text += spacer(<number> options.space, indent);
+        text += spacer(<number> opt.space, indent);
       }
       if (!unwrapped) {
         text += T_TAG_START;
@@ -142,7 +134,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         if (_.isBoolean(value) && value) {
           text += key;
         } else if (value instanceof Node) {
-          text += stringify(node, options, 0, pos + text.length);
+          text += stringify(node, opt, 0, pos + text.length);
         } else {
           text += `${key}=${formatValue(value)}`;
         }
@@ -161,18 +153,35 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         text += T_LINE_BREAK;
       }
     }
-    if (options.toSource && node.isParagraph) {
-      text += spacer(<number> options.space, indent);
+    if (opt.toSource && node.isParagraph) {
+      text += spacer(<number> opt.space, indent);
+    }
+    if (opt.toSource && !_.isEmpty(node.metadata)) {
+      if (node.isRoot) {
+        text += T_METADATA_MARKER + T_LINE_BREAK;
+      }
+      _.each(node.metadata, (value, key) => {
+        text += spacer(<number> opt.space, indent + 1);
+        text += `${key}: `;
+        if (value instanceof Node) {
+          text += stringify(value, opt, 0, pos + text.length);
+        } else {
+          text += formatValue(value);
+        }
+        text += T_LINE_BREAK;
+      });
+      text += spacer(<number> opt.space, indent + 1);
+      text += T_METADATA_MARKER + T_LINE_BREAK;
     }
     if (node.isBlock || node.isWrappingTag && !_.isEmpty(node.children)) {
       node.children.forEach(child => {
-        const subText = stringify(child, options, indent + 1, pos + text.length);
+        const subText = stringify(child, opt, indent + 1, pos + text.length);
         text += subText;
       });
     }
     const next = node.nextSibling;
     if (node.isBlock) {
-      if (options.toSource) {
+      if (opt.toSource) {
         text = _.trimEnd(text, T_LINE_BREAK);
       }
       text += T_LINE_BREAK;
@@ -180,9 +189,9 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         text += T_LINE_BREAK;
       }
     }
-    if (options.toSource && node.isWrappingTag) {
+    if (opt.toSource && node.isWrappingTag) {
       if (node.isBlockTag) {
-        text += spacer(<number> options.space, indent);
+        text += spacer(<number> opt.space, indent);
       }
       if (simpleTag) {
         if (!unwrapped) {
@@ -199,7 +208,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
       }
     }
   }
-  if (options.toSource) {
+  if (opt.toSource) {
     node.end = node.start + text.length;
   } else {
     node.textEnd = node.textStart + text.length;

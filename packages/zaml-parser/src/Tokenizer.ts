@@ -234,7 +234,9 @@ class Tokenizer {
       to = stream.pos === lastPos ? stream.getPosition(lastPos + 1) : stream.getPosition();
       this.debug(`error: '${message}' at ${from.ln}:${from.col}`);
       this.debug('current node:');
-      this.debug(node.toJSON());
+      if (node) {
+        this.debug(node.toJSON());
+      }
       this.debug('current parsing state:');
       this.debug(JSON.stringify(root, null, 2));
       return new ParseError(message, text, from, to);
