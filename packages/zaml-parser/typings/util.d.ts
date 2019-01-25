@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import Node from './Node';
 /**
  * Stringify attribute value
@@ -31,3 +32,7 @@ export interface StringifyOptions {
  * @param Initial position
  */
 export declare function stringify(node: Node, options?: StringifyOptions | number, indent?: number, pos?: number): string;
+export declare const isNode: boolean;
+export declare const isChrome: boolean;
+export declare const isAnsiSupported: boolean;
+export declare const chalk: _.Dictionary<(text: string) => string>;

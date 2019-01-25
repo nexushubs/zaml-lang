@@ -457,9 +457,10 @@ declare class Node {
     clearAttributes(): void;
     /**
      * Set single metadata value
-     * @param key Metadata key
-     * @param value Metadata value
+     * @param key Key or key-value pair
+     * @param value Metadata value (only when key is string)
      */
+    setMetadata(key: KeyValueMap): void;
     setMetadata(key: string, value: any): void;
     /**
      * Get metadata value

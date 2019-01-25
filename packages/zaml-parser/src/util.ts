@@ -25,7 +25,7 @@ const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/;
 export function formatValue(value: any) {
   if (_.isDate(value)) {
     return value.toISOString().replace(/T00:00:00\.000Z$/, '');
-  } else if (_.isString) {
+  } else if (_.isString(value)) {
     return P_STRING_LITERAL_UNQUOTED_TESTER.test(value) ? value : JSON.stringify(value);
   } else if (_.isBoolean(value)) {
     return JSON.stringify(value);

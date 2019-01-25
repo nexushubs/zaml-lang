@@ -1119,14 +1119,16 @@ class Node {
 
   /**
    * Set single metadata value
-   * @param key Metadata key
-   * @param value Metadata value
+   * @param key Key or key-value pair
+   * @param value Metadata value (only when key is string)
    */
-  setMetadata(key: string, value: any) {
-    if (_.isObject(key)) {
-      _.merge(this.metadata, key);
-    } else {
+  setMetadata(key: KeyValueMap): void;
+  setMetadata(key: string, value: any): void;
+  setMetadata(key: string | KeyValueMap, value?: any) {
+    if (_.isString(key)) {
       _.set(this.metadata, key, value);
+    } else {
+      _.merge(this.metadata, key);
     }
   }
 
@@ -1336,7 +1338,6 @@ class Node {
    */
   splitText(separator: RegExp | string, tagName = 'INLINE', props?: NodeProps) {
     const pattern = separator instanceof RegExp ? separator : new RegExp(`[${_.escapeRegExp(separator)}]`, 'g');
-    console.log(pattern);
     const list = this.find(node => node.isParagraph || node.isInlineBlock);
     list.forEach(node => {
       if (node.firstChild && node.firstChild.isOnlyChild && node.firstChild.isText) {
@@ -1436,7 +1437,7 @@ class Node {
   createEntities(items: EntityItem[]) {
     const entityNodes: Node[] = [];
     if (this.type !== NodeType.TEXT) {
-      console.warn('extractEntity() should exec only on text node');
+      console.warn('createEntities() should exec only on text node');
     }
     if (!this.content || _.isEmpty(items)) {
       return entityNodes;
