@@ -175,7 +175,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
     }
     if (opt.toSource && !_.isEmpty(node.metadata)) {
       if (opt.metadataMarker) {
-        text += T_METADATA_MARKER + T_LINE_BREAK;
+        text += spacer(<number> opt.space, indent + 1) + T_METADATA_MARKER + T_LINE_BREAK;
       }
       _.each(node.metadata, (value, key) => {
         text += spacer(<number> opt.space, indent + 1);
