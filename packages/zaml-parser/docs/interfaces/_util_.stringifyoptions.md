@@ -26,7 +26,7 @@
 **● metadataMarker**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:79](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L79)*
+*Defined in [util.ts:79](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L79)*
 
 ___
 <a id="simple"></a>
@@ -36,7 +36,7 @@ ___
 **● simple**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:77](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L77)*
+*Defined in [util.ts:77](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L77)*
 
 ___
 <a id="space"></a>
@@ -46,7 +46,7 @@ ___
 **● space**: * `undefined` &#124; `number`
 *
 
-*Defined in [util.ts:76](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L76)*
+*Defined in [util.ts:76](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L76)*
 
 ___
 <a id="tosource"></a>
@@ -56,7 +56,7 @@ ___
 **● toSource**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:78](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L78)*
+*Defined in [util.ts:78](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L78)*
 
 ___
 

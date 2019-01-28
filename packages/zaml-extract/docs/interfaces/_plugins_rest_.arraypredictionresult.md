@@ -22,7 +22,7 @@
 
 **● predictions**: *[PredictionResult](../modules/_plugins_rest_.md#predictionresult)*
 
-*Defined in [plugins/rest.ts:21](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/plugins/rest.ts#L21)*
+*Defined in [plugins/rest.ts:21](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/rest.ts#L21)*
 
 ___
 

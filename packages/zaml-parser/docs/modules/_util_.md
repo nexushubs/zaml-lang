@@ -39,7 +39,7 @@
 
 **● P_DATE_FORMAT**: *`RegExp`* =  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/
 
-*Defined in [util.ts:20](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L20)*
+*Defined in [util.ts:20](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L20)*
 
 ___
 <a id="chalk"></a>
@@ -48,7 +48,7 @@ ___
 
 **● chalk**: *`Dictionary`<`(Anonymous function)`>* =  _.mapValues(chalkStyles, ([start, end]) => colorful(start, end))
 
-*Defined in [util.ts:306](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L306)*
+*Defined in [util.ts:306](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L306)*
 
 ___
 <a id="colorful"></a>
@@ -60,7 +60,7 @@ ___
   :
   (start: number, end: number) => (text: string) => text
 
-*Defined in [util.ts:248](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L248)*
+*Defined in [util.ts:248](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L248)*
 
 ___
 <a id="isansisupported"></a>
@@ -69,7 +69,7 @@ ___
 
 **● isAnsiSupported**: *`boolean`* =  isNode || isChrome
 
-*Defined in [util.ts:245](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L245)*
+*Defined in [util.ts:245](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L245)*
 
 ___
 <a id="ischrome"></a>
@@ -78,7 +78,7 @@ ___
 
 **● isChrome**: *`boolean`* =  !isNode && /Chrome/.test(window.navigator.userAgent)
 
-*Defined in [util.ts:243](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L243)*
+*Defined in [util.ts:243](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L243)*
 
 ___
 <a id="isnode"></a>
@@ -89,7 +89,7 @@ ___
   (typeof process.release !== 'undefined') &&
   (process.release.name === 'node')
 
-*Defined in [util.ts:239](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L239)*
+*Defined in [util.ts:239](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L239)*
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 ▸ **formatValue**(value: *`any`*):  `null` &#124; `string`
 
-*Defined in [util.ts:26](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L26)*
+*Defined in [util.ts:26](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L26)*
 
 Stringify attribute value
 
@@ -120,7 +120,7 @@ ___
 
 ▸ **parseNumber**(value: *`string`*):  `string` &#124; `number`
 
-*Defined in [util.ts:55](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L55)*
+*Defined in [util.ts:55](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L55)*
 
 Parse number
 
@@ -139,7 +139,7 @@ ___
 
 ▸ **parseValue**(value: *`any`*): `any`
 
-*Defined in [util.ts:44](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L44)*
+*Defined in [util.ts:44](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L44)*
 
 Parse attribute value
 
@@ -158,7 +158,7 @@ ___
 
 ▸ **spacer**(space: *`number`*, indent: *`number`*): `string`
 
-*Defined in [util.ts:70](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L70)*
+*Defined in [util.ts:70](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L70)*
 
 Generate indent spaces
 
@@ -178,7 +178,7 @@ ___
 
 ▸ **stringify**(node: *[Node](../classes/_node_.node.md)*, options?: * [StringifyOptions](../interfaces/_util_.stringifyoptions.md) &#124; `number`*, indent?: *`number`*, pos?: *`number`*): `string`
 
-*Defined in [util.ts:92](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L92)*
+*Defined in [util.ts:92](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L92)*
 
 Stringify node
 
@@ -203,7 +203,7 @@ ___
 
 **chalkStyles**: *`object`*
 
-*Defined in [util.ts:253](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L253)*
+*Defined in [util.ts:253](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L253)*
 
 <a id="chalkstyles.bgblack"></a>
 
@@ -211,7 +211,7 @@ ___
 
 **● bgBlack**: *`number`[]* =  [40, 49]
 
-*Defined in [util.ts:285](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L285)*
+*Defined in [util.ts:285](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L285)*
 
 ___
 <a id="chalkstyles.bgblackbright"></a>
@@ -220,7 +220,7 @@ ___
 
 **● bgBlackBright**: *`number`[]* =  [100, 49]
 
-*Defined in [util.ts:294](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L294)*
+*Defined in [util.ts:294](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L294)*
 
 ___
 <a id="chalkstyles.bgblue"></a>
@@ -229,7 +229,7 @@ ___
 
 **● bgBlue**: *`number`[]* =  [44, 49]
 
-*Defined in [util.ts:289](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L289)*
+*Defined in [util.ts:289](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L289)*
 
 ___
 <a id="chalkstyles.bgbluebright"></a>
@@ -238,7 +238,7 @@ ___
 
 **● bgBlueBright**: *`number`[]* =  [104, 49]
 
-*Defined in [util.ts:300](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L300)*
+*Defined in [util.ts:300](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L300)*
 
 ___
 <a id="chalkstyles.bgcyan"></a>
@@ -247,7 +247,7 @@ ___
 
 **● bgCyan**: *`number`[]* =  [46, 49]
 
-*Defined in [util.ts:291](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L291)*
+*Defined in [util.ts:291](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L291)*
 
 ___
 <a id="chalkstyles.bgcyanbright"></a>
@@ -256,7 +256,7 @@ ___
 
 **● bgCyanBright**: *`number`[]* =  [106, 49]
 
-*Defined in [util.ts:302](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L302)*
+*Defined in [util.ts:302](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L302)*
 
 ___
 <a id="chalkstyles.bggray"></a>
@@ -265,7 +265,7 @@ ___
 
 **● bgGray**: *`number`[]* =  [90, 39]
 
-*Defined in [util.ts:296](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L296)*
+*Defined in [util.ts:296](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L296)*
 
 ___
 <a id="chalkstyles.bggreen"></a>
@@ -274,7 +274,7 @@ ___
 
 **● bgGreen**: *`number`[]* =  [42, 49]
 
-*Defined in [util.ts:287](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L287)*
+*Defined in [util.ts:287](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L287)*
 
 ___
 <a id="chalkstyles.bggreenbright"></a>
@@ -283,7 +283,7 @@ ___
 
 **● bgGreenBright**: *`number`[]* =  [102, 49]
 
-*Defined in [util.ts:298](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L298)*
+*Defined in [util.ts:298](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L298)*
 
 ___
 <a id="chalkstyles.bggrey"></a>
@@ -292,7 +292,7 @@ ___
 
 **● bgGrey**: *`number`[]* =  [90, 39]
 
-*Defined in [util.ts:295](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L295)*
+*Defined in [util.ts:295](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L295)*
 
 ___
 <a id="chalkstyles.bgmagenta"></a>
@@ -301,7 +301,7 @@ ___
 
 **● bgMagenta**: *`number`[]* =  [45, 49]
 
-*Defined in [util.ts:290](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L290)*
+*Defined in [util.ts:290](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L290)*
 
 ___
 <a id="chalkstyles.bgmagentabright"></a>
@@ -310,7 +310,7 @@ ___
 
 **● bgMagentaBright**: *`number`[]* =  [105, 49]
 
-*Defined in [util.ts:301](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L301)*
+*Defined in [util.ts:301](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L301)*
 
 ___
 <a id="chalkstyles.bgred"></a>
@@ -319,7 +319,7 @@ ___
 
 **● bgRed**: *`number`[]* =  [41, 49]
 
-*Defined in [util.ts:286](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L286)*
+*Defined in [util.ts:286](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L286)*
 
 ___
 <a id="chalkstyles.bgredbright"></a>
@@ -328,7 +328,7 @@ ___
 
 **● bgRedBright**: *`number`[]* =  [101, 49]
 
-*Defined in [util.ts:297](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L297)*
+*Defined in [util.ts:297](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L297)*
 
 ___
 <a id="chalkstyles.bgwhite"></a>
@@ -337,7 +337,7 @@ ___
 
 **● bgWhite**: *`number`[]* =  [47, 49]
 
-*Defined in [util.ts:292](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L292)*
+*Defined in [util.ts:292](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L292)*
 
 ___
 <a id="chalkstyles.bgwhitebright"></a>
@@ -346,7 +346,7 @@ ___
 
 **● bgWhiteBright**: *`number`[]* =  [107, 49]
 
-*Defined in [util.ts:303](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L303)*
+*Defined in [util.ts:303](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L303)*
 
 ___
 <a id="chalkstyles.bgyellow"></a>
@@ -355,7 +355,7 @@ ___
 
 **● bgYellow**: *`number`[]* =  [43, 49]
 
-*Defined in [util.ts:288](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L288)*
+*Defined in [util.ts:288](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L288)*
 
 ___
 <a id="chalkstyles.bgyellowbright"></a>
@@ -364,7 +364,7 @@ ___
 
 **● bgYellowBright**: *`number`[]* =  [103, 49]
 
-*Defined in [util.ts:299](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L299)*
+*Defined in [util.ts:299](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L299)*
 
 ___
 <a id="chalkstyles.black"></a>
@@ -373,7 +373,7 @@ ___
 
 **● black**: *`number`[]* =  [30, 39]
 
-*Defined in [util.ts:265](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L265)*
+*Defined in [util.ts:265](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L265)*
 
 ___
 <a id="chalkstyles.blackbright"></a>
@@ -382,7 +382,7 @@ ___
 
 **● blackBright**: *`number`[]* =  [90, 39]
 
-*Defined in [util.ts:274](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L274)*
+*Defined in [util.ts:274](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L274)*
 
 ___
 <a id="chalkstyles.blue"></a>
@@ -391,7 +391,7 @@ ___
 
 **● blue**: *`number`[]* =  [34, 39]
 
-*Defined in [util.ts:269](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L269)*
+*Defined in [util.ts:269](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L269)*
 
 ___
 <a id="chalkstyles.bluebright"></a>
@@ -400,7 +400,7 @@ ___
 
 **● blueBright**: *`number`[]* =  [94, 39]
 
-*Defined in [util.ts:280](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L280)*
+*Defined in [util.ts:280](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L280)*
 
 ___
 <a id="chalkstyles.bold"></a>
@@ -409,7 +409,7 @@ ___
 
 **● bold**: *`number`[]* =  [1, 22]
 
-*Defined in [util.ts:257](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L257)*
+*Defined in [util.ts:257](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L257)*
 
 ___
 <a id="chalkstyles.cyan"></a>
@@ -418,7 +418,7 @@ ___
 
 **● cyan**: *`number`[]* =  [36, 39]
 
-*Defined in [util.ts:271](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L271)*
+*Defined in [util.ts:271](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L271)*
 
 ___
 <a id="chalkstyles.cyanbright"></a>
@@ -427,7 +427,7 @@ ___
 
 **● cyanBright**: *`number`[]* =  [96, 39]
 
-*Defined in [util.ts:282](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L282)*
+*Defined in [util.ts:282](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L282)*
 
 ___
 <a id="chalkstyles.dim"></a>
@@ -436,7 +436,7 @@ ___
 
 **● dim**: *`number`[]* =  [2, 22]
 
-*Defined in [util.ts:258](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L258)*
+*Defined in [util.ts:258](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L258)*
 
 ___
 <a id="chalkstyles.gray"></a>
@@ -445,7 +445,7 @@ ___
 
 **● gray**: *`number`[]* =  [90, 39]
 
-*Defined in [util.ts:276](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L276)*
+*Defined in [util.ts:276](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L276)*
 
 ___
 <a id="chalkstyles.green"></a>
@@ -454,7 +454,7 @@ ___
 
 **● green**: *`number`[]* =  [32, 39]
 
-*Defined in [util.ts:267](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L267)*
+*Defined in [util.ts:267](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L267)*
 
 ___
 <a id="chalkstyles.greenbright"></a>
@@ -463,7 +463,7 @@ ___
 
 **● greenBright**: *`number`[]* =  [92, 39]
 
-*Defined in [util.ts:278](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L278)*
+*Defined in [util.ts:278](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L278)*
 
 ___
 <a id="chalkstyles.grey"></a>
@@ -472,7 +472,7 @@ ___
 
 **● grey**: *`number`[]* =  [90, 39]
 
-*Defined in [util.ts:275](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L275)*
+*Defined in [util.ts:275](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L275)*
 
 ___
 <a id="chalkstyles.hidden"></a>
@@ -481,7 +481,7 @@ ___
 
 **● hidden**: *`number`[]* =  [8, 28]
 
-*Defined in [util.ts:262](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L262)*
+*Defined in [util.ts:262](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L262)*
 
 ___
 <a id="chalkstyles.inverse"></a>
@@ -490,7 +490,7 @@ ___
 
 **● inverse**: *`number`[]* =  [7, 27]
 
-*Defined in [util.ts:261](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L261)*
+*Defined in [util.ts:261](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L261)*
 
 ___
 <a id="chalkstyles.italic"></a>
@@ -499,7 +499,7 @@ ___
 
 **● italic**: *`number`[]* =  [3, 23]
 
-*Defined in [util.ts:259](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L259)*
+*Defined in [util.ts:259](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L259)*
 
 ___
 <a id="chalkstyles.magenta"></a>
@@ -508,7 +508,7 @@ ___
 
 **● magenta**: *`number`[]* =  [35, 39]
 
-*Defined in [util.ts:270](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L270)*
+*Defined in [util.ts:270](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L270)*
 
 ___
 <a id="chalkstyles.magentabright"></a>
@@ -517,7 +517,7 @@ ___
 
 **● magentaBright**: *`number`[]* =  [95, 39]
 
-*Defined in [util.ts:281](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L281)*
+*Defined in [util.ts:281](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L281)*
 
 ___
 <a id="chalkstyles.red"></a>
@@ -526,7 +526,7 @@ ___
 
 **● red**: *`number`[]* =  [31, 39]
 
-*Defined in [util.ts:266](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L266)*
+*Defined in [util.ts:266](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L266)*
 
 ___
 <a id="chalkstyles.redbright"></a>
@@ -535,7 +535,7 @@ ___
 
 **● redBright**: *`number`[]* =  [91, 39]
 
-*Defined in [util.ts:277](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L277)*
+*Defined in [util.ts:277](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L277)*
 
 ___
 <a id="chalkstyles.reset"></a>
@@ -544,7 +544,7 @@ ___
 
 **● reset**: *`number`[]* =  [0, 0]
 
-*Defined in [util.ts:255](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L255)*
+*Defined in [util.ts:255](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L255)*
 
 ___
 <a id="chalkstyles.strikethrough"></a>
@@ -553,7 +553,7 @@ ___
 
 **● strikethrough**: *`number`[]* =  [9, 29]
 
-*Defined in [util.ts:263](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L263)*
+*Defined in [util.ts:263](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L263)*
 
 ___
 <a id="chalkstyles.underline"></a>
@@ -562,7 +562,7 @@ ___
 
 **● underline**: *`number`[]* =  [4, 24]
 
-*Defined in [util.ts:260](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L260)*
+*Defined in [util.ts:260](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L260)*
 
 ___
 <a id="chalkstyles.white"></a>
@@ -571,7 +571,7 @@ ___
 
 **● white**: *`number`[]* =  [37, 39]
 
-*Defined in [util.ts:272](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L272)*
+*Defined in [util.ts:272](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L272)*
 
 ___
 <a id="chalkstyles.whitebright"></a>
@@ -580,7 +580,7 @@ ___
 
 **● whiteBright**: *`number`[]* =  [97, 39]
 
-*Defined in [util.ts:283](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L283)*
+*Defined in [util.ts:283](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L283)*
 
 ___
 <a id="chalkstyles.yellow"></a>
@@ -589,7 +589,7 @@ ___
 
 **● yellow**: *`number`[]* =  [33, 39]
 
-*Defined in [util.ts:268](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L268)*
+*Defined in [util.ts:268](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L268)*
 
 ___
 <a id="chalkstyles.yellowbright"></a>
@@ -598,7 +598,7 @@ ___
 
 **● yellowBright**: *`number`[]* =  [93, 39]
 
-*Defined in [util.ts:279](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L279)*
+*Defined in [util.ts:279](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L279)*
 
 ___
 

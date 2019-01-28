@@ -24,7 +24,7 @@
 **● needMetadataMarker**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Tokenizer.ts:105](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Tokenizer.ts#L105)*
+*Defined in [Tokenizer.ts:105](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L105)*
 
 ___
 <a id="verbose"></a>
@@ -34,7 +34,7 @@ ___
 **● verbose**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [Tokenizer.ts:104](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Tokenizer.ts#L104)*
+*Defined in [Tokenizer.ts:104](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L104)*
 
 ___
 

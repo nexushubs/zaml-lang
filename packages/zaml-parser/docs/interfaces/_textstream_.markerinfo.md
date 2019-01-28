@@ -24,7 +24,7 @@
 
 **● data**: *[MarkerData](../modules/_textstream_.md#markerdata)*
 
-*Defined in [TextStream.ts:55](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/TextStream.ts#L55)*
+*Defined in [TextStream.ts:55](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L55)*
 
 ___
 <a id="position"></a>
@@ -33,7 +33,7 @@ ___
 
 **● position**: *`object`*
 
-*Defined in [TextStream.ts:51](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/TextStream.ts#L51)*
+*Defined in [TextStream.ts:51](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L51)*
 
 #### Type declaration
 
@@ -48,7 +48,7 @@ ___
 
 **● text**: *`string`*
 
-*Defined in [TextStream.ts:50](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/TextStream.ts#L50)*
+*Defined in [TextStream.ts:50](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L50)*
 
 ___
 

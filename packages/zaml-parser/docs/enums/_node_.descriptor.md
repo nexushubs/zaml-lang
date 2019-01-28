@@ -25,7 +25,7 @@
 
 **ANY**:  = "*"
 
-*Defined in [Node.ts:54](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L54)*
+*Defined in [Node.ts:54](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L54)*
 
 ___
 <a id="block"></a>
@@ -34,7 +34,7 @@ ___
 
 **BLOCK**:  = "{BLOCK}"
 
-*Defined in [Node.ts:49](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L49)*
+*Defined in [Node.ts:49](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L49)*
 
 ___
 <a id="entity"></a>
@@ -43,7 +43,7 @@ ___
 
 **ENTITY**:  = "[ENTITY]"
 
-*Defined in [Node.ts:51](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L51)*
+*Defined in [Node.ts:51](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L51)*
 
 ___
 <a id="fragment"></a>
@@ -52,7 +52,7 @@ ___
 
 **FRAGMENT**:  = "<fragment>"
 
-*Defined in [Node.ts:53](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L53)*
+*Defined in [Node.ts:53](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L53)*
 
 ___
 <a id="inline"></a>
@@ -61,7 +61,7 @@ ___
 
 **INLINE**:  = "{INLINE}"
 
-*Defined in [Node.ts:50](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L50)*
+*Defined in [Node.ts:50](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L50)*
 
 ___
 <a id="paragraph"></a>
@@ -70,7 +70,7 @@ ___
 
 **PARAGRAPH**:  = "<paragraph>"
 
-*Defined in [Node.ts:48](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L48)*
+*Defined in [Node.ts:48](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L48)*
 
 ___
 <a id="root"></a>
@@ -79,7 +79,7 @@ ___
 
 **ROOT**:  = "<root>"
 
-*Defined in [Node.ts:47](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L47)*
+*Defined in [Node.ts:47](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L47)*
 
 ___
 <a id="text"></a>
@@ -88,7 +88,7 @@ ___
 
 **TEXT**:  = "(text)"
 
-*Defined in [Node.ts:52](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/Node.ts#L52)*
+*Defined in [Node.ts:52](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L52)*
 
 ___
 

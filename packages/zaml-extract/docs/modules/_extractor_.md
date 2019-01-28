@@ -23,7 +23,7 @@
 
 ▸ **isExtractorClass**(target: *`any`*): `boolean`
 
-*Defined in [Extractor.ts:17](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/Extractor.ts#L17)*
+*Defined in [Extractor.ts:17](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/Extractor.ts#L17)*
 
 Check if a extractor is a class
 
@@ -42,7 +42,7 @@ ___
 
 ▸ **isOverlapping**(items: *[EntityInfo](../interfaces/_types_.entityinfo.md)[]*, target: *[EntityInfo](../interfaces/_types_.entityinfo.md)*): `boolean`
 
-*Defined in [Extractor.ts:26](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-extract/src/Extractor.ts#L26)*
+*Defined in [Extractor.ts:26](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/Extractor.ts#L26)*
 
 Is entity ranges overlapped with existing items
 

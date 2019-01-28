@@ -158,10 +158,10 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@zaml/parser@^0.6.10":
-  version "0.6.10"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.10.tgz#17505b59052fa6e5999ef51ce2a15536d8d5d521"
-  integrity sha512-rZpCYg21WrQD9DtnFxdhZM/4THdS1U5Z3OmZE5F/1BeKSKNz+NrevXw9LdzqZ3OVERRakTaFFRqPIVu7XNLEQA==
+"@zaml/parser@^0.6.11":
+  version "0.6.11"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.11.tgz#79c8e39ef3fe34f5a06c3a26fbbbb7e823464267"
+  integrity sha512-66Z3lCuy9ozTnlkIaqyvXND+nBzGg7VJOdWbc2od0Gv9Eu1BXNFTQxNnok9MGzbj9PTfcgR6ieeHCh7xb6Fddg==
   dependencies:
     "@babel/runtime" "^7.1.2"
     lodash "^4.17.11"
