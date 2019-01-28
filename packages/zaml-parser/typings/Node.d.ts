@@ -9,9 +9,26 @@ export declare enum NodeType {
     COMMENT = "comment"
 }
 export declare const NodeTypes: string[];
+export declare const P_NODE_EXPRESSION: RegExp;
+export declare const P_TAG_EXPRESSION: RegExp;
+export declare const P_ENTITY_EXPRESSION: RegExp;
+export declare const P_LABEL_EXPRESSION: RegExp;
 export declare const BlockNodeTypes: NodeType[];
 export declare const BlockTags: string[];
 export declare const WrappingTags: string[];
+declare enum Descriptor {
+    ROOT = "<root>",
+    PARAGRAPH = "<paragraph>",
+    BLOCK = "{BLOCK}",
+    INLINE = "{INLINE}",
+    ENTITY = "[ENTITY]",
+    TEXT = "(text)",
+    FRAGMENT = "<fragment>",
+    ANY = "*"
+}
+export declare const TreeRules: {
+    [key: string]: Descriptor[];
+};
 export declare type ExtractorFunction = (text: string) => EntityItem[];
 export interface ExtractorInstance {
     extract: (text: string[]) => EntityItem[][];
@@ -169,6 +186,7 @@ declare class Node {
      * @param node
      */
     static validChild(node: any): void;
+    static validTreeRule(parent: Node, child: Node): void;
     static findCommonAncestor(n1: Node, n2: Node): {
         ancestor?: Node;
         paths: [Node[], Node[]];
@@ -218,6 +236,10 @@ declare class Node {
      * Get a short descriptor to identify node's type and basic information
      */
     readonly descriptor: string;
+    /**
+     * Get descriptor ignoring name difference
+     */
+    readonly commonDescriptor: Descriptor;
     readonly openDescriptorStart: string;
     readonly openDescriptorEnd: "" | "]" | "}" | ">";
     readonly closingDescriptor: string;
@@ -314,8 +336,11 @@ declare class Node {
     /**
      * Check node match the expression
      * @example
-     * `BLOCK`: tag
-     * `@LOC`: entity
+     * <root>: Root node
+     * <paragraph>: Paragraph node
+     * {BLOCK}: BLOCK tag
+     * {INLINE}: INLINE tag
+     * [PER]: entity
      * @param expression
      */
     is(expression: string): boolean;

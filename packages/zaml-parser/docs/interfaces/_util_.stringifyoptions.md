@@ -10,6 +10,7 @@
 
 ### Properties
 
+* [metadataMarker](_util_.stringifyoptions.md#metadatamarker)
 * [simple](_util_.stringifyoptions.md#simple)
 * [space](_util_.stringifyoptions.md#space)
 * [toSource](_util_.stringifyoptions.md#tosource)
@@ -18,6 +19,16 @@
 
 ## Properties
 
+<a id="metadatamarker"></a>
+
+### `<Optional>` metadataMarker
+
+**● metadataMarker**: * `undefined` &#124; `false` &#124; `true`
+*
+
+*Defined in [util.ts:79](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L79)*
+
+___
 <a id="simple"></a>
 
 ### `<Optional>` simple
@@ -25,7 +36,7 @@
 **● simple**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:62](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-parser/src/util.ts#L62)*
+*Defined in [util.ts:77](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L77)*
 
 ___
 <a id="space"></a>
@@ -35,7 +46,7 @@ ___
 **● space**: * `undefined` &#124; `number`
 *
 
-*Defined in [util.ts:61](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-parser/src/util.ts#L61)*
+*Defined in [util.ts:76](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L76)*
 
 ___
 <a id="tosource"></a>
@@ -45,7 +56,7 @@ ___
 **● toSource**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [util.ts:63](https://github.com/nexushubs/zaml-lang/blob/a042eb7/packages/zaml-parser/src/util.ts#L63)*
+*Defined in [util.ts:78](https://github.com/nexushubs/zaml-lang/blob/9076d84/packages/zaml-parser/src/util.ts#L78)*
 
 ___
 
