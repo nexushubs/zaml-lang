@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { stringify, parseValue, StringifyOptions } from './util';
 import { parse, TextStream } from '.';
+import { P_LABEL_START, P_VAR_NAME } from './constants';
 
 const nanoid = require('nanoid');
 
@@ -15,6 +16,11 @@ export enum NodeType {
 }
 
 export const NodeTypes = _.values(NodeType);
+
+export const P_NODE_EXPRESSION = /^<([A-Z]+)>$/;
+export const P_TAG_EXPRESSION = /^{([A-Z]+)}$/;
+export const P_ENTITY_EXPRESSION = /^\[([A-Z]+)\]$/;
+export const P_LABEL_EXPRESSION = new RegExp(`^${P_LABEL_START}(${P_VAR_NAME})$`);
 
 export const BlockNodeTypes = [
   NodeType.ROOT,
@@ -36,6 +42,27 @@ export const WrappingTags = [
   'NUM',
   'HEADING',
 ];
+
+enum Descriptor {
+  ROOT = '<root>',
+  PARAGRAPH = '<paragraph>',
+  BLOCK = '{BLOCK}',
+  INLINE = '{INLINE}',
+  ENTITY = '[ENTITY]',
+  TEXT = '(text)',
+  FRAGMENT = '<fragment>',
+  ANY = '*',
+}
+
+export const TreeRules: {[key: string]: Descriptor[]} = {
+  [Descriptor.ROOT]: [Descriptor.PARAGRAPH, Descriptor.BLOCK],
+  [Descriptor.PARAGRAPH]: [Descriptor.INLINE, Descriptor.ENTITY, Descriptor.TEXT],
+  [Descriptor.BLOCK]: [Descriptor.PARAGRAPH, Descriptor.BLOCK],
+  [Descriptor.INLINE]: [Descriptor.INLINE, Descriptor.ENTITY, Descriptor.TEXT],
+  [Descriptor.ENTITY]: [Descriptor.TEXT],
+  [Descriptor.TEXT]: [],
+  [Descriptor.FRAGMENT]: [Descriptor.ANY],
+}
 
 export type ExtractorFunction = (text: string) => EntityItem[];
 
@@ -325,6 +352,15 @@ class Node {
     }
   }
 
+  static validTreeRule(parent: Node, child: Node) {
+    const p = parent.commonDescriptor;
+    const c = child.commonDescriptor;
+    const allowed = TreeRules[p];
+    if (allowed[0] !== Descriptor.ANY || !allowed.includes(c)) {
+      throw new Error(`can not add ${c} as child of ${p}`);
+    }
+  }
+
   static findCommonAncestor(n1: Node, n2: Node): { ancestor?: Node, paths: [Node[], Node[]]} | undefined {
     const path1 = n1.path;
     const path2 = n2.path;
@@ -535,6 +571,27 @@ class Node {
     }
   }
 
+  /**
+   * Get descriptor ignoring name difference
+   */
+  get commonDescriptor(): Descriptor {
+    if (this.isRoot) {
+      return Descriptor.ROOT
+    } else if (this.isBlockTag) {
+      return Descriptor.BLOCK;
+    } else if (this.isParagraph) {
+      return Descriptor.PARAGRAPH;
+    } else if (this.isInlineBlock) {
+      return Descriptor.INLINE;
+    } else if (this.isEntity) {
+      return Descriptor.ENTITY;
+    } else if (this.isText) {
+      return Descriptor.TEXT;
+    } else {
+      return Descriptor.ANY;
+    }
+  }
+
   get openDescriptorStart() {
     switch (this.type) {
       case NodeType.ENTITY:
@@ -566,7 +623,7 @@ class Node {
       case NodeType.ENTITY:
         return `[/${this.name}]`;
       case NodeType.TAG:
-        return `{${this.name}}`;
+        return `{/${this.name}}`;
       case NodeType.TEXT:
         return ')';
       default:
@@ -786,21 +843,26 @@ class Node {
   /**
    * Check node match the expression
    * @example
-   * `BLOCK`: tag
-   * `@LOC`: entity
+   * <root>: Root node
+   * <paragraph>: Paragraph node
+   * {BLOCK}: BLOCK tag
+   * {INLINE}: INLINE tag
+   * [PER]: entity
    * @param expression 
    */
   is(expression: string) {
     if (!_.isString(expression)) {
-      return false;
+      throw new TypeError('invalid node descriptor');
     }
-    expression = expression.toUpperCase();
-    if (/^[A-Z]/.test(expression)) {
-      return this.type === NodeType.TAG && this.name === expression;
-    } else if (/^#/.test(expression)) {
-      return this.type === NodeType.TAG && this.labels.includes(expression.substr(1));
-    } else if (/^@[A-Z]/.test(expression)) {
-      return this.type === NodeType.ENTITY && this.name === expression.substr(1);
+    let match: RegExpExecArray | null = null;
+    if (match = P_NODE_EXPRESSION.exec(expression)) {
+      return this.type === match[1];
+    } else if (match = P_TAG_EXPRESSION.exec(expression)) {
+      return this.type === NodeType.TAG && this.name === match[1];
+    } else if (match = P_ENTITY_EXPRESSION.exec(expression)) {
+      return this.type === NodeType.ENTITY && this.name === match[1];
+    } else if (match = P_LABEL_EXPRESSION.exec(expression)) {
+      return this.type === NodeType.TAG && this.labels.includes(match[1]);
     }
     return false;
   }
