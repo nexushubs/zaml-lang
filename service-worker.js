@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/zaml-lang/precache-manifest.9260bf7a3581c3a3108959158b64aad7.js"
+  "/zaml-lang/precache-manifest.ac144b53f007e3f31d524ed6a677d0fe.js"
 );
 
 workbox.clientsClaim();
