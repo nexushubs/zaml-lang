@@ -25,11 +25,14 @@ import {
   P_WHITE_SPACE,
   P_WHITE_SPACES_EXT,
   P_TAG_NAME,
+  P_TAG_NAME_MULTILINE,
   P_LABEL_START,
-  P_LABEL_NAME,
+  P_VAR_NAME,
   P_ATTRIBUTE_ASSIGN,
   P_ATTRIBUTE_NAME,
+  P_ATTRIBUTE_NAME_MULTILINE,
   P_ATTRIBUTE_LIST,
+  P_ATTRIBUTE_LIST_MULTILINE,
   T_STRING_START,
   P_DATE_LITERAL,
   P_NUMBER_START,
@@ -267,7 +270,7 @@ class Tokenizer {
             state = State.NORMAL;
             break;
           }
-          if (metadataMatched || stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
+          if (metadataMatched || stream.match(P_ATTRIBUTE_LIST_MULTILINE, { consume: false })) {
             node.states.metadata = true;
             state = State.ATTRIBUTE_LIST;
           } else {
@@ -408,7 +411,7 @@ class Tokenizer {
         }
         
         case State.TAG_NAME: {
-          const name = stream.match(P_TAG_NAME);
+          const name = stream.match(P_TAG_NAME_MULTILINE);
           if (!name) {
             throw createError('expected tag name');
           }
@@ -448,8 +451,11 @@ class Tokenizer {
         }
         
         case State.ATTRIBUTE_LIST: {
-          const spacePattern = (node.states.simpleBlock || node.states.unwrapped) ? P_WHITE_SPACE : P_WHITE_SPACES_EXT;
-          const spaces = stream.eatWhile(spacePattern);
+          const spaces = stream.eatWhile(
+            (node.isInlineBlock || (node.states.simpleBlock && !node.states.metadata))
+            ? P_WHITE_SPACE
+            : P_WHITE_SPACES_EXT
+          );
           const isParsingMetadata: boolean = node.states.metadata;
           if (isParsingMetadata) {
             let endOfFrontMatter = false;
@@ -503,8 +509,12 @@ class Tokenizer {
                 throw createError('expecting end of tag "}" or attribute list');
               }
             }
-            state = State.ATTRIBUTE_NAME;
-            if (stream.match(P_ATTRIBUTE_LIST, { consume: false })) {
+            if (stream.match(
+              (node.isInlineBlock || node.states.simpleBlock || node.states.metadata)
+              ? P_ATTRIBUTE_LIST
+              : P_ATTRIBUTE_LIST_MULTILINE,
+              { consume: false },
+            )) {
               state = State.ATTRIBUTE_NAME;
             } else {
               state = State.NORMAL;
@@ -514,7 +524,11 @@ class Tokenizer {
         }
         
         case State.ATTRIBUTE_NAME: {
-          const key = stream.match(P_ATTRIBUTE_NAME);
+          const key = stream.match(
+            (node.isInlineBlock || node.states.simpleBlock)
+            ? P_ATTRIBUTE_NAME
+            : P_ATTRIBUTE_NAME_MULTILINE
+          );
           if (!key) {
             throw createError('expecting attribute name');
           }
@@ -530,7 +544,12 @@ class Tokenizer {
           } else {
             ch = stream.eat(P_ATTRIBUTE_ASSIGN);
             if (!ch) {
-              throw createError('expecting assignment "=" or ":"');
+              if (node.states.simpleBlock) {
+                throw createError('expecting assignment "=" or ":"');
+              }
+              states.value = true;
+              state = State.ATTRIBUTE_FINISH;
+              break;
             }
             if (P_ASSIGN_YAML.test(ch)) {
               stream.eatWhile(P_WHITE_SPACE);
@@ -641,7 +660,7 @@ class Tokenizer {
         }
         
         case State.LABEL_START: {
-          const label = stream.match(P_LABEL_NAME);
+          const label = stream.match(P_VAR_NAME);
           if (!label) {
             throw createError('expected label name');
           }

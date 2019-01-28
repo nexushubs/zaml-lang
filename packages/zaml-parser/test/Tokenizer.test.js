@@ -1,4 +1,5 @@
 const chai = require('chai');
+chai.use(require('chai-datetime'));
 const fs = require('fs');
 const zaml = require('..');
 const { readFile, readJSON } = require('./util');
@@ -56,6 +57,76 @@ describe('class Tokenizer', () => {
       End of the sample file
     `;
     zaml.parse(sample);
+  });
+
+  describe('attribute parsing', () => {
+
+    it('string, number, boolean literal', () => {
+  
+      const sample = `
+        {BLOCK
+          string1=unwrapped_string
+          string2="wrapped string with escaped quote \\""
+          int1=0
+          int2=1
+          int3=-56
+          float1=3.1415926
+          float2=.618
+          float3=1e3
+          float4=-1e-3
+          bool1=true
+          bool2=True
+          bool3=TRUE
+          bool4
+          bool5=false
+          bool6=False
+          bool7=FALSE
+        }
+          the sample text
+        {/BLOCK}
+      `
+      const node = zaml.parse(sample);
+      expect(node.firstChild.attributes).to.deep.equal({
+        string1: "unwrapped_string",
+        string2: "wrapped string with escaped quote \"",
+        int1: 0,
+        int2: 1,
+        int3: -56,
+        float1: 3.1415926,
+        float2: .618,
+        float3: 1e3,
+        float4: -1e-3,
+        bool1: true,
+        bool2: true,
+        bool3: true,
+        bool4: true,
+        bool5: false,
+        bool6: false,
+        bool7: false,
+      });
+
+    });
+
+
+    it('datetime', () => {
+  
+      const sample = `
+        {BLOCK
+          date1=1985-05-18
+          date2=1985-05-18T23:30:00.000Z
+        }
+          the sample text
+        {/BLOCK}
+      `
+      const node = zaml.parse(sample);
+      const {
+        date1,
+        date2,
+      } = node.firstChild.attributes;
+      expect(date1).to.equalTime(new Date('1985-05-18'));
+      expect(date2).to.equalTime(new Date('1985-05-18T23:30:00Z'));
+    });
+
   });
 
   it('robot Q&A sample', () => {

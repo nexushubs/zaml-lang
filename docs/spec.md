@@ -53,28 +53,37 @@ Literals are used in attributes of tag and markers.
 
 Expression is a syntax used to demonstrate ZAML language format
 
-| Expression         | Define                                                | Description                                         |
-| ------------------ | ----------------------------------------------------- | --------------------------------------------------- |
-| `<space>`          |                                                       | One ore more white space, may includes line break   |
-| `<label>`          | `#<label-name>`                                       | Label                                               |
-| `<attribute>`      | `<key>=<value>`                                       | should be encoded in URI component format           |
-| `<true-attribute>` | `<key>`                                               | Boolean true attribute literal                      |
-| `<attribute-list>` | `((<attribute>|<label>|<true-attribute>)<space>?){n}` | The comma after the last attribute could be omitted |
+| Expression         | Define                                        | Description                                       |
+| ------------------ | --------------------------------------------- | ------------------------------------------------- |
+| `<space>`          |                                               | One ore more white space, may includes line break |
+| `<front-matter>`   | `---`                                         | One ore more white space, may includes line break |
+| `<label>`          | `#<label-name>`                               | Label                                             |
+| `<attribute>`      | `<key>=<value>`                               | should be encoded in URI component format         |
+| `<truthy>`         | `<key>`                                       | Boolean true attribute literal                    |
+| `<attribute-list>` | `((<attribute>|<label>|<truthy>)<space>?){n}` | Attribute key-value pair                          |
+| `<metadata-list>`  | `((<attribute>|<label>)<space>?){n}`          | Metadata key-value pair                           |
 
-### 3.3 Metadata
+### 3.3 Attributes & Metadata
+
+### 3.3.1 Attributes & Metadata
+
+Attributes are attached with block and inline block.
+
+### 3.3.2 Metadata
 
 Metadata is used for defining value for the whole ZAML document, also for `BLOCK` tag, similar to [YAML front matter](https://jekyllrb.com/docs/frontmatter/).
 
+Metadata is parsed similar as block attributes, but `<truthy>` boolean is not supported.
+It is stored in `node.metadata` of the AST node.
+
 Examples:
 
-```
+```yaml
 ---
 dateCreated: 2018-07-24
 author: Peter
 ---
 ```
-
-Metadata is parsed into `node.metadata` of the AST node.
 
 ### 3.4 Tag
 
@@ -122,13 +131,11 @@ Pattern: `&[` `<name>` `]`
 
 Reference marker from `DEF` Section
 
-### 3.6 Markers
+### 3.6 Naming Entity
 
 Marker defines additional info for specified word.
 
 A word marked by marker must be inline.
-
-#### 3.6.1 Naming Entities
 
 Pattern: `[` `<text>` `]` ( `{` `<type>` ? (`<space>` `<attribute-list>`) ? `}` ) ?
 
@@ -177,27 +184,7 @@ Named reference:
 &[甲方]
 ```
 
-#### 3.6.2 Common Knowledge Base Citation
-
-Pattern: `[` `<text>` `]` `{#<type>` ( `<attribute-list>` ) ? `}`
-
-| Type               | Format                                    | Description                                                 |
-| ------------------ | ----------------------------------------- | ----------------------------------------------------------- |
-| `LAW`              | `{#LAW fullName:string}`                  | A currently used law name                                   |
-| `ART`, `LAW.ART`   | `{#ART law:string name:string artNo:int}` | A article (named part) of a law, law name could be included |
-| `CASE`, `LAW.CASE` | `{#CASE title:string}`                    | A public case                                               |
-
-Examples:
-
-```
-[刑法]{#LAW}
-[《民事诉讼法》第一百二十八条]{#LAW.ART}
-[劳动法第27条]{#LAW.ART law=中华人民共和劳动法 artNo=27 name=第二十七条}  // parsed result
-[刑法]{&LAW}中[第三条]{#ART}，[第五条]{#ART}  // Law articles should inherit most recent law name
-[上海徐汇区新起点进修学校诉杨江名誉权纠纷案]{#CASE}
-```
-
-#### 3.6.3 User Document Attachment Reference
+#### 3.7 Attachments
 
 Pattern: `$[` `<text>` `]` `{DOC` ( `<attribute-list>` ) ? `}`
 

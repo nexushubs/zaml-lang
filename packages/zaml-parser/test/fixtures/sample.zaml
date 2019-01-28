@@ -4,7 +4,7 @@ author: Peter
 ---
 There is something I should tell you.
 {BLOCK intention=statement}
-  Jack says he would come here tomorrow:
+  Jack says he would come here tomorrow.
   {QUOTE from=Jack}
     “[I]{PER name=Jack}'ll be [here]{LOC} [tomorrow]{DATE value=2018-07-25}.”
   {/QUOTE}

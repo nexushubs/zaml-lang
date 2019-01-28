@@ -46,7 +46,7 @@
           "children": [
             {
               "type": "text",
-              "content": "Jack says he would come here tomorrow:",
+              "content": "Jack says he would come here tomorrow.",
               "position": {
                 "start": 114,
                 "end": 155
