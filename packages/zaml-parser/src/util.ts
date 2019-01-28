@@ -48,6 +48,20 @@ export function parseValue(value: any) {
 }
 
 /**
+ * Parse number
+ * @param value 
+ */
+export function parseNumber(value: string) {
+  let number = parseFloat(value);
+  if (/^\d+$/.test(value)
+    && (number > Number.MAX_SAFE_INTEGER || number < Number.MIN_SAFE_INTEGER)
+  ) {
+    return value;
+  }
+  return number;
+}
+
+/**
  * Generate indent spaces
  * @param space 
  * @param indent 

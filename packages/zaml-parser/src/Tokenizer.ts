@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { chalk } from './util';
+import { chalk, parseNumber } from './util';
 import TextStream, { SourcePosition } from './TextStream';
 import ParseError from './ParseError';
 import Node, { NodeType } from './Node';
@@ -35,8 +35,7 @@ import {
   P_ATTRIBUTE_LIST_MULTILINE,
   T_STRING_START,
   P_DATE_LITERAL,
-  P_NUMBER_START,
-  P_NUMBER_LITERAL,
+  P_NUMBER_VALUE,
   P_STRING_LITERAL_QUOTED,
   P_STRING_LITERAL_UNQUOTED,
   P_BOOLEAN_TRUE,
@@ -564,7 +563,7 @@ class Tokenizer {
 
         case State.ATTRIBUTE_VALUE: {
           const ch = stream.peek();
-          let value;
+          let value: any = undefined;
           if (ch === T_TAG_START || ch === T_ENTITY_START) {
             states.embedded = true;
             state = State.START;
@@ -576,12 +575,10 @@ class Tokenizer {
             } catch (e) {
               throw createError('invalid string literal');
             }
-          } else if (stream.match(P_DATE_LITERAL)) {
-            value = stream.lastMatch;
+          } else if (value = stream.match(P_DATE_LITERAL)) {
             value = new Date(value);
-          } else if (P_NUMBER_START.test(ch)) {
-            value = stream.match(P_NUMBER_LITERAL);
-            value = parseFloat(value);
+          } else if (value = stream.match(P_NUMBER_VALUE)) {
+            value = parseNumber(value);
           } else if (stream.match(P_BOOLEAN_TRUE)) {
             value = true;
           } else if (stream.match(P_BOOLEAN_FALSE)) {

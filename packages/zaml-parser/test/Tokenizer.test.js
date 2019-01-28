@@ -61,15 +61,17 @@ describe('class Tokenizer', () => {
 
   describe('attribute parsing', () => {
 
-    it('string, number, boolean literal', () => {
+    it.only('string, number, boolean literal', () => {
   
       const sample = `
         {BLOCK
           string1=unwrapped_string
           string2="wrapped string with escaped quote \\""
+          string3=2cats
           int1=0
           int2=1
           int3=-56
+          bigInt=${Number.MAX_SAFE_INTEGER}0
           float1=3.1415926
           float2=.618
           float3=1e3
@@ -87,11 +89,13 @@ describe('class Tokenizer', () => {
       `
       const node = zaml.parse(sample);
       expect(node.firstChild.attributes).to.deep.equal({
-        string1: "unwrapped_string",
-        string2: "wrapped string with escaped quote \"",
+        string1: 'unwrapped_string',
+        string2: 'wrapped string with escaped quote \"',
+        string3: '2cats',
         int1: 0,
         int2: 1,
         int3: -56,
+        bigInt: `${Number.MAX_SAFE_INTEGER}0`,
         float1: 3.1415926,
         float2: .618,
         float3: 1e3,

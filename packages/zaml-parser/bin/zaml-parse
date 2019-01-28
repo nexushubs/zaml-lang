@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+const zaml = require('..');
+const fs = require('fs');
+
+const { argv } = process;
+const filename = argv[argv.length - 1];
+
+if (!filename || !fs.existsSync(filename)) {
+  console.error('invalid file');
+}
+
+const content = fs.readFileSync(filename, 'utf8');
+
+const node = zaml.parse(content, {
+  verbose: true,
+  needMetadataMarker: true,
+});
+
+// console.log(node.toSource({simple: true}));
