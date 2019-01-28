@@ -36,31 +36,30 @@ ZAML could be used in:
 
 ## 3. Language
 
-Sections, Marker types are capital letters, attributes using lower cased letters.
+Tag, Marker types are capital letters, attributes using lower cased letters.
 
-### 3.1 Basic Data Types
+### 3.1 Literals
 
-Basic data types are used in attributes of sections and markers.
+Literals are used in attributes of tag and markers.
 
-| Type           | Sample                                 | Description                                                                                    |
-| -------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `string`       | `"example\n string"`, `Hello`          | Quotes could be omitted if the string does not need to be escaped                              |
-| `number`       | `128`, `1e10`, `-6`                    | Expressed in literal form                                                                      |
-| `int`          | `128`, `-6`                            | Integer number type                                                                            |
-| `float`        | `1e10`, `3.1415926`                    | Float number type                                                                              |
-| `boolean`      | `1`, `0`, `True`, `On`, `False`, `Off` | Expressed in literal form, if used in attribute value, could be omitted if the value is `True` |
-| `date`, `time` | `2018-07-04`, `2018-07-04T10:01:24Z`   | Date time expressed in JSON date format                                                        |
-| `enum`         | `enum<number>`                         | Enumeration of listed values                                                                   |
+| Type      | Sample                                            | Description                                                                                    |
+| --------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `string`  | `"example\n string"`, `Hello`                     | Quotes could be omitted if the string does not need to be escaped                              |
+| `number`  | `128`, `1e10`, `-6`                               | Expressed in literal form                                                                      |
+| `boolean` | `TRUE`, `True`, `true`, `FALSE`, `False`, `false` | Expressed in literal form, if used in attribute value, could be omitted if the value is `True` |
+| `date`    | `2018-07-04`, `2018-07-04T10:01:24.000Z`          | Date time expressed in JSON date format                                                        |
 
 ### 3.2 Common Expression
 
 Expression is a syntax used to demonstrate ZAML language format
 
-| Expression         | Define                         | Description                                         |
-| ------------------ | ------------------------------ | --------------------------------------------------- |
-| `<space>`          |                                | A single white space                                |
-| `<attribute>`      | `<key>` `=` `<value>`          | `value` should be encoded in URI component format   |
-| `<attribute-list>` | ( `<attribute>` `<space>` ){n} | The comma after the last attribute could be omitted |
+| Expression         | Define                                                | Description                                         |
+| ------------------ | ----------------------------------------------------- | --------------------------------------------------- |
+| `<space>`          |                                                       | One ore more white space, may includes line break   |
+| `<label>`          | `#<label-name>`                                       | Label                                               |
+| `<attribute>`      | `<key>=<value>`                                       | should be encoded in URI component format           |
+| `<true-attribute>` | `<key>`                                               | Boolean true attribute literal                      |
+| `<attribute-list>` | `((<attribute>|<label>|<true-attribute>)<space>?){n}` | The comma after the last attribute could be omitted |
 
 ### 3.3 Metadata
 
@@ -77,17 +76,17 @@ author: Peter
 
 Metadata is parsed into `node.metadata` of the AST node.
 
-### 3.4 Sections
+### 3.4 Tag
 
-Section is one of the type: plain natural language part, defining markup etc., except for natural language, other sections is start with: `{` `<TYPE>` (`<attribute-list`)? `}`, and end with `{/<TYPE>}`.
+Tag is one of the type: plain natural language part, defining markup etc., except for natural language, other tag is start with: `{` `<TYPE>` (`<attribute-list`)? `}`, and end with `{/<TYPE>}`.
 
-Section content may not be inserted into the text when displayed to the user, and could be used by reference.
+Tag content may not be inserted into the text when displayed to the user, and could be used by reference.
 
-Section name is case-insensitive, so `{block}...{/block}` is valid
+Tag name is case-insensitive, so `{block}...{/block}` is valid
 
-#### 3.4.1 {BLOCK} Section
+#### 3.4.1 {BLOCK} and {INLINE} Tag
 
-`BLOCK` section is used for defining a block of ZAML source, which could be inserted into other part of doc by reference.
+`BLOCK` Tag is used for defining a block of ZAML source, which could be inserted into other part of doc by reference.
 
 Block could be nested, the wrapped content of a block is also valid ZAML.
 
@@ -95,18 +94,11 @@ Syntax:
 
 `{BLOCK` `<attribute-list>` `}` `<content>` `{/BLOCK}`
 
-| Attribute   | Type           | Value                                                                  | Description                        |
-| ----------- | -------------- | ---------------------------------------------------------------------- | ---------------------------------- |
-| `name`      | `string`       |                                                                        | A name that could be referenced    |
-| `label`     | `string[]`     | list of label `string`(s) separate by `<space>`, Could be none or many | Label of the text                  |
-| `show`      | `boolean`      | default `true`                                                         | Whether the block itself is showed |
-| `intention` | `enum<string>` | `"statement"`, `"request"`, `"response"`                               | A name that could be referenced    |
-
 Examples:
 
 ```
 {BLOCK intention=statement}
-  Jack says he would come here tomorrow:
+  Jack says {INLINE}he would come here tomorrow{/INLINE}.
   {QUOTE from=@jack}
     I'll be here tomorrow!
   {/QUOTE}
@@ -117,50 +109,11 @@ Simple format:
 
 ```
 {intention=statement
-  Jack says he would come here tomorrow:
+  Jack says {he would come here tomorrow}.
   {QUOTE
     I'll be here tomorrow!
   }
 }
-```
-
-Custom block start and block end signature can be passed to language parser or renderer
-
-Recommended signatures:
-
-| Style  | Start                                        | End               | Description   |
-| ------ | -------------------------------------------- | ----------------- | ------------- |
-| Smarty | `{ <block-name> <space> <attribute-list> }`  | `{/<block-name>}` | Default style |
-| AIML   | `{ <block-name> <space> <attribute-list>`    | `}`               | Simple format |
-| Texy!  | `/--- <block-name> <space> <attribute-list>` | `\---`            |               |
-
-#### 3.4.2 {QUOTE} Quotation Text
-
-A special kind of block used for presenting quoted words from another people
-
-```
-{QUOTE from=@jack ref=12}
-  // ...
-{/QUOTE}
-```
-
-| Attribute | Value | Description                                                  |
-| --------- | ----- | ------------------------------------------------------------ |
-| `from`    |       | Original user who wrote or spoke the word, could be a marker |
-| `ref`     |       | The URI or database id stores the original word              |
-
-#### 3.4.3 {INSERT} Insert Block
-
-Insert the content of block by its name
-
-Syntax:
-
-`{INSERT` `<attribute-list>` `}`
-
-Examples:
-
-```
-{INSERT block=blockname}
 ```
 
 ### 3.5 Reference
