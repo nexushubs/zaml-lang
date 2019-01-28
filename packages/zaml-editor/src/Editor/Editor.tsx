@@ -130,7 +130,7 @@ export default class Editor extends React.Component<Props, State> {
     if (!root) return;
     this.preventSourceChange = true;
     this.setState({
-      source: root.toSource({ simple: true }),
+      source: root.toSource(),
       selectedNode: selected,
     }, () => {
       this.preventSourceChange = false;
