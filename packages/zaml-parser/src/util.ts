@@ -131,7 +131,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         if (!simpleTag || listCount > 1) {
           text += T_SPACE;
         }
-        if (_.isBoolean(value) && value) {
+        if (!simpleTag && _.isBoolean(value) && value) {
           text += key;
         } else if (value instanceof Node) {
           text += stringify(node, opt, 0, pos + text.length);
