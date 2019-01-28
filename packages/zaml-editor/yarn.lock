@@ -873,18 +873,6 @@
   resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.119.tgz#be847e5f4bc3e35e46d041c394ead8b603ad8b39"
   integrity sha1-voR+X0vD415G0EHDlOrYtgOtizk=
 
-"@types/nanoid@^1.2.0":
-  version "1.2.0"
-  resolved "http://registry.npm.taobao.org/@types/nanoid/download/@types/nanoid-1.2.0.tgz#c0141cfec5b4818016355389b0bd539097d872ff"
-  integrity sha1-wBQc/sW0gYAWNVOJsL1TkJfYcv8=
-  dependencies:
-    "@types/node" "*"
-
-"@types/node@*":
-  version "10.12.18"
-  resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
-  integrity sha1-HTynZHGJFVhPzZ9jRGIbdnJmXGc=
-
 "@types/node@^10.12.15":
   version "10.12.15"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.15.tgz#20e85651b62fd86656e57c9c9bc771ab1570bc59"
@@ -1072,14 +1060,12 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
   integrity sha512-FZdkNBDqBRHKQ2MEbSC17xnPFOhZxeJ2YGSfr2BKf3sujG49Qe3bB+rGCwQfIaA7WHnGeGkSijX4FuBCdrzW/g==
 
-"@zaml/parser@^0.6.2":
-  version "0.6.2"
-  resolved "https://registry.npmjs.org/@zaml/parser/-/parser-0.6.2.tgz#7e65332b062b38d8e685d480ee8c85d4365e36d2"
-  integrity sha512-GEgy3AUBcvrrswV6zlKvagErQNtIO521OM+FJ4tA3t8btTDlC0AI4CtUrksFhc1kFY21xab2BO17McCw+gfsmw==
+"@zaml/parser@^0.6.10":
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.10.tgz#17505b59052fa6e5999ef51ce2a15536d8d5d521"
+  integrity sha512-rZpCYg21WrQD9DtnFxdhZM/4THdS1U5Z3OmZE5F/1BeKSKNz+NrevXw9LdzqZ3OVERRakTaFFRqPIVu7XNLEQA==
   dependencies:
     "@babel/runtime" "^7.1.2"
-    "@types/nanoid" "^1.2.0"
-    chalk "^2.4.1"
     lodash "^4.17.11"
     nanoid "^2.0.0"
 

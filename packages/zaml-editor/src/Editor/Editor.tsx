@@ -31,7 +31,7 @@ interface State {
 const parse = (source: string) => {
   let node = Node.create(NodeType.ROOT);
   try {
-    node = zaml.parse(source);
+    node = zaml.parse(source, { needMetadataMarker: true });
     (global as any).node = node;
     console.info('Root node exported as global variable "node"', node);
   } catch(err) {
