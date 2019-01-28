@@ -12,6 +12,7 @@ import {
   T_ENTITY_END,
   T_PARAGRAPH_BREAK,
   P_STRING_LITERAL_UNQUOTED_TESTER,
+  P_PARAGRAPH_BREAK,
 } from './constants';
 
 import Node, { NodeType } from './Node';
@@ -75,6 +76,7 @@ export interface StringifyOptions {
   space?: number;
   simple?: boolean;
   toSource?: boolean;
+  metadataMarker?: boolean;
 }
 
 /**
@@ -92,6 +94,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
     space: DEFAULT_INDENT_SPACES,
     simple: false,
     toSource: false,
+    metadataMarker: true,
   };
   let opt: StringifyOptions;
   if (_.isUndefined(options)) {
@@ -171,7 +174,7 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
       text += spacer(<number> opt.space, indent);
     }
     if (opt.toSource && !_.isEmpty(node.metadata)) {
-      if (node.isRoot) {
+      if (opt.metadataMarker) {
         text += T_METADATA_MARKER + T_LINE_BREAK;
       }
       _.each(node.metadata, (value, key) => {
@@ -185,7 +188,10 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         text += T_LINE_BREAK;
       });
       text += spacer(<number> opt.space, indent + 1);
-      text += T_METADATA_MARKER + T_LINE_BREAK;
+      if (opt.metadataMarker) {
+        text += T_METADATA_MARKER;
+      }
+      text += T_LINE_BREAK;
     }
     if (node.isBlock || node.isWrappingTag && !_.isEmpty(node.children)) {
       node.children.forEach(child => {
