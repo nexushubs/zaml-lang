@@ -146,13 +146,13 @@ export function parseJson(json: JsonNode) {
  * Map metadata & attributes to JSON
  * @param  map 
  */
-export function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined{
+export function toJsonMap(map?: KeyValueMap, options: JsonOptions = {}): KeyValueMap | undefined{
   if (_.isEmpty(map)) {
     return undefined;
   }
   return _.mapValues(map, (value) => {
     if (value instanceof Node) {
-      return value.toJSON();
+      return value.toJSON(options);
     }
     return value;
   })
@@ -1643,7 +1643,7 @@ class Node {
       name: this.name,
       content: this.content,
       attributes: toJsonMap(this.attributes),
-      metadata: toJsonMap(this.metadata),
+      metadata: toJsonMap(this.metadata, options),
       labels: this.labels.length ? this.labels : undefined,
       position: position ? {
         start: this.start,
