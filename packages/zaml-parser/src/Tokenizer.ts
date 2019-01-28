@@ -125,6 +125,13 @@ class Tokenizer {
    * @param options Constructor options
    */
   constructor(text: string, options?: ParsingOptions) {
+    if (!_.isString(text)) {
+      throw new TypeError('input must be string');
+    }
+    // ensure new line at the end of file
+    if (!/\n\s*$/.test(text)) {
+      text += T_LINE_BREAK;
+    }
     this.text = text;
     this.stream = new TextStream(text);
     const defaultOptions = {
@@ -146,7 +153,7 @@ class Tokenizer {
    */
   process(): Node {
     const { text, stream } = this;
-    const { needMetadataMarker: metadataMarkerRequired } = this.options;
+    const { needMetadataMarker } = this.options;
     const timeStart = Date.now();
     let state: State = State.METADATA;
     let start = 0;
@@ -171,8 +178,6 @@ class Tokenizer {
     const nodeStack: Node[] = [];
     let node: Node = root;
 
-    const getNodeString = (node: Node): string => `${node.type}${node.name ? `:${node.name}` : ''}`;
-
     const debugStack = (lastNode?: Node) => {
       if (!this.options.verbose) {
         return;
@@ -180,17 +185,20 @@ class Tokenizer {
       const separator = ' > ';
       const stack = [...nodeStack, node];
       const list = stack.map((n, i) => {
-        let text = getNodeString(n);
-        if (i === stack.length - 1) {
-          text = chalk.cyanBright(text);
-        } else {
-          text = chalk.green(text);
+        if (n) {
+          let text = n.descriptor;
+          if (i === stack.length - 1) {
+            text = chalk.cyanBright(text);
+          } else {
+            text = chalk.green(text);
+          }
+          return text;
         }
-        return text;
+        return '';
       });
       let result = list.join(chalk.redBright(separator));
       if (lastNode) {
-        result += chalk.grey(`${separator}${getNodeString(lastNode)}`);
+        result += chalk.grey(`${separator}${lastNode.descriptor}`);
       }
       return result;
     }
@@ -265,7 +273,7 @@ class Tokenizer {
         case State.METADATA: {
           stream.eatWhile(P_WHITE_SPACES_EXT);
           const metadataMatched = stream.match(T_METADATA_MARKER);
-          if (metadataMarkerRequired && !metadataMatched) {
+          if (needMetadataMarker && !metadataMatched) {
             state = State.NORMAL;
             break;
           }
