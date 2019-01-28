@@ -61,7 +61,7 @@ describe('class Tokenizer', () => {
 
   describe('attribute parsing', () => {
 
-    it.only('string, number, boolean literal', () => {
+    it('string, number, boolean literal', () => {
   
       const sample = `
         {BLOCK
@@ -295,7 +295,7 @@ describe('class Tokenizer', () => {
         }
       `;
       const node = zaml.parse(sample);
-      expect(node.childNodes[0].is('BLOCK')).equals(true);
+      expect(node.childNodes[0].isBlockTag).equals(true);
     });
 
     it('simple block with labels', () => {
@@ -305,7 +305,7 @@ describe('class Tokenizer', () => {
         }
       `;
       const node = zaml.parse(sample);
-      expect(node.childNodes[0].is('BLOCK')).equals(true);
+      expect(node.childNodes[0].isBlockTag).equals(true);
       expect(node.childNodes[0].labels.sort()).deep.equal(['BAR', 'FOO', '标签']);
     });
 
@@ -316,7 +316,7 @@ describe('class Tokenizer', () => {
         }
       `;
       const node = zaml.parse(sample);
-      expect(node.childNodes[0].is('BLOCK')).equals(true);
+      expect(node.childNodes[0].isBlockTag).equals(true);
       expect(node.childNodes[0].attributes).deep.equal({A: 1, 属性1: 2, attr_1: 3 });
     });
 
@@ -327,7 +327,7 @@ describe('class Tokenizer', () => {
         }
       `;
       const node = zaml.parse(sample);
-      expect(node.childNodes[0].is('BLOCK')).equals(true);
+      expect(node.childNodes[0].isBlockTag).equals(true);
       expect(node.childNodes[0].attributes).deep.equal({foo: 1, bar: 2 });
       expect(node.childNodes[0].labels.sort()).deep.equal(['L1', 'L2']);
     });
@@ -339,7 +339,7 @@ describe('class Tokenizer', () => {
         }
       `;
       const node = zaml.parse(sample);
-      expect(node.childNodes[0].is('BLOCK')).equals(true);
+      expect(node.childNodes[0].isBlockTag).equals(true);
       expect(node.childNodes[0].attributes).deep.equal({foo: 1, bar: 2 });
       expect(node.childNodes[0].labels.sort()).deep.equal(['L1', 'L2']);
     });
@@ -353,7 +353,7 @@ describe('class Tokenizer', () => {
         Another paragraph
       `;
       const node = zaml.parse(sample);
-      expect(node.childNodes[0].is('BLOCK')).equals(true);
+      expect(node.childNodes[0].isBlockTag).equals(true);
       expect(node.childNodes[0].labels.sort()).deep.equal(['BAR', 'FOO']);
     });
 
