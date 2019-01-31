@@ -116,7 +116,11 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
     node.textStart = pos;
   }
   if (node.isText) {
-    text += node.content;
+    if (opt.toSource) {
+      text += (node.content || '').replace(/\n/g, `\n${spacer(<number> opt.space, indent - 1)}`);
+    } else {
+      text += node.content;
+    }
   } else {
     if (node.isEntity) {
       const child = _.first(node.children);
