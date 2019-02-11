@@ -1,7 +1,7 @@
 {
   "main.css": "/zaml-lang/static/css/main.b90b2365.chunk.css",
-  "main.js": "/zaml-lang/static/js/main.620c2cf8.chunk.js",
-  "main.js.map": "/zaml-lang/static/js/main.620c2cf8.chunk.js.map",
+  "main.js": "/zaml-lang/static/js/main.e5f6e27a.chunk.js",
+  "main.js.map": "/zaml-lang/static/js/main.e5f6e27a.chunk.js.map",
   "static/css/1.a088cf3f.chunk.css": "/zaml-lang/static/css/1.a088cf3f.chunk.css",
   "static/js/1.c8244fe0.chunk.js": "/zaml-lang/static/js/1.c8244fe0.chunk.js",
   "static/js/1.c8244fe0.chunk.js.map": "/zaml-lang/static/js/1.c8244fe0.chunk.js.map",
@@ -11,6 +11,6 @@
   "static/media/logo.svg": "/zaml-lang/static/media/logo.b94cec94.svg",
   "static/css/main.b90b2365.chunk.css.map": "/zaml-lang/static/css/main.b90b2365.chunk.css.map",
   "index.html": "/zaml-lang/index.html",
-  "precache-manifest.5f6c0b92da1f06c1e7f2f1b48ec8159e.js": "/zaml-lang/precache-manifest.5f6c0b92da1f06c1e7f2f1b48ec8159e.js",
+  "precache-manifest.888c9ea2c61c5401d95a6c207bb36035.js": "/zaml-lang/precache-manifest.888c9ea2c61c5401d95a6c207bb36035.js",
   "service-worker.js": "/zaml-lang/service-worker.js"
 }
