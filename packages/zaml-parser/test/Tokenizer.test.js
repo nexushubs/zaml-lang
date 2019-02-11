@@ -75,6 +75,9 @@ describe('class Tokenizer', () => {
         float2=.618
         float3=1e3
         float4=-1e-3
+        hex=0x10
+        oct=0o10
+        bin=0b10
         bool1=true
         bool2=True
         bool3=TRUE
@@ -102,6 +105,9 @@ describe('class Tokenizer', () => {
         float2: .618,
         float3: 1e3,
         float4: -1e-3,
+        hex: 0x10,
+        oct: 0o10,
+        bin: 0b10,
         bool1: true,
         bool2: true,
         bool3: true,
@@ -127,6 +133,9 @@ describe('class Tokenizer', () => {
         float2: '.618',
         float3: '1e3',
         float4: '-1e-3',
+        hex: '0x10',
+        oct: '0o10',
+        bin: '0b10',
         bool1: 'true',
         bool2: 'True',
         bool3: 'TRUE',

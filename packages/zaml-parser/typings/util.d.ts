@@ -14,7 +14,7 @@ export declare function parseValue(value: any): any;
  * Parse number
  * @param value
  */
-export declare function parseNumber(value: string): string | number;
+export declare function parseNumber(value: string, bigIntAsString?: boolean): string | number;
 /**
  * Generate indent spaces
  * @param space

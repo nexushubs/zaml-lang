@@ -71,12 +71,25 @@ export function parseValue(value: any) {
  * Parse number
  * @param value 
  */
-export function parseNumber(value: string) {
+export function parseNumber(value: string, bigIntAsString = false) {
   let number = parseFloat(value);
-  if (/^\d+$/.test(value)
+  if (/^\d+$/.test(value) && bigIntAsString
     && (number > Number.MAX_SAFE_INTEGER || number < Number.MIN_SAFE_INTEGER)
   ) {
     return value;
+  }
+  const prefix = value.substr(0, 2);
+  const main = value.substr(2);
+  switch (prefix) {
+    case '0x':
+      number = parseInt(main, 16);
+      break;
+    case '0o':
+      number = parseInt(main, 8);
+      break;
+    case '0b':
+      number = parseInt(main, 2);
+      break;
   }
   return number;
 }

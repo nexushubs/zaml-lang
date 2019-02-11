@@ -594,11 +594,7 @@ class Tokenizer {
           } else if (value = stream.match(P_DATE_LITERAL)) {
             value = new Date(value);
           } else if (value = stream.match(P_NUMBER_VALUE)) {
-            if (bigIntAsString) {
-              value = parseNumber(value);
-            } else {
-              value = parseFloat(value);
-            }
+            value = parseNumber(value, bigIntAsString);
           } else if (stream.match(P_BOOLEAN_TRUE)) {
             value = true;
           } else if (stream.match(P_BOOLEAN_FALSE)) {
