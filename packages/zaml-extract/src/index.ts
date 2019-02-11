@@ -1,20 +1,28 @@
+import * as _ from 'lodash';
 import Extractor from './Extractor';
-import { ExtractorConstructorOptions } from './types';
+import { ExtractorConstructorOptions, EntityInfo } from './types';
 
-const extract = {
+function extract(text: string, options: ExtractorConstructorOptions): Promise<EntityInfo[]>;
+function extract(list: string[], options: ExtractorConstructorOptions): Promise<EntityInfo[][]>;
+function extract(input: string | string[], options: ExtractorConstructorOptions) {
+  const extractor = new Extractor(options);
+  if (_.isString(input)) {
+    return extractor.extract(input);
+  } else {
+    return extractor.extract(input);
+  }
+}
+
+const extractObject = {
 
   /**
    * Extract entities from a text
    * @param text Source string
    */
-  extract(text: string | string[], options: ExtractorConstructorOptions) {
-    const extractor = new Extractor(options);
-    return extractor.extract(text);
-  },
+  extract,
 
   /**
-   * 
-   * @param {any} options 
+   * @param options 
    */
   create(options: ExtractorConstructorOptions) {
     return new Extractor(options);
@@ -28,4 +36,4 @@ export {
   Extractor,
 };
 
-export default extract;
+export default extractObject;

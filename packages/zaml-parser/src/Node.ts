@@ -64,13 +64,20 @@ export const TreeRules: {[key: string]: Descriptor[]} = {
   [Descriptor.FRAGMENT]: [Descriptor.ANY],
 }
 
-export type ExtractorFunction = (text: string) => EntityItem[];
+export type SingleExtractor = (text: string) => EntityInfo[];
 
-export interface ExtractorInstance {
-  extract: (text: string[]) => EntityItem[][];
+export type AsyncSingleExtractor = (text: string) => Promise<EntityInfo[]>;
+
+export type ArrayExtractor = (textArr: string[]) => EntityInfo[][];
+
+export type AsyncArrayExtractor = (textArr: string[]) => Promise<EntityInfo[][]>;
+
+export interface ExtractorInterface {
+  extract: AsyncSingleExtractor;
+  extractArray?: AsyncArrayExtractor;
 }
 
-export type Extractor = ExtractorFunction | ExtractorInstance;
+export type ExtractorType = SingleExtractor | ExtractorInterface;
 
 export type FinderCallback = (node: Node) => boolean;
 
@@ -194,10 +201,11 @@ export interface NodeSelector {
   label?: string;
 }
 
-export interface EntityItem {
+export interface EntityInfo {
   type: string;
   start: number;
   end: number;
+  text?: string;
   data?: any;
 }
 
@@ -1486,7 +1494,7 @@ class Node {
   /**
    * Process text node in current node and parse entities
    */
-  createEntities(items: EntityItem[]) {
+  createEntities(items: EntityInfo[]) {
     const entityNodes: Node[] = [];
     if (this.type !== NodeType.TEXT) {
       console.warn('createEntities() should exec only on text node');
@@ -1523,16 +1531,16 @@ class Node {
    * Create entity nodes based on text source position
    * @param {Array.<{start:number,end:number,type:string,data:any}>} entities 
    */
-  createEntitiesFromText(entities: EntityItem[]) {
+  createEntitiesFromText(entities: EntityInfo[]) {
     this.toString();
-    const cache: Map<Node, EntityItem[]> = new Map();
-    _.each(entities, (item: EntityItem) => {
+    const cache: Map<Node, EntityInfo[]> = new Map();
+    _.each(entities, (item: EntityInfo) => {
       const textNode = this.findTextByRange(item.start, item.end);
       if (textNode === undefined) {
         return;
       }
       if (cache.has(textNode)) {
-        (<EntityItem[]> cache.get(textNode)).push(item);
+        (<EntityInfo[]> cache.get(textNode)).push(item);
       } else {
         cache.set(textNode, [item]);
       }
@@ -1549,16 +1557,20 @@ class Node {
   /**
    * Extract entities from text node
    */
-  async extractEntities(extractor: Extractor) {
+  extractEntities(extractor: SingleExtractor): Promise<void>;
+  extractEntities(extractor: ExtractorInterface): Promise<void>;
+  async extractEntities(extractor: ExtractorType) {
     const nodeList = this.find((node: Node) => {
       return node.type === NodeType.TEXT && !!node.parent && node.parent.type !== NodeType.ENTITY && !!node.content;
     });
-    const textList = nodeList.map(node => node.content);
-    let result: EntityItem[][];
+    const textList: string[] = nodeList.map(node => node.content as string);
+    let result: EntityInfo[][];
     if (_.isFunction(extractor)) {
-      result = textList.map(text => extractor(<string> text));
-    } else if (_.isFunction((<ExtractorInstance> extractor).extract)) {
-      result = await (<ExtractorInstance> extractor).extract(<string[]>textList);
+      result = await Promise.all(textList.map(text => extractor(text)));
+    } else if (_.isFunction((extractor as ExtractorInterface).extractArray)) {
+      result = await ((extractor as ExtractorInterface).extractArray as AsyncArrayExtractor)(textList);
+    } else if (_.isFunction((extractor as ExtractorInterface).extract)) {
+      result = await Promise.all(textList.map(text => (extractor as ExtractorInterface).extract(text)));
     } else {
       throw new TypeError('invalid extractor');
     }

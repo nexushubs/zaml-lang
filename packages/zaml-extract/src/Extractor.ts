@@ -8,7 +8,9 @@ import {
   ExtractorOptions,
   ExtractorInterface,
   ExtendedExtractorOptions,
+  AsyncArrayExtractor,
 } from './types';
+import extract from '.';
 
 /**
  * Check if a extractor is a class
@@ -31,7 +33,7 @@ const isOverlapping = (items: EntityInfo[], target: EntityInfo) => items.some(it
 /**
  * Extractor class
  */
-class Extractor {
+class Extractor implements ExtractorInterface {
 
   public plugins: ExtractorType[];
   /**
@@ -78,25 +80,27 @@ class Extractor {
 
   /**
    * Execute single plugin to the text (array)
-   * @param {} text 
-   * @param {} extractor 
+   * @param text 
+   * @param extractor 
    */
-  async execSingleExtractor(text: string | string[], extractor: ExtractorType) {
+  execSingleExtractor(text: string, extractor: ExtractorType): Promise<EntityInfo[]>;
+  execSingleExtractor(list: string[], extractor: ExtractorType): Promise<EntityInfo[][]>;
+  async execSingleExtractor(input: string | string[], extractor: ExtractorType) {
     if (_.isFunction(extractor)) {
-      if (_.isArray(text)) {
-        return Promise.all(text.map(t => extractor(t)));
+      if (_.isArray(input)) {
+        return Promise.all(input.map(t => extractor(t)));
       } else {
-        return extractor(text);
+        return extractor(input);
       }
-    } else if (_.isFunction((<ExtractorInterface> extractor).extract)) {
-      if (_.isArray(text)) {
-        if (_.isFunction((<ExtractorInterface> extractor).extractArray)) {
-          return (<ExtractorInterface> extractor).extractArray(text);
+    } else if (_.isFunction((extractor as ExtractorInterface).extract)) {
+      if (_.isArray(input)) {
+        if (_.isFunction((extractor as ExtractorInterface).extractArray)) {
+          return ((extractor as ExtractorInterface).extractArray as AsyncArrayExtractor)(input);
         } else {
-          return Promise.all(text.map(t => (<ExtractorInterface> extractor).extract(t)));
+          return Promise.all(input.map(t => (extractor as ExtractorInterface).extract(t)));
         }
       } else {
-        return (<ExtractorInterface> extractor).extract(text);
+        return (extractor as ExtractorInterface).extract(input);
       }
     } else {
       throw new TypeError('invalid extractor');
@@ -108,6 +112,8 @@ class Extractor {
    * @param list 
    * @returns 
    */
+  extract(text: string): Promise<EntityInfo[]>;
+  extract(list: string[]): Promise<EntityInfo[][]>;
   async extract(text: string | string[]) {
     let list: string[];
     if (_.isArray(text)) {
@@ -138,6 +144,10 @@ class Extractor {
       });
     }
     return _.isString(text) ? results[0] : results;
+  }
+
+  extractArray(list: string[]): Promise<EntityInfo[][]> {
+    return this.extract(list);
   }
 
 }

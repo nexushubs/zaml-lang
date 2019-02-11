@@ -11,7 +11,7 @@
     "coverage": "nyc node_modules/.bin/mocha",
     "typings": "tsc --emitDeclarationOnly",
     "build": "babel src --out-dir lib --source-maps --extensions .ts && yarn typings",
-    "watch": "babel src --out-dir lib --source-maps --extensions .ts --watch --verbose",
+    "watch": "babel src --out-dir lib --source-maps --extensions .ts --watch --verbose & tsc -w --emitDeclarationOnly",
     "docs": "typedoc --out docs --theme markdown --readme none",
     "prepublishOnly": "yarn build && yarn docs"
   },

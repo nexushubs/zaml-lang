@@ -29,11 +29,15 @@ declare enum Descriptor {
 export declare const TreeRules: {
     [key: string]: Descriptor[];
 };
-export declare type ExtractorFunction = (text: string) => EntityItem[];
-export interface ExtractorInstance {
-    extract: (text: string[]) => EntityItem[][];
+export declare type SingleExtractor = (text: string) => EntityInfo[];
+export declare type AsyncSingleExtractor = (text: string) => Promise<EntityInfo[]>;
+export declare type ArrayExtractor = (textArr: string[]) => EntityInfo[][];
+export declare type AsyncArrayExtractor = (textArr: string[]) => Promise<EntityInfo[][]>;
+export interface ExtractorInterface {
+    extract: AsyncSingleExtractor;
+    extractArray?: AsyncArrayExtractor;
 }
-export declare type Extractor = ExtractorFunction | ExtractorInstance;
+export declare type ExtractorType = SingleExtractor | ExtractorInterface;
 export declare type FinderCallback = (node: Node) => boolean;
 export declare type FinderPattern = FinderCallback | string;
 export declare function testNode(pattern: FinderPattern, node: Node): boolean;
@@ -55,7 +59,7 @@ export declare function parseJson(json: JsonNode): Node;
  * Map metadata & attributes to JSON
  * @param  map
  */
-export declare function toJsonMap(map?: KeyValueMap): KeyValueMap | undefined;
+export declare function toJsonMap(map?: KeyValueMap, options?: JsonOptions): KeyValueMap | undefined;
 export declare function parseJsonMap(json?: KeyValueMap): KeyValueMap | undefined;
 export declare type KeyValueMap = {
     [key: string]: any;
@@ -80,10 +84,11 @@ export interface NodeSelector {
     source?: string;
     label?: string;
 }
-export interface EntityItem {
+export interface EntityInfo {
     type: string;
     start: number;
     end: number;
+    text?: string;
     data?: any;
 }
 export interface JsonOptions {
@@ -592,16 +597,17 @@ declare class Node {
     /**
      * Process text node in current node and parse entities
      */
-    createEntities(items: EntityItem[]): Node[];
+    createEntities(items: EntityInfo[]): Node[];
     /**
      * Create entity nodes based on text source position
      * @param {Array.<{start:number,end:number,type:string,data:any}>} entities
      */
-    createEntitiesFromText(entities: EntityItem[]): void;
+    createEntitiesFromText(entities: EntityInfo[]): void;
     /**
      * Extract entities from text node
      */
-    extractEntities(extractor: Extractor): Promise<void>;
+    extractEntities(extractor: SingleExtractor): Promise<void>;
+    extractEntities(extractor: ExtractorInterface): Promise<void>;
     /**
      * Remove wrapping entity and put text back
      */

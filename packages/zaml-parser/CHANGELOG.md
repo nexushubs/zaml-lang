@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.14] - 2019-01-31
+
+### Fixed
+
+* Fix `node.toSource()` multi-line text indentation 
+
+## [0.6.13] - 2019-01-31
+
+### Fixed
+
+* Fix `node.splitText()`
+* Fix parsing error of empty file by adding a empty line at the end of file
+* Fix node.toJSON(), attach `node.id` to metadata entities
+
+## [0.6.12] - 2019-01-28
+
+### Fixed
+
+* Fix `node.toSource()` metadata indentation
+
+## [0.6.11] - 2019-01-28
+
+### Added
+
+* New parsing option `needMetadataMarker` for `---` is required
+* New stringify option `metadataMarker` to force output `---` in source
+
 ## [0.6.10] - 2019-01-28
 
 ### Fixed

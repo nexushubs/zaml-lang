@@ -1,18 +1,22 @@
 export interface EntityInfo {
+  type: string;
   start: number;
   end: number;
-  text: string;
-  type: string;
+  text?: string;
   data: {[key: string]: any};
 }
 
-export type SingleExtractor = (text: string) => EntityInfo[] | Promise<EntityInfo[]>;
+export type SingleExtractor = (text: string) => EntityInfo[];
 
-export type ArrayExtractor = (textArr: string[]) => EntityInfo[][] | Promise<EntityInfo[][]>;
+export type AsyncSingleExtractor = (text: string) => Promise<EntityInfo[]>;
+
+export type ArrayExtractor = (textArr: string[]) => EntityInfo[][];
+
+export type AsyncArrayExtractor = (textArr: string[]) => Promise<EntityInfo[][]>;
 
 export interface ExtractorInterface {
-  extract: SingleExtractor;
-  extractArray: ArrayExtractor;
+  extract: AsyncSingleExtractor;
+  extractArray?: AsyncArrayExtractor;
 }
 
 export type ExtractorType = SingleExtractor | ExtractorInterface;
