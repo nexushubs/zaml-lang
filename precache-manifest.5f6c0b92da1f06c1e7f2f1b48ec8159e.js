@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/zaml-lang/static/js/runtime~main.93ee0072.js"
   },
   {
-    "revision": "6bb63fc95b87d9b31242",
-    "url": "/zaml-lang/static/js/main.6bb63fc9.chunk.js"
+    "revision": "620c2cf8763bb26a98ed",
+    "url": "/zaml-lang/static/js/main.620c2cf8.chunk.js"
   },
   {
     "revision": "c8244fe073ac3f32848f",
     "url": "/zaml-lang/static/js/1.c8244fe0.chunk.js"
   },
   {
-    "revision": "6bb63fc95b87d9b31242",
+    "revision": "620c2cf8763bb26a98ed",
     "url": "/zaml-lang/static/css/main.b90b2365.chunk.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/zaml-lang/static/css/1.a088cf3f.chunk.css"
   },
   {
-    "revision": "bed33f29f7f2e3923d4ee16433f0758b",
+    "revision": "74aa09ff36a1b01493d2dedfa75561b1",
     "url": "/zaml-lang/index.html"
   }
 ];
