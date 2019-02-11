@@ -61,37 +61,39 @@ describe('class Tokenizer', () => {
 
   describe('attribute parsing', () => {
 
+    const sample = `
+      {BLOCK
+        string1=unwrapped_string
+        string2="wrapped string with escaped quote \\""
+        string3=2cats
+        string4="123"
+        int1=0
+        int2=1
+        int3=-56
+        bigInt=${Number.MAX_SAFE_INTEGER}0
+        float1=3.1415926
+        float2=.618
+        float3=1e3
+        float4=-1e-3
+        bool1=true
+        bool2=True
+        bool3=TRUE
+        bool4
+        bool5=false
+        bool6=False
+        bool7=FALSE
+      }
+        the sample text
+      {/BLOCK}
+    `
+
     it('string, number, boolean literal', () => {
-  
-      const sample = `
-        {BLOCK
-          string1=unwrapped_string
-          string2="wrapped string with escaped quote \\""
-          string3=2cats
-          int1=0
-          int2=1
-          int3=-56
-          bigInt=${Number.MAX_SAFE_INTEGER}0
-          float1=3.1415926
-          float2=.618
-          float3=1e3
-          float4=-1e-3
-          bool1=true
-          bool2=True
-          bool3=TRUE
-          bool4
-          bool5=false
-          bool6=False
-          bool7=FALSE
-        }
-          the sample text
-        {/BLOCK}
-      `
-      const node = zaml.parse(sample);
+      const node = zaml.parse(sample, { bigIntAsString: true });
       expect(node.firstChild.attributes).to.deep.equal({
         string1: 'unwrapped_string',
         string2: 'wrapped string with escaped quote \"',
         string3: '2cats',
+        string4: '123',
         int1: 0,
         int2: 1,
         int3: -56,
@@ -108,9 +110,32 @@ describe('class Tokenizer', () => {
         bool6: false,
         bool7: false,
       });
-
     });
 
+    it('parse as string', () => {
+      const node = zaml.parse(sample, { attributeAsString: true });
+      expect(node.firstChild.attributes).to.deep.equal({
+        string1: 'unwrapped_string',
+        string2: 'wrapped string with escaped quote \"',
+        string3: '2cats',
+        string4: '123',
+        int1: '0',
+        int2: '1',
+        int3: '-56',
+        bigInt: `${Number.MAX_SAFE_INTEGER}0`,
+        float1: '3.1415926',
+        float2: '.618',
+        float3: '1e3',
+        float4: '-1e-3',
+        bool1: 'true',
+        bool2: 'True',
+        bool3: 'TRUE',
+        bool4: true,
+        bool5: 'false',
+        bool6: 'False',
+        bool7: 'FALSE',
+      });
+    });
 
     it('datetime', () => {
   

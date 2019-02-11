@@ -55,4 +55,68 @@ describe('class Node', () => {
     expect(node.toSource().indexOf(result))
   });
 
+  describe('node.toSource()', () => {
+
+    let attributes;
+    beforeEach(() => {
+      attributes = {
+        string1: 'unwrapped_string',
+        string2: 'wrapped string with escaped quote \"',
+        string3: '2cats',
+        string4: '123',
+        int1: 0,
+        int2: 1,
+        int3: -56,
+        bigInt: `${Number.MAX_SAFE_INTEGER}0`,
+        float1: 3.1415926,
+        float2: .618,
+        float3: 1e3,
+        float4: -1e-3,
+        bool1: true,
+        bool2: true,
+        bool3: true,
+        bool4: true,
+        bool5: false,
+        bool6: false,
+        bool7: false,
+      }
+    });
+
+    it('attributes', () => {
+      const block = Node.createBlock({ attributes });
+      const source = block.toSource();
+      const node = zaml.parse(source);
+      expect(node.firstChild.attributes).to.deep.equal(attributes);
+    });
+
+    it('attributes as string', () => {
+      const _attributes = {
+        string1: 'unwrapped_string',
+        string2: 'wrapped string with escaped quote \"',
+        string3: '2cats',
+        string4: '123',
+        int1: '0',
+        int2: '1',
+        int3: '-56',
+        bigInt: `${Number.MAX_SAFE_INTEGER}0`,
+        float1: '3.1415926',
+        float2: '0.618',
+        float3: '1000',
+        float4: '-0.001',
+        bool1: 'true',
+        bool2: 'true',
+        bool3: 'true',
+        bool4: 'true',
+        bool5: 'false',
+        bool6: 'false',
+        bool7: 'false',
+      };
+      const block = Node.createBlock({ attributes });
+      const source = block.toSource({ attributeAsString: true });
+      const node = zaml.parse(source);
+      expect(node.firstChild.attributes).to.deep.equal(_attributes);
+    });
+
+  });
+
 });

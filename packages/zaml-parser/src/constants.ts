@@ -45,6 +45,7 @@ export const T_STRING_START = '"';
 export const P_DATE_LITERAL = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d(\.\d+([+-][0-2]\d:[0-5]\d|Z))?|\d{4}-[01]\d-[0-3]\d/g;
 export const P_NUMBER_START = /[\d\.\-]/;
 export const P_NUMBER_LITERAL = /\-?(\d*\.\d*|\d+)(e\-?\d+)?/g;
+export const P_NUMBER_LITERAL_FULL = new RegExp(`^${P_NUMBER_LITERAL.source}$`);
 export const P_NUMBER_VALUE = new RegExp(`${P_NUMBER_LITERAL.source}(?=${combinePatterns([P_WHITE_SPACES_EXT, T_TAG_END])})`, 'g');
 export const P_STRING_LITERAL_QUOTED = /"([^"\\]|\\")*"/g;
 export const P_STRING_LITERAL_UNQUOTED = /[^\s}"'\\\n]+/g;

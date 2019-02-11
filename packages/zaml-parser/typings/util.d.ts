@@ -4,7 +4,7 @@ import Node from './Node';
  * Stringify attribute value
  * @param value
  */
-export declare function formatValue(value: any): string | null;
+export declare function formatValue(value: any, asString?: boolean): any;
 /**
  * Parse attribute value
  * @param value
@@ -26,6 +26,7 @@ export interface StringifyOptions {
     simple?: boolean;
     toSource?: boolean;
     metadataMarker?: boolean;
+    attributeAsString?: boolean;
 }
 /**
  * Stringify node
@@ -37,7 +38,7 @@ export interface StringifyOptions {
  * @param [indent] Initial indent, increases 1 each block
  * @param Initial position
  */
-export declare function stringify(node: Node, options?: StringifyOptions | number, indent?: number, pos?: number): string;
+export declare function stringify(node: Node, options?: StringifyOptions, indent?: number, pos?: number): string;
 export declare const isNode: boolean;
 export declare const isChrome: boolean;
 export declare const isAnsiSupported: boolean;

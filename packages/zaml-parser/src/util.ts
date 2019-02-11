@@ -13,6 +13,7 @@ import {
   T_PARAGRAPH_BREAK,
   P_STRING_LITERAL_UNQUOTED_TESTER,
   P_PARAGRAPH_BREAK,
+  P_NUMBER_LITERAL_FULL,
 } from './constants';
 
 import Node, { NodeType } from './Node';
@@ -23,14 +24,32 @@ const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/;
  * Stringify attribute value
  * @param value 
  */
-export function formatValue(value: any) {
+export function formatValue(value: any, asString: boolean = false) {
   if (_.isDate(value)) {
-    return value.toISOString().replace(/T00:00:00\.000Z$/, '');
+    value = value.toISOString();
+    if (asString) {
+      return JSON.stringify(value);
+    }
+    return value.replace(/T00:00:00\.000Z$/, '');
   } else if (_.isString(value)) {
-    return P_STRING_LITERAL_UNQUOTED_TESTER.test(value) ? value : JSON.stringify(value);
+    if (
+      [T_TAG_START, T_ENTITY_START].includes(value.charAt(0)) ||
+      P_NUMBER_LITERAL_FULL.test(value) ||
+      !P_STRING_LITERAL_UNQUOTED_TESTER.test(value)
+    ) {
+      value = JSON.stringify(value);
+    }
+    return value;
   } else if (_.isBoolean(value)) {
-    return JSON.stringify(value);
+    value = value.toString();
+    if (asString) {
+      value = JSON.stringify(value);
+    }
+    return value;
   } else if (_.isNumber(value) && !_.isNaN(value) && value !== Infinity || value !== -Infinity) {
+    if (asString) {
+      value = value.toString();
+    }
     return JSON.stringify(value);
   } else {
     return null;
@@ -77,6 +96,7 @@ export interface StringifyOptions {
   simple?: boolean;
   toSource?: boolean;
   metadataMarker?: boolean;
+  attributeAsString?: boolean;
 }
 
 /**
@@ -89,23 +109,15 @@ export interface StringifyOptions {
  * @param [indent] Initial indent, increases 1 each block
  * @param Initial position
  */
-export function stringify(node: Node, options?: StringifyOptions | number, indent = -1, pos = 0) {
+export function stringify(node: Node, options?: StringifyOptions, indent = -1, pos = 0) {
   const defaultOptions = {
     space: DEFAULT_INDENT_SPACES,
     simple: false,
     toSource: false,
     metadataMarker: true,
+    attributeAsString: false,
   };
-  let opt: StringifyOptions;
-  if (_.isUndefined(options)) {
-    opt = defaultOptions
-  } else if (_.isNumber(options)) {
-    opt = {
-      space: options,
-    };
-  } else {
-    opt = _.defaults(options, defaultOptions);
-  }
+  let opt: StringifyOptions = _.defaults(options, defaultOptions);
   let text = '';
   const simpleTag = opt.simple && node.isSimpleTag &&
     (node.labels.length > 0 || Object.keys(node.attributes).length > 0);
@@ -152,12 +164,12 @@ export function stringify(node: Node, options?: StringifyOptions | number, inden
         if (!simpleTag || listCount > 1) {
           text += T_SPACE;
         }
-        if (!simpleTag && _.isBoolean(value) && value) {
+        if (!simpleTag && _.isBoolean(value) && value && !opt.attributeAsString) {
           text += key;
         } else if (value instanceof Node) {
           text += stringify(node, opt, 0, pos + text.length);
         } else {
-          text += `${key}=${formatValue(value)}`;
+          text += `${key}=${formatValue(value, opt.attributeAsString)}`;
         }
       });
       _.each(node.labels, (label, i) => {

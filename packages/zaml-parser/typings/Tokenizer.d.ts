@@ -3,6 +3,8 @@ import Node from './Node';
 export interface ParsingOptions {
     verbose?: boolean;
     needMetadataMarker?: boolean;
+    attributeAsString?: boolean;
+    bigIntAsString?: boolean;
 }
 /**
  * Tokenizer class

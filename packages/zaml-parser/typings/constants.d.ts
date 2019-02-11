@@ -38,6 +38,7 @@ export declare const T_STRING_START = "\"";
 export declare const P_DATE_LITERAL: RegExp;
 export declare const P_NUMBER_START: RegExp;
 export declare const P_NUMBER_LITERAL: RegExp;
+export declare const P_NUMBER_LITERAL_FULL: RegExp;
 export declare const P_NUMBER_VALUE: RegExp;
 export declare const P_STRING_LITERAL_QUOTED: RegExp;
 export declare const P_STRING_LITERAL_UNQUOTED: RegExp;

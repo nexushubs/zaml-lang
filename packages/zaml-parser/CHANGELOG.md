@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.16] - 2019-02-11
+
+### Fixed
+
+* Fix attribute `toSource()` of string with number pattern
+
+### Added
+
+* Add parsing option `attributeAsString` to force parsing attribute value as string
+* Add parsing option `bigIntAsString` to enable big integer parsing
+* Add stringify option `attributeAsString` to force convert number, boolean to string
+
+## [0.6.15] - 2019-02-11
+
+### Fixed
+
+* Fix typing of entity with extractor
+
 ## [0.6.14] - 2019-01-31
 
 ### Fixed

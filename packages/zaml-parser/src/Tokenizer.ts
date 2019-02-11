@@ -103,6 +103,8 @@ const countLineBreaks = (text: string) => {
 export interface ParsingOptions {
   verbose?: boolean;
   needMetadataMarker?: boolean;
+  attributeAsString?: boolean;
+  bigIntAsString?: boolean;
 };
 
 /**
@@ -153,7 +155,11 @@ class Tokenizer {
    */
   process(): Node {
     const { text, stream } = this;
-    const { needMetadataMarker } = this.options;
+    const {
+      needMetadataMarker,
+      attributeAsString,
+      bigIntAsString,
+    } = this.options;
     const timeStart = Date.now();
     let state: State = State.METADATA;
     let start = 0;
@@ -583,19 +589,22 @@ class Tokenizer {
             } catch (e) {
               throw createError('invalid string literal');
             }
+          } else if (attributeAsString) {
+            value = stream.match(P_STRING_LITERAL_UNQUOTED);
           } else if (value = stream.match(P_DATE_LITERAL)) {
             value = new Date(value);
           } else if (value = stream.match(P_NUMBER_VALUE)) {
-            value = parseNumber(value);
+            if (bigIntAsString) {
+              value = parseNumber(value);
+            } else {
+              value = parseFloat(value);
+            }
           } else if (stream.match(P_BOOLEAN_TRUE)) {
             value = true;
           } else if (stream.match(P_BOOLEAN_FALSE)) {
             value = false;
           } else {
             value = stream.match(P_STRING_LITERAL_UNQUOTED);
-            if (_.isNull(value)) {
-              throw createError('unrecognized attribute value');
-            }
           }
           if (_.isNull(value)) {
             throw createError('invalid attribute value');
