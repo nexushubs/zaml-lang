@@ -206,7 +206,7 @@ export interface EntityInfo {
   start: number;
   end: number;
   text?: string;
-  data: any;
+  data?: any;
 }
 
 export interface JsonOptions {

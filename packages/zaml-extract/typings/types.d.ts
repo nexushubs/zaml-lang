@@ -3,9 +3,7 @@ export interface EntityInfo {
     start: number;
     end: number;
     text?: string;
-    data: {
-        [key: string]: any;
-    };
+    data?: any;
 }
 export declare type SingleExtractor = (text: string) => EntityInfo[];
 export declare type AsyncSingleExtractor = (text: string) => Promise<EntityInfo[]>;

@@ -3,7 +3,7 @@ export interface EntityInfo {
   start: number;
   end: number;
   text?: string;
-  data: {[key: string]: any};
+  data?: any;
 }
 
 export type SingleExtractor = (text: string) => EntityInfo[];
