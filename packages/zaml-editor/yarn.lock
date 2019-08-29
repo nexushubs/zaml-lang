@@ -1060,10 +1060,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
   integrity sha512-FZdkNBDqBRHKQ2MEbSC17xnPFOhZxeJ2YGSfr2BKf3sujG49Qe3bB+rGCwQfIaA7WHnGeGkSijX4FuBCdrzW/g==
 
-"@zaml/parser@^0.6.11":
-  version "0.6.11"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.11.tgz#79c8e39ef3fe34f5a06c3a26fbbbb7e823464267"
-  integrity sha512-66Z3lCuy9ozTnlkIaqyvXND+nBzGg7VJOdWbc2od0Gv9Eu1BXNFTQxNnok9MGzbj9PTfcgR6ieeHCh7xb6Fddg==
+"@zaml/parser@^0.6.17":
+  version "0.6.17"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.17.tgz#4585c82453856c1a869434cead9c2f2aaaa51ed1"
+  integrity sha512-9/V3+3ASO9gMJj2E4QFBFdl9C+xcP5sooyyxHgeLSB+/v5rI+Wr32BuBLTkV3zqP5YenG22e41h93ztrbg3r2w==
   dependencies:
     "@babel/runtime" "^7.1.2"
     lodash "^4.17.11"
@@ -3438,14 +3438,16 @@ eslint-scope@^4.0.0:
     estraverse "^4.1.1"
 
 eslint-utils@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.3.1.tgz#9a851ba89ee7c460346f97cf8939c7298827e512"
-  integrity sha512-Z7YjnIldX+2XMcjr7ZkgEsOj/bREONV60qYeB/bjMAqqqZ4zxKyWX+BOUkdmRmA9riiIPVvo5x86m5elviOk0Q==
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-1.4.2.tgz#166a5180ef6ab7eb462f162fd0e6f2463d7309ab"
+  integrity sha512-eAZS2sEUMlIeCjBeubdj45dmBHQwPHWyBcT1VSYB7o9x9WRRqKxyUoiXlRjyAwzN7YEzHJlYg0NmzDRWx6GP4Q==
+  dependencies:
+    eslint-visitor-keys "^1.0.0"
 
 eslint-visitor-keys@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
-  integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
+  integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
 eslint@5.6.0:
   version "5.6.0"
