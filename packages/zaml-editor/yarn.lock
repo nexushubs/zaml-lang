@@ -1060,10 +1060,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
   integrity sha512-FZdkNBDqBRHKQ2MEbSC17xnPFOhZxeJ2YGSfr2BKf3sujG49Qe3bB+rGCwQfIaA7WHnGeGkSijX4FuBCdrzW/g==
 
-"@zaml/parser@^0.6.11":
-  version "0.6.11"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.11.tgz#79c8e39ef3fe34f5a06c3a26fbbbb7e823464267"
-  integrity sha512-66Z3lCuy9ozTnlkIaqyvXND+nBzGg7VJOdWbc2od0Gv9Eu1BXNFTQxNnok9MGzbj9PTfcgR6ieeHCh7xb6Fddg==
+"@zaml/parser@^0.6.17":
+  version "0.6.17"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.17.tgz#4585c82453856c1a869434cead9c2f2aaaa51ed1"
+  integrity sha512-9/V3+3ASO9gMJj2E4QFBFdl9C+xcP5sooyyxHgeLSB+/v5rI+Wr32BuBLTkV3zqP5YenG22e41h93ztrbg3r2w==
   dependencies:
     "@babel/runtime" "^7.1.2"
     lodash "^4.17.11"
@@ -6037,9 +6037,9 @@ lodash.memoize@^4.1.2:
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
 lodash.mergewith@^4.6.0:
-  version "4.6.1"
-  resolved "http://registry.npm.taobao.org/lodash.mergewith/download/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
-  integrity sha1-Y5BX5ybDr72z59QnQcqo1uQzWSc=
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.2.tgz#617121f89ac55f59047c7aec1ccd6654c6590f55"
+  integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
