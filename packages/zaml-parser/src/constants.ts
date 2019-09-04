@@ -26,6 +26,7 @@ export const T_TAG_ATTRIBUTE_FAVORED_ASSIGN = T_ASSIGN_XML;
 
 export const P_ASSIGN_YAML = /[:：]/;
 export const P_LINE_BREAK = /\r?\n/g;
+export const P_MULTIPLE_LINE_BREAK = /(\r?\n)+/g;
 export const P_SPACE_WRAPPED_LINE_BREAK = /\s*\n\s*/g;
 export const P_PARAGRAPH_BREAK = new RegExp(`${P_LINE_BREAK.source}\\s*${P_LINE_BREAK.source}`, 'g');
 export const P_WHITE_SPACE = /[ \t]/g;

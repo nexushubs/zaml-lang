@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { stringify, parseValue, StringifyOptions } from './util';
-import { parse, TextStream } from '.';
+import { parse } from '.';
 import { P_LABEL_START, P_VAR_NAME } from './constants';
 
 const nanoid = require('nanoid');
@@ -1035,6 +1035,15 @@ class Node {
     } else {
       const child = Node.create(NodeType.TEXT, undefined, { ...props, content: text });
       this.prependChild(child);
+    }
+  }
+
+  /**
+   * Remove node from tree
+   */
+  remove() {
+    if (this.parent) {
+      this.parent.removeChild(this);
     }
   }
 

@@ -19,6 +19,7 @@ export declare const T_METADATA_FAVORED_ASSIGN = ":\uFF1A";
 export declare const T_TAG_ATTRIBUTE_FAVORED_ASSIGN = "=";
 export declare const P_ASSIGN_YAML: RegExp;
 export declare const P_LINE_BREAK: RegExp;
+export declare const P_MULTIPLE_LINE_BREAK: RegExp;
 export declare const P_SPACE_WRAPPED_LINE_BREAK: RegExp;
 export declare const P_PARAGRAPH_BREAK: RegExp;
 export declare const P_WHITE_SPACE: RegExp;

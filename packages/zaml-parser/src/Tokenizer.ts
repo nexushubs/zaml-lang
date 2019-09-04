@@ -45,6 +45,7 @@ import {
   P_MARKER,
   PROCESSING_TIMEOUT,
   T_LINE_BREAK,
+  P_MULTIPLE_LINE_BREAK,
 } from './constants';
 
 enum State {
@@ -221,8 +222,11 @@ class Tokenizer {
     const popNode = (error?: string) => {
       const lastNode = node;
       node.end = stream.pos;
-      if (node.start === node.end || (node.type === NodeType.PARAGRAPH && !node.hasChild()) && node.parent) {
-        (<Node> node.parent).removeChild(node);
+      if (node.isParagraph) {
+        normalizeParagraph(node);
+      }
+      if (node.start === node.end || (node.isParagraph && !node.hasChild()) && node.parent) {
+        node.remove();
       }
       node = <Node> nodeStack.pop();
       this.debug(`pop : ${debugStack(lastNode)}\n`);
@@ -240,6 +244,16 @@ class Tokenizer {
         popNode();
         node.appendChild(blockNode);
         pushNode(blockNode);
+      }
+    }
+
+    const normalizeParagraph = (p: Node) => {
+      const lastChild = p.lastChild;
+      if (lastChild && lastChild.isText) {
+        lastChild.content = _.trimEnd(lastChild.content, T_LINE_BREAKS);
+        if (!lastChild.content) {
+          lastChild.remove()
+        }
       }
     }
 
@@ -304,7 +318,7 @@ class Tokenizer {
             break;
           }
           start = stream.pos;
-          if (node.type !== NodeType.PARAGRAPH && !node.isInlineBlock && stream.sol(true)) {
+          if (!node.isParagraph && !node.isInlineBlock && stream.sol(true)) {
             const child = node.createChild(NodeType.PARAGRAPH, undefined, { start });
             pushNode(child);
           }
@@ -315,7 +329,7 @@ class Tokenizer {
               text = _.trimStart(text);
             }
             text = text.replace(P_SPACE_WRAPPED_LINE_BREAK, T_LINE_BREAK);
-            text = _.trimEnd(text, T_LINE_BREAKS);
+            // text = _.trimEnd(text, T_LINE_BREAKS);
             if (text) {
               node.appendText(text, { start, end: stream.pos });
             }
@@ -389,7 +403,7 @@ class Tokenizer {
             state = State.TAG_NAME;
           } else if (stream.match(P_LINE_BREAK)) {
             state = State.NORMAL;
-          } else if (node.type !== NodeType.ENTITY && (states.unwrapped || stream.eat(P_LABEL_START))) {
+          } else if (!node.isEntity && (states.unwrapped || stream.eat(P_LABEL_START))) {
             state = State.LABEL_START;
           } else {
             const child = Node.create(NodeType.TAG, '', { start });
@@ -407,7 +421,7 @@ class Tokenizer {
             stream.pushCursor(start);
             const tagName = stream.sol(true) ? 'BLOCK' : 'INLINE';
             stream.popCursor();
-            if (node.type === NodeType.PARAGRAPH && tagName === 'BLOCK') {
+            if (node.isParagraph && tagName === 'BLOCK') {
               popNode();
             }
             const child = node.createChild(NodeType.TAG, tagName, {
@@ -430,7 +444,7 @@ class Tokenizer {
           }
           states.inline = name === 'INLINE';
           if (states.isClosing) {
-            if (node.type === NodeType.PARAGRAPH) {
+            if (node.isParagraph) {
               stream.pushCursor(start);
               popNode();
               stream.popCursor();
@@ -488,7 +502,7 @@ class Tokenizer {
               break;
             }
             // deal with simple block at the beginning
-            if (node.type === NodeType.ROOT && !stream.match(P_ATTRIBUTE_LIST, { consume: false }) && lineBreaks === 1) {
+            if (node.isRoot && !stream.match(P_ATTRIBUTE_LIST, { consume: false }) && lineBreaks === 1) {
               const child = node.createChild(NodeType.TAG, 'BLOCK', {
                 labels: node.labels,
                 states: {
@@ -633,11 +647,11 @@ class Tokenizer {
           let tagNode = node;
           states.inline = tagNode.isInlineBlock;
           if (!node.isWrappingTag || states.isClosing) {
-            if (node.type === NodeType.PARAGRAPH) {
+            if (node.isParagraph) {
               popNode();
             }
             popNode();
-            if (node.type === NodeType.ENTITY) {
+            if (node.isEntity) {
               // copy tag properties to entity and remove temporary tag node
               node.setAttributes(tagNode.attributes);
               node.name = tagNode.name;
@@ -718,7 +732,7 @@ class Tokenizer {
         }
         
         case State.END: {
-          if (node.type !== NodeType.ROOT) {
+          if (!node.isRoot) {
             popNode();
           }
           state = State.FINISH;

@@ -1,6 +1,6 @@
 const chai = require('chai');
 const fs = require('fs');
-const extractor = require('../lib');
+const extractor = require('..');
 const zaml = require('@zaml/parser');
 
 const { expect } = chai;
@@ -10,6 +10,7 @@ describe('extractor', () => {
 
   let extractor;
   const sample = fs.readFileSync(`${__dirname}/fixtures/sample.txt`, { encoding: 'utf8' });
+  const links = fs.readFileSync(`${__dirname}/fixtures/links.txt`, { encoding: 'utf8' });
 
   beforeEach(() => {
     extractor = new Extractor({});
@@ -24,7 +25,8 @@ describe('extractor', () => {
       plugins: [
         'link',
         'mention',
-        { name: 'rest', options: { url: 'http://127.0.0.1:4500/api/parse' } },
+        // TODO replace to mock http server
+        // { name: 'rest', options: { url: 'http://127.0.0.1:4500/api/parse' } },
       ],
     });
     const result = await extractor.extract([sample, sample]);
@@ -37,7 +39,7 @@ describe('extractor', () => {
         'link',
         { name: 'mention', options: { users: ['someone', 'someone_else']}},
         // TODO replace to mock http server
-        { name: 'rest', options: { url: 'http://127.0.0.1:4500/api/parse' } },
+        // { name: 'rest', options: { url: 'http://127.0.0.1:4500/api/parse' } },
       ],
     });
     const node = zaml.parse(sample);
@@ -50,4 +52,18 @@ describe('extractor', () => {
     // console.log(JSON.stringify(newNode, null, 2));
     expect(newNode.toJSON()).to.deep.equal(node.toJSON());
   });
+
+  it('preserve line-breaks around single link', async () => {
+    extractor = new Extractor({
+      plugins: [
+        'link',
+      ],
+    });
+    const node = zaml.parse(links);
+    await node.extractEntities(extractor);
+    const newSource = node.toSource();
+    console.log(JSON.stringify(node.toJSON(), null, 2));
+    console.log(node.toSource());
+  });
+
 });

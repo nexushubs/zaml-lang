@@ -1,0 +1,6 @@
+Link
+https://www.google.com/
+Parsed Link
+[http://www.google.com]{LINK url=http://www.google.com}
+Other link
+https://mail.google.com/

@@ -414,6 +414,10 @@ declare class Node {
      */
     prependText(text: string, props?: NodeProps): this | undefined;
     /**
+     * Remove node from tree
+     */
+    remove(): void;
+    /**
      * Remove one child
      * @param node
      */
