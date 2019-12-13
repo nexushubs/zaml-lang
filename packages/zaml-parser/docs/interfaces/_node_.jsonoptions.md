@@ -1,51 +1,39 @@
-[@zaml/parser](../README.md) > ["Node"](../modules/_node_.md) > [JsonOptions](../interfaces/_node_.jsonoptions.md)
+[@zaml/parser](../README.md) › ["Node"](../modules/_node_.md) › [JsonOptions](_node_.jsonoptions.md)
 
 # Interface: JsonOptions
 
 ## Hierarchy
 
-**JsonOptions**
+* **JsonOptions**
 
 ## Index
 
 ### Properties
 
-* [internalId](_node_.jsonoptions.md#internalid)
-* [position](_node_.jsonoptions.md#position)
-* [textPosition](_node_.jsonoptions.md#textposition)
-
----
+* [internalId](_node_.jsonoptions.md#optional-internalid)
+* [position](_node_.jsonoptions.md#optional-position)
+* [textPosition](_node_.jsonoptions.md#optional-textposition)
 
 ## Properties
 
-<a id="internalid"></a>
+### `Optional` internalId
 
-### `<Optional>` internalId
+• **internalId**? : *undefined | false | true*
 
-**● internalId**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [Node.ts:207](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L207)*
-
-___
-<a id="position"></a>
-
-### `<Optional>` position
-
-**● position**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [Node.ts:205](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L205)*
-
-___
-<a id="textposition"></a>
-
-### `<Optional>` textPosition
-
-**● textPosition**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [Node.ts:206](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L206)*
+*Defined in [src/Node.ts:215](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L215)*
 
 ___
 
+### `Optional` position
+
+• **position**? : *undefined | false | true*
+
+*Defined in [src/Node.ts:213](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L213)*
+
+___
+
+### `Optional` textPosition
+
+• **textPosition**? : *undefined | false | true*
+
+*Defined in [src/Node.ts:214](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L214)*

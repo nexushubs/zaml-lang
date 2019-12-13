@@ -1,13 +1,14 @@
-[@zaml/parser](../README.md) > ["TextStream"](../modules/_textstream_.md) > [TextStream](../classes/_textstream_.textstream.md)
+[@zaml/parser](../README.md) › ["TextStream"](../modules/_textstream_.md) › [TextStream](_textstream_.textstream.md)
 
 # Class: TextStream
 
 Stream like text string
-*__typicalname__*: stream
+
+**`typicalname`** stream
 
 ## Hierarchy
 
-**TextStream**
+* **TextStream**
 
 ## Index
 
@@ -61,693 +62,656 @@ Stream like text string
 * [skipToEnd](_textstream_.textstream.md#skiptoend)
 * [sol](_textstream_.textstream.md#sol)
 
----
-
 ## Constructors
-
-<a id="constructor"></a>
 
 ###  constructor
 
-⊕ **new TextStream**(text: *`string`*, tabSize?: *`number`*): [TextStream](_textstream_.textstream.md)
+\+ **new TextStream**(`text`: string, `tabSize`: number): *[TextStream](_textstream_.textstream.md)*
 
-*Defined in [TextStream.ts:92](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L92)*
+*Defined in [src/TextStream.ts:92](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L92)*
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| text | `string` | - |
-| `Default value` tabSize | `number` | 2 |
+Name | Type | Default |
+------ | ------ | ------ |
+`text` | string | - |
+`tabSize` | number | 2 |
 
-**Returns:** [TextStream](_textstream_.textstream.md)
-
-___
+**Returns:** *[TextStream](_textstream_.textstream.md)*
 
 ## Properties
 
-<a id="cursorstack"></a>
-
 ###  cursorStack
 
-**● cursorStack**: *`number`[]*
+• **cursorStack**: *number[]*
 
-*Defined in [TextStream.ts:89](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L89)*
+*Defined in [src/TextStream.ts:89](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L89)*
 
 Cursor stack positions
 
 ___
-<a id="lastmatch"></a>
 
 ###  lastMatch
 
-**● lastMatch**: *`string`* = ""
+• **lastMatch**: *string* = ""
 
-*Defined in [TextStream.ts:92](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L92)*
+*Defined in [src/TextStream.ts:92](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L92)*
 
 Last matched string of methods like eat() match()
 
 ___
-<a id="lineoffsetindexes"></a>
 
 ###  lineOffsetIndexes
 
-**● lineOffsetIndexes**: *`number`[]* =  []
+• **lineOffsetIndexes**: *number[]* =  []
 
-*Defined in [TextStream.ts:83](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L83)*
+*Defined in [src/TextStream.ts:83](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L83)*
 
 Start position of each line
 
 ___
-<a id="lines"></a>
 
 ###  lines
 
-**● lines**: *[TextLine](_textline_.textline.md)[]*
+• **lines**: *[TextLine](_textline_.textline.md)[]*
 
-*Defined in [TextStream.ts:80](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L80)*
+*Defined in [src/TextStream.ts:80](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L80)*
 
 Text lines
 
 ___
-<a id="markers"></a>
 
 ###  markers
 
-**● markers**: *[Marker](../interfaces/_textstream_.marker.md)[]*
+• **markers**: *[Marker](../interfaces/_textstream_.marker.md)[]*
 
-*Defined in [TextStream.ts:86](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L86)*
+*Defined in [src/TextStream.ts:86](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L86)*
 
 Markers
 
 ___
-<a id="pos"></a>
 
 ###  pos
 
-**● pos**: *`number`*
+• **pos**: *number*
 
-*Defined in [TextStream.ts:71](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L71)*
+*Defined in [src/TextStream.ts:71](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L71)*
 
 Current cursor position
 
 ___
-<a id="tabsize"></a>
 
 ###  tabSize
 
-**● tabSize**: *`number`*
+• **tabSize**: *number*
 
-*Defined in [TextStream.ts:77](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L77)*
+*Defined in [src/TextStream.ts:77](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L77)*
 
 Tab size
 
 ___
-<a id="text"></a>
 
 ###  text
 
-**● text**: *`string`*
+• **text**: *string*
 
-*Defined in [TextStream.ts:74](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L74)*
+*Defined in [src/TextStream.ts:74](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L74)*
 
 Original text
 
-___
-
 ## Methods
-
-<a id="backup"></a>
 
 ###  backUp
 
-▸ **backUp**(n?: *`number`*): `void`
+▸ **backUp**(`n`: number): *void*
 
-*Defined in [TextStream.ts:482](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L482)*
+*Defined in [src/TextStream.ts:482](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L482)*
 
 Move cursor back
 
 **Parameters:**
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| `Default value` n | `number` | 1 |  Steps |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`n` | number | 1 | Steps  |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="debugcursor"></a>
 
 ###  debugCursor
 
-▸ **debugCursor**(text: *`string`*, col: *`number`*, numWidth: *`number`*): `void`
+▸ **debugCursor**(`text`: string, `col`: number, `numWidth`: number): *void*
 
-*Defined in [TextStream.ts:623](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L623)*
+*Defined in [src/TextStream.ts:623](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L623)*
 
 Debug cursor column position
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| text | `string` |  Text of the line |
-| col | `number` |  Cursor position |
-| numWidth | `number` |  fixed line number width |
+Name | Type | Description |
+------ | ------ | ------ |
+`text` | string | Text of the line |
+`col` | number | Cursor position |
+`numWidth` | number | fixed line number width  |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="debugline"></a>
 
 ###  debugLine
 
-▸ **debugLine**(line: *[TextLine](_textline_.textline.md)*, numWidth: *`number`*, col: *`number`*): `void`
+▸ **debugLine**(`line`: [TextLine](_textline_.textline.md), `numWidth`: number, `col`: number): *void*
 
-*Defined in [TextStream.ts:606](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L606)*
+*Defined in [src/TextStream.ts:606](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L606)*
 
 Debug a single line
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| line | [TextLine](_textline_.textline.md) |  \- |
-| numWidth | `number` |  \- |
-| col | `number` |   |
+Name | Type | Description |
+------ | ------ | ------ |
+`line` | [TextLine](_textline_.textline.md) | - |
+`numWidth` | number | - |
+`col` | number |   |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="debugstate"></a>
 
 ###  debugState
 
-▸ **debugState**(range?: *`number`*): `void`
+▸ **debugState**(`range`: number): *void*
 
-*Defined in [TextStream.ts:632](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L632)*
+*Defined in [src/TextStream.ts:632](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L632)*
 
 Debug current position state, with previous and following lines set by range
 
 **Parameters:**
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| `Default value` range | `number` | 0 |   |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`range` | number | 0 |   |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="eat"></a>
 
 ###  eat
 
-▸ **eat**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*): `string`
+▸ **eat**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern)): *string*
 
-*Defined in [TextStream.ts:247](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L247)*
+*Defined in [src/TextStream.ts:247](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L247)*
 
 Consumes one char if the next char fitting the pattern
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) |  \- |
+Name | Type |
+------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) |
 
-**Returns:** `string`
+**Returns:** *string*
+
 The char been eaten
 
 ___
-<a id="eatspaces"></a>
 
 ###  eatSpaces
 
-▸ **eatSpaces**(): `boolean`
+▸ **eatSpaces**(): *boolean*
 
-*Defined in [TextStream.ts:311](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L311)*
+*Defined in [src/TextStream.ts:311](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L311)*
 
 Consumes spaces
 
-**Returns:** `boolean`
+**Returns:** *boolean*
+
 If any space has been consumed
 
 ___
-<a id="eatuntil"></a>
 
 ###  eatUntil
 
-▸ **eatUntil**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*): `string`
+▸ **eatUntil**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern)): *string*
 
-*Defined in [TextStream.ts:291](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L291)*
+*Defined in [src/TextStream.ts:291](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L291)*
 
 Consumes chars until the first char not fitting the pattern
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) |  char or pattern |
+Name | Type | Description |
+------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) | char or pattern |
 
-**Returns:** `string`
+**Returns:** *string*
+
 eaten characters
 
 ___
-<a id="eatwhile"></a>
 
 ###  eatWhile
 
-▸ **eatWhile**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*): `string`
+▸ **eatWhile**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern)): *string*
 
-*Defined in [TextStream.ts:273](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L273)*
+*Defined in [src/TextStream.ts:273](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L273)*
 
 Consumes chars while fitting the pattern
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) |
+Name | Type |
+------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) |
 
-**Returns:** `string`
+**Returns:** *string*
+
 Eaten characters
 
 ___
-<a id="eof"></a>
 
 ###  eof
 
-▸ **eof**(pos?: * `undefined` &#124; `number`*): `boolean`
+▸ **eof**(`pos?`: undefined | number): *boolean*
 
-*Defined in [TextStream.ts:216](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L216)*
+*Defined in [src/TextStream.ts:216](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L216)*
 
 Check if cursor is at the end of whole text
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` pos |  `undefined` &#124; `number`|
+Name | Type |
+------ | ------ |
+`pos?` | undefined &#124; number |
 
-**Returns:** `boolean`
+**Returns:** *boolean*
 
 ___
-<a id="eol"></a>
 
 ###  eol
 
-▸ **eol**(trimSpaces?: *`boolean`*): `boolean`
+▸ **eol**(`trimSpaces`: boolean): *boolean*
 
-*Defined in [TextStream.ts:200](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L200)*
+*Defined in [src/TextStream.ts:200](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L200)*
 
 Check if cursor is at the end of a line
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` trimSpaces | `boolean` | false |
+Name | Type | Default |
+------ | ------ | ------ |
+`trimSpaces` | boolean | false |
 
-**Returns:** `boolean`
+**Returns:** *boolean*
 
 ___
-<a id="findline"></a>
 
 ###  findLine
 
-▸ **findLine**(text: *`string`*):  `undefined` &#124; [TextLine](_textline_.textline.md)
+▸ **findLine**(`text`: string): *undefined | [TextLine](_textline_.textline.md)‹›*
 
-*Defined in [TextStream.ts:573](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L573)*
+*Defined in [src/TextStream.ts:573](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L573)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| text | `string` |
+Name | Type |
+------ | ------ |
+`text` | string |
 
-**Returns:**  `undefined` &#124; [TextLine](_textline_.textline.md)
+**Returns:** *undefined | [TextLine](_textline_.textline.md)‹›*
 
 ___
-<a id="getmarkerdata"></a>
 
 ###  getMarkerData
 
-▸ **getMarkerData**(): [MarkerData](../modules/_textstream_.md#markerdata)
+▸ **getMarkerData**(): *[MarkerData](../modules/_textstream_.md#markerdata)*
 
-*Defined in [TextStream.ts:536](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L536)*
+*Defined in [src/TextStream.ts:536](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L536)*
 
 Get data of current markder
 
-**Returns:** [MarkerData](../modules/_textstream_.md#markerdata)
+**Returns:** *[MarkerData](../modules/_textstream_.md#markerdata)*
 
 ___
-<a id="getposition"></a>
 
 ###  getPosition
 
-▸ **getPosition**(pos?: * `undefined` &#124; `number`*): [SourcePosition](../interfaces/_textstream_.sourceposition.md)
+▸ **getPosition**(`pos?`: undefined | number): *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
 
-*Defined in [TextStream.ts:161](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L161)*
+*Defined in [src/TextStream.ts:161](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L161)*
 
 Get line and column position of the cursor
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| `Optional` pos |  `undefined` &#124; `number`|  Cursor position of the text |
+Name | Type | Description |
+------ | ------ | ------ |
+`pos?` | undefined &#124; number | Cursor position of the text  |
 
-**Returns:** [SourcePosition](../interfaces/_textstream_.sourceposition.md)
+**Returns:** *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
 
 ___
-<a id="init"></a>
 
 ###  init
 
-▸ **init**(): `void`
+▸ **init**(): *void*
 
-*Defined in [TextStream.ts:130](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L130)*
+*Defined in [src/TextStream.ts:130](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L130)*
 
 Prepare line indexes
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="match"></a>
 
 ###  match
 
-▸ **match**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*, options?: *[MatchOptions](../interfaces/_textstream_.matchoptions.md)*): `string`
+▸ **match**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern), `options`: [MatchOptions](../interfaces/_textstream_.matchoptions.md)): *string*
 
-*Defined in [TextStream.ts:491](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L491)*
+*Defined in [src/TextStream.ts:491](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L491)*
 
 Check if rest text begins with pattern
 
 **Parameters:**
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) | - |  \- |
-| `Default value` options | [MatchOptions](../interfaces/_textstream_.matchoptions.md) |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) | - |
+`options` | [MatchOptions](../interfaces/_textstream_.matchoptions.md) |  {} |
 
-**Returns:** `string`
+**Returns:** *string*
 
 ___
-<a id="next"></a>
 
 ###  next
 
-▸ **next**(): `string`
+▸ **next**(): *string*
 
-*Defined in [TextStream.ts:235](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L235)*
+*Defined in [src/TextStream.ts:235](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L235)*
 
 Get one next char, and move cursor forward (if available)
 
-**Returns:** `string`
+**Returns:** *string*
+
 The next char
 
 ___
-<a id="peek"></a>
 
 ###  peek
 
-▸ **peek**(): `string`
+▸ **peek**(): *string*
 
-*Defined in [TextStream.ts:227](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L227)*
+*Defined in [src/TextStream.ts:227](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L227)*
 
 Get one next char, but keep the cursor position (if available)
 
-**Returns:** `string`
+**Returns:** *string*
+
 The next char
 
 ___
-<a id="popcursor"></a>
 
 ###  popCursor
 
-▸ **popCursor**(): `number`
+▸ **popCursor**(): *number*
 
-*Defined in [TextStream.ts:592](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L592)*
+*Defined in [src/TextStream.ts:592](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L592)*
 
 Pop last from cursor stack and set it to current cursor
 
-**Returns:** `number`
+**Returns:** *number*
 
 ___
-<a id="popmarker"></a>
 
 ###  popMarker
 
-▸ **popMarker**(_data?: *[MarkerData](../modules/_textstream_.md#markerdata)*, end: *`number`*):  [MarkerInfo](../interfaces/_textstream_.markerinfo.md) &#124; `undefined`
+▸ **popMarker**(`_data`: [MarkerData](../modules/_textstream_.md#markerdata), `end`: number): *[MarkerInfo](../interfaces/_textstream_.markerinfo.md) | undefined*
 
-*Defined in [TextStream.ts:548](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L548)*
+*Defined in [src/TextStream.ts:548](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L548)*
 
-Return a combined structure of text and it's position according to the previously set start marker
+Return a combined structure of text and it's position according to the previously set start
+marker
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` _data | [MarkerData](../modules/_textstream_.md#markerdata) |  {} |
-| end | `number` | - |
+Name | Type | Default |
+------ | ------ | ------ |
+`_data` | [MarkerData](../modules/_textstream_.md#markerdata) |  {} |
+`end` | number | - |
 
-**Returns:**  [MarkerInfo](../interfaces/_textstream_.markerinfo.md) &#124; `undefined`
+**Returns:** *[MarkerInfo](../interfaces/_textstream_.markerinfo.md) | undefined*
 
 ___
-<a id="pushcursor"></a>
 
 ###  pushCursor
 
-▸ **pushCursor**(pos: *`number`*): `void`
+▸ **pushCursor**(`pos`: number): *void*
 
-*Defined in [TextStream.ts:581](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L581)*
+*Defined in [src/TextStream.ts:581](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L581)*
 
 Push current cursor to cursor stack, if new position provided, set current cursor to it
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| pos | `number` |
+Name | Type |
+------ | ------ |
+`pos` | number |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="pushmarker"></a>
 
 ###  pushMarker
 
-▸ **pushMarker**(data: *[MarkerData](../modules/_textstream_.md#markerdata)*, start: *`number`*): `void`
+▸ **pushMarker**(`data`: [MarkerData](../modules/_textstream_.md#markerdata), `start`: number): *void*
 
-*Defined in [TextStream.ts:516](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L516)*
+*Defined in [src/TextStream.ts:516](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L516)*
 
 Add a marker to stack
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| data | [MarkerData](../modules/_textstream_.md#markerdata) |  \- |
-| start | `number` |   |
+Name | Type | Description |
+------ | ------ | ------ |
+`data` | [MarkerData](../modules/_textstream_.md#markerdata) | - |
+`start` | number |   |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="read"></a>
 
 ###  read
 
-▸ **read**(n?: *`number`*): `string`
+▸ **read**(`n`: number): *string*
 
-*Defined in [TextStream.ts:361](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L361)*
+*Defined in [src/TextStream.ts:361](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L361)*
 
 Read n chars after current cursor
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` n | `number` | 1 |
+Name | Type | Default |
+------ | ------ | ------ |
+`n` | number | 1 |
 
-**Returns:** `string`
+**Returns:** *string*
 
 ___
-<a id="readline"></a>
 
 ###  readLine
 
-▸ **readLine**(): `string`
+▸ **readLine**(): *string*
 
-*Defined in [TextStream.ts:435](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L435)*
+*Defined in [src/TextStream.ts:435](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L435)*
 
 Read one line
 
-**Returns:** `string`
+**Returns:** *string*
+
 Text containing one line (not including line break)
 
 ___
-<a id="readover"></a>
 
 ###  readOver
 
-▸ **readOver**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*, options?: *[ReadOptions](../interfaces/_textstream_.readoptions.md)*): `string`
+▸ **readOver**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern), `options`: [ReadOptions](../interfaces/_textstream_.readoptions.md)): *string*
 
-*Defined in [TextStream.ts:427](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L427)*
+*Defined in [src/TextStream.ts:427](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L427)*
 
 Read to pattern (contains the matched text)
 
 **Parameters:**
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) | - |  Text to find or pattern |
-| `Default value` options | [ReadOptions](../interfaces/_textstream_.readoptions.md) |  {} |  Match options |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) | - | Text to find or pattern |
+`options` | [ReadOptions](../interfaces/_textstream_.readoptions.md) |  {} | Match options |
 
-**Returns:** `string`
+**Returns:** *string*
+
 Sub-text after current cursor and until the end of matched text
 
 ___
-<a id="readto"></a>
 
 ###  readTo
 
-▸ **readTo**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*, options?: *[ReadOptions](../interfaces/_textstream_.readoptions.md)*): `string`
+▸ **readTo**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern), `options`: [ReadOptions](../interfaces/_textstream_.readoptions.md)): *string*
 
-*Defined in [TextStream.ts:379](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L379)*
+*Defined in [src/TextStream.ts:379](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L379)*
 
 Read to text or pattern
 
 **Parameters:**
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) | - |  \- |
-| `Default value` options | [ReadOptions](../interfaces/_textstream_.readoptions.md) |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) | - |
+`options` | [ReadOptions](../interfaces/_textstream_.readoptions.md) |  {} |
 
-**Returns:** `string`
+**Returns:** *string*
+
 Sub-text after current cursor and before (or contains) matched text
 
 ___
-<a id="resetmarker"></a>
 
 ###  resetMarker
 
-▸ **resetMarker**(): `void`
+▸ **resetMarker**(): *void*
 
-*Defined in [TextStream.ts:507](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L507)*
+*Defined in [src/TextStream.ts:507](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L507)*
 
 Reset the marker stack
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="search"></a>
 
 ###  search
 
-▸ **search**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*, options?: *[SearchOptions](../interfaces/_textstream_.searchoptions.md)*): `object`
+▸ **search**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern), `options`: [SearchOptions](../interfaces/_textstream_.searchoptions.md)): *object*
 
-*Defined in [TextStream.ts:324](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L324)*
+*Defined in [src/TextStream.ts:324](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L324)*
 
 Find position of matched text to the pattern
 
 **Parameters:**
 
-| Name | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) | - |  \- |
-| `Default value` options | [SearchOptions](../interfaces/_textstream_.searchoptions.md) |  {} |   |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) | - | - |
+`options` | [SearchOptions](../interfaces/_textstream_.searchoptions.md) |  {} |   |
 
-**Returns:** `object`
+**Returns:** *object*
+
+* **index**: *number*
+
+* **length**: *number*
+
+* **matched**: *string*
 
 ___
-<a id="setmarkerdata"></a>
 
 ###  setMarkerData
 
-▸ **setMarkerData**(data: *[MarkerData](../modules/_textstream_.md#markerdata)*): `void`
+▸ **setMarkerData**(`data`: [MarkerData](../modules/_textstream_.md#markerdata)): *void*
 
-*Defined in [TextStream.ts:527](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L527)*
+*Defined in [src/TextStream.ts:527](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L527)*
 
 Set data for current marker
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| data | [MarkerData](../modules/_textstream_.md#markerdata) |   |
+Name | Type | Description |
+------ | ------ | ------ |
+`data` | [MarkerData](../modules/_textstream_.md#markerdata) |   |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="skipover"></a>
 
 ###  skipOver
 
-▸ **skipOver**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*, options?: *[ReadOptions](../interfaces/_textstream_.readoptions.md)*): `boolean`
+▸ **skipOver**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern), `options?`: [ReadOptions](../interfaces/_textstream_.readoptions.md)): *boolean*
 
-*Defined in [TextStream.ts:472](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L472)*
+*Defined in [src/TextStream.ts:472](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L472)*
 
 Skip to the end of matched text
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) |   |
-| `Optional` options | [ReadOptions](../interfaces/_textstream_.readoptions.md) |
+Name | Type | Description |
+------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) |   |
+`options?` | [ReadOptions](../interfaces/_textstream_.readoptions.md) | - |
 
-**Returns:** `boolean`
+**Returns:** *boolean*
 
 ___
-<a id="skipto"></a>
 
 ###  skipTo
 
-▸ **skipTo**(pattern: *[TextPattern](../modules/_textstream_.md#textpattern)*, options?: *[ReadOptions](../interfaces/_textstream_.readoptions.md)*): `boolean`
+▸ **skipTo**(`pattern`: [TextPattern](../modules/_textstream_.md#textpattern), `options?`: [ReadOptions](../interfaces/_textstream_.readoptions.md)): *boolean*
 
-*Defined in [TextStream.ts:462](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L462)*
+*Defined in [src/TextStream.ts:462](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L462)*
 
 Skip to the beginning of matched text
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| pattern | [TextPattern](../modules/_textstream_.md#textpattern) |  \- |
-| `Optional` options | [ReadOptions](../interfaces/_textstream_.readoptions.md) |   |
+Name | Type | Description |
+------ | ------ | ------ |
+`pattern` | [TextPattern](../modules/_textstream_.md#textpattern) | - |
+`options?` | [ReadOptions](../interfaces/_textstream_.readoptions.md) |   |
 
-**Returns:** `boolean`
+**Returns:** *boolean*
 
 ___
-<a id="skiptoend"></a>
 
 ###  skipToEnd
 
-▸ **skipToEnd**(): `void`
+▸ **skipToEnd**(): *void*
 
-*Defined in [TextStream.ts:453](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L453)*
+*Defined in [src/TextStream.ts:453](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L453)*
 
 Move cursor to end of text
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="sol"></a>
 
 ###  sol
 
-▸ **sol**(trimSpaces?: *`boolean`*): `boolean`
+▸ **sol**(`trimSpaces`: boolean): *boolean*
 
-*Defined in [TextStream.ts:184](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L184)*
+*Defined in [src/TextStream.ts:184](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L184)*
 
 Check if cursor is at the start of a line
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` trimSpaces | `boolean` | false |
+Name | Type | Default |
+------ | ------ | ------ |
+`trimSpaces` | boolean | false |
 
-**Returns:** `boolean`
-
-___
-
+**Returns:** *boolean*

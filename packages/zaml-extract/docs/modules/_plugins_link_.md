@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) > ["plugins/link"](../modules/_plugins_link_.md)
+[@zaml/extract](../README.md) › ["plugins/link"](_plugins_link_.md)
 
 # External module: "plugins/link"
 
@@ -6,53 +6,41 @@
 
 ### Variables
 
-* [P_EMAIL](_plugins_link_.md#p_email)
-* [linkify](_plugins_link_.md#linkify)
+* [P_EMAIL](_plugins_link_.md#const-p_email)
+* [linkify](_plugins_link_.md#const-linkify)
 
 ### Functions
 
 * [extractLink](_plugins_link_.md#extractlink)
 
----
-
 ## Variables
 
-<a id="p_email"></a>
+### `Const` P_EMAIL
 
-### `<Const>` P_EMAIL
+• **P_EMAIL**: *RegExp‹›* =  /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
 
-**● P_EMAIL**: *`RegExp`* =  /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-
-*Defined in [plugins/link.ts:5](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/link.ts#L5)*
+*Defined in [plugins/link.ts:5](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/link.ts#L5)*
 
 ___
-<a id="linkify"></a>
 
-### `<Const>` linkify
+### `Const` linkify
 
-**● linkify**: *`LinkifyIt`* =  linkifyIt()
+• **linkify**: *LinkifyIt* =  linkifyIt()
 
-*Defined in [plugins/link.ts:4](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/link.ts#L4)*
-
-___
+*Defined in [plugins/link.ts:4](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/link.ts#L4)*
 
 ## Functions
 
-<a id="extractlink"></a>
-
 ###  extractLink
 
-▸ **extractLink**(text: *`string`*): [EntityInfo](../interfaces/_types_.entityinfo.md)[]
+▸ **extractLink**(`text`: string): *[EntityInfo](../interfaces/_types_.entityinfo.md)[]*
 
-*Defined in [plugins/link.ts:7](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/link.ts#L7)*
+*Defined in [plugins/link.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/link.ts#L7)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| text | `string` |
+Name | Type |
+------ | ------ |
+`text` | string |
 
-**Returns:** [EntityInfo](../interfaces/_types_.entityinfo.md)[]
-
-___
-
+**Returns:** *[EntityInfo](../interfaces/_types_.entityinfo.md)[]*

@@ -1,10 +1,10 @@
-[@zaml/parser](../README.md) > ["Node"](../modules/_node_.md) > [SourceMapRange](../interfaces/_node_.sourcemaprange.md)
+[@zaml/parser](../README.md) › ["Node"](../modules/_node_.md) › [SourceMapRange](_node_.sourcemaprange.md)
 
 # Interface: SourceMapRange
 
 ## Hierarchy
 
-**SourceMapRange**
+* **SourceMapRange**
 
 ## Index
 
@@ -13,26 +13,18 @@
 * [end](_node_.sourcemaprange.md#end)
 * [start](_node_.sourcemaprange.md#start)
 
----
-
 ## Properties
-
-<a id="end"></a>
 
 ###  end
 
-**● end**: *`string`*
+• **end**: *string*
 
-*Defined in [Node.ts:212](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L212)*
+*Defined in [src/Node.ts:220](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L220)*
 
 ___
-<a id="start"></a>
 
 ###  start
 
-**● start**: *`string`*
+• **start**: *string*
 
-*Defined in [Node.ts:211](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L211)*
-
-___
-
+*Defined in [src/Node.ts:219](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L219)*

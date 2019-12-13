@@ -1,4 +1,4 @@
-[@zaml/parser](../README.md) > ["Tokenizer"](../modules/_tokenizer_.md)
+[@zaml/parser](../README.md) › ["Tokenizer"](_tokenizer_.md)
 
 # External module: "Tokenizer"
 
@@ -18,22 +18,18 @@
 
 ### Variables
 
-* [stateNames](_tokenizer_.md#statenames)
+* [stateNames](_tokenizer_.md#const-statenames)
 
 ### Functions
 
-* [countLineBreaks](_tokenizer_.md#countlinebreaks)
-* [getStateName](_tokenizer_.md#getstatename)
-
----
+* [countLineBreaks](_tokenizer_.md#const-countlinebreaks)
+* [getStateName](_tokenizer_.md#const-getstatename)
 
 ## Variables
 
-<a id="statenames"></a>
+### `Const` stateNames
 
-### `<Const>` stateNames
-
-**● stateNames**: *`string`[]* =  [
+• **stateNames**: *string[]* =  [
   'METADATA',
   'NORMAL',
   'SINGLE_COMMENT',
@@ -55,44 +51,36 @@
   'FINISH',
 ]
 
-*Defined in [Tokenizer.ts:72](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L72)*
-
-___
+*Defined in [src/Tokenizer.ts:74](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L74)*
 
 ## Functions
 
-<a id="countlinebreaks"></a>
+### `Const` countLineBreaks
 
-### `<Const>` countLineBreaks
+▸ **countLineBreaks**(`text`: string): *number*
 
-▸ **countLineBreaks**(text: *`string`*): `number`
-
-*Defined in [Tokenizer.ts:98](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L98)*
+*Defined in [src/Tokenizer.ts:100](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L100)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| text | `string` |
+Name | Type |
+------ | ------ |
+`text` | string |
 
-**Returns:** `number`
+**Returns:** *number*
 
 ___
-<a id="getstatename"></a>
 
-### `<Const>` getStateName
+### `Const` getStateName
 
-▸ **getStateName**(state: *[State](../enums/_tokenizer_.state.md)*): `string`
+▸ **getStateName**(`state`: [State](../enums/_tokenizer_.state.md)): *string*
 
-*Defined in [Tokenizer.ts:94](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L94)*
+*Defined in [src/Tokenizer.ts:96](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L96)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| state | [State](../enums/_tokenizer_.state.md) |
+Name | Type |
+------ | ------ |
+`state` | [State](../enums/_tokenizer_.state.md) |
 
-**Returns:** `string`
-
-___
-
+**Returns:** *string*

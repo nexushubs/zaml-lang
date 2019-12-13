@@ -1,4 +1,4 @@
-[@zaml/parser](../README.md) > ["ParseError"](../modules/_parseerror_.md)
+[@zaml/parser](../README.md) › ["ParseError"](_parseerror_.md)
 
 # External module: "ParseError"
 
@@ -7,6 +7,3 @@
 ### Classes
 
 * [ParseError](../classes/_parseerror_.parseerror.md)
-
----
-

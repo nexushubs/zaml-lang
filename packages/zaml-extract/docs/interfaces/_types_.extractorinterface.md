@@ -1,13 +1,14 @@
-[@zaml/extract](../README.md) > ["types"](../modules/_types_.md) > [ExtractorInterface](../interfaces/_types_.extractorinterface.md)
+[@zaml/extract](../README.md) › ["types"](../modules/_types_.md) › [ExtractorInterface](_types_.extractorinterface.md)
 
 # Interface: ExtractorInterface
 
 ## Hierarchy
 
-**ExtractorInterface**
+* **ExtractorInterface**
 
 ## Implemented by
 
+* [Extractor](../classes/_extractor_.extractor.md)
 * [RestExtractor](../classes/_plugins_rest_.restextractor.md)
 
 ## Index
@@ -15,28 +16,20 @@
 ### Properties
 
 * [extract](_types_.extractorinterface.md#extract)
-* [extractArray](_types_.extractorinterface.md#extractarray)
-
----
+* [extractArray](_types_.extractorinterface.md#optional-extractarray)
 
 ## Properties
 
-<a id="extract"></a>
-
 ###  extract
 
-**● extract**: *[SingleExtractor](../modules/_types_.md#singleextractor)*
+• **extract**: *[AsyncSingleExtractor](../modules/_types_.md#asyncsingleextractor)*
 
-*Defined in [types.ts:14](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/types.ts#L14)*
-
-___
-<a id="extractarray"></a>
-
-###  extractArray
-
-**● extractArray**: *[ArrayExtractor](../modules/_types_.md#arrayextractor)*
-
-*Defined in [types.ts:15](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/types.ts#L15)*
+*Defined in [types.ts:18](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/types.ts#L18)*
 
 ___
 
+### `Optional` extractArray
+
+• **extractArray**? : *[AsyncArrayExtractor](../modules/_types_.md#asyncarrayextractor)*
+
+*Defined in [types.ts:19](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/types.ts#L19)*

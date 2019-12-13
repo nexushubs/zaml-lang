@@ -1,31 +1,23 @@
-[@zaml/parser](../README.md) > ["TextStream"](../modules/_textstream_.md) > [SearchOptions](../interfaces/_textstream_.searchoptions.md)
+[@zaml/parser](../README.md) › ["TextStream"](../modules/_textstream_.md) › [SearchOptions](_textstream_.searchoptions.md)
 
 # Interface: SearchOptions
 
 ## Hierarchy
 
-**SearchOptions**
+* **SearchOptions**
 
 ## Index
 
 ### Properties
 
-* [caseInsensitive](_textstream_.searchoptions.md#caseinsensitive)
-
----
+* [caseInsensitive](_textstream_.searchoptions.md#optional-caseinsensitive)
 
 ## Properties
 
-<a id="caseinsensitive"></a>
+### `Optional` caseInsensitive
 
-### `<Optional>` caseInsensitive
+• **caseInsensitive**? : *undefined | false | true*
 
-**● caseInsensitive**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [TextStream.ts:17](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L17)*
+*Defined in [src/TextStream.ts:17](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L17)*
 
 Case insensitive for string pattern
-
-___
-

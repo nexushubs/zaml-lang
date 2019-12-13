@@ -1,62 +1,57 @@
-[@zaml/parser](../README.md) > ["util"](../modules/_util_.md) > [StringifyOptions](../interfaces/_util_.stringifyoptions.md)
+[@zaml/parser](../README.md) › ["util"](../modules/_util_.md) › [StringifyOptions](_util_.stringifyoptions.md)
 
 # Interface: StringifyOptions
 
 ## Hierarchy
 
-**StringifyOptions**
+* **StringifyOptions**
 
 ## Index
 
 ### Properties
 
-* [metadataMarker](_util_.stringifyoptions.md#metadatamarker)
-* [simple](_util_.stringifyoptions.md#simple)
-* [space](_util_.stringifyoptions.md#space)
-* [toSource](_util_.stringifyoptions.md#tosource)
-
----
+* [attributeAsString](_util_.stringifyoptions.md#optional-attributeasstring)
+* [metadataMarker](_util_.stringifyoptions.md#optional-metadatamarker)
+* [simple](_util_.stringifyoptions.md#optional-simple)
+* [space](_util_.stringifyoptions.md#optional-space)
+* [toSource](_util_.stringifyoptions.md#optional-tosource)
 
 ## Properties
 
-<a id="metadatamarker"></a>
+### `Optional` attributeAsString
 
-### `<Optional>` metadataMarker
+• **attributeAsString**? : *undefined | false | true*
 
-**● metadataMarker**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [util.ts:79](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L79)*
-
-___
-<a id="simple"></a>
-
-### `<Optional>` simple
-
-**● simple**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [util.ts:77](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L77)*
-
-___
-<a id="space"></a>
-
-### `<Optional>` space
-
-**● space**: * `undefined` &#124; `number`
-*
-
-*Defined in [util.ts:76](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L76)*
-
-___
-<a id="tosource"></a>
-
-### `<Optional>` toSource
-
-**● toSource**: * `undefined` &#124; `false` &#124; `true`
-*
-
-*Defined in [util.ts:78](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/util.ts#L78)*
+*Defined in [src/util.ts:112](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/util.ts#L112)*
 
 ___
 
+### `Optional` metadataMarker
+
+• **metadataMarker**? : *undefined | false | true*
+
+*Defined in [src/util.ts:111](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/util.ts#L111)*
+
+___
+
+### `Optional` simple
+
+• **simple**? : *undefined | false | true*
+
+*Defined in [src/util.ts:109](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/util.ts#L109)*
+
+___
+
+### `Optional` space
+
+• **space**? : *undefined | number*
+
+*Defined in [src/util.ts:108](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/util.ts#L108)*
+
+___
+
+### `Optional` toSource
+
+• **toSource**? : *undefined | false | true*
+
+*Defined in [src/util.ts:110](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/util.ts#L110)*

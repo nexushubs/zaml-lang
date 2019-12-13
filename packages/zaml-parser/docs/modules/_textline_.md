@@ -1,4 +1,4 @@
-[@zaml/parser](../README.md) > ["TextLine"](../modules/_textline_.md)
+[@zaml/parser](../README.md) › ["TextLine"](_textline_.md)
 
 # External module: "TextLine"
 
@@ -11,6 +11,3 @@
 ### Interfaces
 
 * [TextLineData](../interfaces/_textline_.textlinedata.md)
-
----
-

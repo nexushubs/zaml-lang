@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) > ["Extractor"](../modules/_extractor_.md)
+[@zaml/extract](../README.md) › ["Extractor"](_extractor_.md)
 
 # External module: "Extractor"
 
@@ -10,50 +10,42 @@
 
 ### Functions
 
-* [isExtractorClass](_extractor_.md#isextractorclass)
-* [isOverlapping](_extractor_.md#isoverlapping)
-
----
+* [isExtractorClass](_extractor_.md#const-isextractorclass)
+* [isOverlapping](_extractor_.md#const-isoverlapping)
 
 ## Functions
 
-<a id="isextractorclass"></a>
+### `Const` isExtractorClass
 
-### `<Const>` isExtractorClass
+▸ **isExtractorClass**(`target`: any): *boolean*
 
-▸ **isExtractorClass**(target: *`any`*): `boolean`
-
-*Defined in [Extractor.ts:17](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/Extractor.ts#L17)*
+*Defined in [Extractor.ts:19](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/Extractor.ts#L19)*
 
 Check if a extractor is a class
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| target | `any` |   |
+Name | Type | Description |
+------ | ------ | ------ |
+`target` | any |   |
 
-**Returns:** `boolean`
+**Returns:** *boolean*
 
 ___
-<a id="isoverlapping"></a>
 
-### `<Const>` isOverlapping
+### `Const` isOverlapping
 
-▸ **isOverlapping**(items: *[EntityInfo](../interfaces/_types_.entityinfo.md)[]*, target: *[EntityInfo](../interfaces/_types_.entityinfo.md)*): `boolean`
+▸ **isOverlapping**(`items`: [EntityInfo](../interfaces/_types_.entityinfo.md)[], `target`: [EntityInfo](../interfaces/_types_.entityinfo.md)): *boolean*
 
-*Defined in [Extractor.ts:26](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/Extractor.ts#L26)*
+*Defined in [Extractor.ts:28](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/Extractor.ts#L28)*
 
 Is entity ranges overlapped with existing items
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| items | [EntityInfo](../interfaces/_types_.entityinfo.md)[] |  \- |
-| target | [EntityInfo](../interfaces/_types_.entityinfo.md) |   |
+Name | Type | Description |
+------ | ------ | ------ |
+`items` | [EntityInfo](../interfaces/_types_.entityinfo.md)[] | - |
+`target` | [EntityInfo](../interfaces/_types_.entityinfo.md) |   |
 
-**Returns:** `boolean`
-
-___
-
+**Returns:** *boolean*

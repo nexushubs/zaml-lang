@@ -1,12 +1,12 @@
-[@zaml/parser](../README.md) > ["ParseError"](../modules/_parseerror_.md) > [ParseError](../classes/_parseerror_.parseerror.md)
+[@zaml/parser](../README.md) › ["ParseError"](../modules/_parseerror_.md) › [ParseError](_parseerror_.parseerror.md)
 
 # Class: ParseError
 
 ## Hierarchy
 
- `Error`
+* Error
 
-**↳ ParseError**
+  ↳ **ParseError**
 
 ## Index
 
@@ -19,108 +19,90 @@
 * [from](_parseerror_.parseerror.md#from)
 * [message](_parseerror_.parseerror.md#message)
 * [name](_parseerror_.parseerror.md#name)
-* [stack](_parseerror_.parseerror.md#stack)
+* [stack](_parseerror_.parseerror.md#optional-stack)
 * [text](_parseerror_.parseerror.md#text)
 * [to](_parseerror_.parseerror.md#to)
-* [Error](_parseerror_.parseerror.md#error)
-
----
+* [Error](_parseerror_.parseerror.md#static-error)
 
 ## Constructors
 
-<a id="constructor"></a>
-
 ###  constructor
 
-⊕ **new ParseError**(message: *`string`*, text: *`string`*, from: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*, to: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*): [ParseError](_parseerror_.parseerror.md)
+\+ **new ParseError**(`message`: string, `text`: string, `from`: [SourcePosition](../interfaces/_textstream_.sourceposition.md), `to`: [SourcePosition](../interfaces/_textstream_.sourceposition.md)): *[ParseError](_parseerror_.parseerror.md)*
 
-*Defined in [ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/ParseError.ts#L8)*
+*Defined in [src/ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L8)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| message | `string` |
-| text | `string` |
-| from | [SourcePosition](../interfaces/_textstream_.sourceposition.md) |
-| to | [SourcePosition](../interfaces/_textstream_.sourceposition.md) |
+Name | Type |
+------ | ------ |
+`message` | string |
+`text` | string |
+`from` | [SourcePosition](../interfaces/_textstream_.sourceposition.md) |
+`to` | [SourcePosition](../interfaces/_textstream_.sourceposition.md) |
 
-**Returns:** [ParseError](_parseerror_.parseerror.md)
-
-___
+**Returns:** *[ParseError](_parseerror_.parseerror.md)*
 
 ## Properties
 
-<a id="from"></a>
-
 ###  from
 
-**● from**: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
+• **from**: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
 
-*Defined in [ParseError.ts:7](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/ParseError.ts#L7)*
+*Defined in [src/ParseError.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L7)*
 
 ___
-<a id="message"></a>
 
 ###  message
 
-**● message**: *`string`*
+• **message**: *string*
 
-*Overrides Error.message*
+*Overrides void*
 
-*Defined in [ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/ParseError.ts#L5)*
+*Defined in [src/ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L5)*
 
 ___
-<a id="name"></a>
 
 ###  name
 
-**● name**: *`string`*
+• **name**: *string*
 
-*Inherited from Error.name*
+*Inherited from void*
 
-*Defined in /Users/alvin/Projects/nexushubs/zaml-lang/packages/zaml-parser/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:903*
-
-___
-<a id="stack"></a>
-
-### `<Optional>` stack
-
-**● stack**: * `undefined` &#124; `string`
-*
-
-*Inherited from Error.stack*
-
-*Overrides Error.stack*
-
-*Defined in /Users/alvin/Projects/nexushubs/zaml-lang/packages/zaml-parser/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:905*
+Defined in node_modules/typescript/lib/lib.es5.d.ts:973
 
 ___
-<a id="text"></a>
+
+### `Optional` stack
+
+• **stack**? : *undefined | string*
+
+*Inherited from void*
+
+*Overrides void*
+
+Defined in node_modules/typescript/lib/lib.es5.d.ts:975
+
+___
 
 ###  text
 
-**● text**: *`string`*
+• **text**: *string*
 
-*Defined in [ParseError.ts:6](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/ParseError.ts#L6)*
+*Defined in [src/ParseError.ts:6](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L6)*
 
 ___
-<a id="to"></a>
 
 ###  to
 
-**● to**: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
+• **to**: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
 
-*Defined in [ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/ParseError.ts#L8)*
-
-___
-<a id="error"></a>
-
-### `<Static>` Error
-
-**● Error**: *`ErrorConstructor`*
-
-*Defined in /Users/alvin/Projects/nexushubs/zaml-lang/packages/zaml-parser/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:914*
+*Defined in [src/ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L8)*
 
 ___
 
+### `Static` Error
+
+▪ **Error**: *ErrorConstructor*
+
+Defined in node_modules/typescript/lib/lib.es5.d.ts:984

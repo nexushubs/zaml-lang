@@ -1,10 +1,10 @@
-[@zaml/extract](../README.md) > ["plugins/rest"](../modules/_plugins_rest_.md) > [ArrayPredictionResult](../interfaces/_plugins_rest_.arraypredictionresult.md)
+[@zaml/extract](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [ArrayPredictionResult](_plugins_rest_.arraypredictionresult.md)
 
 # Interface: ArrayPredictionResult
 
 ## Hierarchy
 
-**ArrayPredictionResult**
+* **ArrayPredictionResult**
 
 ## Index
 
@@ -12,17 +12,10 @@
 
 * [predictions](_plugins_rest_.arraypredictionresult.md#predictions)
 
----
-
 ## Properties
-
-<a id="predictions"></a>
 
 ###  predictions
 
-**● predictions**: *[PredictionResult](../modules/_plugins_rest_.md#predictionresult)*
+• **predictions**: *[PredictionResult](../modules/_plugins_rest_.md#predictionresult)*
 
-*Defined in [plugins/rest.ts:21](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/rest.ts#L21)*
-
-___
-
+*Defined in [plugins/rest.ts:21](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/rest.ts#L21)*

@@ -1,13 +1,14 @@
-[@zaml/parser](../README.md) > ["Tokenizer"](../modules/_tokenizer_.md) > [Tokenizer](../classes/_tokenizer_.tokenizer.md)
+[@zaml/parser](../README.md) › ["Tokenizer"](../modules/_tokenizer_.md) › [Tokenizer](_tokenizer_.tokenizer.md)
 
 # Class: Tokenizer
 
 Tokenizer class
-*__class__*: 
+
+**`class`** 
 
 ## Hierarchy
 
-**Tokenizer**
+* **Tokenizer**
 
 ## Index
 
@@ -26,119 +27,100 @@ Tokenizer class
 
 * [debug](_tokenizer_.tokenizer.md#debug)
 * [process](_tokenizer_.tokenizer.md#process)
-* [from](_tokenizer_.tokenizer.md#from)
-
----
+* [from](_tokenizer_.tokenizer.md#static-from)
 
 ## Constructors
 
-<a id="constructor"></a>
-
 ###  constructor
 
-⊕ **new Tokenizer**(text: *`string`*, options?: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*): [Tokenizer](_tokenizer_.tokenizer.md)
+\+ **new Tokenizer**(`text`: string, `options?`: [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)): *[Tokenizer](_tokenizer_.tokenizer.md)*
 
-*Defined in [Tokenizer.ts:121](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L121)*
+*Defined in [src/Tokenizer.ts:126](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L126)*
 
 **Parameters:**
 
-| Name | Type | Description |
-| ------ | ------ | ------ |
-| text | `string` |  \- |
-| `Optional` options | [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md) |  Constructor options |
+Name | Type | Description |
+------ | ------ | ------ |
+`text` | string | - |
+`options?` | [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md) | Constructor options  |
 
-**Returns:** [Tokenizer](_tokenizer_.tokenizer.md)
-
-___
+**Returns:** *[Tokenizer](_tokenizer_.tokenizer.md)*
 
 ## Properties
 
-<a id="options"></a>
-
 ###  options
 
-**● options**: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*
+• **options**: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*
 
-*Defined in [Tokenizer.ts:120](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L120)*
+*Defined in [src/Tokenizer.ts:125](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L125)*
 
 ___
-<a id="parsed"></a>
 
 ###  parsed
 
-**● parsed**: *`boolean`*
+• **parsed**: *boolean*
 
-*Defined in [Tokenizer.ts:121](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L121)*
+*Defined in [src/Tokenizer.ts:126](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L126)*
 
 ___
-<a id="stream"></a>
 
 ###  stream
 
-**● stream**: *[TextStream](_textstream_.textstream.md)*
+• **stream**: *[TextStream](_textstream_.textstream.md)*
 
-*Defined in [Tokenizer.ts:119](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L119)*
+*Defined in [src/Tokenizer.ts:124](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L124)*
 
 ___
-<a id="text"></a>
 
 ###  text
 
-**● text**: *`string`*
+• **text**: *string*
 
-*Defined in [Tokenizer.ts:118](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L118)*
-
-___
+*Defined in [src/Tokenizer.ts:123](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L123)*
 
 ## Methods
 
-<a id="debug"></a>
-
 ###  debug
 
-▸ **debug**(...params: *`any`[]*): `void`
+▸ **debug**(...`params`: any[]): *void*
 
-*Defined in [Tokenizer.ts:137](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L137)*
+*Defined in [src/Tokenizer.ts:153](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L153)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| `Rest` params | `any`[] |
+Name | Type |
+------ | ------ |
+`...params` | any[] |
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="process"></a>
 
 ###  process
 
-▸ **process**(): [Node](_node_.node.md)
+▸ **process**(): *[Node](_node_.node.md)*
 
-*Defined in [Tokenizer.ts:147](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L147)*
+*Defined in [src/Tokenizer.ts:163](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L163)*
 
 Process a text and parse to AST
 
-**Returns:** [Node](_node_.node.md)
+**Returns:** *[Node](_node_.node.md)*
+
 Root node of parsed AST
 
 ___
-<a id="from"></a>
 
-### `<Static>` from
+### `Static` from
 
-▸ **from**(text: *`string`*, options: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*): [Tokenizer](_tokenizer_.tokenizer.md)
+▸ **from**(`text`: string, `options`: [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)): *[Tokenizer](_tokenizer_.tokenizer.md)‹›*
 
-*Defined in [Tokenizer.ts:114](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Tokenizer.ts#L114)*
+*Defined in [src/Tokenizer.ts:119](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L119)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| text | `string` |
-| options | [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md) |
+Name | Type |
+------ | ------ |
+`text` | string |
+`options` | [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md) |
 
-**Returns:** [Tokenizer](_tokenizer_.tokenizer.md)
-
-___
-
+**Returns:** *[Tokenizer](_tokenizer_.tokenizer.md)‹›*

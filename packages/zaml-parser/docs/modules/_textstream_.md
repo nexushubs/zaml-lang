@@ -1,4 +1,4 @@
-[@zaml/parser](../README.md) > ["TextStream"](../modules/_textstream_.md)
+[@zaml/parser](../README.md) › ["TextStream"](_textstream_.md)
 
 # External module: "TextStream"
 
@@ -25,75 +25,59 @@
 
 ### Variables
 
-* [LINE_BREAKS](_textstream_.md#line_breaks)
-* [NOT_FOUND](_textstream_.md#not_found)
-
----
+* [LINE_BREAKS](_textstream_.md#const-line_breaks)
+* [NOT_FOUND](_textstream_.md#const-not_found)
 
 ## Type aliases
 
-<a id="markerdata"></a>
-
 ###  MarkerData
 
-**Ƭ MarkerData**: *`object`*
+Ƭ **MarkerData**: *object*
 
-*Defined in [TextStream.ts:47](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L47)*
+*Defined in [src/TextStream.ts:47](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L47)*
 
-#### Type declaration
+#### Type declaration:
 
-[key: `string`]: `any`
+* \[ **key**: *string*\]: any
 
 ___
-<a id="textpattern"></a>
 
 ###  TextPattern
 
-**Ƭ TextPattern**: * `string` &#124; `RegExp` &#124; [TextTester](_textstream_.md#texttester)
-*
+Ƭ **TextPattern**: *string | RegExp | [TextTester](_textstream_.md#texttester)*
 
-*Defined in [TextStream.ts:13](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L13)*
+*Defined in [src/TextStream.ts:13](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L13)*
 
 ___
-<a id="texttester"></a>
 
 ###  TextTester
 
-**Ƭ TextTester**: *`function`*
+Ƭ **TextTester**: *function*
 
-*Defined in [TextStream.ts:12](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L12)*
+*Defined in [src/TextStream.ts:12](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L12)*
 
-#### Type declaration
-▸(text: *`string`*): `boolean`
+#### Type declaration:
+
+▸ (`text`: string): *boolean*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| text | `string` |
-
-**Returns:** `boolean`
-
-___
+Name | Type |
+------ | ------ |
+`text` | string |
 
 ## Variables
 
-<a id="line_breaks"></a>
+### `Const` LINE_BREAKS
 
-### `<Const>` LINE_BREAKS
+• **LINE_BREAKS**: *RegExp‹›* =  /\r?\n/g
 
-**● LINE_BREAKS**: *`RegExp`* =  /\r?\n/g
-
-*Defined in [TextStream.ts:10](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L10)*
-
-___
-<a id="not_found"></a>
-
-### `<Const>` NOT_FOUND
-
-**● NOT_FOUND**: *`-1`* =  -1
-
-*Defined in [TextStream.ts:9](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/TextStream.ts#L9)*
+*Defined in [src/TextStream.ts:10](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L10)*
 
 ___
 
+### `Const` NOT_FOUND
+
+• **NOT_FOUND**: *-1* =  -1
+
+*Defined in [src/TextStream.ts:9](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/TextStream.ts#L9)*
