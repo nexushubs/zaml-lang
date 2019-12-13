@@ -30,7 +30,7 @@
 
 \+ **new ParseError**(`message`: string, `text`: string, `from`: [SourcePosition](../interfaces/_textstream_.sourceposition.md), `to`: [SourcePosition](../interfaces/_textstream_.sourceposition.md)): *[ParseError](_parseerror_.parseerror.md)*
 
-*Defined in [src/ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L8)*
+*Defined in [src/ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/ParseError.ts#L8)*
 
 **Parameters:**
 
@@ -49,7 +49,7 @@ Name | Type |
 
 • **from**: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
 
-*Defined in [src/ParseError.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L7)*
+*Defined in [src/ParseError.ts:7](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/ParseError.ts#L7)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 *Overrides void*
 
-*Defined in [src/ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L5)*
+*Defined in [src/ParseError.ts:5](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/ParseError.ts#L5)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 • **text**: *string*
 
-*Defined in [src/ParseError.ts:6](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L6)*
+*Defined in [src/ParseError.ts:6](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/ParseError.ts#L6)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **to**: *[SourcePosition](../interfaces/_textstream_.sourceposition.md)*
 
-*Defined in [src/ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/ParseError.ts#L8)*
+*Defined in [src/ParseError.ts:8](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/ParseError.ts#L8)*
 
 ___
 

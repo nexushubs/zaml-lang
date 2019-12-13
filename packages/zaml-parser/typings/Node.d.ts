@@ -246,7 +246,7 @@ declare class Node {
      */
     get commonDescriptor(): Descriptor;
     get openDescriptorStart(): string;
-    get openDescriptorEnd(): "]" | "}" | "" | ">";
+    get openDescriptorEnd(): "" | "]" | "}" | ">";
     get closingDescriptor(): string;
     get selector(): string;
     get rootSelector(): string;

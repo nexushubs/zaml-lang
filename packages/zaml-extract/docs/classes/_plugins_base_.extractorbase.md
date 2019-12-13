@@ -26,7 +26,7 @@ Extractor base class
 
 \+ **new ExtractorBase**(`options`: any): *[ExtractorBase](_plugins_base_.extractorbase.md)*
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/base.ts#L7)*
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/base.ts#L7)*
 
 **Parameters:**
 
@@ -42,4 +42,4 @@ Name | Type |
 
 • **options**: *any*
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/base.ts#L7)*
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/base.ts#L7)*

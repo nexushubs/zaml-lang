@@ -32,7 +32,7 @@
 
 • **ATTRIBUTE_ASSIGN**:
 
-*Defined in [src/Tokenizer.ts:62](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L62)*
+*Defined in [src/Tokenizer.ts:62](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L62)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **ATTRIBUTE_FINISH**:
 
-*Defined in [src/Tokenizer.ts:64](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L64)*
+*Defined in [src/Tokenizer.ts:64](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L64)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **ATTRIBUTE_LIST**:
 
-*Defined in [src/Tokenizer.ts:60](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L60)*
+*Defined in [src/Tokenizer.ts:60](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L60)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **ATTRIBUTE_NAME**:
 
-*Defined in [src/Tokenizer.ts:61](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L61)*
+*Defined in [src/Tokenizer.ts:61](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L61)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **ATTRIBUTE_VALUE**:
 
-*Defined in [src/Tokenizer.ts:63](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L63)*
+*Defined in [src/Tokenizer.ts:63](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L63)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **END**:
 
-*Defined in [src/Tokenizer.ts:70](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L70)*
+*Defined in [src/Tokenizer.ts:70](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L70)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **ENTITY_BODY**:
 
-*Defined in [src/Tokenizer.ts:68](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L68)*
+*Defined in [src/Tokenizer.ts:68](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L68)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **ENTITY_END**:
 
-*Defined in [src/Tokenizer.ts:69](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L69)*
+*Defined in [src/Tokenizer.ts:69](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L69)*
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 • **ENTITY_START**:
 
-*Defined in [src/Tokenizer.ts:67](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L67)*
+*Defined in [src/Tokenizer.ts:67](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L67)*
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 • **FINISH**:
 
-*Defined in [src/Tokenizer.ts:71](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L71)*
+*Defined in [src/Tokenizer.ts:71](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L71)*
 
 ___
 
@@ -112,7 +112,7 @@ ___
 
 • **LABEL_START**:
 
-*Defined in [src/Tokenizer.ts:66](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L66)*
+*Defined in [src/Tokenizer.ts:66](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L66)*
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 • **METADATA**: = 0
 
-*Defined in [src/Tokenizer.ts:53](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L53)*
+*Defined in [src/Tokenizer.ts:53](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L53)*
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 • **MULTIPLE_COMMENT**:
 
-*Defined in [src/Tokenizer.ts:56](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L56)*
+*Defined in [src/Tokenizer.ts:56](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L56)*
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 • **NORMAL**:
 
-*Defined in [src/Tokenizer.ts:54](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L54)*
+*Defined in [src/Tokenizer.ts:54](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L54)*
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 • **SINGLE_COMMENT**:
 
-*Defined in [src/Tokenizer.ts:55](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L55)*
+*Defined in [src/Tokenizer.ts:55](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L55)*
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 • **START**:
 
-*Defined in [src/Tokenizer.ts:57](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L57)*
+*Defined in [src/Tokenizer.ts:57](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L57)*
 
 ___
 
@@ -160,7 +160,7 @@ ___
 
 • **TAG_END**:
 
-*Defined in [src/Tokenizer.ts:65](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L65)*
+*Defined in [src/Tokenizer.ts:65](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L65)*
 
 ___
 
@@ -168,7 +168,7 @@ ___
 
 • **TAG_NAME**:
 
-*Defined in [src/Tokenizer.ts:59](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L59)*
+*Defined in [src/Tokenizer.ts:59](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L59)*
 
 ___
 
@@ -176,4 +176,4 @@ ___
 
 • **TAG_START**:
 
-*Defined in [src/Tokenizer.ts:58](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Tokenizer.ts#L58)*
+*Defined in [src/Tokenizer.ts:58](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L58)*

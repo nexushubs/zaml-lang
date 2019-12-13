@@ -18,4 +18,4 @@
 
 • **url**? : *undefined | string*
 
-*Defined in [plugins/rest.ts:8](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/rest.ts#L8)*
+*Defined in [plugins/rest.ts:8](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/rest.ts#L8)*

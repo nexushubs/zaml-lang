@@ -28,7 +28,7 @@
 
 • **attributes**? : *[KeyValueMap](../modules/_node_.md#keyvaluemap)*
 
-*Defined in [src/Node.ts:188](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L188)*
+*Defined in [src/Node.ts:188](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L188)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • **content**? : *undefined | string*
 
-*Defined in [src/Node.ts:192](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L192)*
+*Defined in [src/Node.ts:192](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L192)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **end**? : *undefined | number*
 
-*Defined in [src/Node.ts:186](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L186)*
+*Defined in [src/Node.ts:186](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L186)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **id**? : *undefined | string*
 
-*Defined in [src/Node.ts:183](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L183)*
+*Defined in [src/Node.ts:183](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L183)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **labels**? : *string[]*
 
-*Defined in [src/Node.ts:190](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L190)*
+*Defined in [src/Node.ts:190](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L190)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • **metadata**? : *[KeyValueMap](../modules/_node_.md#keyvaluemap)*
 
-*Defined in [src/Node.ts:189](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L189)*
+*Defined in [src/Node.ts:189](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L189)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • **parent**? : *[Node](../classes/_node_.node.md)*
 
-*Defined in [src/Node.ts:191](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L191)*
+*Defined in [src/Node.ts:191](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L191)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 • **source**? : *undefined | string*
 
-*Defined in [src/Node.ts:184](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L184)*
+*Defined in [src/Node.ts:184](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L184)*
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 • **start**? : *undefined | number*
 
-*Defined in [src/Node.ts:185](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L185)*
+*Defined in [src/Node.ts:185](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L185)*
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 • **states**? : *[KeyValueMap](../modules/_node_.md#keyvaluemap)*
 
-*Defined in [src/Node.ts:187](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L187)*
+*Defined in [src/Node.ts:187](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L187)*
 
 ___
 
@@ -108,4 +108,4 @@ ___
 
 • **text**? : *undefined | string*
 
-*Defined in [src/Node.ts:193](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L193)*
+*Defined in [src/Node.ts:193](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L193)*

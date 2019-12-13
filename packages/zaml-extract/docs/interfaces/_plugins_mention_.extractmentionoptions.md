@@ -19,7 +19,7 @@
 
 • **pattern**? : *RegExp*
 
-*Defined in [plugins/mention.ts:10](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/mention.ts#L10)*
+*Defined in [plugins/mention.ts:10](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/mention.ts#L10)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **users**? : *string[]*
 
-*Defined in [plugins/mention.ts:9](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/mention.ts#L9)*
+*Defined in [plugins/mention.ts:9](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/mention.ts#L9)*

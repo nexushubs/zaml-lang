@@ -19,7 +19,7 @@
 
 • **end**: *string*
 
-*Defined in [src/Node.ts:220](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L220)*
+*Defined in [src/Node.ts:220](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L220)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **start**: *string*
 
-*Defined in [src/Node.ts:219](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L219)*
+*Defined in [src/Node.ts:219](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L219)*

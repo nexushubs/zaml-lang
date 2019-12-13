@@ -20,7 +20,7 @@
 
 • **COMMENT**: = "comment"
 
-*Defined in [src/Node.ts:15](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L15)*
+*Defined in [src/Node.ts:15](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L15)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **ENTITY**: = "entity"
 
-*Defined in [src/Node.ts:13](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L13)*
+*Defined in [src/Node.ts:13](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L13)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • **FRAGMENT**: = "fragment"
 
-*Defined in [src/Node.ts:9](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L9)*
+*Defined in [src/Node.ts:9](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L9)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **PARAGRAPH**: = "paragraph"
 
-*Defined in [src/Node.ts:11](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L11)*
+*Defined in [src/Node.ts:11](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L11)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **ROOT**: = "root"
 
-*Defined in [src/Node.ts:10](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L10)*
+*Defined in [src/Node.ts:10](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L10)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **TAG**: = "tag"
 
-*Defined in [src/Node.ts:12](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L12)*
+*Defined in [src/Node.ts:12](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L12)*
 
 ___
 
@@ -68,4 +68,4 @@ ___
 
 • **TEXT**: = "text"
 
-*Defined in [src/Node.ts:14](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L14)*
+*Defined in [src/Node.ts:14](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L14)*
