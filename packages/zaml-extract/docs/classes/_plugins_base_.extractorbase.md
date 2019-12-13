@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) > ["plugins/base"](../modules/_plugins_base_.md) > [ExtractorBase](../classes/_plugins_base_.extractorbase.md)
+[@zaml/extract](../README.md) › ["plugins/base"](../modules/_plugins_base_.md) › [ExtractorBase](_plugins_base_.extractorbase.md)
 
 # Class: ExtractorBase
 
@@ -6,9 +6,9 @@ Extractor base class
 
 ## Hierarchy
 
-**ExtractorBase**
+* **ExtractorBase**
 
-↳  [RestExtractor](_plugins_rest_.restextractor.md)
+  ↳ [RestExtractor](_plugins_rest_.restextractor.md)
 
 ## Index
 
@@ -20,37 +20,26 @@ Extractor base class
 
 * [options](_plugins_base_.extractorbase.md#options)
 
----
-
 ## Constructors
-
-<a id="constructor"></a>
 
 ###  constructor
 
-⊕ **new ExtractorBase**(options: *`any`*): [ExtractorBase](_plugins_base_.extractorbase.md)
+\+ **new ExtractorBase**(`options`: any): *[ExtractorBase](_plugins_base_.extractorbase.md)*
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/base.ts#L7)*
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/base.ts#L7)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | `any` |
+Name | Type |
+------ | ------ |
+`options` | any |
 
-**Returns:** [ExtractorBase](_plugins_base_.extractorbase.md)
-
-___
+**Returns:** *[ExtractorBase](_plugins_base_.extractorbase.md)*
 
 ## Properties
 
-<a id="options"></a>
-
 ###  options
 
-**● options**: *`any`*
+• **options**: *any*
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/plugins/base.ts#L7)*
-
-___
-
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/plugins/base.ts#L7)*

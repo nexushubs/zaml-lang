@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) > ["plugins/base"](../modules/_plugins_base_.md)
+[@zaml/extract](../README.md) › ["plugins/base"](_plugins_base_.md)
 
 # External module: "plugins/base"
 
@@ -7,6 +7,3 @@
 ### Classes
 
 * [ExtractorBase](../classes/_plugins_base_.extractorbase.md)
-
----
-

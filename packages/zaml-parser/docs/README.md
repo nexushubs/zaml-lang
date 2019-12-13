@@ -1,5 +1,6 @@
+[@zaml/parser](README.md)
 
-#  @zaml/parser
+# @zaml/parser
 
 ## Index
 
@@ -13,6 +14,3 @@
 * ["constants"](modules/_constants_.md)
 * ["index"](modules/_index_.md)
 * ["util"](modules/_util_.md)
-
----
-

@@ -1,5 +1,6 @@
+[@zaml/extract](README.md)
 
-#  @zaml/extract
+# @zaml/extract
 
 ## Index
 
@@ -14,6 +15,3 @@
 * ["plugins/rest"](modules/_plugins_rest_.md)
 * ["types"](modules/_types_.md)
 * ["util"](modules/_util_.md)
-
----
-

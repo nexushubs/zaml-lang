@@ -1,10 +1,10 @@
-[@zaml/parser](../README.md) > ["Node"](../modules/_node_.md) > [NodeRange](../interfaces/_node_.noderange.md)
+[@zaml/parser](../README.md) › ["Node"](../modules/_node_.md) › [NodeRange](_node_.noderange.md)
 
 # Interface: NodeRange
 
 ## Hierarchy
 
-**NodeRange**
+* **NodeRange**
 
 ## Index
 
@@ -15,44 +15,34 @@
 * [startNode](_node_.noderange.md#startnode)
 * [startOffset](_node_.noderange.md#startoffset)
 
----
-
 ## Properties
-
-<a id="endnode"></a>
 
 ###  endNode
 
-**● endNode**: *[Node](../classes/_node_.node.md)*
+• **endNode**: *[Node](../classes/_node_.node.md)*
 
-*Defined in [Node.ts:231](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L231)*
+*Defined in [src/Node.ts:239](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L239)*
 
 ___
-<a id="endoffset"></a>
 
 ###  endOffset
 
-**● endOffset**: *`number`*
+• **endOffset**: *number*
 
-*Defined in [Node.ts:232](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L232)*
+*Defined in [src/Node.ts:240](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L240)*
 
 ___
-<a id="startnode"></a>
 
 ###  startNode
 
-**● startNode**: *[Node](../classes/_node_.node.md)*
+• **startNode**: *[Node](../classes/_node_.node.md)*
 
-*Defined in [Node.ts:229](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L229)*
+*Defined in [src/Node.ts:237](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L237)*
 
 ___
-<a id="startoffset"></a>
 
 ###  startOffset
 
-**● startOffset**: *`number`*
+• **startOffset**: *number*
 
-*Defined in [Node.ts:230](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L230)*
-
-___
-
+*Defined in [src/Node.ts:238](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L238)*

@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) > ["util"](../modules/_util_.md)
+[@zaml/extract](../README.md) › ["util"](_util_.md)
 
 # External module: "util"
 
@@ -8,25 +8,18 @@
 
 * [formatEntityData](_util_.md#formatentitydata)
 
----
-
 ## Functions
-
-<a id="formatentitydata"></a>
 
 ###  formatEntityData
 
-▸ **formatEntityData**(data: *`any`*): `any`
+▸ **formatEntityData**(`data`: any): *any*
 
-*Defined in [util.ts:3](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-extract/src/util.ts#L3)*
+*Defined in [util.ts:3](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-extract/src/util.ts#L3)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| data | `any` |
+Name | Type |
+------ | ------ |
+`data` | any |
 
-**Returns:** `any`
-
-___
-
+**Returns:** *any*

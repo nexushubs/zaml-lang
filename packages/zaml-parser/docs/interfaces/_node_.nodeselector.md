@@ -1,72 +1,57 @@
-[@zaml/parser](../README.md) > ["Node"](../modules/_node_.md) > [NodeSelector](../interfaces/_node_.nodeselector.md)
+[@zaml/parser](../README.md) › ["Node"](../modules/_node_.md) › [NodeSelector](_node_.nodeselector.md)
 
 # Interface: NodeSelector
 
 ## Hierarchy
 
-**NodeSelector**
+* **NodeSelector**
 
 ## Index
 
 ### Properties
 
-* [label](_node_.nodeselector.md#label)
-* [name](_node_.nodeselector.md#name)
-* [source](_node_.nodeselector.md#source)
-* [text](_node_.nodeselector.md#text)
-* [type](_node_.nodeselector.md#type)
-
----
+* [label](_node_.nodeselector.md#optional-label)
+* [name](_node_.nodeselector.md#optional-name)
+* [source](_node_.nodeselector.md#optional-source)
+* [text](_node_.nodeselector.md#optional-text)
+* [type](_node_.nodeselector.md#optional-type)
 
 ## Properties
 
-<a id="label"></a>
+### `Optional` label
 
-### `<Optional>` label
+• **label**? : *undefined | string*
 
-**● label**: * `undefined` &#124; `string`
-*
-
-*Defined in [Node.ts:194](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L194)*
-
-___
-<a id="name"></a>
-
-### `<Optional>` name
-
-**● name**: * `undefined` &#124; `string`
-*
-
-*Defined in [Node.ts:191](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L191)*
-
-___
-<a id="source"></a>
-
-### `<Optional>` source
-
-**● source**: * `undefined` &#124; `string`
-*
-
-*Defined in [Node.ts:193](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L193)*
-
-___
-<a id="text"></a>
-
-### `<Optional>` text
-
-**● text**: * `undefined` &#124; `string`
-*
-
-*Defined in [Node.ts:192](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L192)*
-
-___
-<a id="type"></a>
-
-### `<Optional>` type
-
-**● type**: *[NodeType](../enums/_node_.nodetype.md)*
-
-*Defined in [Node.ts:190](https://github.com/nexushubs/zaml-lang/blob/18f20d4/packages/zaml-parser/src/Node.ts#L190)*
+*Defined in [src/Node.ts:201](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L201)*
 
 ___
 
+### `Optional` name
+
+• **name**? : *undefined | string*
+
+*Defined in [src/Node.ts:198](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L198)*
+
+___
+
+### `Optional` source
+
+• **source**? : *undefined | string*
+
+*Defined in [src/Node.ts:200](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L200)*
+
+___
+
+### `Optional` text
+
+• **text**? : *undefined | string*
+
+*Defined in [src/Node.ts:199](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L199)*
+
+___
+
+### `Optional` type
+
+• **type**? : *[NodeType](../enums/_node_.nodetype.md)*
+
+*Defined in [src/Node.ts:197](https://github.com/nexushubs/zaml-lang/blob/ee5fea7/packages/zaml-parser/src/Node.ts#L197)*
