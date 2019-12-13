@@ -9,10 +9,10 @@
     "test": "mocha",
     "clean": "rm -rf lib/*",
     "coverage": "nyc node_modules/.bin/mocha",
-    "typings": "tsc --emitDeclarationOnly",
-    "build": "tsc",
     "watch": "tsc -w",
-    "docs": "typedoc --out docs --theme markdown --readme none",
+    "build": "tsc",
+    "build:docs": "typedoc --out docs --theme markdown --readme none",
+    "build:typings": "tsc --emitDeclarationOnly",
     "prepublishOnly": "yarn build && yarn docs"
   },
   "repository": {
@@ -22,25 +22,23 @@
   "author": "alphakevin <get.so.smart@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/isomorphic-fetch": "^0.0.34",
-    "@types/linkify-it": "^2.0.4",
-    "@types/lodash": "^4.14.119",
-    "@types/node": "^10.12.15",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/linkify-it": "^2.1.0",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^12.12.17",
     "@zaml/parser": "^0.6.18",
-    "babel-plugin-istanbul": "^4.1.6",
-    "chai": "^4.1.2",
-    "jsdoc-to-markdown": "^4.0.1",
-    "mocha": "^5.2.0",
-    "nyc": "^12.0.2",
-    "typedoc": "^0.13.0",
-    "typedoc-plugin-markdown": "^1.1.19",
-    "typescript": "^3.2.2"
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1",
+    "typedoc": "^0.15.4",
+    "typedoc-plugin-markdown": "^2.2.14",
+    "typescript": "^3.7.3"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "linkify-it": "^2.1.0",
-    "lodash": "^4.17.10",
-    "tslib": "^1.9.3"
+    "linkify-it": "^2.2.0",
+    "lodash": "^4.17.15",
+    "tslib": "^1.10.0"
   },
   "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562"
 }
