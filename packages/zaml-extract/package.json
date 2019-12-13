@@ -13,7 +13,7 @@
     "build": "tsc",
     "build:docs": "typedoc --out docs --theme markdown --readme none",
     "build:typings": "tsc --emitDeclarationOnly",
-    "prepublishOnly": "yarn build && yarn docs"
+    "prepublishOnly": "yarn build && yarn build:docs"
   },
   "repository": {
     "type": "git",

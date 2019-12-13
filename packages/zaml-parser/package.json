@@ -10,7 +10,7 @@
     "clean": "rm -rf lib/*",
     "coverage": "nyc node_modules/.bin/mocha",
     "watch": "babel src --out-dir lib --source-maps --extensions .ts --watch --verbose & tsc -w --emitDeclarationOnly",
-    "build": "babel src --out-dir lib --source-maps --extensions .ts && yarn typings",
+    "build": "babel src --out-dir lib --source-maps --extensions .ts && yarn build:typings",
     "build:docs": "typedoc --out docs --theme markdown --readme none",
     "build:typings": "tsc --emitDeclarationOnly",
     "prepublishOnly": "yarn build && yarn build:docs"
