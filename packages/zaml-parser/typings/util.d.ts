@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import Node from './Node';
 /**
  * Stringify attribute value
@@ -42,4 +41,49 @@ export declare function stringify(node: Node, options?: StringifyOptions, indent
 export declare const isNode: boolean;
 export declare const isChrome: boolean;
 export declare const isAnsiSupported: boolean;
-export declare const chalk: _.Dictionary<(text: string) => string>;
+export declare const chalk: {
+    reset: (text: string) => string;
+    bold: (text: string) => string;
+    dim: (text: string) => string;
+    italic: (text: string) => string;
+    underline: (text: string) => string;
+    inverse: (text: string) => string;
+    hidden: (text: string) => string;
+    strikethrough: (text: string) => string;
+    black: (text: string) => string;
+    red: (text: string) => string;
+    green: (text: string) => string;
+    yellow: (text: string) => string;
+    blue: (text: string) => string;
+    magenta: (text: string) => string;
+    cyan: (text: string) => string;
+    white: (text: string) => string;
+    blackBright: (text: string) => string;
+    grey: (text: string) => string;
+    gray: (text: string) => string;
+    redBright: (text: string) => string;
+    greenBright: (text: string) => string;
+    yellowBright: (text: string) => string;
+    blueBright: (text: string) => string;
+    magentaBright: (text: string) => string;
+    cyanBright: (text: string) => string;
+    whiteBright: (text: string) => string;
+    bgBlack: (text: string) => string;
+    bgRed: (text: string) => string;
+    bgGreen: (text: string) => string;
+    bgYellow: (text: string) => string;
+    bgBlue: (text: string) => string;
+    bgMagenta: (text: string) => string;
+    bgCyan: (text: string) => string;
+    bgWhite: (text: string) => string;
+    bgBlackBright: (text: string) => string;
+    bgGrey: (text: string) => string;
+    bgGray: (text: string) => string;
+    bgRedBright: (text: string) => string;
+    bgGreenBright: (text: string) => string;
+    bgYellowBright: (text: string) => string;
+    bgBlueBright: (text: string) => string;
+    bgMagentaBright: (text: string) => string;
+    bgCyanBright: (text: string) => string;
+    bgWhiteBright: (text: string) => string;
+};

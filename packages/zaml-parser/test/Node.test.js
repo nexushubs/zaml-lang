@@ -61,7 +61,7 @@ describe('class Node', () => {
     beforeEach(() => {
       attributes = {
         string1: 'unwrapped_string',
-        string2: 'wrapped string with escaped quote \"',
+        string2: 'escaped "double" & \'single\' quote',
         string3: '2cats',
         string4: '123',
         int1: 0,
@@ -95,7 +95,7 @@ describe('class Node', () => {
     it('attributes as string', () => {
       const _attributes = {
         string1: 'unwrapped_string',
-        string2: 'wrapped string with escaped quote \"',
+        string2: 'escaped "double" & \'single\' quote',
         string3: '2cats',
         string4: '123',
         int1: '0',

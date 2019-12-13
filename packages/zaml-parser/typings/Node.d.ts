@@ -8,7 +8,7 @@ export declare enum NodeType {
     TEXT = "text",
     COMMENT = "comment"
 }
-export declare const NodeTypes: string[];
+export declare const NodeTypes: NodeType[];
 export declare const P_NODE_EXPRESSION: RegExp;
 export declare const P_TAG_EXPRESSION: RegExp;
 export declare const P_ENTITY_EXPRESSION: RegExp;
@@ -240,100 +240,100 @@ declare class Node {
     /**
      * Get a short descriptor to identify node's type and basic information
      */
-    readonly descriptor: string;
+    get descriptor(): string;
     /**
      * Get descriptor ignoring name difference
      */
-    readonly commonDescriptor: Descriptor;
-    readonly openDescriptorStart: string;
-    readonly openDescriptorEnd: "" | "]" | "}" | ">";
-    readonly closingDescriptor: string;
-    readonly selector: string;
-    readonly rootSelector: string;
+    get commonDescriptor(): Descriptor;
+    get openDescriptorStart(): string;
+    get openDescriptorEnd(): "]" | "}" | "" | ">";
+    get closingDescriptor(): string;
+    get selector(): string;
+    get rootSelector(): string;
     /**
      * Check if the node is root
      */
-    readonly isRoot: boolean;
+    get isRoot(): boolean;
     /**
      * Check if the node is paragraph
      */
-    readonly isParagraph: boolean;
+    get isParagraph(): boolean;
     /**
      * Check if the node is tag
      */
-    readonly isTag: boolean;
+    get isTag(): boolean;
     /**
      * Check if the node is entity
      */
-    readonly isEntity: boolean;
+    get isEntity(): boolean;
     /**
      * Check if the node is text
      */
-    readonly isText: boolean;
+    get isText(): boolean;
     /**
      * Check if the node is text and not wrapping by entity
      */
-    readonly isPlainText: boolean;
+    get isPlainText(): boolean;
     /**
      * Check if the node is wrapping tag
      */
-    readonly isWrappingTag: boolean;
+    get isWrappingTag(): boolean;
     /**
      * Check if the node is block tag
      */
-    readonly isBlockTag: boolean;
+    get isBlockTag(): boolean;
     /**
      * Check if the node is simple block or inline block
      */
-    readonly isSimpleTag: boolean;
+    get isSimpleTag(): boolean;
     /**
      * Property indicates if the node is a block (wrapping other nodes)
      */
-    readonly isBlock: boolean;
+    get isBlock(): boolean;
     /**
      * If node is inline block
      */
-    readonly isInlineBlock: boolean;
+    get isInlineBlock(): boolean;
     /**
      * Get parent node, alias for node.parent
      */
-    readonly parentNode: Node | undefined;
+    get parentNode(): Node | undefined;
     /**
      * Get child nodes, alias for node.children
      */
-    readonly childNodes: Node[];
+    get childNodes(): Node[];
     /**
      * Get source code of the node
      */
-    readonly source: string;
+    get source(): string;
     /**
      * Get node inner text
      */
-    readonly innerText: string | undefined;
+    get innerText(): string | undefined;
     /**
      * Check if the node is the first child of its parent
      */
-    readonly isFirstChild: boolean;
+    get isFirstChild(): boolean;
     /**
      * Check if the node is the last child of its parent
      */
-    readonly isLastChild: boolean;
+    get isLastChild(): boolean;
     /**
      * Siblings from same parent
      */
-    readonly siblings: Node[];
+    get siblings(): Node[];
     /**
      * Get index of parent children
      */
-    readonly childIndex: number;
+    get childIndex(): number;
     /**
      * Next sibling node
      */
-    readonly nextSibling: Node | undefined;
+    get nextSibling(): Node | undefined;
     /**
      * Previous sibling node
      */
-    readonly previousSibling: Node | undefined;
+    get previousSibling(): Node | undefined;
     /**
      * Property indicates if the root is root (which has no children)
      */
@@ -357,15 +357,15 @@ declare class Node {
     /**
      * Get a list of ancestors
      */
-    readonly path: Node[];
+    get path(): Node[];
     /**
      * Get the first child of current node
      */
-    readonly firstChild: Node | undefined;
+    get firstChild(): Node | undefined;
     /**
      * Get the last child of current node
      */
-    readonly lastChild: Node | undefined;
+    get lastChild(): Node | undefined;
     /**
      * Check if this node has any children
      */
@@ -373,7 +373,7 @@ declare class Node {
     /**
      * Check if this node is the only child of its parent
      */
-    readonly isOnlyChild: boolean;
+    get isOnlyChild(): boolean;
     /**
      * Check if the node is only descendant of another node;
      * @param ancestor

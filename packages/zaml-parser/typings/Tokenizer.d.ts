@@ -5,6 +5,7 @@ export interface ParsingOptions {
     needMetadataMarker?: boolean;
     attributeAsString?: boolean;
     bigIntAsString?: boolean;
+    enableComments?: boolean;
 }
 /**
  * Tokenizer class

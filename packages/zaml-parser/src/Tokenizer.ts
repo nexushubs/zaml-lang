@@ -18,7 +18,7 @@ import {
   T_TAG_ATTRIBUTE_FAVORED_ASSIGN,
   T_LINE_BREAKS,
   T_SINGLE_LINE_COMMENT,
-  P_MULTIPLE_LINE_COMMENT,
+  T_MULTIPLE_LINE_COMMENT,
   P_SPACE_WRAPPED_LINE_BREAK,
   P_LINE_BREAK,
   P_PARAGRAPH_BREAK,
@@ -43,6 +43,7 @@ import {
   START_MARKERS,
   END_MARKERS,
   P_MARKER,
+  P_MARKER_WITH_COMMENTS,
   PROCESSING_TIMEOUT,
   T_LINE_BREAK,
   P_MULTIPLE_LINE_BREAK,
@@ -106,6 +107,7 @@ export interface ParsingOptions {
   needMetadataMarker?: boolean;
   attributeAsString?: boolean;
   bigIntAsString?: boolean;
+  enableComments?: boolean;
 };
 
 /**
@@ -137,7 +139,11 @@ class Tokenizer {
     }
     this.text = text;
     this.stream = new TextStream(text);
-    const defaultOptions = {
+    const defaultOptions: ParsingOptions = {
+      needMetadataMarker: false,
+      attributeAsString: false,
+      bigIntAsString: false,
+      enableComments: false,
       verbose: process && process.env.DEBUG === 'verbose',
     };
     this.options = _.defaults(options, defaultOptions);
@@ -322,7 +328,8 @@ class Tokenizer {
             const child = node.createChild(NodeType.PARAGRAPH, undefined, { start });
             pushNode(child);
           }
-          const originalText = stream.readTo(P_MARKER, { toEOF: true });
+          const markerPattern = this.options.enableComments ? P_MARKER_WITH_COMMENTS : P_MARKER;
+          const originalText = stream.readTo(markerPattern, { toEOF: true });
           let text = originalText;
           if (text) {
             if (node.children.length === 0) {
@@ -344,7 +351,8 @@ class Tokenizer {
         
         case State.START: {
           start = stream.pos;
-          const ch: string = stream.eat(P_MARKER);
+          const markerPattern = this.options.enableComments ? P_MARKER_WITH_COMMENTS : P_MARKER;
+          const ch: string = stream.eat(markerPattern);
           P_LABEL_START.lastIndex = 0;
           if (ch === T_SINGLE_LINE_COMMENT) {
             const rest = stream.eatWhile(T_SINGLE_LINE_COMMENT);
@@ -378,7 +386,7 @@ class Tokenizer {
           if (state === State.SINGLE_COMMENT) {
             content = stream.readTo(P_LINE_BREAK);
           } else {
-            content = stream.readTo(P_MULTIPLE_LINE_COMMENT, { skipMatched: true });
+            content = stream.readTo(T_MULTIPLE_LINE_COMMENT, { skipMatched: true });
           }
           if (content) {
             if (state === State.MULTIPLE_COMMENT) {
@@ -600,7 +608,7 @@ class Tokenizer {
             value = stream.match(P_STRING_LITERAL_QUOTED);
             try {
               value = JSON.parse(value);
-            } catch (e) {
+            } catch (err) {
               throw createError('invalid string literal');
             }
           } else if (attributeAsString) {

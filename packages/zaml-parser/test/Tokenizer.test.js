@@ -53,6 +53,8 @@ describe('class Tokenizer', () => {
       This is a link followed by mention: [www.example.com]{LINK url=http://www.example.com} [@someone]{MENTION username=someone}
 
       这是一个法条: [劳动法第13条]{LAW_ARTICLE}，[《未成年人保护]{LAW}法》第134条
+      
+      根据[劳动法第31条]{LAW_ARTICLE id=31 law=《中华人民共和国劳动法》 name=第三十一条 content="【劳动者解除合同的提前通知期限】劳动者解除劳动合同，应当提前三十日以书面形式通知用人单位。\\n" citation=《中华人民共和国劳动法》第三十一条}
 
       End of the sample file
     `;
@@ -64,7 +66,7 @@ describe('class Tokenizer', () => {
     const sample = `
       {BLOCK
         string1=unwrapped_string
-        string2="wrapped string with escaped quote \\""
+        string2="escaped \\"double\\" & 'single' quote"
         string3=2cats
         string4="123"
         int1=0
@@ -94,7 +96,7 @@ describe('class Tokenizer', () => {
       const node = zaml.parse(sample, { bigIntAsString: true });
       expect(node.firstChild.attributes).to.deep.equal({
         string1: 'unwrapped_string',
-        string2: 'wrapped string with escaped quote \"',
+        string2: 'escaped "double" & \'single\' quote',
         string3: '2cats',
         string4: '123',
         int1: 0,
@@ -122,7 +124,7 @@ describe('class Tokenizer', () => {
       const node = zaml.parse(sample, { attributeAsString: true });
       expect(node.firstChild.attributes).to.deep.equal({
         string1: 'unwrapped_string',
-        string2: 'wrapped string with escaped quote \"',
+        string2: 'escaped "double" & \'single\' quote',
         string3: '2cats',
         string4: '123',
         int1: '0',
@@ -434,7 +436,7 @@ describe('class Tokenizer', () => {
 
         Main text content ~comment text
       `;
-      const node = zaml.parse(sample);
+      const node = zaml.parse(sample, { enableComments: true });
       // console.log(JSON.stringify(node.toJSON(), null, 2));
     });
     
@@ -451,7 +453,7 @@ describe('class Tokenizer', () => {
         block
         ~~~~
       `;
-      const node = zaml.parse(sample);
+      const node = zaml.parse(sample, { enableComments: true });
       // console.log(JSON.stringify(node.toJSON(), null, 2));
     });
 

@@ -24,15 +24,15 @@ declare class TextLine {
     /**
      * Get text length of the line
      */
-    readonly length: number;
+    get length(): number;
     /**
      * Start position of the line, alias of `offset`
      */
-    readonly start: number;
+    get start(): number;
     /**
      * End position of the line
      */
-    readonly end: number;
+    get end(): number;
     /**
      * Convert to JSON serializable object
      */

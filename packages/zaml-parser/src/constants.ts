@@ -10,7 +10,7 @@ export const T_SPACE = ' ';
 export const T_TAB = '\t';
 export const T_METADATA_MARKER = `---`;
 export const T_SINGLE_LINE_COMMENT = '~';
-export const P_MULTIPLE_LINE_COMMENT = '~{3,}';
+export const T_MULTIPLE_LINE_COMMENT = '~~~';
 export const T_ENTITY_START = '[';
 export const T_ENTITY_END = ']';
 export const T_TAG_START = '{';
@@ -48,7 +48,7 @@ export const P_NUMBER_START = /[\d\.\-]/;
 export const P_NUMBER_LITERAL = /(?:\-?(\d*\.\d*|\d+)(e\-?\d+)?|0x[0-9a-f]+|0o[0-7]+|0b[01]+)/g;
 export const P_NUMBER_LITERAL_FULL = new RegExp(`^${P_NUMBER_LITERAL.source}$`);
 export const P_NUMBER_VALUE = new RegExp(`${P_NUMBER_LITERAL.source}(?=${combinePatterns([P_WHITE_SPACES_EXT, T_TAG_END])})`, 'g');
-export const P_STRING_LITERAL_QUOTED = /"([^"\\]|\\")*"/g;
+export const P_STRING_LITERAL_QUOTED = /"([^"\\]|\\.)*"/g;
 export const P_STRING_LITERAL_UNQUOTED = /[^\s}"'\\\n]+/g;
 export const P_STRING_LITERAL_UNQUOTED_TESTER = new RegExp(`^${P_STRING_LITERAL_UNQUOTED.source}$`);
 export const P_BOOLEAN_TRUE = /(TRUE|True|true)/g;
@@ -57,6 +57,7 @@ export const P_FULL_WIDTH_CHARACTER = /[\p{Script=Hani}！＠＃￥％…＆×�
 
 export const START_MARKERS = [T_TAG_START, T_ENTITY_START, P_LABEL_START];
 export const END_MARKERS = [T_TAG_END, T_ENTITY_END];
-export const P_MARKER = new RegExp(`(${combinePatterns([P_PARAGRAPH_BREAK, ...START_MARKERS, T_TAG_END, P_MULTIPLE_LINE_COMMENT, T_SINGLE_LINE_COMMENT])})`, 'g');
+export const P_MARKER = new RegExp(`(${combinePatterns([P_PARAGRAPH_BREAK, ...START_MARKERS, T_TAG_END])})`, 'g');
+export const P_MARKER_WITH_COMMENTS = new RegExp(`(${combinePatterns([P_PARAGRAPH_BREAK, ...START_MARKERS, T_TAG_END, T_SINGLE_LINE_COMMENT])})`, 'g');
 
 export const PROCESSING_TIMEOUT = Infinity;

@@ -5,7 +5,6 @@ import ParseError from './ParseError';
 
 /**
  * @module @zaml/parser
- * @typicalname parser
  */
 
 /**
