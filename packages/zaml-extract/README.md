@@ -2,6 +2,8 @@
 
 Entity extracting helper for [ZAML](https://github.com/nexushubs/zaml-lang).
 
+Thanks to Github ❤️ ci is integrated with [Github Actions](/.github/workflows/extract.yml)
+
 ## Install
 
 ```shell

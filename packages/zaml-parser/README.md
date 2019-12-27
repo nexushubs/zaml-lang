@@ -2,6 +2,8 @@
 
 Javascript tokenizer & lexer for [ZAML](https://github.com/nexushubs/zaml-lang).
 
+Thanks to Github ❤️ ci is integrated with [Github Actions](/.github/workflows/parser.yml)
+
 ## Install
 
 ```shell
