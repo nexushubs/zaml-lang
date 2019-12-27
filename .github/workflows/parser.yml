@@ -3,7 +3,7 @@ name: ZAML Parser CI
 on:
   push:
     paths:
-    - 'packages/zaml-parser/**'
+      - 'packages/zaml-parser/**'
 
 jobs:
   build:
