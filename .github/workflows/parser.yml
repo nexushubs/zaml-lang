@@ -1,9 +1,9 @@
-name: ZAML Editor CI
+name: ZAML Parser CI
 
 on:
   push:
     paths:
-    - 'packages/zaml-editor/**'
+    - 'packages/zaml-parser/**'
 
 jobs:
   build:
@@ -20,16 +20,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Build Editor
+    - name: Test ZAML parser
       run: |
         yarn install
         yarn run build
-      working-directory: packages/zaml-editor
-      env:
-        CI: true
-    - name: Deploy Editor
-      run: |
-        yarn run deploy
-      working-directory: packages/zaml-editor
+        yarn test
+      working-directory: packages/zaml-parser
       env:
         CI: true

@@ -1,6 +1,9 @@
-name: Node CI
+name: ZAML Extract CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'packages/zaml-extract/**'
 
 jobs:
   build:
@@ -17,14 +20,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Test ZAML parser
-      run: |
-        yarn install
-        yarn run build
-        yarn test
-      working-directory: packages/zaml-parser
-      env:
-        CI: true
     - name: Test ZAML extract
       run: |
         yarn install
