@@ -38,9 +38,10 @@ jobs:
         working-directory: packages/zaml-editor
         env:
           CI: true
-      - name: Deploy Editor
+      - name: Publish github pages
         run: |
-          yarn run deploy
-        working-directory: packages/zaml-editor
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/nexushubs/zaml-lang.git
+          npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CI: true
