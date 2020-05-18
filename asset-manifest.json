@@ -1,16 +1,26 @@
 {
-  "main.css": "/zaml-lang/static/css/main.b90b2365.chunk.css",
-  "main.js": "/zaml-lang/static/js/main.e5f6e27a.chunk.js",
-  "main.js.map": "/zaml-lang/static/js/main.e5f6e27a.chunk.js.map",
-  "static/css/1.a088cf3f.chunk.css": "/zaml-lang/static/css/1.a088cf3f.chunk.css",
-  "static/js/1.c8244fe0.chunk.js": "/zaml-lang/static/js/1.c8244fe0.chunk.js",
-  "static/js/1.c8244fe0.chunk.js.map": "/zaml-lang/static/js/1.c8244fe0.chunk.js.map",
-  "runtime~main.js": "/zaml-lang/static/js/runtime~main.93ee0072.js",
-  "runtime~main.js.map": "/zaml-lang/static/js/runtime~main.93ee0072.js.map",
-  "static/css/1.a088cf3f.chunk.css.map": "/zaml-lang/static/css/1.a088cf3f.chunk.css.map",
-  "static/media/logo.svg": "/zaml-lang/static/media/logo.b94cec94.svg",
-  "static/css/main.b90b2365.chunk.css.map": "/zaml-lang/static/css/main.b90b2365.chunk.css.map",
-  "index.html": "/zaml-lang/index.html",
-  "precache-manifest.888c9ea2c61c5401d95a6c207bb36035.js": "/zaml-lang/precache-manifest.888c9ea2c61c5401d95a6c207bb36035.js",
-  "service-worker.js": "/zaml-lang/service-worker.js"
+  "files": {
+    "main.css": "/zaml-lang/static/css/main.e01de196.chunk.css",
+    "main.js": "/zaml-lang/static/js/main.62545216.chunk.js",
+    "main.js.map": "/zaml-lang/static/js/main.62545216.chunk.js.map",
+    "runtime-main.js": "/zaml-lang/static/js/runtime-main.c81c8f00.js",
+    "runtime-main.js.map": "/zaml-lang/static/js/runtime-main.c81c8f00.js.map",
+    "static/css/2.7f114a90.chunk.css": "/zaml-lang/static/css/2.7f114a90.chunk.css",
+    "static/js/2.d1b6995f.chunk.js": "/zaml-lang/static/js/2.d1b6995f.chunk.js",
+    "static/js/2.d1b6995f.chunk.js.map": "/zaml-lang/static/js/2.d1b6995f.chunk.js.map",
+    "index.html": "/zaml-lang/index.html",
+    "precache-manifest.c7c28fd5a256371dcd1239a84c13b152.js": "/zaml-lang/precache-manifest.c7c28fd5a256371dcd1239a84c13b152.js",
+    "service-worker.js": "/zaml-lang/service-worker.js",
+    "static/css/2.7f114a90.chunk.css.map": "/zaml-lang/static/css/2.7f114a90.chunk.css.map",
+    "static/css/main.e01de196.chunk.css.map": "/zaml-lang/static/css/main.e01de196.chunk.css.map",
+    "static/js/2.d1b6995f.chunk.js.LICENSE.txt": "/zaml-lang/static/js/2.d1b6995f.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/zaml-lang/static/media/logo.b94cec94.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c81c8f00.js",
+    "static/css/2.7f114a90.chunk.css",
+    "static/js/2.d1b6995f.chunk.js",
+    "static/css/main.e01de196.chunk.css",
+    "static/js/main.62545216.chunk.js"
+  ]
 }
