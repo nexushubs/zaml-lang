@@ -1,6 +1,6 @@
 [@zaml/parser](../README.md) › ["Node"](_node_.md)
 
-# External module: "Node"
+# Module: "Node"
 
 ## Index
 
@@ -67,7 +67,7 @@
 
 Ƭ **ArrayExtractor**: *function*
 
-*Defined in [src/Node.ts:71](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L71)*
+*Defined in [src/Node.ts:71](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L71)*
 
 #### Type declaration:
 
@@ -85,7 +85,7 @@ ___
 
 Ƭ **AsyncArrayExtractor**: *function*
 
-*Defined in [src/Node.ts:73](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L73)*
+*Defined in [src/Node.ts:73](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L73)*
 
 #### Type declaration:
 
@@ -103,7 +103,7 @@ ___
 
 Ƭ **AsyncSingleExtractor**: *function*
 
-*Defined in [src/Node.ts:69](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L69)*
+*Defined in [src/Node.ts:69](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L69)*
 
 #### Type declaration:
 
@@ -121,7 +121,7 @@ ___
 
 Ƭ **ExtractorType**: *[SingleExtractor](_node_.md#singleextractor) | [ExtractorInterface](../interfaces/_node_.extractorinterface.md)*
 
-*Defined in [src/Node.ts:80](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L80)*
+*Defined in [src/Node.ts:80](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L80)*
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 Ƭ **FinderCallback**: *function*
 
-*Defined in [src/Node.ts:82](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L82)*
+*Defined in [src/Node.ts:82](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L82)*
 
 #### Type declaration:
 
@@ -147,7 +147,7 @@ ___
 
 Ƭ **FinderPattern**: *[FinderCallback](_node_.md#findercallback) | string*
 
-*Defined in [src/Node.ts:84](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L84)*
+*Defined in [src/Node.ts:84](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L84)*
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 Ƭ **KeyValueMap**: *object*
 
-*Defined in [src/Node.ts:180](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L180)*
+*Defined in [src/Node.ts:180](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L180)*
 
 #### Type declaration:
 
@@ -167,7 +167,7 @@ ___
 
 Ƭ **SingleExtractor**: *function*
 
-*Defined in [src/Node.ts:67](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L67)*
+*Defined in [src/Node.ts:67](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L67)*
 
 #### Type declaration:
 
@@ -183,18 +183,18 @@ Name | Type |
 
 ### `Const` BlockNodeTypes
 
-• **BlockNodeTypes**: *[NodeType](../enums/_node_.nodetype.md)[]* =  [
+• **BlockNodeTypes**: *[NodeType](../enums/_node_.nodetype.md)[]* = [
   NodeType.ROOT,
   NodeType.PARAGRAPH,
 ]
 
-*Defined in [src/Node.ts:25](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L25)*
+*Defined in [src/Node.ts:25](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L25)*
 
 ___
 
 ### `Const` BlockTags
 
-• **BlockTags**: *string[]* =  [
+• **BlockTags**: *string[]* = [
   'BLOCK',
   'QUOTE',
   'SECTION',
@@ -202,53 +202,53 @@ ___
   'FOOTER',
 ]
 
-*Defined in [src/Node.ts:30](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L30)*
+*Defined in [src/Node.ts:30](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L30)*
 
 ___
 
 ### `Const` NodeTypes
 
-• **NodeTypes**: *[FRAGMENT](../enums/_node_.nodetype.md#fragment) | [ROOT](../enums/_node_.nodetype.md#root) | [PARAGRAPH](../enums/_node_.nodetype.md#paragraph) | [TAG](../enums/_node_.nodetype.md#tag) | [ENTITY](../enums/_node_.nodetype.md#entity) | [TEXT](../enums/_node_.nodetype.md#text) | [COMMENT](../enums/_node_.nodetype.md#comment)[]* =  _.values(NodeType)
+• **NodeTypes**: *[FRAGMENT](../enums/_node_.nodetype.md#fragment) | [ROOT](../enums/_node_.nodetype.md#root) | [PARAGRAPH](../enums/_node_.nodetype.md#paragraph) | [TAG](../enums/_node_.nodetype.md#tag) | [ENTITY](../enums/_node_.nodetype.md#entity) | [TEXT](../enums/_node_.nodetype.md#text) | [COMMENT](../enums/_node_.nodetype.md#comment)[]* = _.values(NodeType)
 
-*Defined in [src/Node.ts:18](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L18)*
+*Defined in [src/Node.ts:18](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L18)*
 
 ___
 
 ### `Const` P_ENTITY_EXPRESSION
 
-• **P_ENTITY_EXPRESSION**: *RegExp‹›* =  /^\[([A-Z]+)\]$/
+• **P_ENTITY_EXPRESSION**: *RegExp‹›* = /^\[([A-Z]+)\]$/
 
-*Defined in [src/Node.ts:22](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L22)*
+*Defined in [src/Node.ts:22](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L22)*
 
 ___
 
 ### `Const` P_LABEL_EXPRESSION
 
-• **P_LABEL_EXPRESSION**: *RegExp‹›* =  new RegExp(`^${P_LABEL_START}(${P_VAR_NAME})$`)
+• **P_LABEL_EXPRESSION**: *RegExp‹›* = new RegExp(`^${P_LABEL_START}(${P_VAR_NAME})$`)
 
-*Defined in [src/Node.ts:23](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L23)*
+*Defined in [src/Node.ts:23](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L23)*
 
 ___
 
 ### `Const` P_NODE_EXPRESSION
 
-• **P_NODE_EXPRESSION**: *RegExp‹›* =  /^<([A-Z]+)>$/
+• **P_NODE_EXPRESSION**: *RegExp‹›* = /^<([A-Z]+)>$/
 
-*Defined in [src/Node.ts:20](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L20)*
+*Defined in [src/Node.ts:20](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L20)*
 
 ___
 
 ### `Const` P_TAG_EXPRESSION
 
-• **P_TAG_EXPRESSION**: *RegExp‹›* =  /^{([A-Z]+)}$/
+• **P_TAG_EXPRESSION**: *RegExp‹›* = /^{([A-Z]+)}$/
 
-*Defined in [src/Node.ts:21](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L21)*
+*Defined in [src/Node.ts:21](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L21)*
 
 ___
 
 ### `Const` WrappingTags
 
-• **WrappingTags**: *string[]* =  [
+• **WrappingTags**: *string[]* = [
   ...BlockTags,
   'INLINE',
   'SENTENCE',
@@ -256,15 +256,15 @@ ___
   'HEADING',
 ]
 
-*Defined in [src/Node.ts:38](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L38)*
+*Defined in [src/Node.ts:38](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L38)*
 
 ___
 
 ### `Const` nanoid
 
-• **nanoid**: *any* =  require('nanoid')
+• **nanoid**: *any* = require('nanoid')
 
-*Defined in [src/Node.ts:6](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L6)*
+*Defined in [src/Node.ts:6](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L6)*
 
 ## Functions
 
@@ -272,7 +272,7 @@ ___
 
 ▸ **defaultFinderCallback**(`node`: [Node](../classes/_node_.node.md)): *true*
 
-*Defined in [src/Node.ts:86](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L86)*
+*Defined in [src/Node.ts:86](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L86)*
 
 **Parameters:**
 
@@ -288,7 +288,7 @@ ___
 
 ▸ **find**(`node`: [Node](../classes/_node_.node.md), `pattern`: [FinderPattern](_node_.md#finderpattern), `result`: [Node](../classes/_node_.node.md)[]): *[Node](../classes/_node_.node.md)[]*
 
-*Defined in [src/Node.ts:104](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L104)*
+*Defined in [src/Node.ts:104](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L104)*
 
 Recursive node finder
 
@@ -297,8 +297,8 @@ Recursive node finder
 Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
 `node` | [Node](../classes/_node_.node.md) | - | Node to find |
-`pattern` | [FinderPattern](_node_.md#finderpattern) |  defaultFinderCallback | Searching pattern |
-`result` | [Node](../classes/_node_.node.md)[] |  [] | - |
+`pattern` | [FinderPattern](_node_.md#finderpattern) | defaultFinderCallback | Searching pattern |
+`result` | [Node](../classes/_node_.node.md)[] | [] | - |
 
 **Returns:** *[Node](../classes/_node_.node.md)[]*
 
@@ -308,7 +308,7 @@ ___
 
 ▸ **findOne**(`node`: [Node](../classes/_node_.node.md), `pattern`: [FinderPattern](_node_.md#finderpattern)): *[Node](../classes/_node_.node.md) | undefined*
 
-*Defined in [src/Node.ts:121](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L121)*
+*Defined in [src/Node.ts:121](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L121)*
 
 Recursive node finder
 
@@ -317,7 +317,7 @@ Recursive node finder
 Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
 `node` | [Node](../classes/_node_.node.md) | - | - |
-`pattern` | [FinderPattern](_node_.md#finderpattern) |  defaultFinderCallback |   |
+`pattern` | [FinderPattern](_node_.md#finderpattern) | defaultFinderCallback |   |
 
 **Returns:** *[Node](../classes/_node_.node.md) | undefined*
 
@@ -327,7 +327,7 @@ ___
 
 ▸ **parseJson**(`json`: [JsonNode](../interfaces/_node_.jsonnode.md)): *[Node](../classes/_node_.node.md)‹›*
 
-*Defined in [src/Node.ts:136](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L136)*
+*Defined in [src/Node.ts:136](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L136)*
 
 **Parameters:**
 
@@ -343,7 +343,7 @@ ___
 
 ▸ **parseJsonMap**(`json?`: [KeyValueMap](_node_.md#keyvaluemap)): *[KeyValueMap](_node_.md#keyvaluemap) | undefined*
 
-*Defined in [src/Node.ts:168](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L168)*
+*Defined in [src/Node.ts:168](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L168)*
 
 **Parameters:**
 
@@ -359,7 +359,7 @@ ___
 
 ▸ **testNode**(`pattern`: [FinderPattern](_node_.md#finderpattern), `node`: [Node](../classes/_node_.node.md)): *boolean*
 
-*Defined in [src/Node.ts:88](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L88)*
+*Defined in [src/Node.ts:88](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L88)*
 
 **Parameters:**
 
@@ -376,7 +376,7 @@ ___
 
 ▸ **toJsonMap**(`map?`: [KeyValueMap](_node_.md#keyvaluemap), `options`: [JsonOptions](../interfaces/_node_.jsonoptions.md)): *[KeyValueMap](_node_.md#keyvaluemap) | undefined*
 
-*Defined in [src/Node.ts:156](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L156)*
+*Defined in [src/Node.ts:156](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L156)*
 
 Map metadata & attributes to JSON
 
@@ -385,7 +385,7 @@ Map metadata & attributes to JSON
 Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
 `map?` | [KeyValueMap](_node_.md#keyvaluemap) | - |   |
-`options` | [JsonOptions](../interfaces/_node_.jsonoptions.md) |  {} | - |
+`options` | [JsonOptions](../interfaces/_node_.jsonoptions.md) | {} | - |
 
 **Returns:** *[KeyValueMap](_node_.md#keyvaluemap) | undefined*
 
@@ -395,22 +395,46 @@ Name | Type | Default | Description |
 
 ### ▪ **TreeRules**: *object*
 
-*Defined in [src/Node.ts:57](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L57)*
+*Defined in [src/Node.ts:57](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L57)*
 
-###  __computed
+###  [Descriptor.BLOCK]
 
-• **__computed**: *[ANY](../enums/_node_.descriptor.md#any)[]* =  [Descriptor.ANY]
+• **[Descriptor.BLOCK]**: *[PARAGRAPH](../enums/_node_.descriptor.md#paragraph) | [BLOCK](../enums/_node_.descriptor.md#block)[]* = [Descriptor.PARAGRAPH, Descriptor.BLOCK]
 
-*Defined in [src/Node.ts:58](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L58)*
+*Defined in [src/Node.ts:60](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L60)*
 
-*Defined in [src/Node.ts:59](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L59)*
+###  [Descriptor.ENTITY]
 
-*Defined in [src/Node.ts:60](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L60)*
+• **[Descriptor.ENTITY]**: *[TEXT](../enums/_node_.descriptor.md#text)[]* = [Descriptor.TEXT]
 
-*Defined in [src/Node.ts:61](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L61)*
+*Defined in [src/Node.ts:62](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L62)*
 
-*Defined in [src/Node.ts:62](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L62)*
+###  [Descriptor.FRAGMENT]
 
-*Defined in [src/Node.ts:63](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L63)*
+• **[Descriptor.FRAGMENT]**: *[ANY](../enums/_node_.descriptor.md#any)[]* = [Descriptor.ANY]
 
-*Defined in [src/Node.ts:64](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L64)*
+*Defined in [src/Node.ts:64](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L64)*
+
+###  [Descriptor.INLINE]
+
+• **[Descriptor.INLINE]**: *[INLINE](../enums/_node_.descriptor.md#inline) | [ENTITY](../enums/_node_.descriptor.md#entity) | [TEXT](../enums/_node_.descriptor.md#text)[]* = [Descriptor.INLINE, Descriptor.ENTITY, Descriptor.TEXT]
+
+*Defined in [src/Node.ts:61](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L61)*
+
+###  [Descriptor.PARAGRAPH]
+
+• **[Descriptor.PARAGRAPH]**: *[INLINE](../enums/_node_.descriptor.md#inline) | [ENTITY](../enums/_node_.descriptor.md#entity) | [TEXT](../enums/_node_.descriptor.md#text)[]* = [Descriptor.INLINE, Descriptor.ENTITY, Descriptor.TEXT]
+
+*Defined in [src/Node.ts:59](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L59)*
+
+###  [Descriptor.ROOT]
+
+• **[Descriptor.ROOT]**: *[PARAGRAPH](../enums/_node_.descriptor.md#paragraph) | [BLOCK](../enums/_node_.descriptor.md#block)[]* = [Descriptor.PARAGRAPH, Descriptor.BLOCK]
+
+*Defined in [src/Node.ts:58](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L58)*
+
+###  [Descriptor.TEXT]
+
+• **[Descriptor.TEXT]**: *never[]* = []
+
+*Defined in [src/Node.ts:63](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L63)*

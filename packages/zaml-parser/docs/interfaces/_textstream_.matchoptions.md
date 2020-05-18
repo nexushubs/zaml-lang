@@ -20,7 +20,7 @@
 
 • **caseInsensitive**? : *undefined | false | true*
 
-*Defined in [src/TextStream.ts:37](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextStream.ts#L37)*
+*Defined in [src/TextStream.ts:37](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L37)*
 
 Case insensitive for string pattern
 
@@ -30,7 +30,7 @@ ___
 
 • **consume**? : *undefined | false | true*
 
-*Defined in [src/TextStream.ts:33](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextStream.ts#L33)*
+*Defined in [src/TextStream.ts:33](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L33)*
 
 Read to end of the matched text
 
@@ -40,6 +40,6 @@ ___
 
 • **skipMatched**? : *undefined | false | true*
 
-*Defined in [src/TextStream.ts:35](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextStream.ts#L35)*
+*Defined in [src/TextStream.ts:35](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L35)*
 
 Read to the matched text, move cursor to the end

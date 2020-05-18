@@ -39,7 +39,7 @@ Class holding text line data
 
 \+ **new TextLine**(`lines`: [TextLine](_textline_.textline.md)[], `text`: string, `ln`: number, `offset`: number): *[TextLine](_textline_.textline.md)*
 
-*Defined in [src/TextLine.ts:16](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L16)*
+*Defined in [src/TextLine.ts:16](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L16)*
 
 **Parameters:**
 
@@ -58,7 +58,7 @@ Name | Type |
 
 • **lines**: *[TextLine](_textline_.textline.md)[]*
 
-*Defined in [src/TextLine.ts:13](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L13)*
+*Defined in [src/TextLine.ts:13](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L13)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • **ln**: *number*
 
-*Defined in [src/TextLine.ts:15](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L15)*
+*Defined in [src/TextLine.ts:15](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L15)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • **offset**: *number*
 
-*Defined in [src/TextLine.ts:16](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L16)*
+*Defined in [src/TextLine.ts:16](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L16)*
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 • **text**: *string*
 
-*Defined in [src/TextLine.ts:14](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L14)*
+*Defined in [src/TextLine.ts:14](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L14)*
 
 ## Accessors
 
@@ -90,7 +90,7 @@ ___
 
 • **get end**(): *number*
 
-*Defined in [src/TextLine.ts:56](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L56)*
+*Defined in [src/TextLine.ts:56](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L56)*
 
 End position of the line
 
@@ -102,7 +102,7 @@ ___
 
 • **get length**(): *number*
 
-*Defined in [src/TextLine.ts:42](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L42)*
+*Defined in [src/TextLine.ts:42](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L42)*
 
 Get text length of the line
 
@@ -114,7 +114,7 @@ ___
 
 • **get start**(): *number*
 
-*Defined in [src/TextLine.ts:49](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L49)*
+*Defined in [src/TextLine.ts:49](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L49)*
 
 Start position of the line, alias of `offset`
 
@@ -126,7 +126,7 @@ Start position of the line, alias of `offset`
 
 ▸ **next**(): *[TextLine](_textline_.textline.md)*
 
-*Defined in [src/TextLine.ts:35](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L35)*
+*Defined in [src/TextLine.ts:35](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L35)*
 
 Get the next line
 
@@ -138,7 +138,7 @@ ___
 
 ▸ **prev**(): *[TextLine](_textline_.textline.md)*
 
-*Defined in [src/TextLine.ts:28](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L28)*
+*Defined in [src/TextLine.ts:28](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L28)*
 
 Get the previous line
 
@@ -150,7 +150,7 @@ ___
 
 ▸ **toJSON**(): *[TextLineData](../interfaces/_textline_.textlinedata.md)*
 
-*Defined in [src/TextLine.ts:63](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/TextLine.ts#L63)*
+*Defined in [src/TextLine.ts:63](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L63)*
 
 Convert to JSON serializable object
 

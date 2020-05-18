@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) › ["index"](_index_.md)
+[@zaml/extract - v0.7.0](../README.md) › ["index"](_index_.md)
 
 # External module: "index"
 
@@ -18,7 +18,7 @@
 
 ▸ **extract**(`text`: string, `options`: [ExtractorConstructorOptions](_types_.md#extractorconstructoroptions)): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[]›*
 
-*Defined in [index.ts:5](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/index.ts#L5)*
+*Defined in [index.ts:5](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/index.ts#L5)*
 
 **Parameters:**
 
@@ -31,7 +31,7 @@ Name | Type |
 
 ▸ **extract**(`list`: string[], `options`: [ExtractorConstructorOptions](_types_.md#extractorconstructoroptions)): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[][]›*
 
-*Defined in [index.ts:6](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/index.ts#L6)*
+*Defined in [index.ts:6](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/index.ts#L6)*
 
 **Parameters:**
 
@@ -48,19 +48,19 @@ Name | Type |
 
 ### ▪ **extractObject**: *object*
 
-*Defined in [index.ts:16](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/index.ts#L16)*
+*Defined in [index.ts:16](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/index.ts#L16)*
 
 ###  Extractor
 
 • **Extractor**: *[Extractor](../classes/_extractor_.extractor.md)*
 
-*Defined in [index.ts:31](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/index.ts#L31)*
+*Defined in [index.ts:31](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/index.ts#L31)*
 
 ###  extract
 
 • **extract**: *[extract](_index_.md#extract)*
 
-*Defined in [index.ts:22](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/index.ts#L22)*
+*Defined in [index.ts:22](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/index.ts#L22)*
 
 Extract entities from a text
 
@@ -70,7 +70,7 @@ Extract entities from a text
 
 ▸ **create**(`options`: [ExtractorConstructorOptions](_types_.md#extractorconstructoroptions)): *[Extractor](../classes/_extractor_.extractor.md)‹›*
 
-*Defined in [index.ts:27](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/index.ts#L27)*
+*Defined in [index.ts:27](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/index.ts#L27)*
 
 **Parameters:**
 

@@ -1,6 +1,6 @@
 [@zaml/parser](../README.md) › ["Tokenizer"](_tokenizer_.md)
 
-# External module: "Tokenizer"
+# Module: "Tokenizer"
 
 ## Index
 
@@ -29,7 +29,7 @@
 
 ### `Const` stateNames
 
-• **stateNames**: *string[]* =  [
+• **stateNames**: *string[]* = [
   'METADATA',
   'NORMAL',
   'SINGLE_COMMENT',
@@ -51,7 +51,7 @@
   'FINISH',
 ]
 
-*Defined in [src/Tokenizer.ts:74](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L74)*
+*Defined in [src/Tokenizer.ts:74](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L74)*
 
 ## Functions
 
@@ -59,7 +59,7 @@
 
 ▸ **countLineBreaks**(`text`: string): *number*
 
-*Defined in [src/Tokenizer.ts:100](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L100)*
+*Defined in [src/Tokenizer.ts:100](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L100)*
 
 **Parameters:**
 
@@ -75,7 +75,7 @@ ___
 
 ▸ **getStateName**(`state`: [State](../enums/_tokenizer_.state.md)): *string*
 
-*Defined in [src/Tokenizer.ts:96](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L96)*
+*Defined in [src/Tokenizer.ts:96](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L96)*
 
 **Parameters:**
 

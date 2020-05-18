@@ -4,7 +4,7 @@
 
 ## Index
 
-### External modules
+### Modules
 
 * ["Node"](modules/_node_.md)
 * ["ParseError"](modules/_parseerror_.md)

@@ -20,7 +20,7 @@
 
 • **internalId**? : *undefined | false | true*
 
-*Defined in [src/Node.ts:215](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L215)*
+*Defined in [src/Node.ts:215](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L215)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **position**? : *undefined | false | true*
 
-*Defined in [src/Node.ts:213](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L213)*
+*Defined in [src/Node.ts:213](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L213)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **textPosition**? : *undefined | false | true*
 
-*Defined in [src/Node.ts:214](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Node.ts#L214)*
+*Defined in [src/Node.ts:214](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L214)*

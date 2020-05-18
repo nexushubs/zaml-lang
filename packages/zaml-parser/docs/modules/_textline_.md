@@ -1,6 +1,6 @@
 [@zaml/parser](../README.md) › ["TextLine"](_textline_.md)
 
-# External module: "TextLine"
+# Module: "TextLine"
 
 ## Index
 

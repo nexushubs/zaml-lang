@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) › ["plugins/mention"](../modules/_plugins_mention_.md) › [ExtractMentionOptions](_plugins_mention_.extractmentionoptions.md)
+[@zaml/extract - v0.7.0](../README.md) › ["plugins/mention"](../modules/_plugins_mention_.md) › [ExtractMentionOptions](_plugins_mention_.extractmentionoptions.md)
 
 # Interface: ExtractMentionOptions
 
@@ -19,7 +19,7 @@
 
 • **pattern**? : *RegExp*
 
-*Defined in [plugins/mention.ts:10](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/mention.ts#L10)*
+*Defined in [plugins/mention.ts:10](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/mention.ts#L10)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **users**? : *string[]*
 
-*Defined in [plugins/mention.ts:9](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/mention.ts#L9)*
+*Defined in [plugins/mention.ts:9](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/mention.ts#L9)*

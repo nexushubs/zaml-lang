@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) › ["types"](../modules/_types_.md) › [EntityInfo](_types_.entityinfo.md)
+[@zaml/extract - v0.7.0](../README.md) › ["types"](../modules/_types_.md) › [EntityInfo](_types_.entityinfo.md)
 
 # Interface: EntityInfo
 
@@ -22,7 +22,7 @@
 
 • **data**? : *any*
 
-*Defined in [types.ts:6](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/types.ts#L6)*
+*Defined in [types.ts:6](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L6)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **end**: *number*
 
-*Defined in [types.ts:4](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L4)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **start**: *number*
 
-*Defined in [types.ts:3](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/types.ts#L3)*
+*Defined in [types.ts:3](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L3)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **text**? : *undefined | string*
 
-*Defined in [types.ts:5](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/types.ts#L5)*
+*Defined in [types.ts:5](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L5)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **type**: *string*
 
-*Defined in [types.ts:2](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/types.ts#L2)*
+*Defined in [types.ts:2](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L2)*

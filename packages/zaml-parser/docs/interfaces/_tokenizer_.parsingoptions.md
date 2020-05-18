@@ -22,7 +22,7 @@
 
 • **attributeAsString**? : *undefined | false | true*
 
-*Defined in [src/Tokenizer.ts:108](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L108)*
+*Defined in [src/Tokenizer.ts:108](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L108)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **bigIntAsString**? : *undefined | false | true*
 
-*Defined in [src/Tokenizer.ts:109](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L109)*
+*Defined in [src/Tokenizer.ts:109](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L109)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **enableComments**? : *undefined | false | true*
 
-*Defined in [src/Tokenizer.ts:110](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L110)*
+*Defined in [src/Tokenizer.ts:110](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L110)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **needMetadataMarker**? : *undefined | false | true*
 
-*Defined in [src/Tokenizer.ts:107](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L107)*
+*Defined in [src/Tokenizer.ts:107](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L107)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **verbose**? : *undefined | false | true*
 
-*Defined in [src/Tokenizer.ts:106](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-parser/src/Tokenizer.ts#L106)*
+*Defined in [src/Tokenizer.ts:106](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L106)*

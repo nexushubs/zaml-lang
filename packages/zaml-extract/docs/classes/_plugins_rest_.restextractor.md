@@ -1,4 +1,4 @@
-[@zaml/extract](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [RestExtractor](_plugins_rest_.restextractor.md)
+[@zaml/extract - v0.7.0](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [RestExtractor](_plugins_rest_.restextractor.md)
 
 # Class: RestExtractor
 
@@ -36,7 +36,7 @@
 
 *Overrides [ExtractorBase](_plugins_base_.extractorbase.md).[constructor](_plugins_base_.extractorbase.md#constructor)*
 
-*Defined in [plugins/rest.ts:26](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/rest.ts#L26)*
+*Defined in [plugins/rest.ts:26](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L26)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ Name | Type | Default |
 
 *Inherited from [ExtractorBase](_plugins_base_.extractorbase.md).[options](_plugins_base_.extractorbase.md#options)*
 
-*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/base.ts#L7)*
+*Defined in [plugins/base.ts:7](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/base.ts#L7)*
 
 ## Methods
 
@@ -62,7 +62,7 @@ Name | Type | Default |
 
 ▸ **extract**(`text`: string): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[]›*
 
-*Defined in [plugins/rest.ts:54](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/rest.ts#L54)*
+*Defined in [plugins/rest.ts:54](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L54)*
 
 **Parameters:**
 
@@ -78,7 +78,7 @@ ___
 
 ▸ **extractArray**(`list`: string[]): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[][]›*
 
-*Defined in [plugins/rest.ts:63](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/rest.ts#L63)*
+*Defined in [plugins/rest.ts:63](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L63)*
 
 **Parameters:**
 
@@ -94,7 +94,7 @@ ___
 
 ▸ **request**(`list`: string | string[]): *Promise‹[PredictionResult](../modules/_plugins_rest_.md#predictionresult)›*
 
-*Defined in [plugins/rest.ts:35](https://github.com/nexushubs/zaml-lang/blob/52476e1/packages/zaml-extract/src/plugins/rest.ts#L35)*
+*Defined in [plugins/rest.ts:35](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L35)*
 
 **Parameters:**
 
