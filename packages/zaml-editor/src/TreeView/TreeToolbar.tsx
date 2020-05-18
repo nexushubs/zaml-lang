@@ -1,7 +1,4 @@
-import _ from 'lodash';
 import React from 'react';
-import PropTypes from 'prop-types';
-import * as zaml from '@zaml/parser';
 
 interface Props {
 }

@@ -32,13 +32,15 @@
     "nyc": "^14.1.1",
     "typedoc": "^0.15.4",
     "typedoc-plugin-markdown": "^2.2.14",
-    "typescript": "^3.7.3"
+    "typescript": "^3.9.2"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "linkify-it": "^2.2.0",
-    "lodash": "^4.17.15",
     "tslib": "^1.10.0"
   },
-  "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562"
+  "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562",
+  "peerDependencies": {
+    "lodash": "^4.17.15"
+  }
 }

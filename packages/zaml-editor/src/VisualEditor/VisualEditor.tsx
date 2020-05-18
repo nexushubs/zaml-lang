@@ -1,6 +1,5 @@
-import _ from 'lodash';
 import React from 'react';
-import PropTypes, { node } from 'prop-types';
+import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
 import { ContextMenuTarget, Menu, MenuItem, MenuDivider } from "@blueprintjs/core"
 import VisualNode from './VisualNode';
@@ -51,7 +50,7 @@ export default class VisualEditor extends React.Component<Props, State> {
 
   handleDoubleClick(event: React.MouseEvent) {
     const selection = window.getSelection();
-    if (selection.rangeCount === 0) return;
+    if (!selection || selection.rangeCount === 0) return;
     const range = selection.getRangeAt(0);
     const domNode = range.startContainer;
     const text = domNode.textContent;
@@ -78,7 +77,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   handleCreateBlock() {
     const { root, onChange } = this.props;
     const selection = window.getSelection();
-    if (selection.rangeCount === 0) return;
+    if (!selection || selection.rangeCount === 0) return;
     const range = selection.getRangeAt(0);
     const commonNode = this.getNodeByElement(range.commonAncestorContainer as HTMLElement);
     let startNode = this.getNodeByElement(range.startContainer as HTMLElement);
@@ -107,6 +106,7 @@ export default class VisualEditor extends React.Component<Props, State> {
     if (!name) return;
     const { root, onChange } = this.props;
     const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
     if (selection.anchorNode !== selection.focusNode) {
       alert('Entity is only allowed in pure text!');
       return;
@@ -141,7 +141,7 @@ export default class VisualEditor extends React.Component<Props, State> {
   }
 
   getNodeByElement(element: HTMLElement) {
-    const { root: root } = this.props;
+    const { root } = this.props;
     if (!root) return undefined;
     if (element.nodeType === element.TEXT_NODE || element.classList.contains('children')) {
       if (!element.parentElement) {

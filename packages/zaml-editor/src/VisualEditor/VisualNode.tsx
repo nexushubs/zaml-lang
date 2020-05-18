@@ -1,13 +1,10 @@
 import _ from 'lodash';
 import React from 'react';
-import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
 import classNames from 'classnames';
 import './VisualNode.scss';
 
 const { NodeType } = zaml;
-
-const nil = () => {};
 
 interface Props {
   node?: zaml.Node;
@@ -17,10 +14,6 @@ interface Props {
 export default class VisualNode extends React.Component<Props> {
 
   static propTypes = {
-  }
-
-  constructor(props: Props) {
-    super(props);
   }
 
   render() {

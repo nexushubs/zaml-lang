@@ -196,7 +196,6 @@ export default class TreePropEditor extends React.Component<Props, State> {
   }
 
   render() {
-    const { node } = this.props;
     const { selectedTab } = this.state;
     return (
       <div className="zaml-prop-editor">

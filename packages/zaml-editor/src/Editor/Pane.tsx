@@ -19,10 +19,6 @@ export default class Pane extends React.Component<Props> {
     className: '',
   }
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     const { title, className, children } = this.props;
     return (

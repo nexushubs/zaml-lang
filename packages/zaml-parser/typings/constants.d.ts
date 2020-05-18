@@ -1,4 +1,4 @@
-export declare const combinePatterns: (list: (string | RegExp)[]) => string;
+export declare const combinePatterns: (list: (RegExp | string)[]) => string;
 export declare const DEFAULT_INDENT_SPACES = 2;
 export declare const T_SPACE = " ";
 export declare const T_TAB = "\t";

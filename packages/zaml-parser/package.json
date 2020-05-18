@@ -42,14 +42,16 @@
     "chai-datetime": "^1.5.0",
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
-    "typedoc": "^0.15.4",
+    "typedoc": "^0.17.7",
     "typedoc-plugin-markdown": "^2.2.14",
-    "typescript": "^3.7.3"
+    "typescript": "^3.9.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.6",
-    "lodash": "^4.17.15",
     "nanoid": "^2.1.7"
   },
-  "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562"
+  "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562",
+  "peerDependencies": {
+    "lodash": "^4.17.15"
+  }
 }

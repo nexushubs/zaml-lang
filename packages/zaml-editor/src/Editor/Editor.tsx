@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import PropTypes, { node } from 'prop-types';
+import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
 import SplitPane from 'react-split-pane';
 import Pane from './Pane';

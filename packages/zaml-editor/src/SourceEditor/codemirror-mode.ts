@@ -32,8 +32,8 @@ import 'codemirror/addon/mode/simple';
     // ?
     {regex: /\/(?:[^\\]|\\.)*?\//, token: "variable-3"},
     // Intends
-    {regex: /[\{]/, indent: true},
-    {regex: /[\}]/, dedent: true},
+    {regex: /[{]/, indent: true},
+    {regex: /[}]/, dedent: true},
     // {regex: /[a-z$][\w$]*/, token: "variable"},
     // {regex: /<</, token: "meta", mode: {spec: "xml", end: />>/}}
   ],

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import * as React from 'react';
-import PropTypes, { node } from 'prop-types';
+import PropTypes from 'prop-types';
 import * as zaml from '@zaml/parser';
 import classNames from 'classnames';
 import './TreeNode.scss';
@@ -46,10 +46,6 @@ export default class TreeNode extends React.Component<Props, State> {
     onExpansionChange: nil,
     onMouseEnter: nil,
     onMouseOut: nil,
-  }
-
-  constructor(props: Props) {
-    super(props);
   }
 
   render() {
@@ -107,13 +103,10 @@ export default class TreeNode extends React.Component<Props, State> {
         </div>
       )
     } else if (node.type === NodeType.ENTITY || node.isBlock || node.isWrappingTag) {
-      const isEntity = node.type === NodeType.ENTITY;
-      const isTag = node.type === NodeType.TAG;
       let onlyText: string | undefined;
       if (node.children.length === 1 && (node.firstChild as zaml.Node).type === NodeType.TEXT) {
         onlyText = (node.firstChild as zaml.Node).content;
       }
-      let name = (isTag || isEntity) ? node.name : node.type;
       return (
         <div
           className={classNames('block', {
