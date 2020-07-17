@@ -126,13 +126,12 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.39.tgz#532d25c1e639d89dd6f3aa1d7b3962e3e7fa943d"
   integrity sha512-pADGfwnDkr6zagDwEiCVE4yQrv7XDkoeVa4OfA9Ju/zRTk6YNDLGtQbkdL4/56mCQQCs4AhNrBIag6jrp7ZuOg==
 
-"@zaml/parser@^0.6.20":
-  version "0.6.20"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.20.tgz#0d8f481810c50489acd9f797e0f588308e56a505"
-  integrity sha512-TpSgI7LXHlydrr8AyaA7BjoAxMWvyyGnzrRzoE3byIzUjN+vwSD0DeZuBQwuKGd16LEnxWPigKzKALMVHDEQMw==
+"@zaml/parser@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.7.0.tgz#fe2fa65b9105e5e0693e5dbc3f08d3e6b6b3c5f4"
+  integrity sha512-FIo8P1UtoIsgZKdW9gLU5RQPQfSHb4IO4fnPvP/LGroCbSlwcAHg3Kz4Wy8jO458cJPWiAoMXo5+1suktTWT9g==
   dependencies:
     "@babel/runtime" "^7.7.6"
-    lodash "^4.17.15"
     nanoid "^2.1.7"
 
 ansi-colors@3.2.3:
@@ -774,9 +773,9 @@ lodash.flattendeep@^4.4.0:
   integrity sha1-+wMJF/hqMTTlvJvsDWngAT3f7bI=
 
 lodash@^4.17.13, lodash@^4.17.15:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@2.2.0:
   version "2.2.0"
