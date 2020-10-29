@@ -1,6 +1,6 @@
 {
   "name": "@zaml/editor",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "React rich editor for ZAML",
   "private": false,
   "dependencies": {
@@ -9,7 +9,7 @@
     "@types/node": "^12.12.17",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
-    "@zaml/parser": "^0.7.0",
+    "@zaml/parser": "^0.7.1",
     "classnames": "^2.2.6",
     "codemirror": "^5.49.2",
     "normalize.css": "^8.0.1",
