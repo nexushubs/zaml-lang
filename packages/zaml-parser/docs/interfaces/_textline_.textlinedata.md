@@ -21,7 +21,7 @@
 
 • **end**: *number*
 
-*Defined in [src/TextLine.ts:4](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L4)*
+*Defined in [src/TextLine.ts:4](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextLine.ts#L4)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **ln**: *number*
 
-*Defined in [src/TextLine.ts:2](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L2)*
+*Defined in [src/TextLine.ts:2](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextLine.ts#L2)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **start**: *number*
 
-*Defined in [src/TextLine.ts:3](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L3)*
+*Defined in [src/TextLine.ts:3](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextLine.ts#L3)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **text**: *string*
 
-*Defined in [src/TextLine.ts:5](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextLine.ts#L5)*
+*Defined in [src/TextLine.ts:5](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextLine.ts#L5)*

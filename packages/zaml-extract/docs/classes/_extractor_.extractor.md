@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["Extractor"](../modules/_extractor_.md) › [Extractor](_extractor_.extractor.md)
+[@zaml/extract - v0.7.1](../README.md) › ["Extractor"](../modules/_extractor_.md) › [Extractor](_extractor_.extractor.md)
 
 # Class: Extractor
 
@@ -35,7 +35,7 @@ Extractor class
 
 \+ **new Extractor**(`options`: [ExtractorConstructorOptions](../modules/_types_.md#extractorconstructoroptions)): *[Extractor](_extractor_.extractor.md)*
 
-*Defined in [Extractor.ts:38](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L38)*
+*Defined in [Extractor.ts:37](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L37)*
 
 **Parameters:**
 
@@ -51,7 +51,7 @@ Name | Type | Default |
 
 • **plugins**: *[ExtractorType](../modules/_types_.md#extractortype)[]*
 
-*Defined in [Extractor.ts:38](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L38)*
+*Defined in [Extractor.ts:37](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L37)*
 
 ## Methods
 
@@ -59,7 +59,7 @@ Name | Type | Default |
 
 ▸ **addPlugin**(`options`: [ExtractorOptions](../modules/_types_.md#extractoroptions)): *void*
 
-*Defined in [Extractor.ts:52](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L52)*
+*Defined in [Extractor.ts:51](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L51)*
 
 Add plugin
 
@@ -77,7 +77,7 @@ ___
 
 ▸ **execSingleExtractor**(`text`: string, `extractor`: [ExtractorType](../modules/_types_.md#extractortype)): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[]›*
 
-*Defined in [Extractor.ts:86](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L86)*
+*Defined in [Extractor.ts:85](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L85)*
 
 Execute single plugin to the text (array)
 
@@ -92,7 +92,7 @@ Name | Type | Description |
 
 ▸ **execSingleExtractor**(`list`: string[], `extractor`: [ExtractorType](../modules/_types_.md#extractortype)): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[][]›*
 
-*Defined in [Extractor.ts:87](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L87)*
+*Defined in [Extractor.ts:86](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L86)*
 
 **Parameters:**
 
@@ -109,7 +109,7 @@ ___
 
 ▸ **extract**(`text`: string): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[]›*
 
-*Defined in [Extractor.ts:115](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L115)*
+*Defined in [Extractor.ts:114](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L114)*
 
 Extract all entities from text by plugins
 
@@ -123,7 +123,7 @@ Name | Type |
 
 ▸ **extract**(`list`: string[]): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[][]›*
 
-*Defined in [Extractor.ts:116](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L116)*
+*Defined in [Extractor.ts:115](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L115)*
 
 **Parameters:**
 
@@ -139,7 +139,7 @@ ___
 
 ▸ **extractArray**(`list`: string[]): *Promise‹[EntityInfo](../interfaces/_types_.entityinfo.md)[][]›*
 
-*Defined in [Extractor.ts:149](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/Extractor.ts#L149)*
+*Defined in [Extractor.ts:148](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/Extractor.ts#L148)*
 
 **Parameters:**
 

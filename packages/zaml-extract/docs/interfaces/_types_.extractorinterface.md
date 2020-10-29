@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["types"](../modules/_types_.md) › [ExtractorInterface](_types_.extractorinterface.md)
+[@zaml/extract - v0.7.1](../README.md) › ["types"](../modules/_types_.md) › [ExtractorInterface](_types_.extractorinterface.md)
 
 # Interface: ExtractorInterface
 
@@ -24,7 +24,7 @@
 
 • **extract**: *[AsyncSingleExtractor](../modules/_types_.md#asyncsingleextractor)*
 
-*Defined in [types.ts:18](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L18)*
+*Defined in [types.ts:18](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/types.ts#L18)*
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 • **extractArray**? : *[AsyncArrayExtractor](../modules/_types_.md#asyncarrayextractor)*
 
-*Defined in [types.ts:19](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/types.ts#L19)*
+*Defined in [types.ts:19](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/types.ts#L19)*

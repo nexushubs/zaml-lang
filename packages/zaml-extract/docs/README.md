@@ -1,6 +1,6 @@
-[@zaml/extract - v0.7.0](README.md)
+[@zaml/extract - v0.7.1](README.md)
 
-# @zaml/extract - v0.7.0
+# @zaml/extract - v0.7.1
 
 ## Index
 

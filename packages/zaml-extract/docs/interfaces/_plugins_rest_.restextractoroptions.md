@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [RestExtractorOptions](_plugins_rest_.restextractoroptions.md)
+[@zaml/extract - v0.7.1](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [RestExtractorOptions](_plugins_rest_.restextractoroptions.md)
 
 # Interface: RestExtractorOptions
 
@@ -18,4 +18,4 @@
 
 • **url**? : *undefined | string*
 
-*Defined in [plugins/rest.ts:8](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L8)*
+*Defined in [plugins/rest.ts:8](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/rest.ts#L8)*

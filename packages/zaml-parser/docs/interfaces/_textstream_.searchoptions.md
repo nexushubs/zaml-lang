@@ -18,6 +18,6 @@
 
 • **caseInsensitive**? : *undefined | false | true*
 
-*Defined in [src/TextStream.ts:17](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L17)*
+*Defined in [src/TextStream.ts:17](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextStream.ts#L17)*
 
 Case insensitive for string pattern

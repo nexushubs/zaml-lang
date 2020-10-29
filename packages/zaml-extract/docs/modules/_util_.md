@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["util"](_util_.md)
+[@zaml/extract - v0.7.1](../README.md) › ["util"](_util_.md)
 
 # External module: "util"
 
@@ -14,7 +14,7 @@
 
 ▸ **formatEntityData**(`data`: any): *any*
 
-*Defined in [util.ts:3](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/util.ts#L3)*
+*Defined in [util.ts:3](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/util.ts#L3)*
 
 **Parameters:**
 

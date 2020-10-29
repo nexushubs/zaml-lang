@@ -33,7 +33,7 @@ Tokenizer class
 
 \+ **new Tokenizer**(`text`: string, `options?`: [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)): *[Tokenizer](_tokenizer_.tokenizer.md)*
 
-*Defined in [src/Tokenizer.ts:126](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L126)*
+*Defined in [src/Tokenizer.ts:126](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L126)*
 
 **Parameters:**
 
@@ -50,7 +50,7 @@ Name | Type | Description |
 
 • **options**: *[ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)*
 
-*Defined in [src/Tokenizer.ts:125](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L125)*
+*Defined in [src/Tokenizer.ts:125](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L125)*
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 • **parsed**: *boolean*
 
-*Defined in [src/Tokenizer.ts:126](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L126)*
+*Defined in [src/Tokenizer.ts:126](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L126)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • **stream**: *[TextStream](_textstream_.textstream.md)*
 
-*Defined in [src/Tokenizer.ts:124](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L124)*
+*Defined in [src/Tokenizer.ts:124](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L124)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • **text**: *string*
 
-*Defined in [src/Tokenizer.ts:123](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L123)*
+*Defined in [src/Tokenizer.ts:123](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L123)*
 
 ## Methods
 
@@ -82,7 +82,7 @@ ___
 
 ▸ **debug**(...`params`: any[]): *void*
 
-*Defined in [src/Tokenizer.ts:153](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L153)*
+*Defined in [src/Tokenizer.ts:153](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L153)*
 
 **Parameters:**
 
@@ -98,7 +98,7 @@ ___
 
 ▸ **process**(): *[Node](_node_.node.md)*
 
-*Defined in [src/Tokenizer.ts:163](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L163)*
+*Defined in [src/Tokenizer.ts:163](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L163)*
 
 Process a text and parse to AST
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **from**(`text`: string, `options`: [ParsingOptions](../interfaces/_tokenizer_.parsingoptions.md)): *[Tokenizer](_tokenizer_.tokenizer.md)‹›*
 
-*Defined in [src/Tokenizer.ts:119](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Tokenizer.ts#L119)*
+*Defined in [src/Tokenizer.ts:119](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Tokenizer.ts#L119)*
 
 **Parameters:**
 

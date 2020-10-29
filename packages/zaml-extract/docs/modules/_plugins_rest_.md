@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["plugins/rest"](_plugins_rest_.md)
+[@zaml/extract - v0.7.1](../README.md) › ["plugins/rest"](_plugins_rest_.md)
 
 # External module: "plugins/rest"
 
@@ -25,4 +25,4 @@
 
 Ƭ **PredictionResult**: *[SinglePredictionResult](../interfaces/_plugins_rest_.singlepredictionresult.md) | [ArrayPredictionResult](../interfaces/_plugins_rest_.arraypredictionresult.md)*
 
-*Defined in [plugins/rest.ts:24](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L24)*
+*Defined in [plugins/rest.ts:24](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/rest.ts#L24)*

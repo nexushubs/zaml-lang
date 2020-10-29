@@ -19,7 +19,7 @@
 
 • **extract**: *[AsyncSingleExtractor](../modules/_node_.md#asyncsingleextractor)*
 
-*Defined in [src/Node.ts:76](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L76)*
+*Defined in [src/Node.ts:75](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L75)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **extractArray**? : *[AsyncArrayExtractor](../modules/_node_.md#asyncarrayextractor)*
 
-*Defined in [src/Node.ts:77](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L77)*
+*Defined in [src/Node.ts:76](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L76)*

@@ -21,7 +21,7 @@
 
 • **col**: *number*
 
-*Defined in [src/TextStream.ts:42](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L42)*
+*Defined in [src/TextStream.ts:42](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextStream.ts#L42)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **line**: *[TextLine](../classes/_textline_.textline.md)*
 
-*Defined in [src/TextStream.ts:44](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L44)*
+*Defined in [src/TextStream.ts:44](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextStream.ts#L44)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **ln**: *number*
 
-*Defined in [src/TextStream.ts:41](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L41)*
+*Defined in [src/TextStream.ts:41](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextStream.ts#L41)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **pos**: *number*
 
-*Defined in [src/TextStream.ts:43](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/TextStream.ts#L43)*
+*Defined in [src/TextStream.ts:43](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/TextStream.ts#L43)*

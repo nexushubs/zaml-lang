@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [EntityResult](_plugins_rest_.entityresult.md)
+[@zaml/extract - v0.7.1](../README.md) › ["plugins/rest"](../modules/_plugins_rest_.md) › [EntityResult](_plugins_rest_.entityresult.md)
 
 # Interface: EntityResult
 
@@ -19,7 +19,7 @@
 
 • **entities**: *[EntityInfo](_types_.entityinfo.md)[]*
 
-*Defined in [plugins/rest.ts:13](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L13)*
+*Defined in [plugins/rest.ts:13](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/rest.ts#L13)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **text**? : *undefined | string*
 
-*Defined in [plugins/rest.ts:12](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/rest.ts#L12)*
+*Defined in [plugins/rest.ts:12](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/rest.ts#L12)*

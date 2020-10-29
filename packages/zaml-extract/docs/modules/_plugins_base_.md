@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["plugins/base"](_plugins_base_.md)
+[@zaml/extract - v0.7.1](../README.md) › ["plugins/base"](_plugins_base_.md)
 
 # External module: "plugins/base"
 

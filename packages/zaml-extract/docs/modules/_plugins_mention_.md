@@ -1,4 +1,4 @@
-[@zaml/extract - v0.7.0](../README.md) › ["plugins/mention"](_plugins_mention_.md)
+[@zaml/extract - v0.7.1](../README.md) › ["plugins/mention"](_plugins_mention_.md)
 
 # External module: "plugins/mention"
 
@@ -24,7 +24,7 @@
 
 • **MENTION_CHARS**: *"@＠"* = "@＠"
 
-*Defined in [plugins/mention.ts:5](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/mention.ts#L5)*
+*Defined in [plugins/mention.ts:5](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/mention.ts#L5)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **P_MENTION**: *RegExp‹›* =  new RegExp(`[${_.escapeRegExp(MENTION_CHARS)}]([^${_.escapeRegExp(STOP_CHARS)}]+)`, 'g')
 
-*Defined in [plugins/mention.ts:6](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/mention.ts#L6)*
+*Defined in [plugins/mention.ts:6](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/mention.ts#L6)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
  ~`!#$%^&*()-=_+[]\{}|;':",./<>?。？！，、；：“”‘（）《》〈〉【】『』「」﹃﹄〔〕…—～﹏￥"* = "
  ~`!#$%^&*()-=_+[]\{}|;':",./<>?。？！，、；：“”‘（）《》〈〉【】『』「」﹃﹄〔〕…—～﹏￥"
 
-*Defined in [plugins/mention.ts:4](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/mention.ts#L4)*
+*Defined in [plugins/mention.ts:4](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/mention.ts#L4)*
 
 ## Functions
 
@@ -50,7 +50,7 @@ ___
 
 ▸ **extractMention**(`text`: string, `options`: [ExtractMentionOptions](../interfaces/_plugins_mention_.extractmentionoptions.md)): *[EntityInfo](../interfaces/_types_.entityinfo.md)[]*
 
-*Defined in [plugins/mention.ts:18](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-extract/src/plugins/mention.ts#L18)*
+*Defined in [plugins/mention.ts:18](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-extract/src/plugins/mention.ts#L18)*
 
 Parse mentioned usernames from text
 

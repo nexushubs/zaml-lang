@@ -22,7 +22,7 @@
 
 • **label**? : *undefined | string*
 
-*Defined in [src/Node.ts:201](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L201)*
+*Defined in [src/Node.ts:200](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L200)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **name**? : *undefined | string*
 
-*Defined in [src/Node.ts:198](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L198)*
+*Defined in [src/Node.ts:197](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L197)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **source**? : *undefined | string*
 
-*Defined in [src/Node.ts:200](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L200)*
+*Defined in [src/Node.ts:199](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L199)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **text**? : *undefined | string*
 
-*Defined in [src/Node.ts:199](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L199)*
+*Defined in [src/Node.ts:198](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L198)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **type**? : *[NodeType](../enums/_node_.nodetype.md)*
 
-*Defined in [src/Node.ts:197](https://github.com/nexushubs/zaml-lang/blob/226a4c7/packages/zaml-parser/src/Node.ts#L197)*
+*Defined in [src/Node.ts:196](https://github.com/nexushubs/zaml-lang/blob/4389e8b/packages/zaml-parser/src/Node.ts#L196)*
