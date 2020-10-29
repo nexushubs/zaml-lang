@@ -10,7 +10,6 @@ import {
   ExtendedExtractorOptions,
   AsyncArrayExtractor,
 } from './types';
-import extract from '.';
 
 /**
  * Check if a extractor is a class

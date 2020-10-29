@@ -1,4 +1,5 @@
 import Node from './Node';
+import { ParsingOptions } from './Tokenizer';
 /**
  * Stringify attribute value
  * @param value
@@ -87,3 +88,14 @@ export declare const chalk: {
     bgCyanBright: (text: string) => string;
     bgWhiteBright: (text: string) => string;
 };
+/**
+ * Parse ZAML source into node
+ * @param text ZAML source string
+ */
+export declare function parse(text: string, options?: ParsingOptions): Node;
+/**
+ * Parse ZAML source into node
+ * @deprecated Please use zaml.parse() instead
+ * @param {string} text Source string
+ */
+export declare function tokenize(text: string, options: ParsingOptions): Node;

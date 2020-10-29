@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
-import { stringify, parseValue, StringifyOptions } from './util';
-import { parse } from '.';
+import { parse, stringify, parseValue, StringifyOptions } from './util';
 import { P_LABEL_START, P_VAR_NAME } from './constants';
 
 const nanoid = require('nanoid');

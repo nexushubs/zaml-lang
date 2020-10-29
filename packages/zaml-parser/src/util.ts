@@ -17,6 +17,7 @@ import {
 } from './constants';
 
 import Node, { NodeType } from './Node';
+import Tokenizer, { ParsingOptions } from './Tokenizer';
 
 const P_DATE_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z$/;
 
@@ -333,3 +334,22 @@ const chalkStyles = {
 }
 
 export const chalk = _.mapValues(chalkStyles, ([start, end]) => colorful(start, end));
+
+/**
+ * Parse ZAML source into node
+ * @param text ZAML source string
+ */
+export function parse(text: string, options?: ParsingOptions) {
+  const tokenizer = new Tokenizer(text, options);
+  return tokenizer.process();
+}
+
+/**
+ * Parse ZAML source into node
+ * @deprecated Please use zaml.parse() instead
+ * @param {string} text Source string
+ */
+export function tokenize(text: string, options: ParsingOptions) {
+  console.warn('zaml.tokenize() is deprecated, please use zaml.parse() instead');
+  return parse(text, options);
+}
