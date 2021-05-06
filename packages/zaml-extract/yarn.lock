@@ -126,13 +126,12 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.39.tgz#532d25c1e639d89dd6f3aa1d7b3962e3e7fa943d"
   integrity sha512-pADGfwnDkr6zagDwEiCVE4yQrv7XDkoeVa4OfA9Ju/zRTk6YNDLGtQbkdL4/56mCQQCs4AhNrBIag6jrp7ZuOg==
 
-"@zaml/parser@^0.6.20":
-  version "0.6.20"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.20.tgz#0d8f481810c50489acd9f797e0f588308e56a505"
-  integrity sha512-TpSgI7LXHlydrr8AyaA7BjoAxMWvyyGnzrRzoE3byIzUjN+vwSD0DeZuBQwuKGd16LEnxWPigKzKALMVHDEQMw==
+"@zaml/parser@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.7.1.tgz#ebdc9e62477740a114a9787f2c9385de9acb0015"
+  integrity sha512-rRC/zCYyM75as44xhS4tLNYCgQirbYd3HR4lE3a0yzoFno5f0wx31eu58J4Am0NtZH4gYNuJ5btWzRiyw29++w==
   dependencies:
     "@babel/runtime" "^7.7.6"
-    lodash "^4.17.15"
     nanoid "^2.1.7"
 
 ansi-colors@3.2.3:
@@ -1427,9 +1426,9 @@ uglify-js@^3.1.4:
     commander "~2.20.3"
 
 underscore@>=1.8.3, underscore@^1.9.1:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.10.2.tgz#73d6aa3668f3188e4adb0f1943bd12cfd7efaaaf"
-  integrity sha512-N4P+Q/BuyuEKFJ43B9gYuOj4TQUHXX+j2FqguVOpjkssLUUrnJofCcBccJSCoeturDoZU6GorDTHSvUDlSQbTg==
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
+  integrity sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==
 
 universalify@^0.1.0:
   version "0.1.2"
