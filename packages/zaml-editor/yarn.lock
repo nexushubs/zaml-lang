@@ -1737,10 +1737,10 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zaml/parser@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.7.0.tgz#fe2fa65b9105e5e0693e5dbc3f08d3e6b6b3c5f4"
-  integrity sha512-FIo8P1UtoIsgZKdW9gLU5RQPQfSHb4IO4fnPvP/LGroCbSlwcAHg3Kz4Wy8jO458cJPWiAoMXo5+1suktTWT9g==
+"@zaml/parser@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.7.1.tgz#ebdc9e62477740a114a9787f2c9385de9acb0015"
+  integrity sha512-rRC/zCYyM75as44xhS4tLNYCgQirbYd3HR4lE3a0yzoFno5f0wx31eu58J4Am0NtZH4gYNuJ5btWzRiyw29++w==
   dependencies:
     "@babel/runtime" "^7.7.6"
     nanoid "^2.1.7"
@@ -7784,9 +7784,9 @@ path-key@^3.1.0:
   integrity sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
 
 path-parse@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-  integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+  integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-to-regexp@0.1.7:
   version "0.1.7"
