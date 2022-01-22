@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.7.6",
-    "nanoid": "^2.1.7"
+    "nanoid": "^3.1.31"
   },
   "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562",
   "peerDependencies": {
