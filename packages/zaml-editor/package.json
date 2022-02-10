@@ -46,7 +46,7 @@
     "@types/codemirror": "^0.0.70",
     "@types/lodash": "^4.14.119",
     "gh-pages": "^2.0.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "typescript": "^3.9.2"
   },
   "gitHead": "a042eb746728ee34a60aff85aa784eaebf438562",
