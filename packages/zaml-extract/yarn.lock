@@ -126,13 +126,12 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.39.tgz#532d25c1e639d89dd6f3aa1d7b3962e3e7fa943d"
   integrity sha512-pADGfwnDkr6zagDwEiCVE4yQrv7XDkoeVa4OfA9Ju/zRTk6YNDLGtQbkdL4/56mCQQCs4AhNrBIag6jrp7ZuOg==
 
-"@zaml/parser@^0.6.20":
-  version "0.6.20"
-  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.6.20.tgz#0d8f481810c50489acd9f797e0f588308e56a505"
-  integrity sha512-TpSgI7LXHlydrr8AyaA7BjoAxMWvyyGnzrRzoE3byIzUjN+vwSD0DeZuBQwuKGd16LEnxWPigKzKALMVHDEQMw==
+"@zaml/parser@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@zaml/parser/-/parser-0.7.1.tgz#ebdc9e62477740a114a9787f2c9385de9acb0015"
+  integrity sha512-rRC/zCYyM75as44xhS4tLNYCgQirbYd3HR4lE3a0yzoFno5f0wx31eu58J4Am0NtZH4gYNuJ5btWzRiyw29++w==
   dependencies:
     "@babel/runtime" "^7.7.6"
-    lodash "^4.17.15"
     nanoid "^2.1.7"
 
 ansi-colors@3.2.3:
@@ -826,9 +825,9 @@ minimatch@3.0.4, minimatch@^3.0.0, minimatch@^3.0.4:
     brace-expansion "^1.1.7"
 
 minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
+  integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 mkdirp@0.5.4:
   version "0.5.4"
